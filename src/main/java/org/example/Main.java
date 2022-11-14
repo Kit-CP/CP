@@ -9,6 +9,7 @@ public class Main {
         Statement stmt = null;
         ResultSet rs = null;
         //테스트
+        //awefawef
         try{
             //Class.forName("com.mysql.jdbc.Driver"); //java 7이후 생략 가능
             Class.forName("com.mysql.cj.jdbc.Driver");
