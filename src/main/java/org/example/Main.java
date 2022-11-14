@@ -8,7 +8,7 @@ public class Main {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
-
+        //테스트
         try{
             //Class.forName("com.mysql.jdbc.Driver"); //java 7이후 생략 가능
             Class.forName("com.mysql.cj.jdbc.Driver");
