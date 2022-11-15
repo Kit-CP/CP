@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.OptionMapper">
+    <insert id="insertOption" parameterType="optionDTO">
+        INSERT INTO `OPTION` (`option_name`, `store_name`, `option_price`)
+        VALUES (#{option_name}, #{store_name}, ${option_price})
+    </insert>
+</mapper>
