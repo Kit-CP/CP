@@ -2,9 +2,11 @@ package org.example;
 
 import persistence.MyBatisConnectionFactory;
 import persistence.dao.MenuDAO;
+import persistence.dao.MenuHasOptionDAO;
 import persistence.dao.OptionDAO;
 import persistence.dao.StoreDAO;
 import persistence.dto.MenuDTO;
+import persistence.dto.MenuHasOptionDTO;
 import persistence.dto.OptionDTO;
 import persistence.dto.StoreDTO;
 import view.StoreView;
@@ -18,7 +20,7 @@ public class ForTest {
         sdto.setStore_name("더미네임");
         sdto.setInformation("더미인포");
         sdto.setStore_phone("더미폰");
-        sdto.setUser_ID("ckswls");
+        sdto.setUser_ID("test123");
         sdto.setStore_address("더미주소");
 
         StoreDAO storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
@@ -34,8 +36,8 @@ public class ForTest {
 
     public static void test3() {
         List<OptionDTO> dtos = new ArrayList<>();
-        OptionDTO dto1 = new OptionDTO("옵션1", 100, "맘터");
-        OptionDTO dto2 = new OptionDTO("옵션2", 200, "맘터");
+        OptionDTO dto1 = new OptionDTO("옵션1", 100, "맘스터치");
+        OptionDTO dto2 = new OptionDTO("옵션2", 200, "맘스터치");
         dtos.add(dto1);
         dtos.add(dto2);
 
@@ -45,12 +47,21 @@ public class ForTest {
 
     public static void test4() {
         List<MenuDTO> dtos = new ArrayList<>();
-        MenuDTO dto1 = new MenuDTO("싸이버거", "맘터", "햄버거", 6000, 0, 10, 0);
-        MenuDTO dto2 = new MenuDTO("새우버거", "맘터", "햄버거", 5500, 0, 10, 0);
+        MenuDTO dto1 = new MenuDTO("싸이버거", "맘스터치", "햄버거", 6000, 0, 10, 0);
+        MenuDTO dto2 = new MenuDTO("새우버거", "맘스터치", "햄버거", 5500, 0, 10, 0);
         dtos.add(dto1);
         dtos.add(dto2);
 
         MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         menuDAO.insertMenuAll(dtos);
+
+        List<MenuHasOptionDTO> dtos2 = new ArrayList<>();
+        MenuHasOptionDTO dto3 = new MenuHasOptionDTO("옵션1", "싸이버거");
+        MenuHasOptionDTO dto4 = new MenuHasOptionDTO("옵션2", "싸이버거");
+        dtos2.add(dto3);
+        dtos2.add(dto4);
+
+        MenuHasOptionDAO menuHasOptionDAO = new MenuHasOptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        menuHasOptionDAO.insertMenuOption(dtos2);
     }
 }

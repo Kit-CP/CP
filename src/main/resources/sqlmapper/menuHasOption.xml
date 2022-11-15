@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.MenuHasOptionMapper">
+    <insert id="insertMenuOption" parameterType="menuHasOptionDTO">
+        INSERT INTO `menu_has_option` (`menu_name`, `option_name`)
+        VALUES (#{menu_name}, #{option_name});
+    </insert>
+</mapper>

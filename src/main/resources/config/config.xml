@@ -8,6 +8,7 @@
         <typeAlias alias="UserDTO" type="persistence.dto.UserDTO"/>
         <typeAlias alias="OptionDTO" type="persistence.dto.OptionDTO"/>
         <typeAlias alias="MenuDTO" type="persistence.dto.MenuDTO"/>
+        <typeAlias alias="MenuHasOptionDTO" type="persistence.dto.MenuHasOptionDTO"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -15,7 +16,7 @@
             <!-- connecting to Local MySql -->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost/delivery?characterEncoding=utf8&amp;serverTimezone=UTC&amp;useSSL=false"/><property name="username" value="root"/>
+                <property name="url" value="jdbc:mysql://localhost/delivery?characterEncoding=utf8&amp;serverTimezone=UTC&amp;useSSL=false"/><property name="username" value="delivery_con"/>
                 <property name="password" value="1234"/>
             </dataSource>
         </environment>
@@ -25,5 +26,6 @@
         <mapper resource="sqlmapper/store.xml"/>
         <mapper resource="sqlmapper/option.xml"/>
         <mapper resource="sqlmapper/menu.xml"/>
+        <mapper resource="sqlmapper/menuHasOption.xml"/>
     </mappers>
 </configuration>
