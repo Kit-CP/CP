@@ -1,0 +1,125 @@
+Index: src/main/java/org/example/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\r\n\r\nimport java.sql.*;\r\nimport java.time.LocalDateTime;\r\n\r\npublic class Main {\r\n    public static void main(String args[]){\r\n        Connection conn = null;\r\n        Statement stmt = null;\r\n        ResultSet rs = null;\r\n        //테스트\r\n        try{\r\n            //Class.forName(\"com.mysql.jdbc.Driver\"); //java 7이후 생략 가능\r\n            Class.forName(\"com.mysql.cj.jdbc.Driver\");\r\n            //String url = \"jdbc:mysql://localhost/mydb?characterEncoding=utf8&serverTimezone=UTC&useSSL=false\";\r\n            String url = \"jdbc:mysql://localhost/delivery\";\r\n            conn = DriverManager.getConnection(url, \"delivery_con\", \"1234\");\r\n\r\n            String query = \"SELECT * FROM user\";\r\n\r\n            stmt = conn.createStatement();\r\n            rs = stmt.executeQuery(query);\r\n            while(rs.next()) {\r\n                String id = rs.getString(\"ID\");\r\n                String title = rs.getString(\"P/W\");\r\n                String authority = rs.getString(\"authority\");\r\n                String address = rs.getString(\"address\");\r\n                String name = rs.getString(\"name\");\r\n                String phone = rs.getString(\"phone\");\r\n                System.out.printf(\"%s | %s | %s | %s | %s | %s \\n\", id,title,authority,address,name,phone);\r\n                System.out.println(\"-------------------------------------\");\r\n            }\r\n        } catch (ClassNotFoundException e) {\r\n            e.printStackTrace();\r\n        } catch(SQLException e){\r\n            System.out.println(\"error : \" + e);\r\n        }  finally{\r\n            try{\r\n                if(conn != null && !rs.isClosed()){\r\n                    rs.close();\r\n                }\r\n                if(conn != null && !stmt.isClosed()){\r\n                    rs.close();\r\n                }\r\n                if(conn != null && !conn.isClosed()){\r\n                    conn.close();\r\n                }\r\n            }\r\n            catch(SQLException e){\r\n                e.printStackTrace();\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/Main.java b/src/main/java/org/example/Main.java
+--- a/src/main/java/org/example/Main.java	
++++ b/src/main/java/org/example/Main.java	
+@@ -8,7 +8,6 @@
+         Connection conn = null;
+         Statement stmt = null;
+         ResultSet rs = null;
+-        //테스트
+         try{
+             //Class.forName("com.mysql.jdbc.Driver"); //java 7이후 생략 가능
+             Class.forName("com.mysql.cj.jdbc.Driver");
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"d21c0500-2160-4ba8-acb3-24531e4f9872\" name=\"Changes\" comment=\"Main test\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/build.gradle\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/build.gradle\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/org/example/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/org/example/Main.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ExternalProjectsData\">\r\n    <projectState path=\"$PROJECT_DIR$\">\r\n      <ProjectState />\r\n    </projectState>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GithubProjectSettings\">\r\n    <option name=\"branchProtectionPatterns\">\r\n      <list>\r\n        <option value=\"master\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"GithubPullRequestsUISettings\">\r\n    <option name=\"recentNewPullRequestHead\">\r\n      <RepoCoordinatesHolder>\r\n        <option name=\"owner\" value=\"Kit-CP\" />\r\n        <option name=\"repository\" value=\"CP\" />\r\n      </RepoCoordinatesHolder>\r\n    </option>\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2HXJHevnCoD8Zvg8UackLYtHzVd\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"WebServerToolWindowFactoryState\": \"false\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"d21c0500-2160-4ba8-acb3-24531e4f9872\" name=\"Changes\" comment=\"\" />\r\n      <created>1668425410707</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1668425410707</updated>\r\n      <workItem from=\"1668426139591\" duration=\"773000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Main test\">\r\n      <created>1668426374233</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1668426374233</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Main test\">\r\n      <created>1668426581406</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1668426581406</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Main test\">\r\n      <created>1668426587637</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1668426587637</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"4\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"daehyun\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Main test\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Main test\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,9 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="d21c0500-2160-4ba8-acb3-24531e4f9872" name="Changes" comment="Main test">
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
++    <list default="true" id="d21c0500-2160-4ba8-acb3-24531e4f9872" name="Changes" comment="브랜치 푸쉬 테스트">
+       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -22,17 +20,10 @@
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="master" />
++        <entry key="$PROJECT_DIR$" value="minjun" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+-  </component>
+-  <component name="GithubProjectSettings">
+-    <option name="branchProtectionPatterns">
+-      <list>
+-        <option value="master" />
+-      </list>
+-    </option>
+   </component>
+   <component name="GithubPullRequestsUISettings">
+     <option name="recentNewPullRequestHead">
+@@ -51,15 +42,15 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "WebServerToolWindowFactoryState": "false",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+@@ -91,7 +82,21 @@
+       <option name="project" value="LOCAL" />
+       <updated>1668426587637</updated>
+     </task>
+-    <option name="localTasksCounter" value="4" />
++    <task id="LOCAL-00004" summary="push 권한 테스트">
++      <created>1668427070456</created>
++      <option name="number" value="00004" />
++      <option name="presentableId" value="LOCAL-00004" />
++      <option name="project" value="LOCAL" />
++      <updated>1668427070456</updated>
++    </task>
++    <task id="LOCAL-00005" summary="브랜치 푸쉬 테스트">
++      <created>1668427201961</created>
++      <option name="number" value="00005" />
++      <option name="presentableId" value="LOCAL-00005" />
++      <option name="project" value="LOCAL" />
++      <updated>1668427201962</updated>
++    </task>
++    <option name="localTasksCounter" value="6" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -108,7 +113,7 @@
+                   <entry key="branch">
+                     <value>
+                       <list>
+-                        <option value="daehyun" />
++                        <option value="origin/minjun" />
+                       </list>
+                     </value>
+                   </entry>
+@@ -122,6 +127,8 @@
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="Main test" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Main test" />
++    <MESSAGE value="push 권한 테스트" />
++    <MESSAGE value="브랜치 푸쉬 테스트" />
++    <option name="LAST_COMMIT_MESSAGE" value="브랜치 푸쉬 테스트" />
+   </component>
+ </project>
+\ No newline at end of file
