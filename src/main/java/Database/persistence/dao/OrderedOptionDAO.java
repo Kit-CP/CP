@@ -1,4 +1,4 @@
-package persistence.dao;
+package Database.persistence.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

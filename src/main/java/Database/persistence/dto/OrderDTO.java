@@ -1,4 +1,4 @@
-package persistence.dto;
+package Database.persistence.dto;
 
 public class OrderDTO {
     private int order_id;

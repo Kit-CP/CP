@@ -1,4 +1,4 @@
-package persistence.dto;
+package Database.persistence.dto;
 
 public class OrderedMenuDTO {
     private int ordered_menu_id;
