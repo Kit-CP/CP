@@ -12,11 +12,13 @@ public class OrderedOptionDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public void orderOption(OrderedOptionDTO dto) {
+    public void orderOption(List<OrderedOptionDTO> dtos) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
+            for ( OrderedOptionDTO dto : dtos ) {
                 sqlSession.insert("mapper.OrderedOptionMapper.orderOption", dto);
                 sqlSession.commit();
+            }
         }
         catch (Exception e) {
             sqlSession.rollback();
