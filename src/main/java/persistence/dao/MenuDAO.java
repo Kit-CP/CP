@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import persistence.dto.MenuDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public class MenuDAO {
     private final SqlSessionFactory sqlSessionFactory;
@@ -27,5 +28,17 @@ public class MenuDAO {
         finally {
             sqlSession.close();
         }
+    }
+
+    public List<MenuDTO> showMenu() {
+        List<MenuDTO> result;
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            result = sqlSession.selectList("mapper.MenuMapper.showMenu");
+        }
+        finally {
+            sqlSession.close();
+        }
+        return result;
     }
 }
