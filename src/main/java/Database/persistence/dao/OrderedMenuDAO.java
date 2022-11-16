@@ -12,13 +12,13 @@ public class OrderedMenuDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public void orderMenu(List<OrderedMenuDTO> dtos) {
+    public void orderMenu(OrderedMenuDTO dto) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
-            for ( OrderedMenuDTO dto : dtos ) {
-                sqlSession.insert("mapper.OrderedMenuMapper.orderMenu", dto);
-                sqlSession.commit();
-            }
+
+            sqlSession.insert("mapper.OrderedMenuMapper.orderMenu", dto);
+            sqlSession.commit();
+
         }
         catch (Exception e) {
             sqlSession.rollback();

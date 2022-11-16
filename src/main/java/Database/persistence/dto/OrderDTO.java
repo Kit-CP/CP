@@ -1,5 +1,12 @@
 package Database.persistence.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Setter
+@Getter
+@ToString
 public class OrderDTO {
     private int order_id;
     private String User_ID;
