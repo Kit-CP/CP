@@ -7,4 +7,19 @@
         INSERT INTO `menu` (`menu_name`, `store_name`, `category`, `menu_price`, `discount`, `stock`, `orderCount`)
         VALUES (#{menu_name}, #{store_name}, #{category}, ${menu_price}, ${discount}, ${stock}, ${orderCount});
     </insert>
+
+    <select id="showMenu" resultType="map">
+        select category, menu.menu_name, menu.menu_price, `menu_has_option`.option_name
+        from menu
+        left join menu_has_option
+        on menu.menu_name = menu_has_option.menu_name
+        order by menu.category, menu.menu_name
+    </select>
+
+    <update id="updateMenu">
+        UPDATE menu
+        set menu_name = #{new_menu_name},
+            menu_price = ${new_price}
+        where menu_name like #{menu_name}
+    </update>
 </mapper>
