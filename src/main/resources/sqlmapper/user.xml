@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.UserMapper">
-    <resultMap id="result" type="persistence.dto.UserDTO">
+    <resultMap id="result" type="Database.persistence.dto.UserDTO">
         <result property="user_ID" column="user_ID"/>
         <result property="user_PW" column="user_P/W"/>
         <result property="authority" column="authority"/>

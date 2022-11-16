@@ -1,7 +1,7 @@
-package service;
+package Database.service;
 
-import persistence.dao.UserDAO;
-import persistence.dto.UserDTO;
+import Database.persistence.dao.UserDAO;
+import Database.persistence.dto.UserDTO;
 
 import java.util.List;
 

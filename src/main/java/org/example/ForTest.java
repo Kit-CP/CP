@@ -1,15 +1,15 @@
 package org.example;
 
-import persistence.MyBatisConnectionFactory;
-import persistence.dao.MenuDAO;
-import persistence.dao.MenuHasOptionDAO;
-import persistence.dao.OptionDAO;
-import persistence.dao.StoreDAO;
-import persistence.dto.MenuDTO;
-import persistence.dto.MenuHasOptionDTO;
-import persistence.dto.OptionDTO;
-import persistence.dto.StoreDTO;
-import view.StoreView;
+import Database.persistence.MyBatisConnectionFactory;
+import Database.persistence.dao.MenuDAO;
+import Database.persistence.dao.MenuHasOptionDAO;
+import Database.persistence.dao.OptionDAO;
+import Database.persistence.dao.StoreDAO;
+import Database.persistence.dto.MenuDTO;
+import Database.persistence.dto.MenuHasOptionDTO;
+import Database.persistence.dto.OptionDTO;
+import Database.persistence.dto.StoreDTO;
+import Database.view.StoreView;
 
 import java.util.ArrayList;
 import java.util.List;

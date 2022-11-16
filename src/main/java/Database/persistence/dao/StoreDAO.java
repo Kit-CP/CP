@@ -1,8 +1,8 @@
-package persistence.dao;
+package Database.persistence.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import persistence.dto.StoreDTO;
+import Database.persistence.dto.StoreDTO;
 
 import java.util.List;
 
