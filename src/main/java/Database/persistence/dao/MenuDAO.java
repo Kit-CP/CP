@@ -95,4 +95,33 @@ public class MenuDAO {
             sqlSession.close();
         }
     }
+
+    public int getStock(String menuName) {
+        int temp = 0;
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            temp = sqlSession.selectOne("mapper.MenuMapper.getStock", menuName);
+        }
+        finally {
+            sqlSession.close();
+        }
+        return temp;
+    }
+
+    public void updateStock(String menuName, int newStock) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
+        Map<String, Object> param = new HashMap<>();
+        param.put("menu_name", menuName);
+        param.put("new_stock", newStock);
+        try {
+            sqlSession.update("mapper.MenuMapper.updateStock", param);
+            sqlSession.commit();
+        }
+        catch (Exception e) {
+            sqlSession.rollback();
+        }
+        finally {
+            sqlSession.close();
+        }
+    }
 }

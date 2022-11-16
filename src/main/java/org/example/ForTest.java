@@ -6,7 +6,6 @@ import Database.persistence.dto.*;
 import Database.persistence.dto.OrderedOptionDTO;
 import Database.view.MenuOptionView;
 import Database.view.StoreView;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
 
 
 import java.util.ArrayList;
@@ -76,34 +75,40 @@ public class ForTest {
     }
 
     public static void test7() {
-        int orderId;
-        int orderedMenuId;
+        String userID = "test123";
+        String storeName = "맘스터치";
+        String menuName = "싸이버거";
+        String optionName = "옵션2";
 
-        OrderDTO dto1 = new OrderDTO("test123", "맘스터치");
+        MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        int stock = menuDAO.getStock(menuName);
+        if ( stock < 1 ) {
+            System.out.println("재고 부족, 주문 불가");
+            return;
+        }
+        else {
+            System.out.println("주문 완료");
+            menuDAO.updateStock(menuName,stock - 1);
+        }
 
+        OrderDTO dto1 = new OrderDTO(userID, storeName);
         OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         orderDAO.makeOrder(dto1);
-        orderId = dto1.getOrder_id();
+        int orderId = dto1.getOrder_id();
 
-        OrderedMenuDTO dto2 = new OrderedMenuDTO(orderId, "싸이버거");
-
+        OrderedMenuDTO dto2 = new OrderedMenuDTO(orderId, menuName);
         OrderedMenuDAO orderedMenuDAO = new OrderedMenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         orderedMenuDAO.orderMenu(dto2);
-        orderedMenuId = dto2.getOrdered_menu_id();
+        int orderedMenuId = dto2.getOrdered_menu_id();
 
-        OrderedOptionDTO dto3 = new OrderedOptionDTO(orderedMenuId, "옵션2");
-
+        OrderedOptionDTO dto3 = new OrderedOptionDTO(orderedMenuId, optionName);
         OrderedOptionDAO orderedOptionDAO = new OrderedOptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-
-        orderedOptionDAO.orderOption(dto3);
+        orderedOptionDAO.orderedOption(dto3);
     }
 
-    public static void test9(int orderId, int state) {
+    public static void test9(int orderId, int newState) {
         OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        orderDAO.acceptOrder(orderId, state);
-
-        orderedOptionDAO.orderedOption(dto3);
-
+        orderDAO.updateState(orderId, newState);
     }
 
     public static void test10(int orderId) {
@@ -118,7 +123,5 @@ public class ForTest {
             System.out.print("주문 취소가 불가능합니다\n");
         }
     }
-
-
 
 }

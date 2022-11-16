@@ -34,4 +34,12 @@
         where menu_name like #{menu_name}
     </update>
 
+    <select id="getStock" resultType="int" parameterType="String">
+        select stock from menu where menu_name like #{menuName}
+    </select>
+
+    <update id="updateStock" parameterType="Map">
+        UPDATE menu SET stock = ${new_stock} WHERE menu_name like #{menu_name}
+    </update>
+
 </mapper>
