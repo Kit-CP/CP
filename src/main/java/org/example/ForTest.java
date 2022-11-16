@@ -72,32 +72,25 @@ public class ForTest {
     }
 
     public static void test7() {
-        List<OrderDTO> dtos = new ArrayList<>();
+        int orderId;
+        int orderedMenuId;
+
         OrderDTO dto1 = new OrderDTO("test123", "맘스터치");
-        dtos.add(dto1);
 
         OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        orderDAO.makeOrder(dtos);
+        orderDAO.makeOrder(dto1);
+        orderId = dto1.getOrder_id();
 
-        List<Integer> orderNum = orderDAO.getLastOrderNum();
-        System.out.println(orderNum);
-
-        /*List<OrderedMenuDTO> dtos2 = new ArrayList<>();
-        OrderedMenuDTO dto2 = new OrderedMenuDTO(orderNum, "");
-        dtos2.add(dto2);
+        OrderedMenuDTO dto2 = new OrderedMenuDTO(orderId, "싸이버거");
 
         OrderedMenuDAO orderedMenuDAO = new OrderedMenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        orderedMenuDAO.orderMenu(dtos2);
+        orderedMenuDAO.orderMenu(dto2);
+        orderedMenuId = dto2.getOrdered_menu_id();
 
-        List<OrderedOptionDTO> dtos3 = new ArrayList<>();
-        OrderedOptionDTO dto3 = new OrderedOptionDTO("", "");
-        dtos3.add(dto3);
+        OrderedOptionDTO dto3 = new OrderedOptionDTO(orderedMenuId, "옵션2");
 
         OrderedOptionDAO orderedOptionDAO = new OrderedOptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        orderedOptionDAO.orderOption(dtos3);*/
-
-
-
+        orderedOptionDAO.orderOption(dto3);
     }
 
 

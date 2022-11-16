@@ -14,31 +14,15 @@ public class OrderDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public void makeOrder(List<OrderDTO> dtos) {
+    public void makeOrder(OrderDTO dto) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
-            for (OrderDTO dto : dtos) {
-                sqlSession.insert("mapper.OrderMapper.makeOrder", dto);
-                sqlSession.commit();
-            }
-        }
-        catch (Exception e) {
+            sqlSession.insert("mapper.OrderMapper.makeOrder", dto);
+            sqlSession.commit();
+        } catch (Exception e) {
             sqlSession.rollback();
-        }
-        finally {
+        } finally {
             sqlSession.close();
         }
-    }
-
-    public List<Integer> getLastOrderNum() {
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        List<Integer> temp = new ArrayList<>();
-        try{
-            temp = sqlSession.selectOne("mapper.OrderMapper.getLastOrderNum");
-        }
-        finally {
-            sqlSession.close();
-        }
-        return temp;
     }
 }
