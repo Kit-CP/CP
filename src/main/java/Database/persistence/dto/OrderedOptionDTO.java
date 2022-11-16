@@ -1,12 +1,5 @@
 package Database.persistence.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-@Getter
-@Setter
-@ToString
 public class OrderedOptionDTO {
     private int ordered_option_id;
     private int ordered_menu_id;
