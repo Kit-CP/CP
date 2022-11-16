@@ -1,14 +1,8 @@
 package org.example;
 
 import persistence.MyBatisConnectionFactory;
-import persistence.dao.MenuDAO;
-import persistence.dao.MenuHasOptionDAO;
-import persistence.dao.OptionDAO;
-import persistence.dao.StoreDAO;
-import persistence.dto.MenuDTO;
-import persistence.dto.MenuHasOptionDTO;
-import persistence.dto.OptionDTO;
-import persistence.dto.StoreDTO;
+import persistence.dao.*;
+import persistence.dto.*;
 import view.StoreView;
 
 import java.util.ArrayList;
@@ -55,9 +49,9 @@ public class ForTest {
         MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         menuDAO.insertMenuAll(dtos);
 
-        List<MenuHasOptionDTO> dtos2 = new ArrayList<>();
-        MenuHasOptionDTO dto3 = new MenuHasOptionDTO("옵션1", "싸이버거");
-        MenuHasOptionDTO dto4 = new MenuHasOptionDTO("옵션2", "싸이버거");
+        List<OrderedOption> dtos2 = new ArrayList<>();
+        OrderedOption dto3 = new OrderedOption("옵션1", "싸이버거");
+        OrderedOption dto4 = new OrderedOption("옵션2", "싸이버거");
         dtos2.add(dto3);
         dtos2.add(dto4);
 
@@ -74,4 +68,36 @@ public class ForTest {
         MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         menuDAO.updateMenu("새우버거", "new새우버거", 5050);
     }
+
+    public static void test7() {
+        List<OrderDTO> dtos = new ArrayList<>();
+        OrderDTO dto1 = new OrderDTO("test123", "맘스터치");
+        dtos.add(dto1);
+
+        OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        orderDAO.makeOrder(dtos);
+
+        List<Integer> orderNum = orderDAO.getLastOrderNum();
+        System.out.println(orderNum);
+
+        /*List<OrderedMenuDTO> dtos2 = new ArrayList<>();
+        OrderedMenuDTO dto2 = new OrderedMenuDTO(orderNum, "");
+        dtos2.add(dto2);
+
+        OrderedMenuDAO orderedMenuDAO = new OrderedMenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        orderedMenuDAO.orderMenu(dtos2);
+
+        List<OrderedOptionDTO> dtos3 = new ArrayList<>();
+        OrderedOptionDTO dto3 = new OrderedOptionDTO("", "");
+        dtos3.add(dto3);
+
+        OrderedOptionDAO orderedOptionDAO = new OrderedOptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        orderedOptionDAO.orderOption(dtos3);*/
+
+
+
+    }
+
+
+
 }

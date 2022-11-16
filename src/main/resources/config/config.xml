@@ -8,7 +8,10 @@
         <typeAlias alias="UserDTO" type="persistence.dto.UserDTO"/>
         <typeAlias alias="OptionDTO" type="persistence.dto.OptionDTO"/>
         <typeAlias alias="MenuDTO" type="persistence.dto.MenuDTO"/>
-        <typeAlias alias="MenuHasOptionDTO" type="persistence.dto.MenuHasOptionDTO"/>
+        <typeAlias alias="MenuHasOptionDTO" type="persistence.dto.OrderedOption"/>
+        <typeAlias alias="OrderDTO" type="persistence.dto.OrderDTO"/>
+        <typeAlias alias="OrderedMenuDTO" type="persistence.dto.OrderedMenuDTO"/>
+        <typeAlias alias="OrderedOptionDTO" type="persistence.dto.OrderedOptionDTO"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -27,5 +30,8 @@
         <mapper resource="sqlmapper/option.xml"/>
         <mapper resource="sqlmapper/menu.xml"/>
         <mapper resource="sqlmapper/menuHasOption.xml"/>
+        <mapper resource="sqlmapper/order.xml"/>
+        <mapper resource="sqlmapper/orderedMenu.xml"/>
+        <mapper resource="sqlmapper/orderedOption.xml"/>
     </mappers>
 </configuration>

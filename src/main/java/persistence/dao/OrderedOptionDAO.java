@@ -2,22 +2,21 @@ package persistence.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import persistence.dto.OrderedOption;
+import persistence.dto.OrderedOptionDTO;
 
 import java.util.List;
 
-public class MenuHasOptionDAO {
+public class OrderedOptionDAO {
     private final SqlSessionFactory sqlSessionFactory;
-
-    public MenuHasOptionDAO(SqlSessionFactory sqlSessionFactory) {
+    public OrderedOptionDAO(SqlSessionFactory sqlSessionFactory) {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public void insertMenuOption(List<OrderedOption> dtos) {
+    public void orderOption(List<OrderedOptionDTO> dtos) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
-            for ( OrderedOption dto : dtos ) {
-                sqlSession.insert("mapper.MenuHasOptionMapper.insertMenuOption", dto);
+            for ( OrderedOptionDTO dto : dtos ) {
+                sqlSession.insert("mapper.OrderedOptionMapper.orderOption", dto);
                 sqlSession.commit();
             }
         }
