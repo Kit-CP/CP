@@ -4,13 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias alias="StoreDTO" type="persistence.dto.StoreDTO"/>
-        <typeAlias alias="UserDTO" type="persistence.dto.UserDTO"/>
-        <typeAlias alias="OptionDTO" type="persistence.dto.OptionDTO"/>
-        <typeAlias alias="MenuDTO" type="persistence.dto.MenuDTO"/>
-        <typeAlias alias="MenuHasOptionDTO" type="persistence.dto.OrderedOption"/>
-        <typeAlias alias="OrderDTO" type="persistence.dto.OrderDTO"/>
-        <typeAlias alias="OrderedMenuDTO" type="persistence.dto.OrderedMenuDTO"/>
+        <typeAlias alias="StoreDTO" type="Database.persistence.dto.StoreDTO"/>
+        <typeAlias alias="UserDTO" type="Database.persistence.dto.UserDTO"/>
+        <typeAlias alias="OptionDTO" type="Database.persistence.dto.OptionDTO"/>
+        <typeAlias alias="MenuDTO" type="Database.persistence.dto.MenuDTO"/>
+        <typeAlias alias="MenuHasOptionDTO" type="Database.persistence.dto.MenuHasOptionDTO"/>
+        <typeAlias alias="OrderDTO" type="Database.persistence.dto.OrderDTO"/>
+        <typeAlias alias="OrderedMenuDTO" type="Database.persistence.dto.OrderedMenuDTO"/>
         <typeAlias alias="OrderedOptionDTO" type="Database.persistence.dto.OrderedOptionDTO"/>
     </typeAliases>
     <environments default="development">

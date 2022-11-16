@@ -71,7 +71,7 @@ public class ForTest {
         menuDAO.updateMenu("새우버거", "new새우버거", 5050);
     }
 
-    public static void test7() {
+    /*public static void test7() {
         List<OrderDTO> dtos = new ArrayList<>();
         OrderDTO dto1 = new OrderDTO("test123", "맘스터치");
         dtos.add(dto1);
@@ -82,7 +82,7 @@ public class ForTest {
         List<Integer> orderNum = orderDAO.getLastOrderNum();
         System.out.println(orderNum);
 
-        /*List<OrderedMenuDTO> dtos2 = new ArrayList<>();
+        *//*List<OrderedMenuDTO> dtos2 = new ArrayList<>();
         OrderedMenuDTO dto2 = new OrderedMenuDTO(orderNum, "");
         dtos2.add(dto2);
 
@@ -94,11 +94,11 @@ public class ForTest {
         dtos3.add(dto3);
 
         OrderedOptionDAO orderedOptionDAO = new OrderedOptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        orderedOptionDAO.orderOption(dtos3);*/
+        orderedOptionDAO.orderOption(dtos3);*//*
 
 
 
-    }
+    }*/
 
 
 
