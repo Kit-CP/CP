@@ -12,6 +12,7 @@
         <typeAlias alias="OrderDTO" type="Database.persistence.dto.OrderDTO"/>
         <typeAlias alias="OrderedMenuDTO" type="Database.persistence.dto.OrderedMenuDTO"/>
         <typeAlias alias="OrderedOptionDTO" type="Database.persistence.dto.OrderedOptionDTO"/>
+        <typeAlias alias="MenuOptionDTO" type="Database.persistence.dto.MenuOptionDTO"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">

@@ -4,6 +4,7 @@ import Database.persistence.MyBatisConnectionFactory;
 import Database.persistence.dao.*;
 import Database.persistence.dto.*;
 import Database.persistence.dto.OrderedOptionDTO;
+import Database.view.MenuOptionView;
 import Database.view.StoreView;
 
 
@@ -21,6 +22,7 @@ public class ForTest {
 
         StoreDAO storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         storeDAO.insertStore(sdto);
+        storeDAO.acceptStore("맘스터치");
     }
 
     public static void test2() {
@@ -63,7 +65,8 @@ public class ForTest {
 
     public static void test5() {
         MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        System.out.print(menuDAO.showMenu().toString());
+        MenuOptionView view = new MenuOptionView();
+        view.printAll(menuDAO.showMenu());
     }
 
     public static void test6() {
