@@ -14,13 +14,11 @@ public class OrderDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public void makeOrder(List<OrderDTO> dtos) {
+    public void makeOrder(OrderDTO dto) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
-            for (OrderDTO dto : dtos) {
-                sqlSession.insert("mapper.OrderMapper.makeOrder", dto);
-                sqlSession.commit();
-            }
+            sqlSession.insert("mapper.OrderMapper.makeOrder", dto);
+            sqlSession.commit();
         }
         catch (Exception e) {
             sqlSession.rollback();
