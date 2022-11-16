@@ -64,4 +64,9 @@ public class ForTest {
         MenuHasOptionDAO menuHasOptionDAO = new MenuHasOptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         menuHasOptionDAO.insertMenuOption(dtos2);
     }
+
+    public static void test5() {
+        MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        System.out.print(menuDAO.showMenu().toString());
+    }
 }
