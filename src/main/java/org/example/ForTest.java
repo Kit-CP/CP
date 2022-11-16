@@ -90,7 +90,7 @@ public class ForTest {
         OrderedOptionDTO dto3 = new OrderedOptionDTO(orderedMenuId, "옵션2");
 
         OrderedOptionDAO orderedOptionDAO = new OrderedOptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        orderedOptionDAO.orderOption(dto3);
+        orderedOptionDAO.orderedOption(dto3);
     }
 
 }

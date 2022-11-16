@@ -3,12 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.OrderMapper">
-    <insert id="makeOrder" parameterType="orderDTO">
-        INSERT INTO `delivery`.`order` (`User_ID`, `Store_name`)
+    <insert id="makeOrder" parameterType="orderDTO" useGeneratedKeys="true" keyProperty="order_id">
+        INSERT INTO `order` (`User_ID`, `Store_name`)
         VALUES (#{User_ID}, #{Store_name});
     </insert>
 
-    <select id="getLastOrderNum" resultType="Map" >
-        SELECT LAST_INSERT_ID() FROM `order`;
-    </select>
 </mapper>
