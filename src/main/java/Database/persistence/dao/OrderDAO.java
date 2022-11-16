@@ -1,6 +1,8 @@
 package Database.persistence.dao;
 
 import Database.persistence.dto.OrderDTO;
+import Database.persistence.dto.OrderedMenuDTO;
+import Database.persistence.dto.OrderedOptionDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -13,10 +15,12 @@ public class OrderDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public void makeOrder(OrderDTO dto) {
+    public void makeOrder(OrderDTO dto1, OrderedMenuDTO dto2, OrderedOptionDTO dto3) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
-            sqlSession.insert("mapper.OrderMapper.makeOrder", dto);
+            sqlSession.insert("mapper.OrderMapper.makeOrder", dto1);
+            sqlSession.insert("mapper.OrderedMenuMapper.orderMenu", dto2);
+            sqlSession.insert("mapper.OrderedOptionMapper.orderOption", dto3);
             sqlSession.commit();
         }
         catch (Exception e) {
