@@ -27,7 +27,7 @@ public class OrderDAO {
         }
     }
 
-    public void acceptOrder(int order_id, int state) {
+    public void updateState(int order_id, int state) {
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("orderId", order_id);
