@@ -17,11 +17,11 @@ import java.util.List;
 public class ForTest {
     public static void test1() {
         StoreDTO sdto = new StoreDTO();
-        sdto.setStore_name("더미네임");
-        sdto.setInformation("더미인포");
-        sdto.setStore_phone("더미폰");
+        sdto.setStore_name("맘스터치");
+        sdto.setInformation("싸이버거 최고");
+        sdto.setStore_phone("055-271-1234");
         sdto.setUser_ID("test123");
-        sdto.setStore_address("더미주소");
+        sdto.setStore_address("경북 구미시 대학로 뭐시기");
 
         StoreDAO storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         storeDAO.insertStore(sdto);
