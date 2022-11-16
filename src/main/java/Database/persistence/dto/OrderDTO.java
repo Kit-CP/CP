@@ -13,6 +13,8 @@ public class OrderDTO {
     private String Store_name;
     private int priceSum;
     private int state;
+    private OrderedMenuDTO orderedMenuDTO;
+    private OrderedOptionDTO orderedOptionDTO;
 
     public OrderDTO(String user_ID, String store_name) {
         User_ID = user_ID;

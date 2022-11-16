@@ -12,17 +12,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ForTest {
+/*
+    INSERT INTO `delivery`.`user` (`user_ID`, `user_P/W`, `authority`, `user_address`, `user_name`, `user_phone`, `age`) VALUES ('honsot', 'honsotKIT123', '1', '더미', '김선명', '010-1234-5678', '1');
+    INSERT INTO `delivery`.`user` (`user_ID`, `user_P/W`, `authority`, `user_address`, `user_name`, `user_phone`, `age`) VALUES ('moms', 'momsKIT123', '1', '더미', '김성렬', '010-1234-5678', '1');
+    INSERT INTO `delivery`.`store` (`store_name`, `store_address`, `store_phone`, `store_score`, `sale`, `information`, `isAccept`, `user_ID`) VALUES ('맘스터치', '경북 구미시 대학로 52', '054-476-9958', '0', '0', '엄마의 마음으로 만듭니다', '1', 'moms');
+*/
     public static void test1() {
         StoreDTO sdto = new StoreDTO();
-        sdto.setStore_name("맘스터치");
-        sdto.setInformation("싸이버거 최고");
-        sdto.setStore_phone("055-271-1234");
-        sdto.setUser_ID("test123");
-        sdto.setStore_address("경북 구미시 대학로 뭐시기");
+        sdto.setStore_name("한솥도시락 금오공대점");
+        sdto.setInformation("맛과 정성을 담았습니다");
+        sdto.setStore_phone("054-472-0615");
+        sdto.setUser_ID("honsot");
+        sdto.setStore_address("경북 구미시 대학로 39");
 
         StoreDAO storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         storeDAO.insertStore(sdto);
-        storeDAO.acceptStore("맘스터치");
+        storeDAO.acceptStore("한솥도시락 금오공대점");
     }
 
     public static void test2() {
@@ -34,16 +39,20 @@ public class ForTest {
 
     public static void test3() {
         List<OptionDTO> dtos = new ArrayList<>();
-        OptionDTO dto1 = new OptionDTO("옵션1", 100, "맘스터치");
-        OptionDTO dto2 = new OptionDTO("옵션2", 200, "맘스터치");
+        OptionDTO dto1 = new OptionDTO("한솥밥 곱빼기", 400, "한솥도시락 금오공대점");
+        OptionDTO dto2 = new OptionDTO("현미밥 교체", 1000, "한솥도시락 금오공대점");
+        OptionDTO dto3 = new OptionDTO("계란후라이", 1000, "한솥도시락 금오공대점");
+        OptionDTO dto4 = new OptionDTO("청양고추", 300, "한솥도시락 금오공대점");
         dtos.add(dto1);
         dtos.add(dto2);
+        dtos.add(dto3);
+        dtos.add(dto4);
 
         OptionDAO optionDAO = new OptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         optionDAO.insertOptionAll(dtos);
     }
 
-    public static void test4() {
+    public static void test4() { //더미데이터로 수정해야함
         List<MenuDTO> dtos = new ArrayList<>();
         MenuDTO dto1 = new MenuDTO("싸이버거", "맘스터치", "햄버거", 6000, 0, 10, 0);
         MenuDTO dto2 = new MenuDTO("새우버거", "맘스터치", "햄버거", 5500, 0, 10, 0);
