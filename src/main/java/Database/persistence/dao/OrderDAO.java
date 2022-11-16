@@ -23,16 +23,4 @@ public class OrderDAO {
             sqlSession.close();
         }
     }
-
-    public List<Integer> getLastOrderNum() {
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        List<Integer> temp = new ArrayList<>();
-        try{
-            temp = sqlSession.selectOne("mapper.OrderMapper.getLastOrderNum");
-        }
-        finally {
-            sqlSession.close();
-        }
-        return temp;
-    }
 }
