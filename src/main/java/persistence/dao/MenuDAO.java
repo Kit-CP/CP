@@ -44,14 +44,14 @@ public class MenuDAO {
         return result;
     }
 
-    public void updateMenu(String name, String newname, int price) {
+    public void updateMenu(String name, String newName, Integer price) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
-        Map<String, String> param = new HashMap<>();
+        Map<String, Object> param = new HashMap<>();
         param.put("menu_name", name);
-        param.put("new_menu_name", newname);
-        param.put("new_price", String.valueOf(price));
+        param.put("new_menu_name", newName);
+        param.put("new_price", price);
         try {
-            sqlSession.update("mapper.MenuMapper.updateMenu", param);
+            sqlSession.update("mapper.MenuMapper.updateMenuAll", param);
             sqlSession.commit();
         }
         catch (Exception e) {
@@ -62,11 +62,37 @@ public class MenuDAO {
         }
     }
 
-    public void updateMenu(String name) {
-
+    public void updateMenu(String name, String newName) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
+        Map<String, String> param = new HashMap<>();
+        param.put("menu_name", name);
+        param.put("new_menu_name", newName);
+        try {
+            sqlSession.update("mapper.MenuMapper.updateMenuName", param);
+            sqlSession.commit();
+        }
+        catch (Exception e) {
+            sqlSession.rollback();
+        }
+        finally {
+            sqlSession.close();
+        }
     }
 
-    public void updateMenu(int price) {
-
+    public void updateMenu(String name, Integer price) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
+        Map<String, Object> param = new HashMap<>();
+        param.put("menu_name", name);
+        param.put("new_price", price);
+        try {
+            sqlSession.update("mapper.MenuMapper.updateMenuPrice", param);
+            sqlSession.commit();
+        }
+        catch (Exception e) {
+            sqlSession.rollback();
+        }
+        finally {
+            sqlSession.close();
+        }
     }
 }

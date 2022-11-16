@@ -72,6 +72,6 @@ public class ForTest {
 
     public static void test6() {
         MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        menuDAO.updateMenu("새우버거", "new새우버거", 5050);
+        menuDAO.updateMenu("new새우버거", "새우버거");
     }
 }
