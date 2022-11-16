@@ -4,24 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d21c0500-2160-4ba8-acb3-24531e4f9872" name="Changes" comment="6">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ForTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ForTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/persistence/MyBatisConnectionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/MyBatisConnectionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/persistence/dao/MenuDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/MenuDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/persistence/dao/MenuHasOptionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/MenuHasOptionDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/persistence/dao/OptionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/OptionDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/persistence/dao/StoreDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/StoreDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/persistence/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/persistence/dto/MenuDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/persistence/dto/MenuHasOptionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuHasOptionDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/persistence/dto/OptionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OptionDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/persistence/dto/StoreDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/StoreDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/persistence/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/StoreView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/view/StoreView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/UserView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/view/UserView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlmapper/user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlmapper/user.xml" afterDir="false" />
+    <list default="true" id="d21c0500-2160-4ba8-acb3-24531e4f9872" name="Changes" comment="패키지분리">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +114,8 @@
       <workItem from="1668574203510" duration="4584000" />
       <workItem from="1668579275473" duration="2453000" />
       <workItem from="1668586137758" duration="632000" />
-      <workItem from="1668586786887" duration="1523000" />
+      <workItem from="1668586786887" duration="2249000" />
+      <workItem from="1668590154201" duration="898000" />
     </task>
     <task id="LOCAL-00001" summary="Main test">
       <created>1668426374233</created>
@@ -181,7 +166,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668588032608</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="패키지분리">
+      <created>1668588341198</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1668588341198</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -214,7 +206,8 @@
     <MESSAGE value="Main test" />
     <MESSAGE value="PR test" />
     <MESSAGE value="6" />
-    <option name="LAST_COMMIT_MESSAGE" value="6" />
+    <MESSAGE value="패키지분리" />
+    <option name="LAST_COMMIT_MESSAGE" value="패키지분리" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
