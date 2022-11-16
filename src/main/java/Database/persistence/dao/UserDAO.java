@@ -1,9 +1,8 @@
-package persistence.dao;
+package Database.persistence.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import persistence.MyBatisConnectionFactory;
-import persistence.dto.UserDTO;
+import Database.persistence.dto.UserDTO;
 
 import java.util.List;
 

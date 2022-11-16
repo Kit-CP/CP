@@ -16,10 +16,22 @@
         order by menu.category, menu.menu_name
     </select>
 
-    <update id="updateMenu">
+    <update id="updateMenuAll">
         UPDATE menu
-        set menu_name = #{new_menu_name},
-            menu_price = ${new_price}
+        set menu_name = #{new_menu_name}, menu_price = ${new_price}
         where menu_name like #{menu_name}
     </update>
+
+    <update id="updateMenuName">
+        UPDATE menu
+        set menu_name = #{new_menu_name}
+        where menu_name like #{menu_name}
+    </update>
+
+    <update id="updateMenuPrice">
+        UPDATE menu
+        set menu_price = ${new_price}
+        where menu_name like #{menu_name}
+    </update>
+
 </mapper>

@@ -1,6 +1,6 @@
-package view;
+package Database.view;
 
-import persistence.dto.UserDTO;
+import Database.persistence.dto.UserDTO;
 
 import java.util.List;
 
