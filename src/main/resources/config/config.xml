@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias alias="StoreDTO" type="persistence.dto.StoreDTO"/>
-        <typeAlias alias="UserDTO" type="persistence.dto.UserDTO"/>
-        <typeAlias alias="OptionDTO" type="persistence.dto.OptionDTO"/>
-        <typeAlias alias="MenuDTO" type="persistence.dto.MenuDTO"/>
-        <typeAlias alias="MenuHasOptionDTO" type="persistence.dto.MenuHasOptionDTO"/>
+        <typeAlias alias="StoreDTO" type="Database.persistence.dto.StoreDTO"/>
+        <typeAlias alias="UserDTO" type="Database.persistence.dto.UserDTO"/>
+        <typeAlias alias="OptionDTO" type="Database.persistence.dto.OptionDTO"/>
+        <typeAlias alias="MenuDTO" type="Database.persistence.dto.MenuDTO"/>
+        <typeAlias alias="MenuHasOptionDTO" type="Database.persistence.dto.MenuHasOptionDTO"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">

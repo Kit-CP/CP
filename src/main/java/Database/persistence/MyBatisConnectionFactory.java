@@ -1,4 +1,4 @@
-package persistence;
+package Database.persistence;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
