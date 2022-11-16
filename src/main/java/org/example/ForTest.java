@@ -76,23 +76,17 @@ public class ForTest {
         int orderedMenuId;
 
         OrderDTO dto1 = new OrderDTO("test123", "맘스터치");
-
         OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         orderDAO.makeOrder(dto1);
         orderId = dto1.getOrder_id();
-
-        OrderedMenuDTO dto2 = new OrderedMenuDTO(orderId, "싸이버거");
 
         OrderedMenuDAO orderedMenuDAO = new OrderedMenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         orderedMenuDAO.orderMenu(dto2);
         orderedMenuId = dto2.getOrdered_menu_id();
 
         OrderedOptionDTO dto3 = new OrderedOptionDTO(orderedMenuId, "옵션2");
-
         OrderedOptionDAO orderedOptionDAO = new OrderedOptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        orderedOptionDAO.orderOption(dto3);
+        orderedOptionDAO.orderOption(dtos3);
     }
-
-
 
 }
