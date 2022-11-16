@@ -69,4 +69,9 @@ public class ForTest {
         MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         System.out.print(menuDAO.showMenu().toString());
     }
+
+    public static void test6() {
+        MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        menuDAO.updateMenu("새우버거", "new새우버거", 5050);
+    }
 }
