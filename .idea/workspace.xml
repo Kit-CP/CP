@@ -42,13 +42,6 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GithubProjectSettings">
-    <option name="branchProtectionPatterns">
-      <list>
-        <option value="master" />
-      </list>
-    </option>
-  </component>
   <component name="GithubPullRequestsUISettings">
     <option name="recentNewPullRequestHead">
       <RepoCoordinatesHolder>
