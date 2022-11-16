@@ -3,8 +3,8 @@ package org.example;
 import Database.persistence.MyBatisConnectionFactory;
 import Database.persistence.dao.*;
 import Database.persistence.dto.*;
-import Database.persistence.dto.OrderedOptionDTO;
 import Database.view.StoreView;
+import com.mysql.cj.x.protobuf.MysqlxCrud;
 
 
 import java.util.ArrayList;
@@ -91,6 +91,24 @@ public class ForTest {
 
         OrderedOptionDAO orderedOptionDAO = new OrderedOptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         orderedOptionDAO.orderOption(dto3);
+    }
+
+    public static void test9(int orderId, int state) {
+        OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        orderDAO.acceptOrder(orderId, state);
+    }
+
+    public static void test10(int orderId) {
+        int state;
+        OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        state = orderDAO.getOrderState(orderId);
+        if (state == 0) {
+            orderDAO.cancelOrder(orderId);
+            System.out.printf("주문번호 %d가 취소되었습니다.\n", orderId);
+        }
+        else {
+            System.out.print("주문 취소가 불가능합니다\n");
+        }
     }
 
 
