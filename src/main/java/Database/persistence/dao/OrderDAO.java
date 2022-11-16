@@ -18,9 +18,11 @@ public class OrderDAO {
         try {
             sqlSession.insert("mapper.OrderMapper.makeOrder", dto);
             sqlSession.commit();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             sqlSession.rollback();
-        } finally {
+        }
+        finally {
             sqlSession.close();
         }
     }

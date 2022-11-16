@@ -3,6 +3,8 @@ package org.example;
 import Database.persistence.MyBatisConnectionFactory;
 import Database.persistence.dao.*;
 import Database.persistence.dto.*;
+import Database.persistence.dto.OrderedOptionDTO;
+import Database.view.MenuOptionView;
 import Database.view.StoreView;
 import com.mysql.cj.x.protobuf.MysqlxCrud;
 
@@ -21,6 +23,7 @@ public class ForTest {
 
         StoreDAO storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         storeDAO.insertStore(sdto);
+        storeDAO.acceptStore("맘스터치");
     }
 
     public static void test2() {
@@ -63,7 +66,8 @@ public class ForTest {
 
     public static void test5() {
         MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        System.out.print(menuDAO.showMenu().toString());
+        MenuOptionView view = new MenuOptionView();
+        view.printAll(menuDAO.showMenu());
     }
 
     public static void test6() {
@@ -90,12 +94,16 @@ public class ForTest {
         OrderedOptionDTO dto3 = new OrderedOptionDTO(orderedMenuId, "옵션2");
 
         OrderedOptionDAO orderedOptionDAO = new OrderedOptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+
         orderedOptionDAO.orderOption(dto3);
     }
 
     public static void test9(int orderId, int state) {
         OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         orderDAO.acceptOrder(orderId, state);
+
+        orderedOptionDAO.orderedOption(dto3);
+
     }
 
     public static void test10(int orderId) {

@@ -15,8 +15,10 @@ public class OrderedMenuDAO {
     public void orderMenu(OrderedMenuDTO dto) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
-                sqlSession.insert("mapper.OrderedMenuMapper.orderMenu", dto);
-                sqlSession.commit();
+
+            sqlSession.insert("mapper.OrderedMenuMapper.orderMenu", dto);
+            sqlSession.commit();
+
         }
         catch (Exception e) {
             sqlSession.rollback();

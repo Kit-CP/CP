@@ -24,8 +24,13 @@
     <select id="showAcceptedStore" resultMap="acceptedStore">
         SELECT * FROM STORE, USER WHERE isAccept = 1 AND STORE.user_ID = USER.user_ID
     </select>
+
     <insert id="insertStore" parameterType="storeDTO">
         INSERT INTO STORE(`store_name`, `store_address`, `store_phone`, `information`, `user_ID`)
         VALUES(#{store_name}, #{store_address}, #{store_phone}, #{information}, #{user_ID})
     </insert>
+
+    <update id="acceptStore" parameterType="String">
+        UPDATE `delivery`.`store` SET `isAccept` = 1 WHERE (`store_name` = #{name});
+    </update>
 </mapper>

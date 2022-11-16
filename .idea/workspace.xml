@@ -4,16 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d21c0500-2160-4ba8-acb3-24531e4f9872" name="Changes" comment="왜 머지가 안될까&#10;도대체 머지">
+    <list default="true" id="d21c0500-2160-4ba8-acb3-24531e4f9872" name="Changes" comment="7번">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuOptionDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Database/view/MenuOptionView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/OrderDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/OrderedOptionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/OrderedOptionDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderedOptionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderedOptionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/MenuDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/MenuDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/StoreDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/StoreDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/view/StoreView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/view/StoreView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ForTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ForTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlmapper/order.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlmapper/order.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlmapper/orderedMenu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlmapper/orderedMenu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlmapper/orderedOption.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlmapper/orderedOption.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlmapper/menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlmapper/menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlmapper/store.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlmapper/store.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +37,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="minjun" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -95,6 +97,7 @@
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -114,6 +117,8 @@
       <workItem from="1668516066622" duration="7312000" />
       <workItem from="1668574203510" duration="4584000" />
       <workItem from="1668579275473" duration="1801000" />
+      <workItem from="1668609440606" duration="29000" />
+      <workItem from="1668609789364" duration="3445000" />
     </task>
     <task id="LOCAL-00001" summary="Main test">
       <created>1668426374233</created>
@@ -150,14 +155,21 @@
       <option name="project" value="LOCAL" />
       <updated>1668427652282</updated>
     </task>
-    <task id="LOCAL-00006" summary="왜 머지가 안될까&#10;도대체 머지">
-      <created>1668605610015</created>
+    <task id="LOCAL-00006" summary="7번안됨">
+      <created>1668606371283</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1668605610015</updated>
+      <updated>1668606371283</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="7번">
+      <created>1668609007402</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1668609007402</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,7 +186,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="origin/daehyun" />
                       </list>
                     </value>
                   </entry>
@@ -189,8 +201,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Main test" />
     <MESSAGE value="PR test" />
-    <MESSAGE value="왜 머지가 안될까&#10;도대체 머지" />
-    <option name="LAST_COMMIT_MESSAGE" value="왜 머지가 안될까&#10;도대체 머지" />
+    <MESSAGE value="7번안됨" />
+    <MESSAGE value="7번" />
+    <option name="LAST_COMMIT_MESSAGE" value="7번" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
