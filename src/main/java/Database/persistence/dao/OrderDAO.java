@@ -4,10 +4,6 @@ import Database.persistence.dto.OrderDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class OrderDAO {
     private final SqlSessionFactory sqlSessionFactory;
     public OrderDAO(SqlSessionFactory sqlSessionFactory) {

@@ -7,5 +7,4 @@
         INSERT INTO `order` (`User_ID`, `Store_name`)
         VALUES (#{User_ID}, #{Store_name});
     </insert>
-
 </mapper>
