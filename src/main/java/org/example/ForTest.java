@@ -1,9 +1,11 @@
 package org.example;
 
-import persistence.MyBatisConnectionFactory;
-import persistence.dao.*;
-import persistence.dto.*;
-import view.StoreView;
+import Database.persistence.MyBatisConnectionFactory;
+import Database.persistence.dao.*;
+import Database.persistence.dto.*;
+import Database.persistence.dto.OrderedOptionDTO;
+import Database.view.StoreView;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +51,9 @@ public class ForTest {
         MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         menuDAO.insertMenuAll(dtos);
 
-        List<OrderedOption> dtos2 = new ArrayList<>();
-        OrderedOption dto3 = new OrderedOption("옵션1", "싸이버거");
-        OrderedOption dto4 = new OrderedOption("옵션2", "싸이버거");
+        List<MenuHasOptionDTO> dtos2 = new ArrayList<>();
+        MenuHasOptionDTO dto3 = new MenuHasOptionDTO("옵션1", "싸이버거");
+        MenuHasOptionDTO dto4 = new MenuHasOptionDTO("옵션2", "싸이버거");
         dtos2.add(dto3);
         dtos2.add(dto4);
 
