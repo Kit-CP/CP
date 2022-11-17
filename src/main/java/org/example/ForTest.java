@@ -15,11 +15,24 @@ import java.util.List;
 import java.util.Map;
 
 public class ForTest {
-/*
+    /*
+    ALTER TABLE menu AUTO_INCREMENT = 0;
+    ALTER TABLE menu_has_option AUTO_INCREMENT = 0;
+    ALTER TABLE `option` AUTO_INCREMENT = 0;
+    ALTER TABLE `order` AUTO_INCREMENT = 0;
+    ALTER TABLE ordered_menu AUTO_INCREMENT = 0;
+    ALTER TABLE ordered_option AUTO_INCREMENT = 0;
+    ALTER TABLE review AUTO_INCREMENT = 0;
+    ALTER TABLE store AUTO_INCREMENT = 0;
+    ALTER TABLE user AUTO_INCREMENT = 0;
+
     INSERT INTO `delivery`.`user` (`user_ID`, `user_P/W`, `authority`, `user_address`, `user_name`, `user_phone`, `age`) VALUES ('honsot', 'honsotKIT123', '1', '더미', '김선명', '010-1234-5678', '1');
     INSERT INTO `delivery`.`user` (`user_ID`, `user_P/W`, `authority`, `user_address`, `user_name`, `user_phone`, `age`) VALUES ('moms', 'momsKIT123', '1', '더미', '김성렬', '010-1234-5678', '1');
-    INSERT INTO `delivery`.`store` (`store_name`, `store_address`, `store_phone`, `store_score`, `sale`, `information`, `isAccept`, `user_ID`) VALUES ('맘스터치', '경북 구미시 대학로 52', '054-476-9958', '0', '0', '엄마의 마음으로 만듭니다', '1', 'moms');
-*/
+    INSERT INTO `delivery`.`user` (`user_ID`, `user_P/W`, `authority`, `user_address`, `user_name`, `user_phone`, `age`) VALUES ('cust1', '1234', '1', '더미', '김대현 ', '010-9567-9976', '23');
+    INSERT INTO `delivery`.`user` (`user_ID`, `user_P/W`, `authority`, `user_address`, `user_name`, `user_phone`, `age`) VALUES ('cust2', '1234', '1', '더미', '김민준', '010-4111-4111', '23');
+
+    INSERT INTO delivery.`store` (store_name, store_address, store_phone, store_score, sale, information, isAccept, user_ID) VALUES ('맘스터치 금오공대점', '경북 구미시 대학로 52', '054-476-9958', '0', '0', '엄마의 마음으로 만듭니다', '1', 'moms');
+    */
     public static void test1() {
         StoreDTO sdto = new StoreDTO();
         sdto.setStore_name("한솥도시락 금오공대점");
@@ -291,6 +304,7 @@ public class ForTest {
             int m1 = menuDAO.getMenuPrice(orderedMenuDTO.getMenu_name());
             orderedMenuDAO.updatePrice(orderedMenuId, m1);
             orderDAO.updatePriceSum(order_id, m1);
+            System.out.println("주문 성공");
         } else {
             System.out.println("재고가 없어 주문 실패");
         }
@@ -309,7 +323,7 @@ public class ForTest {
 
         OrderDAO orderDAO2 = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         OrderView orderView = new OrderView();
-        orderView.printAll(orderDAO2.getOrderList("한솥도시락 금오공대점"));
+        orderView.printAll(orderDAO2.getOrderFinishList("한솥도시락 금오공대점"));
     }
 
     public static void test13() {

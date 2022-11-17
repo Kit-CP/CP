@@ -35,4 +35,10 @@
         from (`order` join ordered_menu on `order`.order_id = ordered_menu.order_id) left outer join ordered_option on ordered_menu.ordered_menu_id = ordered_option.ordered_menu_id
         where store_name like #{store_name}
     </select>
+
+    <select id="getOrderFinishList" parameterType="String" resultType="OrderViewDTO">
+        select `order`.order_id, User_ID, menu_name, option_name, pricesum, state
+        from (`order` join ordered_menu on `order`.order_id = ordered_menu.order_id) left outer join ordered_option on ordered_menu.ordered_menu_id = ordered_option.ordered_menu_id
+        where store_name like #{store_name} and state = 1 or state = 3
+    </select>
 </mapper>
