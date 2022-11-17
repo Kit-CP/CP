@@ -149,8 +149,8 @@ public class ForTest {
     }
 
     public static void test7() {
-        String userID1 = "honsot";
-        String userID2 = "moms";
+        String userID1 = "cust1";
+        String userID2 = "cust2";
         String storeName = "한솥도시락 금오공대점";
         String menuName1 = "돈까스고기고기";
         String menuName2 = "새치 고기고기";
@@ -245,8 +245,8 @@ public class ForTest {
     }
     public static void test9() {
         int order_id1 = 1;
-        int order_id2 = 1;
-        int order_id3 = 1;
+        int order_id2 = 2;
+        int order_id3 = 3;
         int newState = 2;
 
         OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
@@ -268,10 +268,54 @@ public class ForTest {
         }
     }
 
+    public static void test11() {
+        String userID = "cust1";
+        String storeName = "한솥도시락 금오공대점";
+        String menuName = "돈치스팸 김치 부대찌개 정식";
+        int stock;
+        MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        stock = menuDAO.getStock(menuName);
+
+        if (stock > 0) {
+            OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+            OrderDTO orderDTO = new OrderDTO(userID, storeName);
+            orderDAO.makeOrder(orderDTO);
+            int order_id = orderDTO.getOrder_id();
+
+            OrderedMenuDTO orderedMenuDTO = new OrderedMenuDTO(order_id, menuName);
+            OrderedMenuDAO orderedMenuDAO = new OrderedMenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+            orderedMenuDAO.orderMenu(orderedMenuDTO);
+            int orderedMenuId = orderedMenuDTO.getOrdered_menu_id();
+            menuDAO.updateStock(menuName, stock-1);
+
+            int m1 = menuDAO.getMenuPrice(orderedMenuDTO.getMenu_name());
+            orderedMenuDAO.updatePrice(orderedMenuId, m1);
+            orderDAO.updatePriceSum(order_id, m1);
+        } else {
+            System.out.println("재고가 없어 주문 실패");
+        }
+    }
+
+    public static void test12() {
+        int order_id1 = 1;
+        int order_id2 = 2;
+        int order_id3 = 3;
+        int newState = 3;
+
+        OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        orderDAO.updateState(order_id1, newState);
+        orderDAO.updateState(order_id2, newState);
+        orderDAO.updateState(order_id3, newState);
+
+        OrderDAO orderDAO2 = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        OrderView orderView = new OrderView();
+        orderView.printAll(orderDAO2.getOrderList("한솥도시락 금오공대점"));
+    }
+
     public static void test13() {
-        int orderId1 = 27;
-        int orderId2 = 28;
-        int orderId3 = 29;
+        int orderId1 = 1;
+        int orderId2 = 2;
+        int orderId3 = 3;
         String review1 = "진짜 맛있네요";
         String review2 = "잘먹었습니다.";
         String review3 = "정말 맛있었어요";
@@ -288,10 +332,10 @@ public class ForTest {
         reviewDAO.writeReview(reviewDTO3);
     }
 
-    public static void test14() {
+    public static void test14(int i) {
         List<Map<String, Object>> list = null;
-        String user_id = "honsot";
-        int crtPage = 1;
+        String user_id = "cust1";
+        int crtPage = i;
         int lastPage = 0;
         ReviewDAO reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         lastPage = reviewDAO.getReviewNum(user_id);
