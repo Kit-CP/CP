@@ -273,7 +273,7 @@ public class ForTest {
     public static void test14() {
         List<Map<String, Object>> list = null;
         String user_id = "test456";
-        int crtPage = 4;
+        int crtPage = 1;
         int lastPage = 0;
         ReviewDAO reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         lastPage = reviewDAO.getReviewNum(user_id);
