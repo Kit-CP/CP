@@ -7,19 +7,32 @@
         INSERT INTO `delivery`.`order` (`User_ID`, `Store_name`)
         VALUES (#{User_ID}, #{Store_name});
     </insert>
+
     <update id="acceptOrder" parameterType="Map">
         UPDATE `order`
         SET state = (${state})
         WHERE order_id = (${orderId});
     </update>
+
     <update id="cancelOrder" parameterType="int">
         UPDATE `order`
         SET state = 1
         WHERE order_id = (${orderId});
     </update>
+
+    <update id="updatePriceSum" parameterType="Map">
+        UPDATE `delivery`.`order` SET `priceSum` = ${priceSum} WHERE (`order_id` = ${order_id});
+    </update>
+
     <select id="getOrderState" parameterType="int" resultType="int">
         SELECT state
         FROM `order`
         WHERE order_id = (${orderId});
+    </select>
+
+    <select id="getOrderList" parameterType="String" resultType="OrderViewDTO">
+        select `order`.order_id, User_ID, menu_name, option_name, pricesum, state
+        from (`order` join ordered_menu on `order`.order_id = ordered_menu.order_id) left outer join ordered_option on ordered_menu.ordered_menu_id = ordered_option.ordered_menu_id
+        where store_name like #{store_name}
     </select>
 </mapper>

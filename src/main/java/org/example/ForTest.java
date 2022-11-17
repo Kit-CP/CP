@@ -5,6 +5,7 @@ import Database.persistence.dao.*;
 import Database.persistence.dto.*;
 import Database.persistence.dto.OrderedOptionDTO;
 import Database.view.MenuOptionView;
+import Database.view.OrderView;
 import Database.view.ReviewView;
 import Database.view.StoreView;
 
@@ -148,8 +149,8 @@ public class ForTest {
     }
 
     public static void test7() {
-        String userID1 = "test123";
-        String userID2 = "test456";
+        String userID1 = "honsot";
+        String userID2 = "moms";
         String storeName = "한솥도시락 금오공대점";
         String menuName1 = "돈까스고기고기";
         String menuName2 = "새치 고기고기";
@@ -158,16 +159,8 @@ public class ForTest {
         String optionName2 = "계란후라이";
         String optionName3 = "청양고추";
 
+        OptionDAO optionDAO = new OptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        int stock = menuDAO.getStock(menuName1);
-        if ( stock < 1 ) {
-            System.out.println("재고 부족, 주문 불가");
-            return;
-        }
-        else {
-            System.out.println("주문 완료");
-            menuDAO.updateStock(menuName1,stock - 1);
-        }
 
         OrderDTO dto1 = new OrderDTO(userID1, storeName);
         OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
@@ -185,6 +178,11 @@ public class ForTest {
         orderedOptionDAO.orderedOption(dto3);
         orderedOptionDAO.orderedOption(dto4);
 
+        int o1 = optionDAO.getOptionPrice(dto3.getOption_name());
+        int o2 = optionDAO.getOptionPrice(dto4.getOption_name());
+        int m1 = menuDAO.getMenuPrice(dto2.getMenu_name());
+        orderedMenuDAO.updatePrice(orderedMenuId, o1+o2+m1);
+        orderDAO.updatePriceSum(orderId, o1+o2+m1);
 
 
         OrderDTO dto5 = new OrderDTO(userID1, storeName);
@@ -197,6 +195,11 @@ public class ForTest {
 
         OrderedOptionDTO dto7 = new OrderedOptionDTO(orderedMenuID2, optionName1);
         orderedOptionDAO.orderedOption(dto7);
+
+        int o3 = optionDAO.getOptionPrice(dto7.getOption_name());
+        int m2 = menuDAO.getMenuPrice(dto6.getMenu_name());
+        orderedMenuDAO.updatePrice(orderedMenuID2, o3+m2);
+        orderDAO.updatePriceSum(orderId2, o3+m2);
 
 
 
@@ -211,6 +214,11 @@ public class ForTest {
         OrderedOptionDTO dto10 = new OrderedOptionDTO(orderedMenuID3, optionName1);
         orderedOptionDAO.orderedOption(dto10);
 
+        int o4 = optionDAO.getOptionPrice(dto10.getOption_name());
+        int m3 = menuDAO.getMenuPrice(dto9.getMenu_name());
+        orderedMenuDAO.updatePrice(orderedMenuID3, o4+m3);
+        orderDAO.updatePriceSum(orderId3, o4+m3);
+
 
 
         OrderDTO dto11 = new OrderDTO(userID2, storeName);
@@ -223,8 +231,18 @@ public class ForTest {
 
         OrderedOptionDTO dto13 = new OrderedOptionDTO(orderedMenuID4, optionName3);
         orderedOptionDAO.orderedOption(dto13);
+
+        int o5 = optionDAO.getOptionPrice(dto13.getOption_name());
+        int m4 = menuDAO.getMenuPrice(dto12.getMenu_name());
+        orderedMenuDAO.updatePrice(orderedMenuID4, o5+m4);
+        orderDAO.updatePriceSum(orderId4, o5+m4);
     }
 
+    public static void test8() {
+        OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        OrderView orderView = new OrderView();
+        orderView.printAll(orderDAO.getOrderList("한솥도시락 금오공대점"));
+    }
     public static void test9() {
         int order_id1 = 1;
         int order_id2 = 1;
@@ -251,9 +269,9 @@ public class ForTest {
     }
 
     public static void test13() {
-        int orderId1 = 33;
-        int orderId2 = 34;
-        int orderId3 = 35;
+        int orderId1 = 27;
+        int orderId2 = 28;
+        int orderId3 = 29;
         String review1 = "진짜 맛있네요";
         String review2 = "잘먹었습니다.";
         String review3 = "정말 맛있었어요";
@@ -272,7 +290,7 @@ public class ForTest {
 
     public static void test14() {
         List<Map<String, Object>> list = null;
-        String user_id = "test456";
+        String user_id = "honsot";
         int crtPage = 1;
         int lastPage = 0;
         ReviewDAO reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());

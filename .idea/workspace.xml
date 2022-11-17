@@ -4,7 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d21c0500-2160-4ba8-acb3-24531e4f9872" name="Changes" comment="ㅇㅇ" />
+    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="새마음 새뜻으로">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/ReviewDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderViewDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/ReviewDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Database/view/ReviewView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/sqlmapper/review.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/MenuDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/MenuDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/OptionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/OptionDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/OrderDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/OrderedMenuDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/OrderedMenuDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderedMenuDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderedMenuDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderedOptionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderedOptionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/view/MenuOptionView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/view/MenuOptionView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/view/OrderView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/view/OrderView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ForTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ForTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlmapper/menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlmapper/menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlmapper/option.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlmapper/option.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlmapper/order.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlmapper/order.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlmapper/orderedMenu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlmapper/orderedMenu.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,6 +52,13 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="master" />
+      </list>
+    </option>
   </component>
   <component name="GithubPullRequestsUISettings">
     <option name="recentNewPullRequestHead">
@@ -177,21 +206,7 @@
       <option name="project" value="LOCAL" />
       <updated>1668626904899</updated>
     </task>
-    <task id="LOCAL-00010" summary="최대한 열심히 했다">
-      <created>1668641395775</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1668641395775</updated>
-    </task>
-    <task id="LOCAL-00011" summary="ㅇㅇ">
-      <created>1668650581210</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1668650581210</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,9 +293,7 @@
     <MESSAGE value="7번" />
     <MESSAGE value="메뉴 재고관리 완성" />
     <MESSAGE value="새마음 새뜻으로" />
-    <MESSAGE value="최대한 열심히 했다" />
-    <MESSAGE value="ㅇㅇ" />
-    <option name="LAST_COMMIT_MESSAGE" value="ㅇㅇ" />
+    <option name="LAST_COMMIT_MESSAGE" value="새마음 새뜻으로" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
