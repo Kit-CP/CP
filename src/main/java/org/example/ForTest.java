@@ -5,11 +5,13 @@ import Database.persistence.dao.*;
 import Database.persistence.dto.*;
 import Database.persistence.dto.OrderedOptionDTO;
 import Database.view.MenuOptionView;
+import Database.view.ReviewView;
 import Database.view.StoreView;
 
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ForTest {
 /*
@@ -52,21 +54,83 @@ public class ForTest {
         optionDAO.insertOptionAll(dtos);
     }
 
-    public static void test4() { //더미데이터로 수정해야함
+    public static void test4() { //더미데이터로 수정해야함 (수정했어 대현아^^)
         List<MenuDTO> dtos = new ArrayList<>();
-        MenuDTO dto1 = new MenuDTO("싸이버거", "맘스터치", "햄버거", 6000, 0, 10, 0);
-        MenuDTO dto2 = new MenuDTO("새우버거", "맘스터치", "햄버거", 5500, 0, 10, 0);
+        MenuDTO dto1 = new MenuDTO("돈까스도련님고기고기", "한솥도시락 금오공대점", "고기고기시리즈", 6000, 0, 10, 0);
+        MenuDTO dto2 = new MenuDTO("탕수육도련님고기고기", "한솥도시락 금오공대점", "고기고기시리즈", 5800, 0, 10, 0);
+        MenuDTO dto3 = new MenuDTO("새치 고기고기", "한솥도시락 금오공대점", "고기고기시리즈", 6700, 0, 10, 0);
+        MenuDTO dto4 = new MenuDTO("돈치 고기고기", "한솥도시락 금오공대점", "고기고기시리즈", 5800, 0, 10, 0);
+        MenuDTO dto5 = new MenuDTO("제육 김치찌개 정식", "한솥도시락 금오공대점", "정식시리즈", 8200, 0, 10, 0);
+        MenuDTO dto6 = new MenuDTO("제육 김치 부대찌개 정식", "한솥도시락 금오공대점", "정식시리즈", 8500, 0, 10, 0);
+        MenuDTO dto7 = new MenuDTO("돈치스팸 김치 부대찌개 정식", "한솥도시락 금오공대점", "정식시리즈", 8500, 0, 1, 0);
+
         dtos.add(dto1);
         dtos.add(dto2);
+        dtos.add(dto3);
+        dtos.add(dto4);
+        dtos.add(dto5);
+        dtos.add(dto6);
+        dtos.add(dto7);
 
         MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         menuDAO.insertMenuAll(dtos);
 
         List<MenuHasOptionDTO> dtos2 = new ArrayList<>();
-        MenuHasOptionDTO dto3 = new MenuHasOptionDTO("옵션1", "싸이버거");
-        MenuHasOptionDTO dto4 = new MenuHasOptionDTO("옵션2", "싸이버거");
-        dtos2.add(dto3);
-        dtos2.add(dto4);
+        MenuHasOptionDTO odto1 = new MenuHasOptionDTO("한솥밥 곱빼기", "돈까스도련님고기고기");
+        MenuHasOptionDTO odto2 = new MenuHasOptionDTO("현미밥 교체", "돈까스도련님고기고기");
+        MenuHasOptionDTO odto3 = new MenuHasOptionDTO("계란후라이", "돈까스도련님고기고기");
+        MenuHasOptionDTO odto4 = new MenuHasOptionDTO("청양고추", "돈까스도련님고기고기");
+
+        MenuHasOptionDTO odto5 = new MenuHasOptionDTO("한솥밥 곱빼기", "탕수육도련님고기고기");
+        MenuHasOptionDTO odto6 = new MenuHasOptionDTO("현미밥 교체", "탕수육도련님고기고기");
+        MenuHasOptionDTO odto7 = new MenuHasOptionDTO("계란후라이", "탕수육도련님고기고기");
+        MenuHasOptionDTO odto8 = new MenuHasOptionDTO("청양고추", "탕수육도련님고기고기");
+
+        MenuHasOptionDTO odto9 = new MenuHasOptionDTO("한솥밥 곱빼기", "새치 고기고기");
+        MenuHasOptionDTO odto10 = new MenuHasOptionDTO("현미밥 교체", "새치 고기고기");
+        MenuHasOptionDTO odto11 = new MenuHasOptionDTO("계란후라이", "새치 고기고기");
+        MenuHasOptionDTO odto12 = new MenuHasOptionDTO("청양고추", "새치 고기고기");
+
+        MenuHasOptionDTO odto13 = new MenuHasOptionDTO("한솥밥 곱빼기", "돈치 고기고기");
+        MenuHasOptionDTO odto14 = new MenuHasOptionDTO("현미밥 교체", "돈치 고기고기");
+        MenuHasOptionDTO odto15 = new MenuHasOptionDTO("계란후라이", "돈치 고기고기");
+        MenuHasOptionDTO odto16 = new MenuHasOptionDTO("청양고추", "돈치 고기고기");
+
+        MenuHasOptionDTO odto17 = new MenuHasOptionDTO("한솥밥 곱빼기", "제육 김치찌개 정식");
+        MenuHasOptionDTO odto18 = new MenuHasOptionDTO("현미밥 교체", "제육 김치찌개 정식");
+        MenuHasOptionDTO odto19 = new MenuHasOptionDTO("계란후라이", "제육 김치찌개 정식");
+        MenuHasOptionDTO odto20 = new MenuHasOptionDTO("청양고추", "제육 김치찌개 정식");
+
+        MenuHasOptionDTO odto21 = new MenuHasOptionDTO("한솥밥 곱빼기", "제육 김치 부대찌개 정식");
+        MenuHasOptionDTO odto22 = new MenuHasOptionDTO("현미밥 교체", "제육 김치 부대찌개 정식");
+
+        MenuHasOptionDTO odto23 = new MenuHasOptionDTO("한솥밥 곱빼기", "탕수육도련님고기고기");
+        MenuHasOptionDTO odto24 = new MenuHasOptionDTO("현미밥 교체", "탕수육도련님고기고기");
+
+        dtos2.add(odto1);
+        dtos2.add(odto2);
+        dtos2.add(odto3);
+        dtos2.add(odto4);
+        dtos2.add(odto5);
+        dtos2.add(odto6);
+        dtos2.add(odto7);
+        dtos2.add(odto8);
+        dtos2.add(odto9);
+        dtos2.add(odto10);
+        dtos2.add(odto11);
+        dtos2.add(odto12);
+        dtos2.add(odto13);
+        dtos2.add(odto14);
+        dtos2.add(odto15);
+        dtos2.add(odto16);
+        dtos2.add(odto17);
+        dtos2.add(odto18);
+        dtos2.add(odto19);
+        dtos2.add(odto20);
+        dtos2.add(odto21);
+        dtos2.add(odto22);
+        dtos2.add(odto23);
+        dtos2.add(odto24);
 
         MenuHasOptionDAO menuHasOptionDAO = new MenuHasOptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         menuHasOptionDAO.insertMenuOption(dtos2);
@@ -78,46 +142,99 @@ public class ForTest {
         view.printAll(menuDAO.showMenu());
     }
 
-    public static void test6() {
+    public static void test6() { // (수정했어 대현아^^)
         MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        menuDAO.updateMenu("새우버거", "new새우버거", 5050);
+        menuDAO.updateMenu("돈까스도련님고기고기", "돈까스고기고기", 6500);
     }
 
     public static void test7() {
-        String userID = "test123";
-        String storeName = "맘스터치";
-        String menuName = "싸이버거";
-        String optionName = "옵션2";
+        String userID1 = "test123";
+        String userID2 = "test456";
+        String storeName = "한솥도시락 금오공대점";
+        String menuName1 = "돈까스고기고기";
+        String menuName2 = "새치 고기고기";
+        String menuName3 = "돈치 고기고기";
+        String optionName1 = "한솥밥 곱빼기";
+        String optionName2 = "계란후라이";
+        String optionName3 = "청양고추";
 
         MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        int stock = menuDAO.getStock(menuName);
+        int stock = menuDAO.getStock(menuName1);
         if ( stock < 1 ) {
             System.out.println("재고 부족, 주문 불가");
             return;
         }
         else {
             System.out.println("주문 완료");
-            menuDAO.updateStock(menuName,stock - 1);
+            menuDAO.updateStock(menuName1,stock - 1);
         }
 
-        OrderDTO dto1 = new OrderDTO(userID, storeName);
+        OrderDTO dto1 = new OrderDTO(userID1, storeName);
         OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         orderDAO.makeOrder(dto1);
         int orderId = dto1.getOrder_id();
 
-        OrderedMenuDTO dto2 = new OrderedMenuDTO(orderId, menuName);
+        OrderedMenuDTO dto2 = new OrderedMenuDTO(orderId, menuName1);
         OrderedMenuDAO orderedMenuDAO = new OrderedMenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         orderedMenuDAO.orderMenu(dto2);
         int orderedMenuId = dto2.getOrdered_menu_id();
 
-        OrderedOptionDTO dto3 = new OrderedOptionDTO(orderedMenuId, optionName);
+        OrderedOptionDTO dto3 = new OrderedOptionDTO(orderedMenuId, optionName1);
+        OrderedOptionDTO dto4 = new OrderedOptionDTO(orderedMenuId, optionName2);
         OrderedOptionDAO orderedOptionDAO = new OrderedOptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         orderedOptionDAO.orderedOption(dto3);
+        orderedOptionDAO.orderedOption(dto4);
+
+
+
+        OrderDTO dto5 = new OrderDTO(userID1, storeName);
+        orderDAO.makeOrder(dto5);
+        int orderId2 = dto5.getOrder_id();
+
+        OrderedMenuDTO dto6 = new OrderedMenuDTO(orderId2, menuName2);
+        orderedMenuDAO.orderMenu(dto6);
+        int orderedMenuID2 = dto6.getOrdered_menu_id();
+
+        OrderedOptionDTO dto7 = new OrderedOptionDTO(orderedMenuID2, optionName1);
+        orderedOptionDAO.orderedOption(dto7);
+
+
+
+        OrderDTO dto8 = new OrderDTO(userID1, storeName);
+        orderDAO.makeOrder(dto8);
+        int orderId3 = dto8.getOrder_id();
+
+        OrderedMenuDTO dto9 = new OrderedMenuDTO(orderId3, menuName2);
+        orderedMenuDAO.orderMenu(dto9);
+        int orderedMenuID3 = dto9.getOrdered_menu_id();
+
+        OrderedOptionDTO dto10 = new OrderedOptionDTO(orderedMenuID3, optionName1);
+        orderedOptionDAO.orderedOption(dto10);
+
+
+
+        OrderDTO dto11 = new OrderDTO(userID2, storeName);
+        orderDAO.makeOrder(dto11);
+        int orderId4 = dto11.getOrder_id();
+
+        OrderedMenuDTO dto12 = new OrderedMenuDTO(orderId4, menuName3);
+        orderedMenuDAO.orderMenu(dto12);
+        int orderedMenuID4 = dto12.getOrdered_menu_id();
+
+        OrderedOptionDTO dto13 = new OrderedOptionDTO(orderedMenuID4, optionName3);
+        orderedOptionDAO.orderedOption(dto13);
     }
 
-    public static void test9(int orderId, int newState) {
+    public static void test9() {
+        int order_id1 = 1;
+        int order_id2 = 1;
+        int order_id3 = 1;
+        int newState = 2;
+
         OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        orderDAO.updateState(orderId, newState);
+        orderDAO.updateState(order_id1, newState);
+        orderDAO.updateState(order_id2, newState);
+        orderDAO.updateState(order_id3, newState);
     }
 
     public static void test10(int orderId) {
@@ -126,11 +243,42 @@ public class ForTest {
         state = orderDAO.getOrderState(orderId);
         if (state == 0) {
             orderDAO.cancelOrder(orderId);
-            System.out.printf("주문번호 %d가 취소되었습니다.\n", orderId);
+            System.out.printf("주문을 취소하였습니다.\n", orderId);
         }
         else {
-            System.out.print("주문 취소가 불가능합니다\n");
+            System.out.print("이미 배달중인 주문은 취소가 불가능합니다.\n");
         }
     }
 
+    public static void test13() {
+        int orderId1 = 33;
+        int orderId2 = 34;
+        int orderId3 = 35;
+        String review1 = "진짜 맛있네요";
+        String review2 = "잘먹었습니다.";
+        String review3 = "정말 맛있었어요";
+
+        ReviewDAO reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+
+        ReviewDTO reviewDTO1 = new ReviewDTO(review1, 3, orderId1);
+        reviewDAO.writeReview(reviewDTO1);
+
+        ReviewDTO reviewDTO2 = new ReviewDTO(review2, 4, orderId2);
+        reviewDAO.writeReview(reviewDTO2);
+
+        ReviewDTO reviewDTO3 = new ReviewDTO(review3, 5, orderId3);
+        reviewDAO.writeReview(reviewDTO3);
+    }
+
+    public static void test14() {
+        List<Map<String, Object>> list = null;
+        String user_id = "test456";
+        int crtPage = 4;
+        int lastPage = 0;
+        ReviewDAO reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        lastPage = reviewDAO.getReviewNum(user_id);
+
+        list = reviewDAO.showReview(user_id, crtPage);
+        ReviewView.printAll(list, crtPage , lastPage);
+    }
 }

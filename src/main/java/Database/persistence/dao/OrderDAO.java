@@ -1,6 +1,8 @@
 package Database.persistence.dao;
 
 import Database.persistence.dto.OrderDTO;
+import Database.persistence.dto.OrderedMenuDTO;
+import Database.persistence.dto.OrderedOptionDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
