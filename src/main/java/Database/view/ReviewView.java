@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class ReviewView {
     public static void printAll(List<Map<String, Object>> list, int crtPage , int numOfPages) {
-        System.out.println("리뷰번호\t아이디\t\t가게이름\t\t별점\t\t주문번호\t\t내용");
+        System.out.println("리뷰번호\t아이디\t\t가게이름\t\t\t\t\t별점\t\t주문번호\t\t내용");
         for (Map<String, Object> map : list) {
             StringBuilder sb = new StringBuilder();
             sb.append(map.get("review_id"));

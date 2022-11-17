@@ -124,4 +124,16 @@ public class MenuDAO {
             sqlSession.close();
         }
     }
+
+    public int getMenuPrice(String menu_name) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        int result;
+        try {
+            result = sqlSession.selectOne("mapper.MenuMapper.getMenuPrice", menu_name);
+        }
+        finally {
+            sqlSession.close();
+        }
+        return result;
+    }
 }
