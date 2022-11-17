@@ -28,4 +28,16 @@ public class OptionDAO {
             sqlSession.close();
         }
     }
+
+    public int getOptionPrice(String option_name) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        int result;
+        try {
+            result = sqlSession.selectOne("mapper.OptionMapper.getOptionPrice", option_name);
+        }
+        finally {
+            sqlSession.close();
+        }
+        return result;
+    }
 }

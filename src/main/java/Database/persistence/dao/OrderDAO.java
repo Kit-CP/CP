@@ -1,10 +1,14 @@
 package Database.persistence.dao;
 
 import Database.persistence.dto.OrderDTO;
+import Database.persistence.dto.OrderViewDTO;
+import Database.persistence.dto.OrderedMenuDTO;
+import Database.persistence.dto.OrderedOptionDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class OrderDAO {
@@ -64,5 +68,34 @@ public class OrderDAO {
             sqlSession.close();
         }
         return temp;
+    }
+
+    public void updatePriceSum(int order_id, int newPriceSum) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
+        Map<String, Integer> param = new HashMap<>();
+        param.put("order_id", order_id);
+        param.put("priceSum", newPriceSum);
+        try {
+            sqlSession.update("mapper.OrderMapper.updatePriceSum", param);
+            sqlSession.commit();
+        }
+        catch (Exception e) {
+            sqlSession.rollback();
+        }
+        finally {
+            sqlSession.close();
+        }
+    }
+
+    public List<OrderViewDTO> getOrderList(String store_name) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<OrderViewDTO> result;
+        try {
+            result = sqlSession.selectList("mapper.OrderMapper.getOrderList", store_name);
+        }
+        finally {
+            sqlSession.close();
+        }
+        return result;
     }
 }

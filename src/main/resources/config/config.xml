@@ -13,6 +13,8 @@
         <typeAlias alias="OrderedMenuDTO" type="Database.persistence.dto.OrderedMenuDTO"/>
         <typeAlias alias="OrderedOptionDTO" type="Database.persistence.dto.OrderedOptionDTO"/>
         <typeAlias alias="MenuOptionDTO" type="Database.persistence.dto.MenuOptionDTO"/>
+        <typeAlias alias="ReviewDTO" type="Database.persistence.dto.ReviewDTO"/>
+        <typeAlias alias="OrderViewDTO" type="Database.persistence.dto.OrderViewDTO"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -34,5 +36,6 @@
         <mapper resource="sqlmapper/order.xml"/>
         <mapper resource="sqlmapper/orderedMenu.xml"/>
         <mapper resource="sqlmapper/orderedOption.xml"/>
+        <mapper resource="sqlmapper/review.xml"/>
     </mappers>
 </configuration>

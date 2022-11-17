@@ -42,4 +42,8 @@
         UPDATE menu SET stock = ${new_stock} WHERE menu_name like #{menu_name}
     </update>
 
+    <select id="getMenuPrice" parameterType="String" resultType="int">
+        SELECT menu_price FROM `menu` WHERE menu_name like #{menu_name}
+    </select>
+
 </mapper>
