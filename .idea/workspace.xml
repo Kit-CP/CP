@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d21c0500-2160-4ba8-acb3-24531e4f9872" name="Changes" comment="최대한 열심히 했다">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="d21c0500-2160-4ba8-acb3-24531e4f9872" name="Changes" comment="ㅇㅇ" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -186,7 +184,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668641395775</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="ㅇㅇ">
+      <created>1668650581210</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1668650581210</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,7 +279,8 @@
     <MESSAGE value="메뉴 재고관리 완성" />
     <MESSAGE value="새마음 새뜻으로" />
     <MESSAGE value="최대한 열심히 했다" />
-    <option name="LAST_COMMIT_MESSAGE" value="최대한 열심히 했다" />
+    <MESSAGE value="ㅇㅇ" />
+    <option name="LAST_COMMIT_MESSAGE" value="ㅇㅇ" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
