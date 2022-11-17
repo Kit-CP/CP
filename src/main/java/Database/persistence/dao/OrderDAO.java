@@ -98,4 +98,16 @@ public class OrderDAO {
         }
         return result;
     }
+
+    public List<OrderViewDTO> getOrderFinishList(String store_name) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<OrderViewDTO> result;
+        try {
+            result = sqlSession.selectList("mapper.OrderMapper.getOrderFinishList", store_name);
+        }
+        finally {
+            sqlSession.close();
+        }
+        return result;
+    }
 }
