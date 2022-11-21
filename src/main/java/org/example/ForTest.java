@@ -70,13 +70,13 @@ public class ForTest {
 
     public static void test4() { //더미데이터로 수정해야함 (수정했어 대현아^^)
         List<MenuDTO> dtos = new ArrayList<>();
-        MenuDTO dto1 = new MenuDTO("돈까스도련님고기고기", "한솥도시락 금오공대점", "고기고기시리즈", 6000, 0, 10, 0);
-        MenuDTO dto2 = new MenuDTO("탕수육도련님고기고기", "한솥도시락 금오공대점", "고기고기시리즈", 5800, 0, 10, 0);
-        MenuDTO dto3 = new MenuDTO("새치 고기고기", "한솥도시락 금오공대점", "고기고기시리즈", 6700, 0, 10, 0);
-        MenuDTO dto4 = new MenuDTO("돈치 고기고기", "한솥도시락 금오공대점", "고기고기시리즈", 5800, 0, 10, 0);
-        MenuDTO dto5 = new MenuDTO("제육 김치찌개 정식", "한솥도시락 금오공대점", "정식시리즈", 8200, 0, 10, 0);
-        MenuDTO dto6 = new MenuDTO("제육 김치 부대찌개 정식", "한솥도시락 금오공대점", "정식시리즈", 8500, 0, 10, 0);
-        MenuDTO dto7 = new MenuDTO("돈치스팸 김치 부대찌개 정식", "한솥도시락 금오공대점", "정식시리즈", 8500, 0, 1, 0);
+        MenuDTO dto1 = new MenuDTO("돈까스도련님고기고기", "한솥도시락 금오공대점", "고기고기시리즈", 6000, 10);
+        MenuDTO dto2 = new MenuDTO("탕수육도련님고기고기", "한솥도시락 금오공대점", "고기고기시리즈", 5800, 10);
+        MenuDTO dto3 = new MenuDTO("새치 고기고기", "한솥도시락 금오공대점", "고기고기시리즈", 6700, 10);
+        MenuDTO dto4 = new MenuDTO("돈치 고기고기", "한솥도시락 금오공대점", "고기고기시리즈", 5800, 10);
+        MenuDTO dto5 = new MenuDTO("제육 김치찌개 정식", "한솥도시락 금오공대점", "정식시리즈", 8200, 10);
+        MenuDTO dto6 = new MenuDTO("제육 김치 부대찌개 정식", "한솥도시락 금오공대점", "정식시리즈", 8500, 10);
+        MenuDTO dto7 = new MenuDTO("돈치스팸 김치 부대찌개 정식", "한솥도시락 금오공대점", "정식시리즈", 8500, 1);
 
         dtos.add(dto1);
         dtos.add(dto2);
