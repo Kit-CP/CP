@@ -3,15 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.StoreMapper">
-    <resultMap id="user" type="UserDTO">
-        <result property="user_ID" column="user_ID"/>
-        <result property="user_PW" column="user_P/W"/>
-        <result property="authority" column="authority"/>
-        <result property="user_address" column="user_address"/>
-        <result property="user_name" column="user_name"/>
-        <result property="user_phone" column="user_phone"/>
-        <result property="age" column="age"/>
-    </resultMap>
     <resultMap id="acceptedStore" type="StoreDTO">
         <result property="store_name" column="store_name"/>
         <result property="information" column="information"/>
@@ -19,13 +10,18 @@
         <result property="store_phone" column="store_phone"/>
         <result property="isAccept" column="isAccept"/>
         <result property="user_ID" column="user_ID"/>
-        <collection property="userDTO" resultMap="user"/>
+        <collection property="userDTO" resultMap="mapper.UserMapper.user"/>
     </resultMap>
     <select id="showAcceptedStore" resultMap="acceptedStore">
         SELECT * FROM STORE, USER WHERE isAccept = 1 AND STORE.user_ID = USER.user_ID
     </select>
+
     <insert id="insertStore" parameterType="storeDTO">
         INSERT INTO STORE(`store_name`, `store_address`, `store_phone`, `information`, `user_ID`)
         VALUES(#{store_name}, #{store_address}, #{store_phone}, #{information}, #{user_ID})
     </insert>
+
+    <update id="acceptStore" parameterType="String">
+        UPDATE `delivery`.`store` SET `isAccept` = 1 WHERE (`store_name` = #{name});
+    </update>
 </mapper>

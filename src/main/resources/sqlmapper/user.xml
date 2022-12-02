@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.UserMapper">
-    <resultMap id="result" type="Database.persistence.dto.UserDTO">
+    <resultMap id="user" type="UserDTO">
         <result property="user_ID" column="user_ID"/>
         <result property="user_PW" column="user_P/W"/>
         <result property="authority" column="authority"/>
@@ -11,8 +11,45 @@
         <result property="user_name" column="user_name"/>
         <result property="user_phone" column="user_phone"/>
         <result property="age" column="age"/>
+        <result property="state" column="state"/>
     </resultMap>
-    <select id="showAll" resultMap="result">
+    <select id="showAll" resultMap="user">
         SELECT * FROM USER
     </select>
+
+    <insert id="signUpStoreKeeper" parameterType="UserDTO">
+        INSERT INTO `delivery`.`user` (`user_ID`, `user_P/W`, `authority`, `user_address`, `user_name`, `user_phone`, `age`)
+        VALUES (#{user_ID}, #{user_PW}, 1, #{user_address}, #{user_name}, #{user_phone}, ${age});
+    </insert>
+
+    <insert id="signUpClient" parameterType="UserDTO">
+        INSERT INTO `delivery`.`user` (`user_ID`, `user_P/W`, `authority`, `user_address`, `user_name`, `user_phone`, `age`, `state`)
+        VALUES (#{user_ID}, #{user_PW}, 2, #{user_address}, #{user_name}, #{user_phone}, ${age}, 1);
+    </insert>
+
+    <update id="updateInfor" parameterType="Map">
+        UPDATE `delivery`.`user`
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="new_user_ID != null">
+                `user_ID` = #{new_User_ID},
+            </if>
+            <if test="new_user_PW != null">
+                `user_P/W` = #{new_User_PW},
+            </if>
+            <if test="new_user_address != null">
+                `user_address` = #{new_user_address},
+            </if>
+            <if test="new_user_name != null">
+                `user_name` = #{new_user_name},
+            </if>
+            <if test="new_user_phone != null">
+                `user_phone` = #{new_user_phone},
+            </if>
+            <if test="new_age != null">
+                `age` = ${new_age}
+            </if>
+        </trim>
+        WHERE `user_ID` like #{user_ID};
+    </update>
+
 </mapper>

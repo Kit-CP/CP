@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.MenuMapper">
     <insert id="insertMenuAll" parameterType="menuDTO">
-        INSERT INTO `menu` (`menu_name`, `store_name`, `category`, `menu_price`, `discount`, `stock`, `orderCount`)
-        VALUES (#{menu_name}, #{store_name}, #{category}, ${menu_price}, ${discount}, ${stock}, ${orderCount});
+        INSERT INTO `menu` (`menu_name`, `store_name`, `category`, `menu_price`, `stock`)
+        VALUES (#{menu_name}, #{store_name}, #{category}, ${menu_price}, ${stock});
     </insert>
 
-    <select id="showMenu" resultType="map">
+    <select id="showMenu" resultType="MenuOptionDTO">
         select category, menu.menu_name, menu.menu_price, `menu_has_option`.option_name
         from menu
         left join menu_has_option
@@ -16,22 +16,29 @@
         order by menu.category, menu.menu_name
     </select>
 
-    <update id="updateMenuAll">
-        UPDATE menu
-        set menu_name = #{new_menu_name}, menu_price = ${new_price}
-        where menu_name like #{menu_name}
+    <select id="getStock" resultType="int" parameterType="String">
+        select stock from menu where menu_name like #{menuName}
+    </select>
+
+    <update id="updateStock" parameterType="Map">
+        UPDATE menu SET stock = ${new_stock} WHERE menu_name like #{menu_name}
     </update>
 
-    <update id="updateMenuName">
-        UPDATE menu
-        set menu_name = #{new_menu_name}
-        where menu_name like #{menu_name}
-    </update>
+    <select id="getMenuPrice" parameterType="String" resultType="int">
+        SELECT menu_price FROM `menu` WHERE menu_name like #{menu_name}
+    </select>
 
-    <update id="updateMenuPrice">
+    <update id="updateMenu">
         UPDATE menu
-        set menu_price = ${new_price}
-        where menu_name like #{menu_name}
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="new_menu_name != null">
+                menu_name = #{new_menu_name},
+            </if>
+            <if test="menu_price != null">
+                menu_price = ${new_price}
+            </if>
+        </trim>
+        WHERE menu_name like #{menu_name}
     </update>
 
 </mapper>

@@ -38,4 +38,19 @@ public class StoreDAO {
         }
     }
 
+    public void acceptStore(String name) {
+        SqlSession session = sqlSessionFactory.openSession(false);
+        try {
+            session.update("mapper.StoreMapper.acceptStore", name);
+            session.commit();
+        }
+        catch (Exception e) {
+            session.rollback();
+        }
+        finally {
+            session.close();
+        }
+
+    }
+
 }

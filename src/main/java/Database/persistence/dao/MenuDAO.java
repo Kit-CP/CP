@@ -1,5 +1,6 @@
 package Database.persistence.dao;
 
+import Database.persistence.dto.MenuOptionDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import Database.persistence.dto.MenuDTO;
@@ -31,8 +32,8 @@ public class MenuDAO {
         }
     }
 
-    public List<MenuDTO> showMenu() {
-        List<MenuDTO> result;
+    public List<MenuOptionDTO> showMenu() {
+        List<MenuOptionDTO> result;
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
             result = sqlSession.selectList("mapper.MenuMapper.showMenu");
@@ -50,7 +51,7 @@ public class MenuDAO {
         param.put("new_menu_name", newName);
         param.put("new_price", price);
         try {
-            sqlSession.update("mapper.MenuMapper.updateMenuAll", param);
+            sqlSession.update("mapper.MenuMapper.updateMenu", param);
             sqlSession.commit();
         }
         catch (Exception e) {
@@ -67,7 +68,7 @@ public class MenuDAO {
         param.put("menu_name", name);
         param.put("new_menu_name", newName);
         try {
-            sqlSession.update("mapper.MenuMapper.updateMenuName", param);
+            sqlSession.update("mapper.MenuMapper.updateMenu", param);
             sqlSession.commit();
         }
         catch (Exception e) {
@@ -84,7 +85,7 @@ public class MenuDAO {
         param.put("menu_name", name);
         param.put("new_price", price);
         try {
-            sqlSession.update("mapper.MenuMapper.updateMenuPrice", param);
+            sqlSession.update("mapper.MenuMapper.updateMenu", param);
             sqlSession.commit();
         }
         catch (Exception e) {
@@ -93,5 +94,46 @@ public class MenuDAO {
         finally {
             sqlSession.close();
         }
+    }
+
+    public int getStock(String menuName) {
+        int temp = 0;
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            temp = sqlSession.selectOne("mapper.MenuMapper.getStock", menuName);
+        }
+        finally {
+            sqlSession.close();
+        }
+        return temp;
+    }
+
+    public void updateStock(String menuName, int newStock) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
+        Map<String, Object> param = new HashMap<>();
+        param.put("menu_name", menuName);
+        param.put("new_stock", newStock);
+        try {
+            sqlSession.update("mapper.MenuMapper.updateStock", param);
+            sqlSession.commit();
+        }
+        catch (Exception e) {
+            sqlSession.rollback();
+        }
+        finally {
+            sqlSession.close();
+        }
+    }
+
+    public int getMenuPrice(String menu_name) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        int result;
+        try {
+            result = sqlSession.selectOne("mapper.MenuMapper.getMenuPrice", menu_name);
+        }
+        finally {
+            sqlSession.close();
+        }
+        return result;
     }
 }

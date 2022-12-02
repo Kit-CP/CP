@@ -3,8 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.OrderedMenuMapper">
-    <insert id="orderMenu" parameterType="orderedMenuDTO">
+    <insert id="orderMenu" parameterType="orderedMenuDTO" useGeneratedKeys="true" keyProperty="ordered_menu_id">
         INSERT INTO `delivery`.`ordered_menu` (`order_id`, `menu_name`)
-        VALUES (#{order_id}, #{menu_name});
+        VALUES (${order_id}, #{menu_name});
     </insert>
+
+    <update id="updatePrice" parameterType="Map">
+        UPDATE `delivery`.`ordered_menu` SET `price` = #{price} WHERE (`ordered_menu_id` = #{ordered_menu_id});
+    </update>
 </mapper>
