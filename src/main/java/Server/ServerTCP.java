@@ -47,10 +47,10 @@ public class ServerTCP {
 
                     ois.readObject(); // 객체 읽기 >> 각 케이스에 따른 객체 선언 및 연결
 
-                    ctrl.run(type,authority,code,body);
+                    ctrl.run(type,authority,code,answer,body);
 
                 } else { //body가 없는 경우. >> 헤더 정보만 있을 경우.
-                    ctrl.run(type,authority,code,null);
+                    ctrl.run(type,authority,code,answer,null);
                 }
             }
         }catch(IOException e) {

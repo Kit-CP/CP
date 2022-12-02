@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="테이블 변경에따른 DTO수정&#10;MenuUpdate 동적쿼리 적용">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Server/Controller.java" afterDir="false" />
+    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="프로토콜 이용, 컨트롤러에 적용">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Server/Protocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Protocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Server/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Server/ServerTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server/ServerTCP.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,12 +48,18 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="박찬진 &lt;qarkchanjin@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="WARN_ABOUT_CRLF" value="false" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -267,7 +272,21 @@
       <option name="project" value="LOCAL" />
       <updated>1669969704861</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="프로토콜 이용, 컨트롤러에 적용">
+      <created>1669989385024</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1669989385024</updated>
+    </task>
+    <task id="LOCAL-00016" summary="프로토콜 이용, 컨트롤러에 적용">
+      <created>1669989490520</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1669989490520</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -357,7 +376,8 @@
     <MESSAGE value="완성!" />
     <MESSAGE value="드디어 시작하나?" />
     <MESSAGE value="테이블 변경에따른 DTO수정&#10;MenuUpdate 동적쿼리 적용" />
-    <option name="LAST_COMMIT_MESSAGE" value="테이블 변경에따른 DTO수정&#10;MenuUpdate 동적쿼리 적용" />
+    <MESSAGE value="프로토콜 이용, 컨트롤러에 적용" />
+    <option name="LAST_COMMIT_MESSAGE" value="프로토콜 이용, 컨트롤러에 적용" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

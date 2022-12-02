@@ -1,8 +1,10 @@
 package Server;
 
+import java.io.IOException;
+
 public class Controller {
     Protocol protocol;
-    public void run(byte type, byte authority, byte code, byte[] body) {
+    public void run(byte type, byte authority, byte code, byte answer,byte[] body) {
         if(type == protocol.SINE_UP) {
             if(authority == protocol.ANONYMITY) { //회원가입
                 if(code == protocol.REGISTER_INFO) {
@@ -14,13 +16,20 @@ public class Controller {
         if(type == protocol.LOGIN) {
             if(authority == protocol.CLIENT) {
                 if(code == protocol.LOGIN_INFO) {
-
+                    /*try{
+                        
+                        answer = protocol.CORRECT //작업 성공 시
+                    }catch(IOException e) {
+                        answer = protocol.ERROR //작업 실패 시
+                    }*/
                 }
-            }else if(authority == protocol.OWNER) {
+            }
+            if(authority == protocol.OWNER) {
                 if(code == protocol.LOGIN_INFO) {
 
                 }
-            }else if(authority == protocol.MANAGER) {
+            }
+            if(authority == protocol.MANAGER) {
                 if(code == protocol.LOGIN_INFO) {
 
                 }
