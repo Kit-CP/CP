@@ -10,8 +10,8 @@ public class ServerTCP {
         Socket socket = null;
         DataInputStream dis;
         DataOutputStream dos;
-        ObjectInputStream ois; //구현한 객체 역직렬화.
-        ObjectOutputStream oos; // 구현한 객체 직렬화.
+        ObjectInputStream ois; //구현한 객체 역직렬화 사용해야함.
+        ObjectOutputStream oos; // 구현한 객체 직렬화 사용해야함.
 
         try {
             ss = new ServerSocket(7777);
