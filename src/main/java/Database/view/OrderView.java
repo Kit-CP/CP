@@ -18,7 +18,7 @@ public class OrderView {
                 oidl.add(dto.getOrder_id());
                 System.out.print("\n" + dto.getOrder_id() + " ");
                 System.out.print(dto.getUser_ID() + " ");
-                System.out.print(State.get(dto.getState()) + " ");
+                System.out.print(State.getDeliverySate(dto.getState()) + " ");
                 System.out.print(dto.getPricesum() + " ");
                 System.out.print(dto.getMenu_name() + " ");
             }

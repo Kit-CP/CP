@@ -11,6 +11,7 @@ import Database.view.StoreView;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -356,5 +357,30 @@ public class ForTest {
 
         list = reviewDAO.showReview(user_id, crtPage);
         ReviewView.printAll(list, crtPage , lastPage);
+    }
+
+    public static void test15() { //점주 회원가입 함수
+        UserDTO dto = new UserDTO();
+        dto.setUser_ID("hyun"); dto.setAge(23); dto.setUser_PW("1234"); dto.setUser_address("옥계"); dto.setUser_phone("010");
+        dto.setUser_name("김대현");
+        UserDAO userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        userDAO.signUpStoreKeeper(dto);
+    }
+
+    public static void test16() { //고객 회원가입 함수
+        UserDTO dto = new UserDTO();
+        dto.setUser_ID("hyun"); dto.setAge(23); dto.setUser_PW("1234"); dto.setUser_address("옥계"); dto.setUser_phone("010");
+        dto.setUser_name("김대현");
+        UserDAO userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        userDAO.signUpClient(dto);
+    }
+
+    public static void test17() { // 고객정보 수정
+        Map<String, Object> param = new HashMap<>();
+        param.put("user_ID", "hyun");
+        param.put("new_age", 30);
+        param.put("new_user_phone", "010-9567-9976");
+        UserDAO userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        userDAO.updateInfor(param);
     }
 }
