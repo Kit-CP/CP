@@ -1,7 +1,5 @@
 package Server;
 
-import org.apache.log4j.xml.Log4jEntityResolver;
-
 import javax.xml.crypto.Data;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutput;
@@ -31,6 +29,7 @@ public class Protocol {
     public final static byte MENU_INSERT = 1;
     public final static byte STORE_INSERT = 2;
     public final static byte OPTION_INSERT = 3;
+    public final static byte REPLY = 4;
 
     //TYPE:4 , CLIENT
     public final static byte CANCEL_ORDER = 1;
@@ -39,7 +38,9 @@ public class Protocol {
     public final static byte ACCEPT_ORDER = 1;
 
     //TYPE:4 , MANAGER
-    public final static byte ACCEPT_MENU = 1;
+    public final static byte ACCEPT_STORE = 1;
+    public final static byte ACCEPT_MENU = 2;
+    public final static byte ACCEPT_OWNER = 3;
 
     //TYPE:5 , CLIENT
     public final static byte CHANGE_CLIENT_INFO = 1;
@@ -62,7 +63,7 @@ public class Protocol {
     public final static byte MYORDER_LIST = 3;
     public final static byte MYTOTAL_LIST = 3;
 
-    //TYPE:7 , MANAGER
+    //TYPE:6 , MANAGER
     public final static byte ALL_STORE_LIST = 1;
     public final static byte ALL_MENU_LIST = 2;
     public final static byte INFO_LIST = 3;
