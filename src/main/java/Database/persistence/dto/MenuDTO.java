@@ -13,6 +13,7 @@ public class MenuDTO {
     private String category;
     private int menu_price;
     private int stock;
+    private int state;
 
     public MenuDTO(String menu_name, String store_name, String category, int menu_price, int stock) {
         this.menu_name = menu_name;

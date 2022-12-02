@@ -16,24 +16,6 @@
         order by menu.category, menu.menu_name
     </select>
 
-    <update id="updateMenuAll">
-        UPDATE menu
-        set menu_name = #{new_menu_name}, menu_price = ${new_price}
-        where menu_name like #{menu_name}
-    </update>
-
-    <update id="updateMenuName">
-        UPDATE menu
-        set menu_name = #{new_menu_name}
-        where menu_name like #{menu_name}
-    </update>
-
-    <update id="updateMenuPrice">
-        UPDATE menu
-        set menu_price = ${new_price}
-        where menu_name like #{menu_name}
-    </update>
-
     <select id="getStock" resultType="int" parameterType="String">
         select stock from menu where menu_name like #{menuName}
     </select>
@@ -45,5 +27,18 @@
     <select id="getMenuPrice" parameterType="String" resultType="int">
         SELECT menu_price FROM `menu` WHERE menu_name like #{menu_name}
     </select>
+
+    <update id="updateMenu">
+        UPDATE menu
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="new_menu_name != null">
+                menu_name = #{new_menu_name},
+            </if>
+            <if test="menu_price != null">
+                menu_price = ${new_price}
+            </if>
+        </trim>
+        WHERE menu_name like #{menu_name}
+    </update>
 
 </mapper>

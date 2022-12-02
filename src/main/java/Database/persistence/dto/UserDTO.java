@@ -15,4 +15,5 @@ public class UserDTO {
     private String user_name;
     private String user_phone;
     private int age;
+    private int state;
 }

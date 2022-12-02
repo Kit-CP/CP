@@ -51,7 +51,7 @@ public class MenuDAO {
         param.put("new_menu_name", newName);
         param.put("new_price", price);
         try {
-            sqlSession.update("mapper.MenuMapper.updateMenuAll", param);
+            sqlSession.update("mapper.MenuMapper.updateMenu", param);
             sqlSession.commit();
         }
         catch (Exception e) {
@@ -68,7 +68,7 @@ public class MenuDAO {
         param.put("menu_name", name);
         param.put("new_menu_name", newName);
         try {
-            sqlSession.update("mapper.MenuMapper.updateMenuName", param);
+            sqlSession.update("mapper.MenuMapper.updateMenu", param);
             sqlSession.commit();
         }
         catch (Exception e) {
@@ -85,7 +85,7 @@ public class MenuDAO {
         param.put("menu_name", name);
         param.put("new_price", price);
         try {
-            sqlSession.update("mapper.MenuMapper.updateMenuPrice", param);
+            sqlSession.update("mapper.MenuMapper.updateMenu", param);
             sqlSession.commit();
         }
         catch (Exception e) {

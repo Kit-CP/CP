@@ -12,6 +12,7 @@ public class ReviewDTO {
     private String content;
     private int review_score;
     private int order_id;
+    private String reply;
 
     public ReviewDTO(String content, int review_score, int order_id) {
         this.content = content;
