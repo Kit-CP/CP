@@ -11,6 +11,7 @@
         <result property="user_name" column="user_name"/>
         <result property="user_phone" column="user_phone"/>
         <result property="age" column="age"/>
+        <result property="state" column="state"/>
     </resultMap>
     <select id="showAll" resultMap="user">
         SELECT * FROM USER
