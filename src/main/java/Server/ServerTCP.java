@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 public class ServerTCP {
     public static void main(String[] args) {
+        //깃테스트
         ServerSocket ss = null;
         Socket socket = null;
         DataInputStream dis;
