@@ -1,9 +1,7 @@
 package Server;
 
-import java.io.IOException;
-
-public class Controller {
-    Protocol protocol;
+public class ServerController {
+    Protocol protocol = new Protocol();
     public void run(byte type, byte authority, byte code, byte answer,byte[] body) {
         if(type == protocol.SINE_UP) {
             if(authority == protocol.ANONYMITY) { //회원가입
