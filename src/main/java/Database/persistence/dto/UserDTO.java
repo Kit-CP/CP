@@ -22,7 +22,6 @@ public class UserDTO implements IDTO {
     private int age;
     private int state;
     public UserDTO() {
-
     }
     public UserDTO(String id, String pw, String address, String name, String phone, int age, int state , int authority) {
         user_ID = id;
@@ -34,6 +33,7 @@ public class UserDTO implements IDTO {
         this.age = age;
         this.state = state;
     }
+
     @Override
     public byte[] getBytes() throws IOException {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
