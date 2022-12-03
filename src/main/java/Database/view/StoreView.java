@@ -16,14 +16,6 @@ public class StoreView {
             sb.append(dto.getStore_address());
             sb.append(", ");
             sb.append(dto.getStore_phone());
-            sb.append(", ");
-            sb.append(dto.getUserDTO().getUser_name());
-            sb.append(", ");
-            sb.append(dto.getUserDTO().getUser_phone());
-            sb.append(", ");
-            sb.append(dto.getUserDTO().getUser_ID());
-            sb.append(", ");
-            sb.append(dto.getUserDTO().getUser_PW());
             System.out.println(sb);
         }
     }

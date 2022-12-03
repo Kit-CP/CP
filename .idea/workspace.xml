@@ -4,22 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="db 기능 구현 완">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/Dummy.java" afterDir="false" />
+    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="잡다한거 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuHasOptionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuHasOptionDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuOptionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuOptionDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuSalesDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuSalesDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OptionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OptionDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderViewDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderViewDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderedMenuDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderedMenuDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderedOptionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderedOptionDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/ReviewDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/ReviewDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/StoreDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/StoreDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/StoreSalesDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/StoreSalesDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +121,7 @@
       <recent name="C:\Users\daehyun\IdeaProjects\CP\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="애플리케이션.Main">
+  <component name="RunManager" selected="Application.ClientTCP">
     <configuration name="ClientTCP" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Network.Client.ClientTCP" />
       <module name="ConvergenceProject.main" />
@@ -176,9 +163,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="애플리케이션.Main" />
-        <item itemvalue="애플리케이션.ClientTCP" />
-        <item itemvalue="애플리케이션.ServerTCP" />
+        <item itemvalue="Application.ClientTCP" />
       </list>
     </recent_temporary>
   </component>
@@ -366,7 +351,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670070275451</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="잡다한거 수정">
+      <created>1670075477253</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1670075477253</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -462,7 +454,8 @@
     <MESSAGE value="너 가져" />
     <MESSAGE value="SendDTO 클래스 명 수정" />
     <MESSAGE value="db 기능 구현 완" />
-    <option name="LAST_COMMIT_MESSAGE" value="db 기능 구현 완" />
+    <MESSAGE value="잡다한거 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="잡다한거 수정" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
