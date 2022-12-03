@@ -11,4 +11,8 @@
     <select id="getOptionPrice" parameterType="String" resultType="int">
         SELECT option_price FROM `option` WHERE option_name like #{option_name}
     </select>
+
+    <update id="judgeOption" parameterType="Map">
+        UPDATE `option` SET state = ${state} WHERE option_name = #{option_name}
+    </update>
 </mapper>

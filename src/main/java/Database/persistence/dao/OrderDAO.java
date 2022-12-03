@@ -1,9 +1,6 @@
 package Database.persistence.dao;
 
-import Database.persistence.dto.OrderDTO;
-import Database.persistence.dto.OrderViewDTO;
-import Database.persistence.dto.OrderedMenuDTO;
-import Database.persistence.dto.OrderedOptionDTO;
+import Database.persistence.dto.*;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -104,6 +101,30 @@ public class OrderDAO {
         List<OrderViewDTO> result;
         try {
             result = sqlSession.selectList("mapper.OrderMapper.getOrderFinishList", store_name);
+        }
+        finally {
+            sqlSession.close();
+        }
+        return result;
+    }
+
+    public List<MenuSalesDTO> getMenuSales(String store_name) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<MenuSalesDTO> result;
+        try {
+            result = sqlSession.selectList("mapper.OrderMapper.getMenuSales", store_name);
+        }
+        finally {
+            sqlSession.close();
+        }
+        return result;
+    }
+
+    public List<StoreSalesDTO> getStoreSales() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<StoreSalesDTO> result;
+        try {
+            result = sqlSession.selectList("mapper.OrderMapper.getStoreSales");
         }
         finally {
             sqlSession.close();
