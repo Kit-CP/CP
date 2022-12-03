@@ -20,7 +20,6 @@ public class StoreDTO implements IDTO {
     private String information;
     private int isAccept;
     private String user_ID;
-    private UserDTO userDTO;
 
     @Override
     public byte[] getBytes() throws IOException {
@@ -34,7 +33,6 @@ public class StoreDTO implements IDTO {
         dos.writeUTF(information);
         dos.writeInt(isAccept);
         dos.writeUTF(user_ID);
-        dos.write(userDTO.getBytes());
 
         return buf.toByteArray();
     }
@@ -48,7 +46,6 @@ public class StoreDTO implements IDTO {
         dto.setInformation(dis.readUTF());
         dto.setIsAccept(dis.readInt());
         dto.setUser_ID(dis.readUTF());
-        dto.setUserDTO(UserDTO.readUserDTO(dis));
 
         return dto;
     }
