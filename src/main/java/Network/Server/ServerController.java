@@ -1,19 +1,25 @@
 package Network.Server;
 
+import Database.persistence.MyBatisConnectionFactory;
+import Database.persistence.dao.UserDAO;
 import Database.persistence.dto.*;
 import java.io.*;
 
 public class ServerController {
     Protocol protocol = new Protocol();
-    public void run(byte type, byte authority, byte code, byte answer,byte[] body) throws IOException {
+    public void run(byte type, byte authority, byte code, byte answer, byte[] body) throws IOException {
         ByteArrayInputStream bai = new ByteArrayInputStream(body);
         DataInputStream dis = new DataInputStream(bai);
         if(type == protocol.SINE_UP) {
             if(authority == protocol.CLIENT) { //회원가입
                 if(code == protocol.REGISTER_INFO) {
-                    UserDTO user = new UserDTO();
-                    user = user.readUserDTO(dis);
-                    System.out.println("여기까지는 왔음");
+                    UserDTO user = UserDTO.readUserDTO(dis);
+                    int temp = user.getAuthority();
+                    if ( temp == 1 ) {
+                        UserDAO dao = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                        dao.signUpClient(user);
+                        answer = protocol.SUCCESS;
+                    }
                 }
             }
             if(authority == protocol.OWNER) {
