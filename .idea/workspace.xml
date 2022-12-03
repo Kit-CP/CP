@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="network 패키지 생성">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/IDTO.java" afterDir="false" />
+    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="UserDTO 직렬화 역직렬화 메소드구현">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/UserDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +169,7 @@
       <workItem from="1669968306591" duration="7163000" />
       <workItem from="1669992605013" duration="8783000" />
       <workItem from="1670045771168" duration="28000" />
-      <workItem from="1670048382436" duration="3930000" />
+      <workItem from="1670048382436" duration="4892000" />
     </task>
     <task id="LOCAL-00001" summary="Main test">
       <created>1668426374233</created>
@@ -306,7 +304,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670048855475</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="UserDTO 직렬화 역직렬화 메소드구현">
+      <created>1670053373559</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1670053373559</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -399,7 +404,8 @@
     <MESSAGE value="프로토콜 이용, 컨트롤러에 적용" />
     <MESSAGE value="0" />
     <MESSAGE value="network 패키지 생성" />
-    <option name="LAST_COMMIT_MESSAGE" value="network 패키지 생성" />
+    <MESSAGE value="UserDTO 직렬화 역직렬화 메소드구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="UserDTO 직렬화 역직렬화 메소드구현" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
