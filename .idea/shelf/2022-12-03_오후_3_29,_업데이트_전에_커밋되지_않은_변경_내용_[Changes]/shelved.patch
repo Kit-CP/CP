@@ -1,0 +1,54 @@
+Index: src/main/java/Client/ClientTCP.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Client;\r\n\r\nimport Server.Protocol;\r\n\r\nimport java.io.*;\r\nimport java.net.*;\r\nimport java.nio.Buffer;\r\n\r\npublic class ClientTCP {\r\n    public static void main(String args[]) {\r\n        Socket cliSocket = null;\r\n        Protocol protocol = new Protocol();\r\n        InputStream is;\r\n        OutputStream os;\r\n        DataInputStream dis;\r\n        DataOutputStream dos;\r\n        BufferedReader br;\r\n        BufferedWriter bw;\r\n        String host = \"localhost\";\r\n        ClientController cc = new ClientController();\r\n        boolean isSUCCESS = false;\r\n        try {\r\n            while (true) {\r\n                cliSocket = new Socket(host, 7777);\r\n                System.out.println(\"******** 안녕하세요 반갑습니다. ********\");\r\n                System.out.println(\"[1] 회원가입    [2] 로그인 \");\r\n                br = new BufferedReader(new InputStreamReader(System.in));\r\n                int number = br.read();\r\n                dos = new DataOutputStream(cliSocket.getOutputStream());\r\n                byte type = 0, code = 0, authority = 0, answer =0;\r\n                int size = 0;\r\n\r\n                while (number < 3  && !isSUCCESS) { //로그인, 회원가입.\r\n                    cc.start(number, dos); //정보 보냄.\r\n                    if(number > 0) {\r\n                        dis = new DataInputStream(cliSocket.getInputStream());\r\n                        type = dis.readByte();\r\n                        code = dis.readByte();\r\n                        authority = dis.readByte();\r\n                        answer = dis.readByte();\r\n                        size = dis.readInt();\r\n                    }\r\n\r\n                    byte[] body = new byte[size];\r\n                    DataInputStream bodyInfo;\r\n                    if(size > 0) {\r\n                        bodyInfo = new DataInputStream(new ByteArrayInputStream(body));\r\n                        //객체 역직렬화클래스명 변수 명 = new 역직렬화(bodyInfo);\r\n                        //역직렬화 한 것의 Data 출력.\r\n                    }\r\n                    if(answer != protocol.SUCCESS) {\r\n                        isSUCCESS = true;\r\n                    }else {\r\n                        System.out.println(\"[1] 회원가입    [2] 로그인 \");\r\n                        number = br.read();\r\n                    }\r\n                }\r\n                if(authority == protocol.CLIENT) {\r\n\r\n                }\r\n                if(authority == protocol.OWNER) {\r\n\r\n                }\r\n                if(authority == protocol.MANAGER) {\r\n\r\n                }\r\n            }\r\n        } catch (UnknownHostException e) {\r\n            System.err.println(\"Server not found\");\r\n        } catch (IOException e) {\r\n            System.err.println(e);\r\n        } finally {\r\n            try {\r\n                cliSocket.close();\r\n            } catch (IOException e) {\r\n                System.out.println(e);\r\n            }\r\n        }\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/src/main/java/Client/ClientTCP.java b/src/main/java/Client/ClientTCP.java
+--- a/src/main/java/Client/ClientTCP.java	
++++ b/src/main/java/Client/ClientTCP.java	
+@@ -4,7 +4,6 @@
+ 
+ import java.io.*;
+ import java.net.*;
+-import java.nio.Buffer;
+ 
+ public class ClientTCP {
+     public static void main(String args[]) {
+@@ -17,7 +16,7 @@
+         BufferedReader br;
+         BufferedWriter bw;
+         String host = "localhost";
+-        ClientController cc = new ClientController();
++        SendData cc = new SendData();
+         boolean isSUCCESS = false;
+         try {
+             while (true) {
+@@ -31,7 +30,7 @@
+                 int size = 0;
+ 
+                 while (number < 3  && !isSUCCESS) { //로그인, 회원가입.
+-                    cc.start(number, dos); //정보 보냄.
++                    cc.sendFirst(number, dos); //정보 보냄.
+                     if(number > 0) {
+                         dis = new DataInputStream(cliSocket.getInputStream());
+                         type = dis.readByte();
+Index: src/main/java/Client/ClientController.java
+===================================================================
+diff --git a/src/main/java/Client/ClientController.java b/src/main/java/Client/SendData.java
+rename from src/main/java/Client/ClientController.java
+rename to src/main/java/Client/SendData.java
+--- a/src/main/java/Client/ClientController.java	
++++ b/src/main/java/Client/SendData.java	
+@@ -3,10 +3,10 @@
+ import Server.Protocol;
+ import java.io.*;
+ 
+-public class ClientController {
++public class SendData {
+     Protocol protocol = new Protocol();
+     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+-    public void start(int number, DataOutputStream dos) throws IOException{
++    public void sendFirst(int number, DataOutputStream dos) throws IOException{
+         switch(number) {
+             case(1):
+                 byte type = protocol.SINE_UP;
