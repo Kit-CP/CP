@@ -6,9 +6,8 @@ import java.io.*;
 import java.net.*;
 
 public class ClientTCP {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Socket cliSocket = null;
-        Protocol protocol = new Protocol();
         InputStream is;
         OutputStream os;
         DataInputStream dis;
@@ -47,7 +46,7 @@ public class ClientTCP {
                         //객체 역직렬화클래스명 변수 명 = new 역직렬화(bodyInfo);
                         //역직렬화 한 것의 Data 출력.
                     }
-                    if(answer != protocol.ERROR) {
+                    if(answer != Protocol.ERROR) {
                         isSUCCESS = true;
                     }else {
                         System.out.println("[1] 회원가입    [2] 로그인 ");
@@ -55,13 +54,13 @@ public class ClientTCP {
                     }
                 }
                 System.out.println("------");
-                if(authority == protocol.CLIENT) {
+                if(authority == Protocol.CLIENT) {
 
                 }
-                if(authority == protocol.OWNER) {
+                if(authority == Protocol.OWNER) {
 
                 }
-                if(authority == protocol.MANAGER) {
+                if(authority == Protocol.MANAGER) {
 
                 }
             }

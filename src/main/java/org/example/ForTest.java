@@ -312,7 +312,7 @@ public class ForTest {
         }
     }
 
-    public static void test12() {       //
+    public static void test12() {
         int order_id1 = 1;
         int order_id2 = 2;
         int order_id3 = 3;
