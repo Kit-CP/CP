@@ -136,4 +136,16 @@ public class MenuDAO {
         }
         return result;
     }
+
+    public void judgeMenu(Map<String, Object> param) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            sqlSession.update("mapper.MenuMapper.judgeMenu", param);
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+    }
 }
