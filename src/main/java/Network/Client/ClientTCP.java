@@ -20,7 +20,7 @@ public class ClientTCP {
         boolean isSUCCESS = false;
         try {
             while (true) {
-                cliSocket = new Socket(host, 7777);
+                cliSocket = new Socket(host, 57600);
                 System.out.println("******** 안녕하세요 반갑습니다. ********");
                 System.out.println("[1] 회원가입    [2] 로그인 ");
                 br = new BufferedReader(new InputStreamReader(System.in));
@@ -30,7 +30,9 @@ public class ClientTCP {
                 int size = 0;
 
                 while (number < 3  && !isSUCCESS) { //로그인, 회원가입.
+
                     cc.start(number, dos); //정보 보냄.
+
                     if(number > 0) {
                         dis = new DataInputStream(cliSocket.getInputStream());
                         type = dis.readByte();

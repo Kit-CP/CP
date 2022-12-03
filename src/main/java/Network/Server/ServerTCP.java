@@ -13,7 +13,7 @@ public class ServerTCP {
 
         try {
             while (true) {
-                ss = new ServerSocket(7777);
+                ss = new ServerSocket(57600);
                 System.out.println("create Network.Server. Waiting Connection...\n\n");
 
                 socket = ss.accept();
@@ -31,7 +31,7 @@ public class ServerTCP {
                 int size = dis.readInt();
 
                 byte[] body = null;
-                DataInputStream bodyInfo;
+
                 ServerController ctrl = new ServerController();
                 if (size > 0) { //body 읽어오기
                     body = new byte[size];
