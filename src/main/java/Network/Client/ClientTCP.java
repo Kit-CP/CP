@@ -16,11 +16,11 @@ public class ClientTCP {
         BufferedReader br;
         BufferedWriter bw;
         String host = "127.0.0.1";
-        sendDTO cc = new sendDTO();
+        SendDTO sendInfo = new SendDTO();
         boolean isSUCCESS = false;
         try {
             while (true) {
-                cliSocket = new Socket(host, 57600);
+                cliSocket = new Socket(host, 7777);
                 System.out.println("******** 안녕하세요 반갑습니다. ********");
                 System.out.println("[1] 회원가입    [2] 로그인 ");
                 br = new BufferedReader(new InputStreamReader(System.in));
@@ -30,9 +30,7 @@ public class ClientTCP {
                 int size = 0;
 
                 while (number < 3  && !isSUCCESS) { //로그인, 회원가입.
-
-                    cc.start(number, dos); //정보 보냄.
-
+                    sendInfo.start(number, dos); //정보 보냄.
                     if(number > 0) {
                         dis = new DataInputStream(cliSocket.getInputStream());
                         type = dis.readByte();
@@ -49,13 +47,14 @@ public class ClientTCP {
                         //객체 역직렬화클래스명 변수 명 = new 역직렬화(bodyInfo);
                         //역직렬화 한 것의 Data 출력.
                     }
-                    if(answer != protocol.SUCCESS) {
+                    if(answer != protocol.ERROR) {
                         isSUCCESS = true;
                     }else {
                         System.out.println("[1] 회원가입    [2] 로그인 ");
-                        number = br.read();
+                        number = Integer.parseInt(br.readLine());
                     }
                 }
+                System.out.println("------");
                 if(authority == protocol.CLIENT) {
 
                 }

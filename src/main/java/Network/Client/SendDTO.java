@@ -4,7 +4,7 @@ import Database.persistence.dto.*;
 import Network.Server.Protocol;
 import java.io.*;
 
-public class sendDTO {
+public class SendDTO {
     Protocol protocol = new Protocol();
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     public void start(int number, DataOutputStream dos) throws IOException{
