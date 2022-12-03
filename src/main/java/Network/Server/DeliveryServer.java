@@ -3,11 +3,13 @@ package Network.Server;
 import java.io.*;
 import java.net.*;
 public class DeliveryServer implements Runnable {
+    private DeliveryServerThread[] users = new DeliveryServerThread[50];
     private ServerSocket server = null;
     private Thread thread   = null;
     private DataInputStream dis;
     private DataOutputStream dos;
     private int port = 0;
+    private int userCount = 0;
 
     public DeliveryServer(String host, int port) {
         try {
@@ -25,26 +27,9 @@ public class DeliveryServer implements Runnable {
     public void run() {
         while(thread != null) {
             try {
-                System.out.println("Waiting for a client ...");
-                Socket socket = server.accept();
-                System.out.println("Connection");
+                System.out.println("Waiting for a user ...");
+                addThread(server.accept());
 
-                dis = new DataInputStream(socket.getInputStream());
-                dos = new DataOutputStream(socket.getOutputStream());
-
-                ServerController serverController = new ServerController(dis.readByte(), dis.readByte(), dis.readByte(), dis.readByte());
-                int bodySize = dis.readInt();
-                if ( bodySize != 0 ) {
-                    byte[] bytes = new byte[bodySize];
-                    dis.read(bytes);
-                    serverController.setSize(bodySize);
-                    serverController.setBody(bytes);
-                }
-
-
-                serverController.run(dos); //회원가입 insert
-                
-                //작업
             }catch (IOException e) {
                 System.out.println("서버 오류: " + e.getMessage());
                 stop();
@@ -63,5 +48,21 @@ public class DeliveryServer implements Runnable {
             thread.stop();
             thread = null;
         }
+    }
+
+    private void addThread(Socket socket) {
+        if(userCount < users.length) {
+            System.out.println("Client accepted: " + socket);
+            users[userCount] = new DeliveryServerThread(this, socket);
+            try {
+                users[userCount].open();
+                users[userCount].start();
+                userCount++;
+            }catch(IOException e) {
+                System.out.println("Error opening Thread: "+ e);
+            }
+        }
+        else {
+            System.out.println("Client refused: maximum " + users.length + " reached.");        }
     }
 }
