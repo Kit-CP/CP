@@ -4,11 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="StoreDTO 역/직렬화 코드추가&#10;storemapper 수정">
+    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="db 기능 구현 완">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/Dummy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuHasOptionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuHasOptionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuOptionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuOptionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuSalesDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/MenuSalesDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OptionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OptionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderViewDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderViewDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderedMenuDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderedMenuDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderedOptionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/OrderedOptionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/ReviewDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/ReviewDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/StoreDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/StoreDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ForTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ForTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/StoreSalesDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/StoreSalesDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dto/UserDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +134,7 @@
       <recent name="C:\Users\daehyun\IdeaProjects\CP\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ClientTCP">
+  <component name="RunManager" selected="애플리케이션.Main">
     <configuration name="ClientTCP" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Network.Client.ClientTCP" />
       <module name="ConvergenceProject.main" />
@@ -163,6 +174,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="애플리케이션.Main" />
+        <item itemvalue="애플리케이션.ClientTCP" />
+        <item itemvalue="애플리케이션.ServerTCP" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -341,7 +359,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670060054678</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="db 기능 구현 완">
+      <created>1670070275451</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1670070275451</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -436,9 +461,8 @@
     <MESSAGE value="network 패키지 생성" />
     <MESSAGE value="너 가져" />
     <MESSAGE value="SendDTO 클래스 명 수정" />
-    <MESSAGE value="StoreDTO 역/직렬화 코드추가" />
-    <MESSAGE value="StoreDTO 역/직렬화 코드추가&#10;storemapper 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="StoreDTO 역/직렬화 코드추가&#10;storemapper 수정" />
+    <MESSAGE value="db 기능 구현 완" />
+    <option name="LAST_COMMIT_MESSAGE" value="db 기능 구현 완" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -465,7 +489,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java</url>
-          <line>38</line>
+          <line>35</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
