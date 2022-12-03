@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="왜 맨날 바뀌니친구야">
+    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="서버 고객간 통신확인 응답결과 만들어야함">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/sendDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Client/sendDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/ServerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/ServerTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/ServerTCP.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +202,7 @@
       <workItem from="1669992605013" duration="8783000" />
       <workItem from="1670045771168" duration="28000" />
       <workItem from="1670048382436" duration="3930000" />
-      <workItem from="1670057971800" duration="1386000" />
+      <workItem from="1670057971800" duration="2393000" />
     </task>
     <task id="LOCAL-00001" summary="Main test">
       <created>1668426374233</created>
@@ -341,7 +337,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670048855475</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="서버 고객간 통신확인 응답결과 만들어야함">
+      <created>1670059797882</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1670059797883</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -434,7 +437,8 @@
     <MESSAGE value="프로토콜 이용, 컨트롤러에 적용" />
     <MESSAGE value="0" />
     <MESSAGE value="network 패키지 생성" />
-    <option name="LAST_COMMIT_MESSAGE" value="network 패키지 생성" />
+    <MESSAGE value="서버 고객간 통신확인 응답결과 만들어야함" />
+    <option name="LAST_COMMIT_MESSAGE" value="서버 고객간 통신확인 응답결과 만들어야함" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
