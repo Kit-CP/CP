@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="테이블 변경에따른 DTO수정&#10;MenuUpdate 동적쿼리 적용">
+    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="점주, 고객 회원가입&#10;고객정보 수정&#10;(userDAO)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/persistence/dao/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Database/view/OrderView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Database/view/OrderView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Util/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Util/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ForTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ForTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlmapper/user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlmapper/user.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,16 +45,16 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="daehyun" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="recentNewPullRequestHead">
       <RepoCoordinatesHolder>
@@ -90,20 +83,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/daehyun/IdeaProjects/자료구조과제4",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/daehyun/IdeaProjects/자료구조과제4&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\daehyun\IdeaProjects\CP\src\main" />
@@ -163,7 +156,9 @@
       <workItem from="1669906534530" duration="709000" />
       <workItem from="1669907290677" duration="417000" />
       <workItem from="1669907766872" duration="2000" />
-      <workItem from="1669968306591" duration="7163000" />
+      <workItem from="1669968306591" duration="7451000" />
+      <workItem from="1670038804020" duration="48000" />
+      <workItem from="1670039230706" duration="794000" />
     </task>
     <task id="LOCAL-00001" summary="Main test">
       <created>1668426374233</created>
@@ -263,7 +258,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669969704861</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="점주, 고객 회원가입&#10;고객정보 수정&#10;(userDAO)">
+      <created>1669979443255</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1669979443255</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -280,7 +282,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="origin/daehyun" />
                       </list>
                     </value>
                   </entry>
@@ -353,7 +355,8 @@
     <MESSAGE value="완성!" />
     <MESSAGE value="드디어 시작하나?" />
     <MESSAGE value="테이블 변경에따른 DTO수정&#10;MenuUpdate 동적쿼리 적용" />
-    <option name="LAST_COMMIT_MESSAGE" value="테이블 변경에따른 DTO수정&#10;MenuUpdate 동적쿼리 적용" />
+    <MESSAGE value="점주, 고객 회원가입&#10;고객정보 수정&#10;(userDAO)" />
+    <option name="LAST_COMMIT_MESSAGE" value="점주, 고객 회원가입&#10;고객정보 수정&#10;(userDAO)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
