@@ -28,7 +28,6 @@ public class ServerController {
             if(authority == Protocol.CLIENT) { //회원가입
                 if(code == Protocol.REGISTER_INFO) {
                     UserDTO user = UserDTO.readUserDTO(dis);
-                    System.out.println(user.toString());
                     int temp = user.getAuthority();
                     if ( temp == 1 ) {
                         UserDAO dao = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
