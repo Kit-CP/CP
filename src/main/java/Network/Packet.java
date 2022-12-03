@@ -45,6 +45,7 @@ public class Packet { //메시지를 직렬화
             }
 
             UserDTO user = new UserDTO(id, pw, address, name, phone, age, state, authority);
+            //여기까지는 cli에서 해결 ( userDTO를 리턴받아옴 )
             byte[] bodyBytes = user.getBytes();
             size = bodyBytes.length;
             byte[] headerBytes = Protocol.getHeader(type, code, authority, answer, size);
