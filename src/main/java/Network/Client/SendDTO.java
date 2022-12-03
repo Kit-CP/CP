@@ -4,12 +4,12 @@ import Database.persistence.dto.*;
 import Network.Server.Protocol;
 import java.io.*;
 
-public class sendDTO {
+public class SendDTO {
     Protocol protocol = new Protocol();
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     public void start(int number, DataOutputStream dos) throws IOException{
        ByteArrayOutputStream bao = new ByteArrayOutputStream();
-       DataOutputStream ds = new DataOutputStream(new ByteArrayOutputStream());
+       DataOutputStream ds = new DataOutputStream(bao);
 
         switch(number) {
             case(1):
@@ -47,6 +47,7 @@ public class sendDTO {
                 byte[] headerBytes = protocol.getHeader(type,code,authority,answer,size);//헤더 정보 직렬화
                 ds.write(headerBytes);
                 ds.write(bodyBytes);
+
                 dos.write(bao.toByteArray());
                 dos.flush();
                 break;

@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="프로토콜 이용, 컨트롤러에 적용">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Network/Client/SendDTO.java" afterDir="false" />
+    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="SendDTO 클래스 명 수정">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Network/Server/SendInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/SendDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Client/SendDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/sendDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/ServerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/ServerTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/ServerTCP.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,8 +47,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -162,6 +166,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="애플리케이션.ClientTCP" />
+        <item itemvalue="애플리케이션.ServerTCP" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -333,7 +343,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670048855475</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="SendDTO 클래스 명 수정">
+      <created>1670060054678</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1670060054678</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -426,7 +443,9 @@
     <MESSAGE value="프로토콜 이용, 컨트롤러에 적용" />
     <MESSAGE value="0" />
     <MESSAGE value="network 패키지 생성" />
-    <option name="LAST_COMMIT_MESSAGE" value="network 패키지 생성" />
+    <MESSAGE value="너 가져" />
+    <MESSAGE value="SendDTO 클래스 명 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="SendDTO 클래스 명 수정" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -442,7 +461,7 @@
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Network/Client/sendDTO.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/Network/Client/SendDTO.java</url>
           <line>50</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
