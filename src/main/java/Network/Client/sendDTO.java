@@ -1,12 +1,16 @@
 package Network.Client;
 
+import Database.persistence.dto.*;
 import Network.Server.Protocol;
 import java.io.*;
 
-public class ClientController {
+public class sendDTO {
     Protocol protocol = new Protocol();
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     public void start(int number, DataOutputStream dos) throws IOException{
+       ByteArrayOutputStream bao = new ByteArrayOutputStream();
+       DataOutputStream ds = new DataOutputStream(new ByteArrayOutputStream());
+
         switch(number) {
             case(1):
                 byte type = protocol.SINE_UP;
@@ -14,6 +18,7 @@ public class ClientController {
                 byte authority = protocol.ANONYMITY;
                 byte answer = protocol.DEFAULT;
                 String id, pw, name, phone, address;
+                int age,state = 0;
                 System.out.print("새로운 ID를 입력하세요: ");
                 id = br.readLine();
                 System.out.print("새로운 PW를 입력하세요: ");
@@ -24,25 +29,26 @@ public class ClientController {
                 phone = br.readLine();
                 System.out.print("사용자의 주소를 입력하세요: ");
                 address = br.readLine();
-                System.out.println("[1] 고객, [2] 점주, [3] 관리자");
-                int myType = br.read();
+                System.out.print("사용자 나이를 입력하세요: ");
+                age = Integer.parseInt(br.readLine());
+                state = 0;
+                System.out.println("[1] 고객, [2] 점주 ");
+                int myType = Integer.parseInt(br.readLine());
                 if(myType == 1) {
                      authority = protocol.CLIENT;
                 }
                 if(myType == 2) {
                     authority = protocol.OWNER;
                 }
-                if(myType == 3) {
-                    authority = protocol.MANAGER;
-                }
-                //객체에 각 저장하면서 선언
-                int size = 0;
+                UserDTO user = new UserDTO(id,pw,address,name,phone,age,state,authority);
+                byte[] bodyBytes = user.getBytes();
+                int size = bodyBytes.length;
                 //int size = 객체 내의 정보들의 바이트 단위들의 합
-                protocol.getHeader(type,code,authority,answer,size);//헤더 정보 직렬화
-
-                //dos.write(); << 인자로 보낼 바이트
-                //dos.flush();
-
+                byte[] headerBytes = protocol.getHeader(type,code,authority,answer,size);//헤더 정보 직렬화
+                ds.write(headerBytes);
+                ds.write(bodyBytes);
+                dos.write(bao.toByteArray());
+                dos.flush();
                 break;
             case(2):
                 type = protocol.LOGIN;
@@ -55,9 +61,6 @@ public class ClientController {
                 pw = br.readLine();
 
                 //객체에 각 저장하면서 선언
-                size = 0;
-                //int size = 객체 내의 정보들의 바이트 단위들의 합
-                protocol.getHeader(type,code,authority,answer,size);//헤더 정보 직렬화
 
                 //dos.write(); << 인자로 보낼 바이트
                 //dos.flush();

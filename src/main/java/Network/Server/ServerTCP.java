@@ -10,8 +10,6 @@ public class ServerTCP {
         Socket socket = null;
         DataInputStream dis;
         DataOutputStream dos;
-        ObjectInputStream ois; //구현한 객체 역직렬화 사용해야함.
-        ObjectOutputStream oos; // 구현한 객체 직렬화 사용해야함.
 
         try {
             while (true) {
@@ -38,10 +36,6 @@ public class ServerTCP {
                 if (size > 0) { //body 읽어오기
                     body = new byte[size];
                     dis.read(body);
-                    bodyInfo = new DataInputStream(new ByteArrayInputStream(body));
-                    ois = new ObjectInputStream(bodyInfo); // 직접 구현한 직렬화, 역직렬화를 사용.
-
-                    ois.readObject(); // 객체 읽기 >> 각 케이스에 따른 객체 선언 및 연결
 
                     ctrl.run(type, authority, code, answer, body);
 
@@ -51,9 +45,7 @@ public class ServerTCP {
             }
         } catch (IOException e) {
             System.out.println(e);
-        } catch (ClassNotFoundException e) {
-            System.out.println(e);
-        } finally {//무조건 적으로 마지막 수행.
+        }finally {//무조건 적으로 마지막 수행.
             if (socket != null) {
                 try {
                     socket.close(); // 나중에 생각하기.
