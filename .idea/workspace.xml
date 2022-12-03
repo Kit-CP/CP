@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="프로토콜 이용, 컨트롤러에 적용">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Network/Server/DeliveryServer.java" afterDir="false" />
+    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="SendDTO 클래스 명 수정">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Network/Server/SendInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/SendDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Message/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Packet/Packet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Packet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/Protocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Protocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/SendDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Client/SendDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/sendDTO.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/ServerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/ServerTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/ServerTCP.java" afterDir="false" />
     </list>
@@ -62,7 +60,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="f513ca086f01d3ecd64e0a6e44d8e57cb59775d2" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -88,7 +86,6 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$USER_HOME$/.jdks/corretto-11.0.17/lib/src.zip!/java.base/java/net/ServerSocket.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/org/example/ForTest.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -102,24 +99,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/daehyun/IdeaProjects/자료구조과제4",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/daehyun/IdeaProjects/자료구조과제4&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="Client" />
@@ -160,7 +158,7 @@
       <module name="ConvergenceProject.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Network.*" />
+          <option name="PATTERN" value="Network.Server.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -172,7 +170,6 @@
       <list>
         <item itemvalue="애플리케이션.ClientTCP" />
         <item itemvalue="애플리케이션.ServerTCP" />
-        <item itemvalue="애플리케이션.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -346,12 +343,12 @@
       <option name="project" value="LOCAL" />
       <updated>1670048855475</updated>
     </task>
-    <task id="LOCAL-00020" summary="클라이언트 다시 재수정 &gt;&gt; 역직렬화 Message가 해주는 걸로">
-      <created>1670071769503</created>
+    <task id="LOCAL-00020" summary="SendDTO 클래스 명 수정">
+      <created>1670060054678</created>
       <option name="number" value="00020" />
       <option name="presentableId" value="LOCAL-00020" />
       <option name="project" value="LOCAL" />
-      <updated>1670071769503</updated>
+      <updated>1670060054678</updated>
     </task>
     <option name="localTasksCounter" value="21" />
     <servers />
@@ -446,9 +443,9 @@
     <MESSAGE value="프로토콜 이용, 컨트롤러에 적용" />
     <MESSAGE value="0" />
     <MESSAGE value="network 패키지 생성" />
-    <MESSAGE value="유저가 받는거 까지 완료" />
-    <MESSAGE value="클라이언트 다시 재수정 &gt;&gt; 역직렬화 Message가 해주는 걸로" />
-    <option name="LAST_COMMIT_MESSAGE" value="클라이언트 다시 재수정 &gt;&gt; 역직렬화 Message가 해주는 걸로" />
+    <MESSAGE value="너 가져" />
+    <MESSAGE value="SendDTO 클래스 명 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="SendDTO 클래스 명 수정" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -462,6 +459,21 @@
           <url>file://$PROJECT_DIR$/src/main/java/persistence/dao/MenuDAO.java</url>
           <line>43</line>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Network/Client/SendDTO.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Network/Server/ServerTCP.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
