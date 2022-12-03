@@ -1,0 +1,35 @@
+Index: src/main/java/Network/Client/sendDTO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/Network/Client/sendDTO.java b/src/main/java/Network/Client/SendDTO.java
+rename from src/main/java/Network/Client/sendDTO.java
+rename to src/main/java/Network/Client/SendDTO.java
+--- a/src/main/java/Network/Client/sendDTO.java	
++++ b/src/main/java/Network/Client/SendDTO.java	
+@@ -4,12 +4,13 @@
+ import Network.Server.Protocol;
+ import java.io.*;
+ 
+-public class sendDTO {
++public class SendDTO {
+     Protocol protocol = new Protocol();
++    String id;
+     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+     public void start(int number, DataOutputStream dos) throws IOException{
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+-       DataOutputStream ds = new DataOutputStream(new ByteArrayOutputStream());
++       DataOutputStream ds = new DataOutputStream(bao);
+ 
+         switch(number) {
+             case(1):
+@@ -17,7 +18,7 @@
+                 byte code = protocol.REGISTER_INFO;
+                 byte authority = protocol.ANONYMITY;
+                 byte answer = protocol.DEFAULT;
+-                String id, pw, name, phone, address;
++                String pw, name, phone, address;
+                 int age,state = 0;
+                 System.out.print("새로운 ID를 입력하세요: ");
+                 id = br.readLine();

@@ -4,44 +4,56 @@ import Database.persistence.MyBatisConnectionFactory;
 import Database.persistence.dao.UserDAO;
 import Database.persistence.dto.*;
 import Network.Protocol;
+import lombok.Setter;
 
 import java.io.*;
-
+@Setter
 public class ServerController {
-    Protocol protocol = new Protocol();
-    public void run(byte type, byte authority, byte code, byte answer, byte[] body, DataOutputStream dos) throws IOException {
+    byte type, code, authority, answer;
+    byte[] body;
+    int size = 0;
+    public ServerController(byte type, byte code, byte authority, byte answer) {
+        this.type = type;
+        this.code = code;
+        this.authority = authority;
+        this.answer = answer;
+
+    }
+    public void run(DataOutputStream dos) throws IOException {
+
         ByteArrayInputStream bai = new ByteArrayInputStream(body);
         DataInputStream dis = new DataInputStream(bai);
-        if(type == protocol.SINE_UP) {
-            if(authority == protocol.CLIENT) { //회원가입
-                if(code == protocol.REGISTER_INFO) {
+
+        if(type == Protocol.SINE_UP) {
+            if(authority == Protocol.CLIENT) { //회원가입
+                if(code == Protocol.REGISTER_INFO) {
                     UserDTO user = UserDTO.readUserDTO(dis);
+                    System.out.println(user.toString());
                     int temp = user.getAuthority();
                     if ( temp == 1 ) {
                         UserDAO dao = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                         dao.signUpClient(user);
-                        answer = protocol.SUCCESS;
-                        byte[] newBody = null;
+                        answer = Protocol.SUCCESS;
                         SendInfo sf = new SendInfo();
-                        dos.write(sf.sendSineUpResult(type,code,authority,answer,newBody));
+                        dos.write(sf.sendSineUpResult(type,code,authority,answer,null));
                         dos.flush();
                     }
                 }
             }
-            if(authority == protocol.OWNER) {
-                if(code == protocol.REGISTER_INFO) {
+            if(authority == Protocol.OWNER) {
+                if(code == Protocol.REGISTER_INFO) {
 
                 }
             }
-            if(authority == protocol.MANAGER) {
-                if(code == protocol.REGISTER_INFO){
+            if(authority == Protocol.MANAGER) {
+                if(code == Protocol.REGISTER_INFO){
 
                 }
             }
         }
-        if(type == protocol.LOGIN) {
-            if(authority == protocol.CLIENT) {
-                if(code == protocol.LOGIN_INFO) {
+        if(type == Protocol.LOGIN) {
+            if(authority == Protocol.CLIENT) {
+                if(code == Protocol.LOGIN_INFO) {
                     /*try{
                         
                         answer = protocol.CORRECT //작업 성공 시
@@ -50,120 +62,120 @@ public class ServerController {
                     }*/
                 }
             }
-            if(authority == protocol.OWNER) {
-                if(code == protocol.LOGIN_INFO) {
+            if(authority == Protocol.OWNER) {
+                if(code == Protocol.LOGIN_INFO) {
 
                 }
             }
-            if(authority == protocol.MANAGER) {
-                if(code == protocol.LOGIN_INFO) {
-
-                }
-            }
-        }
-        if(type == protocol.REGISTER) { //등록
-            if(authority == protocol.CLIENT) {
-                if(code == protocol.ORDER) {
-
-                }
-                if(code == protocol.REVIEW) {
-
-                }
-            }else if(authority == protocol.OWNER) {
-                if(code == protocol.MENU_INSERT) {
-
-                }
-                if(code == protocol.STORE_INSERT) {
-
-                }
-                if(code == protocol.OPTION_INSERT) {
-
-                }
-                if(code == protocol.REPLY){
+            if(authority == Protocol.MANAGER) {
+                if(code == Protocol.LOGIN_INFO) {
 
                 }
             }
         }
-        if(type == protocol.ACCEPT) {
-            if(authority == protocol.CLIENT) {
-                if(code == protocol.CANCEL_ORDER) {
+        if(type == Protocol.REGISTER) { //등록
+            if(authority == Protocol.CLIENT) {
+                if(code == Protocol.ORDER) {
 
                 }
-            }
-            if(authority == protocol.OWNER) {
-                if(code == protocol.ACCEPT_ORDER) {
+                if(code == Protocol.REVIEW) {
 
                 }
-            }
-            if(authority == protocol.MANAGER) {
-                if(code == protocol.ACCEPT_STORE) {
+            }else if(authority == Protocol.OWNER) {
+                if(code == Protocol.MENU_INSERT) {
 
                 }
-                if(code == protocol.ACCEPT_MENU) {
+                if(code == Protocol.STORE_INSERT) {
 
                 }
-                if(code == protocol.ACCEPT_OWNER) {
+                if(code == Protocol.OPTION_INSERT) {
 
                 }
-            }
-        }
-        if(type == protocol.CORRECTION) {
-            if(authority == protocol.CLIENT) {
-                if(code == protocol.CHANGE_CLIENT_INFO) {
-
-                }
-            }
-            if(authority == protocol.OWNER) {
-                if(code == protocol.CHANGE_OWNER_INFO) {
-
-                }
-                if(code == protocol.CHANGE_STORE_INFO) {
-
-                }
-            }
-            if(authority == protocol.MANAGER) {
-                if(code == protocol.CHANGE_MANAGER_INFO) {
+                if(code == Protocol.REPLY){
 
                 }
             }
         }
-        if(type == protocol.INQUIRY) {
-            if(authority == protocol.CLIENT) {
-                if(code == protocol.ORDER_LIST) {
-
-                }
-                if(code == protocol.STORE_LIST) {
-
-                }
-                if(code == protocol.MENU_LIST) {
+        if(type == Protocol.ACCEPT) {
+            if(authority == Protocol.CLIENT) {
+                if(code == Protocol.CANCEL_ORDER) {
 
                 }
             }
-            if(authority == protocol.OWNER) {
-                if(code == protocol.MYSTORE_LIST) {
-
-                }
-                if(code == protocol.MYMENU_LIST) {
-
-                }
-                if(code == protocol.MYORDER_LIST) {
-
-                }
-                if(code == protocol.MYTOTAL_LIST) {
+            if(authority == Protocol.OWNER) {
+                if(code == Protocol.ACCEPT_ORDER) {
 
                 }
             }
-            if(authority == protocol.MANAGER) {
-                if(code == protocol.ALL_STORE_LIST) {
+            if(authority == Protocol.MANAGER) {
+                if(code == Protocol.ACCEPT_STORE) {
 
                 }
-                if(code == protocol.ALL_MENU_LIST) {
+                if(code == Protocol.ACCEPT_MENU) {
 
                 }
-                if(code == protocol.INFO_LIST) {
+                if(code == Protocol.ACCEPT_OWNER) {
 
                 }
-                if(code == protocol.TOTAL_LIST) {
+            }
+        }
+        if(type == Protocol.CORRECTION) {
+            if(authority == Protocol.CLIENT) {
+                if(code == Protocol.CHANGE_CLIENT_INFO) {
+
+                }
+            }
+            if(authority == Protocol.OWNER) {
+                if(code == Protocol.CHANGE_OWNER_INFO) {
+
+                }
+                if(code == Protocol.CHANGE_STORE_INFO) {
+
+                }
+            }
+            if(authority == Protocol.MANAGER) {
+                if(code == Protocol.CHANGE_MANAGER_INFO) {
+
+                }
+            }
+        }
+        if(type == Protocol.INQUIRY) {
+            if(authority == Protocol.CLIENT) {
+                if(code == Protocol.ORDER_LIST) {
+
+                }
+                if(code == Protocol.STORE_LIST) {
+
+                }
+                if(code == Protocol.MENU_LIST) {
+
+                }
+            }
+            if(authority == Protocol.OWNER) {
+                if(code == Protocol.MYSTORE_LIST) {
+
+                }
+                if(code == Protocol.MYMENU_LIST) {
+
+                }
+                if(code == Protocol.MYORDER_LIST) {
+
+                }
+                if(code == Protocol.MYTOTAL_LIST) {
+
+                }
+            }
+            if(authority == Protocol.MANAGER) {
+                if(code == Protocol.ALL_STORE_LIST) {
+
+                }
+                if(code == Protocol.ALL_MENU_LIST) {
+
+                }
+                if(code == Protocol.INFO_LIST) {
+
+                }
+                if(code == Protocol.TOTAL_LIST) {
 
                 }
             }

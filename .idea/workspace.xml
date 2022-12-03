@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="SendDTO 클래스 명 수정">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Network/Server/SendInfo.java" afterDir="false" />
+    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="스레드 통신까지는 완료 이제 작업 수행 만들기">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/SendDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Client/SendDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/sendDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/User/UserMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Packet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Packet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/DeliveryServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/DeliveryServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/SendInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/SendInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/ServerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/ServerTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/ServerTCP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/ServerTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/SeverMain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +86,7 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.jdks/corretto-11.0.17/lib/src.zip!/java.base/java/net/ServerSocket.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/org/example/ForTest.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -153,8 +154,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerTCP" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Network.Server.ServerTCP" />
+    <configuration name="SeverMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Network.Server.SeverMain" />
       <module name="ConvergenceProject.main" />
       <extension name="coverage">
         <pattern>
@@ -169,7 +170,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="애플리케이션.ClientTCP" />
-        <item itemvalue="애플리케이션.ServerTCP" />
+        <item itemvalue="애플리케이션.SeverMain" />
       </list>
     </recent_temporary>
   </component>
@@ -367,7 +368,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="chanjin" />
                       </list>
                     </value>
                   </entry>
@@ -466,17 +467,17 @@
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Network/Server/ServerTCP.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="12" />
+          <url>file://$PROJECT_DIR$/src/main/java/Network/Packet.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="headerBytes" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
