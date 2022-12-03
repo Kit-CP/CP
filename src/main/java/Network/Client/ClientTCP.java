@@ -54,6 +54,7 @@ public class ClientTCP {
                         number = Integer.parseInt(br.readLine());
                     }
                 }
+                System.out.println("------");
                 if(authority == protocol.CLIENT) {
 
                 }

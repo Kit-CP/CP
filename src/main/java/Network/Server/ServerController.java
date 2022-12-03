@@ -7,7 +7,7 @@ import java.io.*;
 
 public class ServerController {
     Protocol protocol = new Protocol();
-    public void run(byte type, byte authority, byte code, byte answer, byte[] body) throws IOException {
+    public void run(byte type, byte authority, byte code, byte answer, byte[] body, DataOutputStream dos) throws IOException {
         ByteArrayInputStream bai = new ByteArrayInputStream(body);
         DataInputStream dis = new DataInputStream(bai);
         if(type == protocol.SINE_UP) {
@@ -19,6 +19,10 @@ public class ServerController {
                         UserDAO dao = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                         dao.signUpClient(user);
                         answer = protocol.SUCCESS;
+                        byte[] newBody = null;
+                        SendInfo sf = new SendInfo();
+                        dos.write(sf.sendSineUpResult(type,code,authority,answer,newBody));
+                        dos.flush();
                     }
                 }
             }

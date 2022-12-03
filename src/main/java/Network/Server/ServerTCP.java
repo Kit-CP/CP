@@ -13,7 +13,7 @@ public class ServerTCP {
 
         try {
             while (true) {
-                ss = new ServerSocket(57600);
+                ss = new ServerSocket(7777);
                 System.out.println("create Network.Server. Waiting Connection...\n\n");
 
                 socket = ss.accept();
@@ -37,10 +37,10 @@ public class ServerTCP {
                     body = new byte[size];
                     dis.read(body);
 
-                    ctrl.run(type, authority, code, answer, body);
+                    ctrl.run(type, authority, code, answer, body,dos);
 
                 } else { //body가 없는 경우. >> 헤더 정보만 있을 경우.
-                    ctrl.run(type, authority, code, answer, null);
+                    ctrl.run(type, authority, code, answer, null,dos);
                 }
             }
         } catch (IOException e) {
