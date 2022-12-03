@@ -1,4 +1,4 @@
-package Network.Server;
+package Network;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
