@@ -55,6 +55,7 @@ public class DeliveryServer implements Runnable {
     public void start() {
         if(thread == null) {
             thread = new Thread(this);
+            thread.start();
         }
     }
     public void stop() {
