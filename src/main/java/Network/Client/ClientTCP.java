@@ -1,6 +1,6 @@
 package Network.Client;
 
-import Network.Server.Protocol;
+import Network.Protocol;
 
 import java.io.*;
 import java.net.*;
@@ -8,60 +8,43 @@ import java.net.*;
 public class ClientTCP {
     public static void main(String args[]) {
         Socket cliSocket = null;
-        Protocol protocol = new Protocol();
         InputStream is;
         OutputStream os;
         DataInputStream dis;
         DataOutputStream dos;
         BufferedReader br;
         BufferedWriter bw;
-        String host = "127.0.0.1";
-        SendDTO sendInfo = new SendDTO();
-        boolean isSUCCESS = false;
+        String host = "192.168.220.192";
         try {
-            while (true) {
                 cliSocket = new Socket(host, 7777);
+            while (true) {
                 System.out.println("******** 안녕하세요 반갑습니다. ********");
                 System.out.println("[1] 회원가입    [2] 로그인 ");
                 br = new BufferedReader(new InputStreamReader(System.in));
                 int number = Integer.parseInt(br.readLine());
-                dos = new DataOutputStream(cliSocket.getOutputStream());
+                dos = new DataOutputStream(cliSocket.getOutputStream());// 출력 전용 >> 직렬화 >> 소켓에 쓰는 것 >> 각 모든 데이터를 Byte
+                dis = new DataInputStream(cliSocket.getInputStream());//읽기 전용 >> 소켓의 데이터를 읽는 것 >> Data 어떻게 읽을 지 Byte or int
                 byte type = 0, code = 0, authority = 0, answer =0;
                 int size = 0;
 
-                while (number < 3  && !isSUCCESS) { //로그인, 회원가입.
-                    sendInfo.start(number, dos); //정보 보냄.
-                    if(number > 0) {
-                        dis = new DataInputStream(cliSocket.getInputStream());
-                        type = dis.readByte();
-                        code = dis.readByte();
-                        authority = dis.readByte();
-                        answer = dis.readByte();
-                        size = dis.readInt();
-                    }
-
-                    byte[] body = new byte[size];
-                    DataInputStream bodyInfo;
-                    if(size > 0) {
-                        bodyInfo = new DataInputStream(new ByteArrayInputStream(body));
-                        //객체 역직렬화클래스명 변수 명 = new 역직렬화(bodyInfo);
-                        //역직렬화 한 것의 Data 출력.
-                    }
-                    if(answer != protocol.ERROR) {
-                        isSUCCESS = true;
-                    }else {
-                        System.out.println("[1] 회원가입    [2] 로그인 ");
-                        number = Integer.parseInt(br.readLine());
+                boolean isSUCCESS = false;
+                if(number == 1) {
+                    while (!isSUCCESS) {
+                        //회원가입 요청
                     }
                 }
-                if(authority == protocol.CLIENT) {
-
+                boolean isLogin = false;
+                while(!isLogin) {
+                    //로그인 요청
                 }
-                if(authority == protocol.OWNER) {
-
+                if(authority == Protocol.CLIENT) {
+                    //로그인 후 작업
                 }
-                if(authority == protocol.MANAGER) {
-
+                if(authority == Protocol.OWNER) {
+                    //로그인 후 작업
+                }
+                if(authority == Protocol.MANAGER) {
+                    //로그인 후 작업
                 }
             }
         } catch (UnknownHostException e) {
