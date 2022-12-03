@@ -21,6 +21,7 @@ public class StoreDTO implements IDTO {
     private int isAccept;
     private String user_ID;
 
+    @Override
     public byte[] getBytes() throws IOException {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);

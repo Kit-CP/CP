@@ -6,9 +6,8 @@ import java.io.*;
 import java.net.*;
 
 public class ClientTCP {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Socket cliSocket = null;
-        Protocol protocol = new Protocol();
         InputStream is;
         OutputStream os;
         DataInputStream dis;
