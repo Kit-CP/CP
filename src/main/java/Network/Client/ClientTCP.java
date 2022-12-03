@@ -15,8 +15,8 @@ public class ClientTCP {
         DataOutputStream dos;
         BufferedReader br;
         BufferedWriter bw;
-        String host = "localhost";
-        ClientController cc = new ClientController();
+        String host = "127.0.0.1";
+        sendDTO cc = new sendDTO();
         boolean isSUCCESS = false;
         try {
             while (true) {
@@ -24,7 +24,7 @@ public class ClientTCP {
                 System.out.println("******** 안녕하세요 반갑습니다. ********");
                 System.out.println("[1] 회원가입    [2] 로그인 ");
                 br = new BufferedReader(new InputStreamReader(System.in));
-                int number = br.read();
+                int number = Integer.parseInt(br.readLine());
                 dos = new DataOutputStream(cliSocket.getOutputStream());
                 byte type = 0, code = 0, authority = 0, answer =0;
                 int size = 0;

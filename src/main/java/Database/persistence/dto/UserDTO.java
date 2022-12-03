@@ -21,8 +21,20 @@ public class UserDTO implements IDTO {
     private String user_phone;
     private int age;
     private int state;
-    @Override
+    public UserDTO() {
 
+    }
+    public UserDTO(String id, String pw, String address, String name, String phone, int age, int state , int authority) {
+        user_ID = id;
+        user_PW = pw;
+        this.authority = authority;
+        user_address = address;
+        user_name = name;
+        user_phone = phone;
+        this.age = age;
+        this.state = state;
+    }
+    @Override
     public byte[] getBytes() throws IOException {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);

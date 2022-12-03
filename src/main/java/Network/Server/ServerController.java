@@ -1,13 +1,29 @@
 package Network.Server;
 
+import Database.persistence.dto.*;
+import java.io.*;
+
 public class ServerController {
     Protocol protocol = new Protocol();
-    public void run(byte type, byte authority, byte code, byte answer,byte[] body) {
+    public void run(byte type, byte authority, byte code, byte answer,byte[] body) throws IOException {
+        ByteArrayInputStream bai = new ByteArrayInputStream(body);
+        DataInputStream dis = new DataInputStream(bai);
         if(type == protocol.SINE_UP) {
-            if(authority == protocol.ANONYMITY) { //회원가입
+            if(authority == protocol.CLIENT) { //회원가입
                 if(code == protocol.REGISTER_INFO) {
-                    //직렬화,역직렬화 클래스 사용 body를 역직렬화해서 해당 DTO랑 연결
-                    //결과로 나온 권한에 의해서 authority = ?;
+                    UserDTO user = new UserDTO();
+                    user = user.readUserDTO(dis);
+                    System.out.println("여기까지는 왔음");
+                }
+            }
+            if(authority == protocol.OWNER) {
+                if(code == protocol.REGISTER_INFO) {
+
+                }
+            }
+            if(authority == protocol.MANAGER) {
+                if(code == protocol.REGISTER_INFO){
+
                 }
             }
         }
