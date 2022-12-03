@@ -4,14 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="스레드 통신까지는 완료 이제 작업 수행 만들기">
+    <list default="true" id="69cd5e34-3c8c-484b-9eba-48db298a13c7" name="Changes" comment="회원가입 통신까지는 완료">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Network/Server/DeliveryServerThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Client/ClientTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/User/UserMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Packet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Packet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/DeliveryServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/DeliveryServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/SendInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/SendInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/ServerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/ServerTCP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/SeverMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Network/Server/SeverMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Network/Server/SeverMain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,12 +35,7 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="ConvergenceProject" type="f1a62948:ProjectNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -80,7 +79,7 @@
     </option>
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="3d6d0aad-82b9-4079-9849-543b78c36648" />
+        <option name="accountId" value="805fad19-1a40-41ce-9199-f76853e18607" />
         <option name="url" value="https://github.com/Kit-CP/CP.git" />
       </UrlAndAccount>
     </option>
@@ -127,7 +126,7 @@
       <recent name="C:\Users\daehyun\IdeaProjects\CP\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="애플리케이션.ClientTCP">
+  <component name="RunManager" selected="애플리케이션.UserMain">
     <configuration name="ClientTCP" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Network.Client.ClientTCP" />
       <module name="ConvergenceProject.main" />
@@ -167,8 +166,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UserMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Network.User.UserMain" />
+      <module name="ConvergenceProject.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Network.User.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="애플리케이션.UserMain" />
         <item itemvalue="애플리케이션.ClientTCP" />
         <item itemvalue="애플리케이션.SeverMain" />
       </list>
@@ -351,7 +364,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670060054678</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="회원가입 통신까지는 완료">
+      <created>1670082174609</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1670082174609</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -446,7 +466,8 @@
     <MESSAGE value="network 패키지 생성" />
     <MESSAGE value="너 가져" />
     <MESSAGE value="SendDTO 클래스 명 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="SendDTO 클래스 명 수정" />
+    <MESSAGE value="회원가입 통신까지는 완료" />
+    <option name="LAST_COMMIT_MESSAGE" value="회원가입 통신까지는 완료" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
