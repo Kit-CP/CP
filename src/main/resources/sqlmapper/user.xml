@@ -51,5 +51,7 @@
         </trim>
         WHERE `user_ID` like #{user_ID};
     </update>
-
+    <update id="judgeStoreKeeper" parameterType="Map">
+        UPDATE `user` SET state = ${state} WHERE user_ID = #{user_ID}
+    </update>
 </mapper>

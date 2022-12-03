@@ -56,4 +56,19 @@ public class ReviewDAO {
         }
         return numOfReviews;
     }
+
+    public void writeReply(String reply, int review_id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
+        Map<String, Object> map = new HashMap<>();
+        map.put("reply", reply);
+        map.put("review_id", review_id);
+        try{
+            sqlSession.update("mapper.ReviewMapper.writeReply", map);
+            sqlSession.commit();
+        } catch (Exception e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+    }
 }

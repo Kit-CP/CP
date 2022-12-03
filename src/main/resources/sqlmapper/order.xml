@@ -41,4 +41,18 @@
         from (`order` join ordered_menu on `order`.order_id = ordered_menu.order_id) left outer join ordered_option on ordered_menu.ordered_menu_id = ordered_option.ordered_menu_id
         where store_name like #{store_name} and state = 1 or state = 3
     </select>
+
+    <select id="getMenuSales" parameterType="String" resultType="MenuSalesDTO">
+        select menu_name, count(menu_name), sum(priceSum)
+        from ordered_menu join `order` on `order`.order_id = ordered_menu.order_id
+        where Store_name like #{store_name} and state = 3
+        group by menu_name
+    </select>
+
+    <select id="getStoreSales" resultType="StoreSalesDTO">
+        select Store_name, count(order_id) as order_count , sum(priceSum) as sales
+        from `order`
+        where state = 3
+        group by Store_name
+    </select>
 </mapper>

@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import Database.persistence.dto.OptionDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public class OptionDAO {
     private final SqlSessionFactory sqlSessionFactory;
@@ -39,5 +40,19 @@ public class OptionDAO {
             sqlSession.close();
         }
         return result;
+    }
+
+    public void judgeOption(Map<String, Object> param) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            sqlSession.update("mapper.OptionMapper.judgeOption", param);
+            sqlSession.commit();
+        }
+        catch (Exception e) {
+            sqlSession.rollback();
+        }
+        finally {
+            sqlSession.close();
+        }
     }
 }
