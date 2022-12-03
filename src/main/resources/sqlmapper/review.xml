@@ -29,4 +29,7 @@
         FROM review JOIN `order` ON review.order_id = `order`.order_id
         WHERE user_id like #{user_id}
     </select>
+    <update id="writeReply" parameterType="Map">
+        UPDATE review SET reply = #{reply} WHERE review_id = ${review_id}
+    </update>
 </mapper>

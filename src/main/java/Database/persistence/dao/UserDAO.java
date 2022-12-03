@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import Database.persistence.dto.UserDTO;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +57,20 @@ public class UserDAO {
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
             session.update("mapper.UserMapper.updateInfor", param);
+            session.commit();
+        }
+        catch (Exception e) {
+            session.rollback();
+        }
+        finally {
+            session.close();
+        }
+    }
+
+    public void judgeStoreKeeper(Map<String, Object> param) {
+        SqlSession session = sqlSessionFactory.openSession(false);
+        try {
+            session.update("mapper.UserMapper.judgeStoreKeeper", param);
             session.commit();
         }
         catch (Exception e) {

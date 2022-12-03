@@ -41,4 +41,7 @@
         WHERE menu_name like #{menu_name}
     </update>
 
+    <update id="judgeMenu" parameterType="Map">
+        UPDATE menu SET state = ${state} WHERE menu_name = #{menu_name}
+    </update>
 </mapper>

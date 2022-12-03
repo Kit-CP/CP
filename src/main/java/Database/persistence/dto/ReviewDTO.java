@@ -18,5 +18,6 @@ public class ReviewDTO {
         this.content = content;
         this.review_score = review_score;
         this.order_id = order_id;
+        this.reply = "";
     }
 }

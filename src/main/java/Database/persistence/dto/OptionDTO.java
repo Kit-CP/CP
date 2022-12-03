@@ -17,5 +17,6 @@ public class OptionDTO {
         option_name = name;
         option_price = price;
         store_name = sname;
+        state = 0;
     }
 }

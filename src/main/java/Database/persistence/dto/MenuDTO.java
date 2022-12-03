@@ -21,5 +21,6 @@ public class MenuDTO {
         this.category = category;
         this.menu_price = menu_price;
         this.stock = stock;
+        this.state = 0;
     }
 }

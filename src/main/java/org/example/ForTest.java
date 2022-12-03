@@ -8,6 +8,7 @@ import Database.view.MenuOptionView;
 import Database.view.OrderView;
 import Database.view.ReviewView;
 import Database.view.StoreView;
+import com.mysql.cj.x.protobuf.MysqlxCrud;
 
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class ForTest {
     INSERT INTO `delivery`.`user` (`user_ID`, `user_P/W`, `authority`, `user_address`, `user_name`, `user_phone`, `age`) VALUES ('cust1', '1234', '1', '더미', '김대현 ', '010-9567-9976', '23');
     INSERT INTO `delivery`.`user` (`user_ID`, `user_P/W`, `authority`, `user_address`, `user_name`, `user_phone`, `age`) VALUES ('cust2', '1234', '1', '더미', '김민준', '010-4111-4111', '23');
 
-    INSERT INTO delivery.`store` (store_name, store_address, store_phone, store_score, sale, information, isAccept, user_ID) VALUES ('맘스터치 금오공대점', '경북 구미시 대학로 52', '054-476-9958', '0', '0', '엄마의 마음으로 만듭니다', '1', 'moms');
+    INSERT INTO delivery.`store` (store_name, store_address, store_phone, store_score, information, isAccept, user_ID) VALUES ('맘스터치 금오공대점', '경북 구미시 대학로 52', '054-476-9958', '0', '엄마의 마음으로 만듭니다', '1', 'moms');
     */
     public static void test1() {
         StoreDTO sdto = new StoreDTO();
@@ -311,7 +312,7 @@ public class ForTest {
         }
     }
 
-    public static void test12() {
+    public static void test12() {       //
         int order_id1 = 1;
         int order_id2 = 2;
         int order_id3 = 3;
@@ -327,7 +328,7 @@ public class ForTest {
         orderView.printAll(orderDAO2.getOrderFinishList("한솥도시락 금오공대점"));
     }
 
-    public static void test13() {
+    public static void test13() {           // 리뷰 작성
         int orderId1 = 1;
         int orderId2 = 2;
         int orderId3 = 3;
@@ -359,7 +360,7 @@ public class ForTest {
         ReviewView.printAll(list, crtPage , lastPage);
     }
 
-    public static void test15() { //점주 회원가입 함수
+    public static void test15() { // 점주 회원가입 함수
         UserDTO dto = new UserDTO();
         dto.setUser_ID("hyun"); dto.setAge(23); dto.setUser_PW("1234"); dto.setUser_address("옥계"); dto.setUser_phone("010");
         dto.setUser_name("김대현");
@@ -367,10 +368,10 @@ public class ForTest {
         userDAO.signUpStoreKeeper(dto);
     }
 
-    public static void test16() { //고객 회원가입 함수
+    public static void test16() { // 고객 회원가입 함수
         UserDTO dto = new UserDTO();
-        dto.setUser_ID("hyun"); dto.setAge(23); dto.setUser_PW("1234"); dto.setUser_address("옥계"); dto.setUser_phone("010");
-        dto.setUser_name("김대현");
+        dto.setUser_ID("hodu"); dto.setAge(23); dto.setUser_PW("aaa"); dto.setUser_address("구미"); dto.setUser_phone("111");
+        dto.setUser_name("민준민준");
         UserDAO userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         userDAO.signUpClient(dto);
     }
@@ -382,5 +383,50 @@ public class ForTest {
         param.put("new_user_phone", "010-9567-9976");
         UserDAO userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         userDAO.updateInfor(param);
+    }
+
+    public static void test18(String reply, int review_id) { // 리뷰 작성 테스트
+        ReviewDAO dao = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        dao.writeReply(reply, review_id);
+    }
+
+    public static void test19(String user_ID, int state) {  // 점주 상태 변경
+        Map<String, Object> param = new HashMap<>();
+        param.put("user_ID", user_ID);
+        param.put("state", state);
+        UserDAO userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        userDAO.judgeStoreKeeper(param);
+    }
+
+    public static void test20(String menu_name, int state) {    // 메뉴 상태 변경 (승인 등)
+        Map<String, Object> param = new HashMap<>();
+        param.put("menu_name", menu_name);
+        param.put("state", state);
+        MenuDAO menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        menuDAO.judgeMenu(param);
+    }
+
+    public static void test21(String option_name, int state) {  // // 옵션 상태 변경 (승인 등)
+        Map<String, Object> param = new HashMap<>();
+        param.put("option_name", option_name);
+        param.put("state", state);
+        OptionDAO optionDAO = new OptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        optionDAO.judgeOption(param);
+    }
+
+    public static void test22(String store_name) {  // 해당가게의 메뉴이름, 주문횟수, 총 가격
+        List<MenuSalesDTO> list = null;
+        OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        list = orderDAO.getMenuSales(store_name);
+        OrderView orderView = new OrderView();
+        orderView.printMenuSales(list);
+    }
+
+    public static void test23() {   // 가게별 주문건수, 총 매출
+        List<StoreSalesDTO> list = null;
+        OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        list = orderDAO.getStoreSales();
+        OrderView orderView = new OrderView();
+        orderView.printStoreSales(list);
     }
 }
