@@ -41,3 +41,7 @@ bin/
 .DS_Store
 .idea\
 gradle\
+gradlew
+gradlew.bat
+gradle\
+workspace.xml
