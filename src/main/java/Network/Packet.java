@@ -9,6 +9,7 @@ import java.io.*;
 public class Packet { //메시지를 직렬화
     byte type, code, authority, answer;
     int size = 0;
+
     public Packet(byte type, byte code, byte authority, byte answer) {
         this.type = type;
         this.code = code;
@@ -20,6 +21,7 @@ public class Packet { //메시지를 직렬화
         DataOutputStream dataWrite = new DataOutputStream(bao);
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         try {
+            //여기부터
             String id, pw, address, name, phone;
             int age, state;
             System.out.println("id");
