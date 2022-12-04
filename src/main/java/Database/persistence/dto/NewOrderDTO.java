@@ -42,7 +42,7 @@ public class NewOrderDTO implements IDTO {
         dto.setUser_ID(dis.readUTF());
         dto.setStore_name(dis.readUTF());
         List<String> menu_options = new ArrayList<>();
-        // 직렬화, 역직렬화 구현중
+
 
         return dto;
     }
