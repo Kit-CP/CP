@@ -179,7 +179,7 @@ public class ServerMessage {
                     int order_id = dis.readInt();
                     int state = dis.readInt();
                     orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (orderDAO.updateState(storeName, order_id, state)) {
+                    if (orderDAO.updateState(order_id, storeName, state)) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
