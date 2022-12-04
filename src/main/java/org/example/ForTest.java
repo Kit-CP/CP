@@ -1,3 +1,4 @@
+/*
 package org.example;
 
 import Database.persistence.MyBatisConnectionFactory;
@@ -17,7 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ForTest {
-    /*
+    */
+/*
     ALTER TABLE menu AUTO_INCREMENT = 0;
     ALTER TABLE menu_has_option AUTO_INCREMENT = 0;
     ALTER TABLE `option` AUTO_INCREMENT = 0;
@@ -34,8 +36,9 @@ public class ForTest {
     INSERT INTO `delivery`.`user` (`user_ID`, `user_P/W`, `authority`, `user_address`, `user_name`, `user_phone`, `age`) VALUES ('cust2', '1234', '1', '더미', '김민준', '010-4111-4111', '23');
 
     INSERT INTO delivery.`store` (store_name, store_address, store_phone, store_score, information, isAccept, user_ID) VALUES ('맘스터치 금오공대점', '경북 구미시 대학로 52', '054-476-9958', '0', '엄마의 마음으로 만듭니다', '1', 'moms');
-    */
-    /*
+    *//*
+
+    static StoreDAO storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
     public static void test1() {
         StoreDTO sdto = new StoreDTO();
         sdto.setStore_name("한솥도시락 금오공대점");
@@ -44,13 +47,12 @@ public class ForTest {
         sdto.setUser_ID("honsot");
         sdto.setStore_address("경북 구미시 대학로 39");
 
-        StoreDAO storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+
         storeDAO.insertStore(sdto);
         storeDAO.acceptStore("한솥도시락 금오공대점");
     }
 
     public static void test2() {
-        StoreDAO storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         StoreView storeView = new StoreView();
         List<StoreDTO> all = storeDAO.showAcceptedStore();
         storeView.printAll(all);
@@ -444,10 +446,11 @@ public class ForTest {
         else {
             System.out.println("로그인 실패");
         }
-    }*/
+    }
 
     public static void test(NewOrderDTO dto) {
         OrderDAO dao = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         dao.newMakeOrder(dto);
     }
 }
+*/

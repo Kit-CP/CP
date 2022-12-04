@@ -37,6 +37,8 @@ public class UserDTO implements IDTO {
     public UserDTO(String id, String pw) {
         user_ID = id;
         user_PW  = pw;
+        age = state = authority = 0;
+        user_address = user_name = user_phone = "";
     }
 
 
