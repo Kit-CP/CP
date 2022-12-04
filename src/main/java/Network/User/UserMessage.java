@@ -33,7 +33,7 @@ public class UserMessage {
         if ( answer == ProtocolAnswer.SUCCESS ) {
             System.out.println(UserScreen.SUCCESS_SIGNUP);
         }
-        else if ( answer == ProtocolAnswer.ERROR ) {
+        else {
             System.out.println(UserScreen.FAIL_SIGNUP);
         }
     }
@@ -43,9 +43,18 @@ public class UserMessage {
             System.out.println(UserScreen.SUCCESS_LOGIN);
             return this.dis.readInt();
         }
-        else if ( answer == ProtocolAnswer.ERROR ) {
+        else {
             System.out.println(UserScreen.FAIL_LOGIN);
         }
         return -1;
+    }
+
+    public void receiveInsertStoreResult() {
+        if ( answer == ProtocolAnswer.SUCCESS ) {
+            System.out.println(UserScreen.SUCCESS_REGISTER);
+        }
+        else {
+            System.out.println(UserScreen.FAIL_LOGIN);
+        }
     }
 }
