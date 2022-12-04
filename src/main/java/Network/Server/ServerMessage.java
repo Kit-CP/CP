@@ -10,7 +10,9 @@ import Network.Protocol.ProtocolType;
 import lombok.Setter;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Setter
@@ -83,15 +85,15 @@ public class ServerMessage {
                     }
                 }
             }
-        } 
-        else if (type == ProtocolType.LOGIN) { //로그인
+
+        } else if (type == ProtocolType.LOGIN) { //로그인
 
             if (authority == ProtocolAuthority.ANONYMITY) {//default값으로 익명
 
                 if (code == ProtocolCode.LOGIN_INFO) {
                     UserDTO user = UserDTO.readUserDTO(dis);
                     userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    int authorityNumber = userDAO.signIn(user); //해당 DAO 함수 리턴으로 권한을 넘겨주게끔. 오류는 1,2,3이 아닌 모든 int 값
+                    int authorityNumber = userDAO.signIn(user);
                     if (authorityNumber == 1) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else if (authorityNumber == 2) {
@@ -105,8 +107,7 @@ public class ServerMessage {
                 }
             }
 
-        } 
-        else if (type == ProtocolType.REGISTER) { //등록
+        } else if (type == ProtocolType.REGISTER) { //등록
 
             if (authority == ProtocolAuthority.CLIENT) {
 
@@ -134,7 +135,11 @@ public class ServerMessage {
             } else if (authority == ProtocolAuthority.OWNER) { //점주
 
                 if (code == ProtocolCode.MENU_INSERT) { // 메뉴 등록
+                        List<MenuDTO> dtos = new ArrayList<>();
+                        int listSize = dis.readInt();
+                        for(int i=0; i<listSize; i++) {
 
+                        }
                 }
                 if (code == ProtocolCode.STORE_INSERT) { // 가게 등록
                     StoreDTO storeDTO = StoreDTO.readStoreDTO(dis);
@@ -161,8 +166,7 @@ public class ServerMessage {
                 }
             }
 
-        } 
-        else if (type == ProtocolType.ACCEPT) { //승인
+        } else if (type == ProtocolType.ACCEPT) { //승인
 
             if (authority == ProtocolAuthority.CLIENT) { //고객
 
@@ -234,8 +238,7 @@ public class ServerMessage {
                 }
             }
 
-        } 
-        else if (type == ProtocolType.CORRECTION) { //수정
+        } else if (type == ProtocolType.CORRECTION) { //수정
 
             if (authority == ProtocolAuthority.CLIENT) { //고객
 
@@ -273,6 +276,7 @@ public class ServerMessage {
                 }
             }
         }
+
         else if (type == ProtocolType.INQUIRY) {//조회
             if (authority == ProtocolAuthority.CLIENT) {//고객
 

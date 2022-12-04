@@ -8,6 +8,7 @@ public class DeliveryServerThread extends Thread{
     private int portNum = 0;
     private DataInputStream dis = null;
     private DataOutputStream dos = null;
+    private boolean isConnect = false;
 
     public DeliveryServerThread(DeliveryServer server, Socket socket) {
         super();
@@ -21,14 +22,13 @@ public class DeliveryServerThread extends Thread{
     }
     public void run() {
         System.out.println("Server Thread " + portNum + " running.");
+        isConnect = true;
         while(true) {
             try {
-                ServerMessage serverMessage = new ServerMessage(dis);
-
-
-
-                serverMessage.run(dos);
-                stop();
+                while(isConnect) {
+                    ServerMessage serverMessage = new ServerMessage(dis);
+                    serverMessage.run(dos);
+                }
 
             }catch(IOException e) {
                 System.out.println(portNum + " ERROR reading: " + e.getMessage());

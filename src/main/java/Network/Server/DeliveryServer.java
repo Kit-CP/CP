@@ -14,10 +14,10 @@ public class DeliveryServer implements Runnable {
     public DeliveryServer(String host, int port) {
         try {
             this.port = port;
-            System.out.println("포트번호 " + port + " 으로 생성합니다. 기다려주세요...");
+            System.out.println("port " + port + " create Server...");
             server = new ServerSocket();
             server.bind(new InetSocketAddress(host, port));
-            System.out.println("서버가 구동됩니다...");
+            System.out.println("Connection ...");
             start();
         } catch (IOException e) {
             System.out.println("Can not bind to port " + port + ": " + e.getMessage());
@@ -31,7 +31,7 @@ public class DeliveryServer implements Runnable {
                 addThread(server.accept());
 
             }catch (IOException e) {
-                System.out.println("서버 오류: " + e.getMessage());
+                System.out.println("server Error: " + e.getMessage());
                 stop();
             }
         }
