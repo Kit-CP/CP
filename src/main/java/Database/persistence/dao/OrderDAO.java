@@ -14,7 +14,7 @@ public class OrderDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public void makeOrder(OrderDTO dto) {
+    public synchronized void makeOrder(OrderDTO dto) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             sqlSession.insert("mapper.OrderMapper.makeOrder", dto);
@@ -28,7 +28,7 @@ public class OrderDAO {
         }
     }
 
-    public void updateState(int order_id, int state) {
+    public synchronized void updateState(int order_id, int state) {
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("orderId", order_id);
@@ -43,7 +43,7 @@ public class OrderDAO {
         }
     }
 
-    public void cancelOrder(int order_id) {
+    public synchronized void cancelOrder(int order_id) {
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         try {
             sqlSession.update("mapper.OrderMapper.cancelOrder", order_id);
@@ -67,7 +67,7 @@ public class OrderDAO {
         return temp;
     }
 
-    public void updatePriceSum(int order_id, int newPriceSum) {
+    public synchronized void updatePriceSum(int order_id, int newPriceSum) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Integer> param = new HashMap<>();
         param.put("order_id", order_id);

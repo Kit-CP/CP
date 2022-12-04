@@ -24,7 +24,7 @@ public class StoreDAO {
         return dtos;
     }
 
-    public void insertStore(StoreDTO sdto) {
+    public synchronized void insertStore(StoreDTO sdto) {
         SqlSession session = sqlSessionFactory.openSession(false);
         try{
             session.insert("mapper.StoreMapper.insertStore", sdto);
@@ -38,7 +38,7 @@ public class StoreDAO {
         }
     }
 
-    public void acceptStore(String name) {
+    public synchronized void acceptStore(String name) {
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
             session.update("mapper.StoreMapper.acceptStore", name);
