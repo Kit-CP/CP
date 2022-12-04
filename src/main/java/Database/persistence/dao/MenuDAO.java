@@ -16,20 +16,25 @@ public class MenuDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public synchronized void insertMenuAll(List<MenuDTO> dtos) {
+    public synchronized boolean insertMenuAll(List<MenuDTO> dtos) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             for ( MenuDTO dto : dtos ) {
                 sqlSession.insert("mapper.MenuMapper.insertMenuAll", dto);
                 sqlSession.commit();
+                result = true;
             }
         }
         catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         }
         finally {
             sqlSession.close();
         }
+
+        return result;
     }
 
     public List<MenuOptionDTO> showMenu() {
@@ -44,7 +49,8 @@ public class MenuDAO {
         return result;
     }
 
-    public synchronized void updateMenu(String name, String newName, Integer price) {
+    public synchronized boolean updateMenu(String name, String newName, Integer price) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Object> param = new HashMap<>();
         param.put("menu_name", name);
@@ -53,16 +59,21 @@ public class MenuDAO {
         try {
             sqlSession.update("mapper.MenuMapper.updateMenu", param);
             sqlSession.commit();
+            result = true;
         }
         catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         }
         finally {
             sqlSession.close();
         }
+
+        return result;
     }
 
-    public synchronized void updateMenu(String name, String newName) {
+    public synchronized boolean updateMenu(String name, String newName) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, String> param = new HashMap<>();
         param.put("menu_name", name);
@@ -70,16 +81,21 @@ public class MenuDAO {
         try {
             sqlSession.update("mapper.MenuMapper.updateMenu", param);
             sqlSession.commit();
+            result = true;
         }
         catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         }
         finally {
             sqlSession.close();
         }
+
+        return result;
     }
 
-    public synchronized void updateMenu(String name, Integer price) {
+    public synchronized boolean updateMenu(String name, Integer price) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Object> param = new HashMap<>();
         param.put("menu_name", name);
@@ -87,13 +103,17 @@ public class MenuDAO {
         try {
             sqlSession.update("mapper.MenuMapper.updateMenu", param);
             sqlSession.commit();
+            result = true;
         }
         catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         }
         finally {
             sqlSession.close();
         }
+
+        return result;
     }
 
     public int getStock(String menuName) {
@@ -108,7 +128,8 @@ public class MenuDAO {
         return temp;
     }
 
-    public synchronized void updateStock(String menuName, int newStock) {
+    public synchronized boolean updateStock(String menuName, int newStock) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Object> param = new HashMap<>();
         param.put("menu_name", menuName);
@@ -116,13 +137,17 @@ public class MenuDAO {
         try {
             sqlSession.update("mapper.MenuMapper.updateStock", param);
             sqlSession.commit();
+            result = true;
         }
         catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         }
         finally {
             sqlSession.close();
         }
+
+        return result;
     }
 
     public int getMenuPrice(String menu_name) {
@@ -137,15 +162,20 @@ public class MenuDAO {
         return result;
     }
 
-    public synchronized void judgeMenu(Map<String, Object> param) {
+    public synchronized boolean judgeMenu(Map<String, Object> param) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
             sqlSession.update("mapper.MenuMapper.judgeMenu", param);
             sqlSession.commit();
+            result = true;
         } catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         } finally {
             sqlSession.close();
         }
+
+        return result;
     }
 }

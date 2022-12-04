@@ -14,22 +14,27 @@ public class OrderedMenuDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public synchronized void orderMenu(OrderedMenuDTO dto) {
+    public synchronized boolean orderMenu(OrderedMenuDTO dto) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             sqlSession.insert("mapper.OrderedMenuMapper.orderMenu", dto);
             sqlSession.commit();
-
+            result = true;
         }
         catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         }
         finally {
             sqlSession.close();
         }
+
+        return result;
     }
 
-    public synchronized void updatePrice(int orderedMenuId, int newPrice) {
+    public synchronized boolean updatePrice(int orderedMenuId, int newPrice) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Integer> param = new HashMap<>();
         param.put("ordered_menu_id", orderedMenuId);
@@ -37,12 +42,16 @@ public class OrderedMenuDAO {
         try {
             sqlSession.update("mapper.OrderedMenuMapper.updatePrice", param);
             sqlSession.commit();
+            result = true;
         }
         catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         }
         finally {
             sqlSession.close();
         }
+
+        return result;
     }
 }
