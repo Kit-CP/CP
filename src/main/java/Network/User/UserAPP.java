@@ -41,7 +41,7 @@ public class UserAPP {
                 int command = 0;
 
                 try {
-                    System.out.println(UserScreen.START_MENU);
+                    System.out.println(UserScreen.Start_SCREEN);
                     command = Integer.parseInt(input.nextLine());
                 } catch (InputMismatchException e) {
                     input = new Scanner(System.in);
@@ -67,13 +67,13 @@ public class UserAPP {
 
             while ( isLogin && !isExit ) {
                 if ( this.authority == 1 ) {
-                    //isLogin = clientRun();
+                    isLogin = clientRun();
                 }
                 else if ( this.authority == 2 ) {
-                    //isLogin = onwerRun();
+                    isLogin = ownerRun();
                 }
                 else if ( this.authority == 3 ) {
-                    //isLogin = managerRun();
+                    isLogin = managerRun();
                 }
             }
 
@@ -130,5 +130,16 @@ public class UserAPP {
         }
     }
 
+    private boolean clientRun() {
+        return false;
+    }
+
+    private boolean ownerRun() {
+        return false;
+    }
+
+    private boolean managerRun() {
+        return false;
+    }
 
 }
