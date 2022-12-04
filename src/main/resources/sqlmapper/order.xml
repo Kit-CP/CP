@@ -17,7 +17,7 @@
     <update id="cancelOrder" parameterType="int">
         UPDATE `order`
         SET state = 1
-        WHERE order_id = (${orderId});
+        WHERE order_id = (${orderId}) AND state = 0
     </update>
 
     <update id="restockMenu" parameterType="int">
