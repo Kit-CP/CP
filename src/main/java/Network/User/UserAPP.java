@@ -64,7 +64,7 @@ public class UserAPP {
             }
         }
 
-       /* while ( isLogin ) {
+        while ( isLogin ) {
             int command = 0;
 
             try {
@@ -75,7 +75,7 @@ public class UserAPP {
                 input = new Scanner(System.in);
                 System.out.println(UserScreen.INPUT_ERROR);
             }
-        }*/
+        }
     }
 
     public void signUp() throws IOException {
