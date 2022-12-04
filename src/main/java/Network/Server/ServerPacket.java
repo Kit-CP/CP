@@ -1,6 +1,8 @@
 package Network.Server;
 
 import Network.Protocol.ProtocolType;
+
+import javax.xml.crypto.Data;
 import java.io.*;
 public class ServerPacket {
     int size  = 0;
@@ -39,6 +41,11 @@ public class ServerPacket {
         dos.flush();
     }
 
+    public void sendOrderResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
+        dos.write(sendFormat(answer, body));
+        dos.flush();
+    }
+
     public void sendReviewReplyResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
         dos.write(sendFormat(answer,body));
         dos.flush();
@@ -56,6 +63,16 @@ public class ServerPacket {
 
     public void sendCancelMenuResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
         dos.write(sendFormat(answer, body));
+        dos.flush();
+    }
+
+    public void sendCancelOrderResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
+        dos.write(sendFormat(answer, body));
+        dos.flush();
+    }
+
+    public void sendJudgeOwnerResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
+        dos.write(sendFormat(answer,body));
         dos.flush();
     }
 

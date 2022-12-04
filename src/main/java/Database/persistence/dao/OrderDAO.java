@@ -33,7 +33,7 @@ public class OrderDAO {
         return result;
     }
 
-    public synchronized boolean updateState(int order_id, int state) {
+    public synchronized boolean updateState(String storename, int order_id, int state) {
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         Map<String, Object> map = new HashMap<String, Object>();
