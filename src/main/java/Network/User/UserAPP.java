@@ -37,12 +37,12 @@ public class UserAPP {
             int command = 0;
 
             try {
-                System.out.println(UserMessage.START_MENU);
+                System.out.println(UserScreen.START_MENU);
                 command = Integer.parseInt(input.nextLine());
             }
             catch (InputMismatchException e) {
                 input = new Scanner(System.in);
-                System.out.println(UserMessage.INPUT_ERROR);
+                System.out.println(UserScreen.INPUT_ERROR);
             }
 
             switch (command) {
@@ -56,14 +56,14 @@ public class UserAPP {
                 case 3:
                     //APPExit();
                 default:
-                    System.out.println(UserMessage.INPUT_ERROR);
+                    System.out.println(UserScreen.INPUT_ERROR);
                     break;
             }
         }
     }
 
     public void signUp() throws IOException {
-        System.out.println(UserMessage.SELECT_AUTHORITY);
+        System.out.println(UserScreen.SELECT_AUTHORITY);
         int newAuthority = Integer.parseInt(input.nextLine());
         byte authority = 0;
         if ( newAuthority == 1 ) {
@@ -73,10 +73,10 @@ public class UserAPP {
             authority = ProtocolAuthority.OWNER;
         }
         else {
-            System.out.println(UserMessage.INPUT_ERROR);
+            System.out.println(UserScreen.INPUT_ERROR);
             return;
         }
-        System.out.println(UserMessage.SIGNUP);
+        System.out.println(UserScreen.SIGNUP);
         String str = input.nextLine();
 
         String[] strs = str.split(" ");
@@ -84,18 +84,15 @@ public class UserAPP {
 
         UserPacket userPacket = new UserPacket(ProtocolType.SINE_UP, ProtocolCode.REGISTER_INFO,authority, ProtocolAnswer.DEFAULT);
         userPacket.sendSignUpInfo(dos, dto);
-        dis.readByte();
-        dis.readByte();
-        dis.readByte();
-        dis.readByte();
-        dis.readInt();
+
+        UserMessage userMessage = new UserMessage();
         //body
     }
 
     public void login() throws IOException {
-        System.out.println(UserMessage.ENTER_ID);
+        System.out.println(UserScreen.ENTER_ID);
         String id = input.nextLine();
-        System.out.println(UserMessage.ENTER_PW);
+        System.out.println(UserScreen.ENTER_PW);
         String pw = input.nextLine();
         UserDTO dto = new UserDTO(id, pw);
 
