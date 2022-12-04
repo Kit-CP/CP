@@ -49,7 +49,7 @@ public class ServerMessage {
         ByteArrayInputStream bai = new ByteArrayInputStream(body);
         DataInputStream dis = new DataInputStream(bai);
 
-        if (type == ProtocolType.SINE_UP) {
+        if (type == ProtocolType.SIGNUP) {
 
             if (authority == ProtocolAuthority.CLIENT) { //회원가입 고객
 
@@ -83,7 +83,7 @@ public class ServerMessage {
                     }
                 }
             }
-        } else if (type == ProtocolType.LOGIN) {
+        } else if (type == ProtocolType.LOGIN) { //로그인
 
             if (authority == ProtocolAuthority.ANONYMITY) {//default값으로 익명
 
