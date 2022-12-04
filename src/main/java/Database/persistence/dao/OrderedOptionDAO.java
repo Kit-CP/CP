@@ -11,7 +11,7 @@ public class OrderedOptionDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public void orderedOption(OrderedOptionDTO dto) {
+    public synchronized void orderedOption(OrderedOptionDTO dto) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             sqlSession.insert("mapper.OrderedOptionMapper.orderOption", dto);

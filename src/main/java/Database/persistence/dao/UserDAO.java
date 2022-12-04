@@ -25,7 +25,7 @@ public class UserDAO {
         return dtos;
     }
 
-    public void signUpStoreKeeper(UserDTO dto) {
+    public synchronized void signUpStoreKeeper(UserDTO dto) {
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
             session.insert("mapper.UserMapper.signUpStoreKeeper", dto);
@@ -39,7 +39,7 @@ public class UserDAO {
         }
     }
 
-    public void signUpClient(UserDTO dto) {
+    public synchronized void signUpClient(UserDTO dto) {
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
             session.insert("mapper.UserMapper.signUpClient", dto);
@@ -53,7 +53,7 @@ public class UserDAO {
         }
     }
 
-    public void updateInfor(Map<String, Object> param) {
+    public synchronized void updateInfor(Map<String, Object> param) {
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
             session.update("mapper.UserMapper.updateInfor", param);
@@ -67,7 +67,7 @@ public class UserDAO {
         }
     }
 
-    public void judgeStoreKeeper(Map<String, Object> param) {
+    public synchronized void judgeStoreKeeper(Map<String, Object> param) {
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
             session.update("mapper.UserMapper.judgeStoreKeeper", param);

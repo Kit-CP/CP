@@ -23,7 +23,7 @@ public class DeliveryServerThread extends Thread{
         System.out.println("Server Thread " + portNum + " running.");
         while(true) {
             try {
-                //역직렬화 과정
+                /* 역직렬화 과정 여기부터 */
                 ServerController serverController = new ServerController(dis.readByte(), dis.readByte(), dis.readByte(), dis.readByte());
                 int bodySize = dis.readInt();
                 if ( bodySize > 0 ) {
@@ -32,13 +32,22 @@ public class DeliveryServerThread extends Thread{
                     serverController.setSize(bodySize);
                     serverController.setBody(bytes);
                 }
+                else if ( bodySize == 0 ) {
+                    serverController.setSize(0);
+                    serverController.setBody(null);
+                }
+                /* 여기까지 */
 
                 serverController.run(dos);
-
-                stop();//임시
+                stop();
 
             }catch(IOException e) {
                 System.out.println(portNum + " ERROR reading: " + e.getMessage());
+                try {
+                    this.close();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         }
     }

@@ -15,7 +15,7 @@ public class ReviewDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public void writeReview(ReviewDTO dto) {
+    public synchronized void writeReview(ReviewDTO dto) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             sqlSession.insert("mapper.ReviewMapper.writeReview", dto);
@@ -57,7 +57,7 @@ public class ReviewDAO {
         return numOfReviews;
     }
 
-    public void writeReply(String reply, int review_id) {
+    public synchronized void writeReply(String reply, int review_id) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Object> map = new HashMap<>();
         map.put("reply", reply);
