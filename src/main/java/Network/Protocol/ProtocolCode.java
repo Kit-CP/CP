@@ -51,8 +51,5 @@ public class ProtocolCode {
     public final static byte MYTOTAL_LIST = 3;
 
     //TYPE:6 , MANAGER
-    public final static byte ALL_STORE_LIST = 1;
-    public final static byte ALL_MENU_LIST = 2;
-    public final static byte INFO_LIST = 3;
     public final static byte TOTAL_LIST = 4;
 }

@@ -2,7 +2,6 @@ package Network.Server;
 
 import Network.Protocol.ProtocolType;
 
-import javax.xml.crypto.Data;
 import java.io.*;
 public class ServerPacket {
     int size  = 0;
@@ -95,6 +94,11 @@ public class ServerPacket {
 
     public void sendUpdateMenuPrice(byte answer, byte[] body, DataOutputStream dos) throws IOException {
         dos.write(sendFormat(answer,body));
+        dos.flush();
+    }
+
+    public void sendUpdateStockResult(byte answer, byte[] body, DataOutputStream dos) throws  IOException {
+        dos.write(sendFormat(answer, body));
         dos.flush();
     }
 

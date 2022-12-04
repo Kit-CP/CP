@@ -83,7 +83,8 @@ public class ServerMessage {
                     }
                 }
             }
-        } else if (type == ProtocolType.LOGIN) {
+
+        } else if (type == ProtocolType.LOGIN) { //로그인
 
             if (authority == ProtocolAuthority.ANONYMITY) {//default값으로 익명
 
@@ -103,6 +104,7 @@ public class ServerMessage {
                     serverPacket.sendLoginResult(authorityNumber, answer, body, dos);
                 }
             }
+
         } else if (type == ProtocolType.REGISTER) { //등록
 
             if (authority == ProtocolAuthority.CLIENT) {
@@ -157,6 +159,7 @@ public class ServerMessage {
                     serverPacket.sendReviewReplyResult(answer, body, dos);
                 }
             }
+
         } else if (type == ProtocolType.ACCEPT) { //승인
 
             if (authority == ProtocolAuthority.CLIENT) { //고객
@@ -228,6 +231,7 @@ public class ServerMessage {
                     serverPacket.sendJudgeOwnerResult(answer, body, dos);
                 }
             }
+
         } else if (type == ProtocolType.CORRECTION) { //수정
 
             if (authority == ProtocolAuthority.CLIENT) { //고객
@@ -245,18 +249,18 @@ public class ServerMessage {
 
                 }
                 if (code == ProtocolCode.CHANGE_MENU_INFO) {//가게 메뉴 가격 수정
-                    String menuName = dis.readUTF();
-                    Integer newPrice = dis.readInt();
-                    menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (menuDAO.updateMenu(menuName, newPrice)) {
-                        answer = ProtocolAnswer.SUCCESS;
-                    } else {
-                        answer = ProtocolAnswer.ERROR;
-                    }
-                    serverPacket.sendUpdateMenuPrice(answer, body, dos);
+
                 }
                 if (code == ProtocolCode.CHANGE_MENU_STOCK) {//가게 재료 수량 수정
-
+                    String menuName = dis.readUTF();
+                    int newStock = dis.readInt();
+                    menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    if(menuDAO.updateStock(menuName,newStock)) {
+                        answer = ProtocolAnswer.SUCCESS;
+                    }else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    serverPacket.sendUpdateStockResult(answer, body, dos);
                 }
             }
             if (authority == ProtocolAuthority.MANAGER) { //관리자
@@ -266,7 +270,8 @@ public class ServerMessage {
                 }
             }
         }
-        if (type == ProtocolType.INQUIRY) {//조회
+
+        else if (type == ProtocolType.INQUIRY) {//조회
             if (authority == ProtocolAuthority.CLIENT) {//고객
 
                 if (code == ProtocolCode.ORDER_LIST) {//주문 내역 조회
@@ -299,15 +304,6 @@ public class ServerMessage {
             }
             if (authority == ProtocolAuthority.MANAGER) {//관리자
 
-                if (code == ProtocolCode.ALL_STORE_LIST) {//모든 가게 조회
-
-                }
-                if (code == ProtocolCode.ALL_MENU_LIST) {//모든 메뉴 조회
-
-                }
-                if (code == ProtocolCode.INFO_LIST) {//고객과 점주 정보 조회
-
-                }
                 if (code == ProtocolCode.TOTAL_LIST) {//매출 조회
 
                 }
