@@ -44,4 +44,9 @@ public class ServerPacket {
         dos.flush();
     }
 
+    public void sendAcceptStoreResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
+        dos.write(sendFormat(answer, body));
+        dos.flush();
+    }
+
 }
