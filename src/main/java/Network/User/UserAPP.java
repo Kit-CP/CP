@@ -1,6 +1,7 @@
 package Network.User;
 
 import Database.persistence.dto.UserDTO;
+import Database.service.UserService;
 import Network.Protocol.ProtocolAnswer;
 import Network.Protocol.ProtocolAuthority;
 import Network.Protocol.ProtocolCode;
@@ -10,6 +11,7 @@ import lombok.Setter;
 
 import java.io.*;
 import java.net.Socket;
+import java.sql.SQLOutput;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -41,7 +43,7 @@ public class UserAPP {
                 int command = 0;
 
                 try {
-                    System.out.println(UserScreen.START_MENU);
+                    System.out.println(UserScreen.Start_SCREEN);
                     command = Integer.parseInt(input.nextLine());
                 } catch (InputMismatchException e) {
                     input = new Scanner(System.in);
@@ -67,13 +69,13 @@ public class UserAPP {
 
             while ( isLogin && !isExit ) {
                 if ( this.authority == 1 ) {
-                    //isLogin = clientRun();
+                    isLogin = clientRun();
                 }
                 else if ( this.authority == 2 ) {
-                    //isLogin = onwerRun();
+                    isLogin = ownerRun();
                 }
                 else if ( this.authority == 3 ) {
-                    //isLogin = managerRun();
+                    isLogin = managerRun();
                 }
             }
 
@@ -81,7 +83,7 @@ public class UserAPP {
         System.out.println(UserScreen.EXIT);
     }
 
-    public void signUp() throws IOException {
+    private void signUp() throws IOException {
         System.out.println(UserScreen.SELECT_AUTHORITY);
         int newAuthority = Integer.parseInt(input.nextLine());
         byte authority = 0;
@@ -95,11 +97,8 @@ public class UserAPP {
             System.out.println(UserScreen.INPUT_ERROR);
             return;
         }
-        System.out.println(UserScreen.SIGNUP);
-        String str = input.nextLine();
 
-        String[] strs = str.split(" ");
-        UserDTO dto = new UserDTO(strs[0], strs[1], strs[2], strs[3], strs[4], Integer.parseInt(strs[5]), 0, newAuthority);
+        UserDTO dto = makeUserDTO(newAuthority);
 
         userPacket = new UserPacket(dos, ProtocolType.SIGNUP, ProtocolCode.REGISTER_INFO, authority, ProtocolAnswer.DEFAULT);
         userPacket.sendUserDTO(dto);
@@ -108,7 +107,21 @@ public class UserAPP {
         userMessage.receiveSignUpResult();
     }
 
-    public boolean login() throws IOException {
+    private UserDTO makeUserDTO(int authority) {
+        UserDTO temp = new UserDTO();
+        String str;
+        System.out.println(UserScreen.ENTER_ID);  str = input.nextLine();  temp.setUser_ID(str);
+        System.out.println(UserScreen.ENTER_PW);  str = input.nextLine();  temp.setUser_PW(str);
+        System.out.println(UserScreen.ENTER_ADDRESS);  str = input.nextLine();  temp.setUser_address(str);
+        System.out.println(UserScreen.ENTER_NAME);  str = input.nextLine();  temp.setUser_name(str);
+        System.out.println(UserScreen.ENTER_PHONE);  str = input.nextLine();  temp.setUser_phone(str);
+        System.out.println(UserScreen.ENTER_AGE);  str = input.nextLine();  temp.setAge(Integer.parseInt(str));
+        temp.setAuthority(authority);
+        temp.setState(0);
+        return temp;
+    }
+
+    private boolean login() throws IOException {
         System.out.println(UserScreen.ENTER_ID);
         String id = input.nextLine();
         System.out.println(UserScreen.ENTER_PW);
@@ -130,5 +143,73 @@ public class UserAPP {
         }
     }
 
+    private boolean clientRun() {
+        boolean isRun = true;
+        while ( isRun ) {
+            int command = 0;
+
+            try {
+                System.out.println(UserScreen.CLIENT_SCREEN);
+                command = Integer.parseInt(input.nextLine());
+            } catch (InputMismatchException e) {
+                input = new Scanner(System.in);
+                System.out.println(UserScreen.INPUT_ERROR);
+            }
+
+
+        }
+        return false;
+    }
+
+    private boolean ownerRun() {
+        boolean isRun = true;
+        while ( isRun ) {
+            int command = 0;
+
+            try {
+                System.out.println(UserScreen.OWNER_SCREEN);
+                command = Integer.parseInt(input.nextLine());
+            } catch (InputMismatchException e) {
+                input = new Scanner(System.in);
+                System.out.println(UserScreen.INPUT_ERROR);
+            }
+
+            switch ( command ) {
+                case 1:
+                    insertStore();
+                    break;
+                default:
+                    System.out.println(UserScreen.INPUT_ERROR);
+            }
+
+
+        }
+        return false;
+    }
+
+    private void insertStore() {
+        System.out.println(UserScreen.ENTER_NAME);
+        String storeName = input.nextLine();
+        System.out.println(UserScreen.ENTER_ADDRESS);
+        String storeAddress = input.next();
+    }
+
+    private boolean managerRun() {
+        boolean isRun = true;
+        while ( isRun ) {
+            int command = 0;
+
+            try {
+                System.out.println(UserScreen.MANAGER_SCREEN);
+                command = Integer.parseInt(input.nextLine());
+            } catch (InputMismatchException e) {
+                input = new Scanner(System.in);
+                System.out.println(UserScreen.INPUT_ERROR);
+            }
+
+
+        }
+        return false;
+    }
 
 }
