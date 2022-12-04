@@ -10,4 +10,8 @@ public class UserScreen {
     public final static String ENTER_ID = "ID를 입력하세요";
     public final static String ENTER_PW = "P/W를 입력하세요";
 
+    public final static String SUCCESS_LOGIN = "로그인 성공";
+    public final static String FAIL_LOGIN = "로그인 실패";
+
+
 }

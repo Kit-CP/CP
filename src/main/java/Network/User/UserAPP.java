@@ -22,6 +22,8 @@ public class UserAPP {
     DataOutputStream dos;
     String user_ID;
     int authority;
+    UserPacket userPacket = null;
+    UserMessage userMessage = null;
 
     public UserAPP(Socket socket) throws IOException {
         this.socket = socket;
@@ -47,19 +49,33 @@ public class UserAPP {
 
             switch (command) {
                 case 1:
-                    //로그인
-                    isLogin = true;
+                    if ( login() ) {
+                        isLogin = true;
+                    }
                     break;
                 case 2:
                     signUp();
                     break;
                 case 3:
-                    //APPExit();
+                    System.exit(0);
                 default:
                     System.out.println(UserScreen.INPUT_ERROR);
                     break;
             }
         }
+
+       /* while ( isLogin ) {
+            int command = 0;
+
+            try {
+                System.out.println(UserScreen.START_MENU);
+                command = Integer.parseInt(input.nextLine());
+            }
+            catch (InputMismatchException e) {
+                input = new Scanner(System.in);
+                System.out.println(UserScreen.INPUT_ERROR);
+            }
+        }*/
     }
 
     public void signUp() throws IOException {
@@ -82,20 +98,33 @@ public class UserAPP {
         String[] strs = str.split(" ");
         UserDTO dto = new UserDTO(strs[0], strs[1], strs[2], strs[3], strs[4], Integer.parseInt(strs[5]), 0, newAuthority);
 
-        UserPacket userPacket = new UserPacket(ProtocolType.SINE_UP, ProtocolCode.REGISTER_INFO,authority, ProtocolAnswer.DEFAULT);
-        userPacket.sendSignUpInfo(dos, dto);
+        userPacket = new UserPacket(dos, ProtocolType.SIGNUP, ProtocolCode.REGISTER_INFO, authority, ProtocolAnswer.DEFAULT);
+        userPacket.sendUserDTO(dto);
 
-        UserMessage userMessage = new UserMessage(dis);
+        userMessage = new UserMessage(dis);
         userMessage.receiveSignUpResult();
     }
 
-    public void login() throws IOException {
+    public boolean login() throws IOException {
         System.out.println(UserScreen.ENTER_ID);
         String id = input.nextLine();
         System.out.println(UserScreen.ENTER_PW);
         String pw = input.nextLine();
         UserDTO dto = new UserDTO(id, pw);
 
+        userPacket = new UserPacket(dos, ProtocolType.LOGIN, ProtocolCode.LOGIN_INFO, ProtocolAuthority.ANONYMITY, ProtocolAnswer.DEFAULT);
+        userPacket.sendUserDTO(dto);
+
+        userMessage = new UserMessage(dis);
+        this.authority = userMessage.receiveLoginResult();
+
+        if ( this.authority != -1 ) {
+            this.user_ID = id;
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 
