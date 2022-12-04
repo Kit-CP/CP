@@ -50,7 +50,9 @@ public class ServerMessage {
         DataInputStream dis = new DataInputStream(bai);
 
         if(type == ProtocolType.SINE_UP) {
+
             if (authority == ProtocolAuthority.CLIENT) { //회원가입 고객
+
                 if (code == ProtocolCode.REGISTER_INFO) {
                     UserDTO userDTO = UserDTO.readUserDTO(dis);
                     int userAuthority = userDTO.getAuthority();
@@ -67,6 +69,7 @@ public class ServerMessage {
                 }
             }
             if (authority == ProtocolAuthority.OWNER) { //회원가입 점주
+
                 if (code == ProtocolCode.REGISTER_INFO) {
                     UserDTO userDTO = UserDTO.readUserDTO(dis);
                     int userAuthority = userDTO.getAuthority();
@@ -83,50 +86,31 @@ public class ServerMessage {
                 }
             }
             if (type == ProtocolType.LOGIN) {
-                if (authority == ProtocolAuthority.CLIENT) { //로그인 고객
+                
+                if (authority == ProtocolAuthority.ANONYMITY) {//default값으로 익명
 
                     if (code == ProtocolCode.LOGIN_INFO) {
                         UserDTO user = UserDTO.readUserDTO(dis);
                         userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                        if(userDAO.signIn(user)) {
+                        int authorityNumber = userDAO.signIn(user); //해당 DAO 함수 리턴으로 권한을 넘겨주게끔. 오류는 1,2,3이 아닌 모든 int 값
+                        if(authorityNumber == 1) {
+                            authority = ProtocolAuthority.CLIENT;
+                            answer = ProtocolAnswer.SUCCESS;
+                        }else if(authorityNumber == 2) {
+                            authority = ProtocolAuthority.OWNER;
+                            answer = ProtocolAnswer.SUCCESS;
+                        }else if(authorityNumber == 3) {
+                            authority = ProtocolAuthority.MANAGER;
                             answer = ProtocolAnswer.SUCCESS;
                         }else {
                             answer = ProtocolAnswer.ERROR;
                         }
-
-                        serverPacket.sendLoginResult(answer,null,dos);
-                    }
-                }
-                if (authority == ProtocolAuthority.OWNER) { //로그인 점주
-
-                    if (code == ProtocolCode.LOGIN_INFO) {
-                        UserDTO user = UserDTO.readUserDTO(dis);
-                        userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                        if(userDAO.signIn(user)) {
-                            answer = ProtocolAnswer.SUCCESS;
-                        }else {
-                            answer = ProtocolAnswer.ERROR;
-                        }
-
-                        serverPacket.sendLoginResult(answer,null,dos);
-                    }
-                }
-                if (authority == ProtocolAuthority.MANAGER) { // 로그인 관리자
-
-                    if (code == ProtocolCode.LOGIN_INFO) {
-                        UserDTO user = UserDTO.readUserDTO(dis);
-                        userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                        if(userDAO.signIn(user)) {
-                            answer = ProtocolAnswer.SUCCESS;
-                        }else {
-                            answer = ProtocolAnswer.ERROR;
-                        }
-
-                        serverPacket.sendLoginResult(answer,null,dos);
+                        serverPacket.sendLoginResult(authority, answer,null,dos);
                     }
                 }
             }
             if (type == ProtocolType.REGISTER) { //등록
+                
                 if (authority == ProtocolAuthority.CLIENT) {
 
                     if (code == ProtocolCode.ORDER) {//주문 등록
@@ -151,6 +135,7 @@ public class ServerMessage {
 
                         serverPacket.sendReviewResult(answer,null,dos);
                     }
+                    
                 } else if (authority == ProtocolAuthority.OWNER) { //점주
 
                     if (code == ProtocolCode.MENU_INSERT) { // 메뉴 등록
@@ -182,7 +167,9 @@ public class ServerMessage {
                 }
             }
             if (type == ProtocolType.ACCEPT) { //승인
+                
                 if (authority == ProtocolAuthority.CLIENT) { //고객
+                    
                     if (code == ProtocolCode.CANCEL_ORDER) { // 주문 취소
                         int order_id = dis.readInt();
                         orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
@@ -195,6 +182,7 @@ public class ServerMessage {
                     }
                 }
                 if (authority == ProtocolAuthority.OWNER) { //점주
+                    
                     if (code == ProtocolCode.ACCEPT_ORDER) { // 주문 승인 or 취소
                         String storeName = dis.readUTF();
                         int order_id = dis.readInt();
@@ -209,6 +197,7 @@ public class ServerMessage {
                     }
                 }
                 if (authority == ProtocolAuthority.MANAGER) { //관리자
+                    
                     if (code == ProtocolCode.ACCEPT_STORE) { //관리자의 가게 승인
                         String storeName = dis.readUTF();
                         storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
@@ -255,11 +244,13 @@ public class ServerMessage {
             }
             if (type == ProtocolType.CORRECTION) { //수정
                 if (authority == ProtocolAuthority.CLIENT) { //고객
+                    
                     if (code == ProtocolCode.CHANGE_CLIENT_INFO) {//고객 정보 수정
 
                     }
                 }
                 if (authority == ProtocolAuthority.OWNER) {//점주
+                    
                     if (code == ProtocolCode.CHANGE_OWNER_INFO) { //점주 정보 수정
 
                     }
@@ -268,6 +259,7 @@ public class ServerMessage {
                     }
                 }
                 if (authority == ProtocolAuthority.MANAGER) { //관리자
+                    
                     if (code == ProtocolCode.CHANGE_MANAGER_INFO) {//관리자 정보 수정
 
                     }
@@ -275,6 +267,7 @@ public class ServerMessage {
             }
             if (type == ProtocolType.INQUIRY) {//조회
                 if (authority == ProtocolAuthority.CLIENT) {//고객
+                    
                     if (code == ProtocolCode.ORDER_LIST) {//주문 내역 조회
 
                     }
@@ -289,6 +282,7 @@ public class ServerMessage {
                     }
                 }
                 if (authority == ProtocolAuthority.OWNER) {//점주
+                    
                     if (code == ProtocolCode.MYSTORE_LIST) {//나의 가게 정보 조회
 
                     }
@@ -303,6 +297,7 @@ public class ServerMessage {
                     }
                 }
                 if (authority == ProtocolAuthority.MANAGER) {//관리자
+
                     if (code == ProtocolCode.ALL_STORE_LIST) {//모든 가게 조회
 
                     }

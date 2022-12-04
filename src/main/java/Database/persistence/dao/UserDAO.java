@@ -101,7 +101,7 @@ public class UserDAO {
         return result;
     }
 
-    public boolean signIn(UserDTO dto) {
+    public int signIn(UserDTO dto) {
         boolean result = false;
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
@@ -110,6 +110,6 @@ public class UserDAO {
             session.close();
         }
 
-        return result;
+        return 0;
     }
 }
