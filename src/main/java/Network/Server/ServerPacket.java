@@ -12,14 +12,29 @@ public class ServerPacket {
     public byte[] sendFormat(byte answer, byte[] body) throws IOException {
         if(body != null) {
             size = body.length;
-        }else
+        }else {
             size = 0;
-        byte[] headerBytes = ProtocolType.getAnswerHeader(answer,size);
+        }
+        byte[] headerBytes = ProtocolType.getAnswerHeader(answer, size);
         ds.write(headerBytes);
         if(size > 0) {
             ds.write(body);
         }
         return bao.toByteArray();
+    }
+    public byte[] sendLoginResultFormat(byte authority, byte answer, byte[] body) throws IOException {
+        if(body != null) {
+            size = body.length;
+        }else {
+            size = 0;
+        }
+        byte[] headerBytes = ProtocolType.getLoginResultHeader(authority, answer, size);
+        ds.write(headerBytes);
+        if(size > 0) {
+            ds.write(body);
+        }
+        return bao.toByteArray();
+
     }
 
     public void sendSignUpResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
@@ -27,8 +42,8 @@ public class ServerPacket {
         dos.flush();
     }
 
-    public void sendLoginResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
-        dos.write(sendFormat(answer, body));
+    public void sendLoginResult(byte authority, byte answer, byte[] body, DataOutputStream dos) throws IOException {
+        dos.write(sendLoginResultFormat(authority, answer, body));
         dos.flush();
     }
 
