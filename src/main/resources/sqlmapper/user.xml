@@ -56,12 +56,9 @@
         UPDATE `user` SET state = ${state} WHERE user_ID = #{user_ID}
     </update>
 
-    <select id="signIn" parameterType="UserDTO" resultType="boolean">
-        SELECT EXISTS
-               (
-                   SELECT *
-                   FROM `user`
-                   WHERE `user`.user_ID = #{user_ID} AND `user_P/W` = #{user_PW}
-               ) AS result
+    <select id="signIn" parameterType="UserDTO" resultType="int">
+        SELECT `user`.authority
+        FROM `user`
+        WHERE `user`.user_ID = #{user_ID} AND `user_P/W` = #{user_PW}
     </select>
 </mapper>
