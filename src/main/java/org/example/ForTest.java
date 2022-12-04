@@ -35,6 +35,7 @@ public class ForTest {
 
     INSERT INTO delivery.`store` (store_name, store_address, store_phone, store_score, information, isAccept, user_ID) VALUES ('맘스터치 금오공대점', '경북 구미시 대학로 52', '054-476-9958', '0', '엄마의 마음으로 만듭니다', '1', 'moms');
     */
+    /*
     public static void test1() {
         StoreDTO sdto = new StoreDTO();
         sdto.setStore_name("한솥도시락 금오공대점");
@@ -443,5 +444,5 @@ public class ForTest {
         else {
             System.out.println("로그인 실패");
         }
-    }
+    }*/
 }

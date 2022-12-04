@@ -23,20 +23,9 @@ public class DeliveryServerThread extends Thread{
         System.out.println("Server Thread " + portNum + " running.");
         while(true) {
             try {
-                /* 역직렬화 과정 여기부터 */
-                ServerMessage serverMessage = new ServerMessage(dis.readByte(), dis.readByte(), dis.readByte(), dis.readByte());
-                int bodySize = dis.readInt();
-                if ( bodySize > 0 ) {
-                    byte[] bytes = new byte[bodySize];
-                    dis.read(bytes);
-                    serverMessage.setSize(bodySize);
-                    serverMessage.setBody(bytes);
-                }
-                else if ( bodySize == 0 ) {
-                    serverMessage.setSize(0);
-                    serverMessage.setBody(null);
-                }
-                /* 여기까지 */
+                ServerMessage serverMessage = new ServerMessage(dis);
+
+
 
                 serverMessage.run(dos);
                 stop();

@@ -1,6 +1,8 @@
 package Network.Server;
 
 import Network.Protocol.ProtocolType;
+
+import javax.xml.crypto.Data;
 import java.io.*;
 public class ServerPacket {
     int size  = 0;
@@ -20,12 +22,12 @@ public class ServerPacket {
         return bao.toByteArray();
     }
 
-    public void sendSineUpResult(byte answer,byte[] body, DataOutputStream dos) throws IOException {
+    public void sendSignUpResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
         dos.write(sendFormat(answer, body));
         dos.flush();
     }
 
-    public void sednLoginResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
+    public void sendLoginResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
         dos.write(sendFormat(answer, body));
         dos.flush();
     }
@@ -36,6 +38,11 @@ public class ServerPacket {
     }
     public void sendStoreInsertResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
         dos.write(sendFormat(answer,body));
+        dos.flush();
+    }
+
+    public void sendOrderResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
+        dos.write(sendFormat(answer, body));
         dos.flush();
     }
 
@@ -56,6 +63,16 @@ public class ServerPacket {
 
     public void sendCancelMenuResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
         dos.write(sendFormat(answer, body));
+        dos.flush();
+    }
+
+    public void sendCancelOrderResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
+        dos.write(sendFormat(answer, body));
+        dos.flush();
+    }
+
+    public void sendJudgeOwnerResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
+        dos.write(sendFormat(answer,body));
         dos.flush();
     }
 
