@@ -17,5 +17,8 @@ public class UserScreen {
     public final static String ENTER_NAME = "이름을 입력하세요";
     public final static String ENTER_PHONE = "전화번호를 입력하세요";
     public final static String ENTER_ADDRESS = "주소를 입력하세요";
+    public final static String ENTER_AGE = "나이를 입력하세요";
     public final static String ENTER_INFORMATION = "가게 소개를 입력하세요";
+    public final static String SUCCESS_REGISTER = "등록 성공";
+    public final static String FAIL_REGISTER = "등록 실패";
 }

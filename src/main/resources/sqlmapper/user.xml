@@ -19,12 +19,12 @@
 
     <insert id="signUpStoreKeeper" parameterType="UserDTO">
         INSERT INTO `delivery`.`user` (`user_ID`, `user_P/W`, `authority`, `user_address`, `user_name`, `user_phone`, `age`)
-        VALUES (#{user_ID}, #{user_PW}, 1, #{user_address}, #{user_name}, #{user_phone}, ${age});
+        VALUES (#{user_ID}, #{user_PW}, 2, #{user_address}, #{user_name}, #{user_phone}, ${age});
     </insert>
 
     <insert id="signUpClient" parameterType="UserDTO">
         INSERT INTO `delivery`.`user` (`user_ID`, `user_P/W`, `authority`, `user_address`, `user_name`, `user_phone`, `age`, `state`)
-        VALUES (#{user_ID}, #{user_PW}, 2, #{user_address}, #{user_name}, #{user_phone}, ${age}, 1);
+        VALUES (#{user_ID}, #{user_PW}, 1, #{user_address}, #{user_name}, #{user_phone}, ${age}, 1);
     </insert>
 
     <update id="updateInfor" parameterType="Map">
