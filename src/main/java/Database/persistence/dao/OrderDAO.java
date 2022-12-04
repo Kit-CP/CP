@@ -14,21 +14,27 @@ public class OrderDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public synchronized void makeOrder(OrderDTO dto) {
+    public synchronized boolean makeOrder(OrderDTO dto) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             sqlSession.insert("mapper.OrderMapper.makeOrder", dto);
             sqlSession.commit();
+            result = true;
         }
         catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         }
         finally {
             sqlSession.close();
         }
+
+        return result;
     }
 
-    public synchronized void updateState(int order_id, int state) {
+    public synchronized boolean updateState(int order_id, int state) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("orderId", order_id);
@@ -36,22 +42,31 @@ public class OrderDAO {
         try {
             sqlSession.update("mapper.OrderMapper.acceptOrder", map);
             sqlSession.commit();
+            result = true;
         } catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         } finally {
             sqlSession.close();
         }
+
+        return result;
     }
 
-    public synchronized void cancelOrder(int order_id) {
+    public synchronized boolean cancelOrder(int order_id) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         try {
             sqlSession.update("mapper.OrderMapper.cancelOrder", order_id);
+            result = true;
         } catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         } finally {
             sqlSession.close();
         }
+
+        return result;
     }
 
     public int getOrderState(int order_id) {
@@ -67,7 +82,8 @@ public class OrderDAO {
         return temp;
     }
 
-    public synchronized void updatePriceSum(int order_id, int newPriceSum) {
+    public synchronized boolean updatePriceSum(int order_id, int newPriceSum) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Integer> param = new HashMap<>();
         param.put("order_id", order_id);
@@ -75,13 +91,17 @@ public class OrderDAO {
         try {
             sqlSession.update("mapper.OrderMapper.updatePriceSum", param);
             sqlSession.commit();
+            result = true;
         }
         catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         }
         finally {
             sqlSession.close();
         }
+
+        return result;
     }
 
     public List<OrderViewDTO> getOrderList(String store_name) {

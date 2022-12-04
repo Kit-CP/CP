@@ -14,20 +14,25 @@ public class OptionDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public synchronized void insertOptionAll(List<OptionDTO> dtos) {
+    public synchronized boolean insertOptionAll(List<OptionDTO> dtos) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             for ( OptionDTO dto : dtos ) {
                 sqlSession.insert("mapper.OptionMapper.insertOption", dto);
                 sqlSession.commit();
+                result = true;
             }
         }
         catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         }
         finally {
             sqlSession.close();
         }
+
+        return result;
     }
 
     public int getOptionPrice(String option_name) {
@@ -42,17 +47,22 @@ public class OptionDAO {
         return result;
     }
 
-    public synchronized void judgeOption(Map<String, Object> param) {
+    public synchronized boolean judgeOption(Map<String, Object> param) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
             sqlSession.update("mapper.OptionMapper.judgeOption", param);
             sqlSession.commit();
+            result = true;
         }
         catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         }
         finally {
             sqlSession.close();
         }
+
+        return result;
     }
 }

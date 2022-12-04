@@ -13,19 +13,24 @@ public class MenuHasOptionDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public synchronized void insertMenuOption(List<MenuHasOptionDTO> dtos) {
+    public synchronized boolean insertMenuOption(List<MenuHasOptionDTO> dtos) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             for ( MenuHasOptionDTO dto : dtos ) {
                 sqlSession.insert("mapper.MenuHasOptionMapper.insertMenuOption", dto);
                 sqlSession.commit();
+                result = true;
             }
         }
         catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         }
         finally {
             sqlSession.close();
         }
+
+        return result;
     }
 }

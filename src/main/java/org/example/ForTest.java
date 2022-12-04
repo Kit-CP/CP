@@ -429,4 +429,19 @@ public class ForTest {
         OrderView orderView = new OrderView();
         orderView.printStoreSales(list);
     }
+
+    public static void test24(String user_ID, String user_PW) {   // 로그인 boolean 리턴
+        UserDTO dto = new UserDTO();
+        dto.setUser_ID(user_ID);
+        dto.setUser_PW(user_PW);
+        UserDAO dao = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        boolean result = dao.signIn(dto);
+
+        if (result == true) {
+            System.out.println("로그인 성공!");
+        }
+        else {
+            System.out.println("로그인 실패");
+        }
+    }
 }
