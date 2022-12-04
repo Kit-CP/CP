@@ -19,9 +19,9 @@ public class UserPacket { //메시지를 직렬화
         this.authority = authority;
         this.answer = answer;
     }
-    public void sendUserDTO(UserDTO user) {
+    public void sendUserDTO(UserDTO userDTO) {
         try {
-            byte[] bodyBytes = user.getBytes();
+            byte[] bodyBytes = userDTO.getBytes();
             size = bodyBytes.length;
             byte[] headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
 
@@ -30,7 +30,23 @@ public class UserPacket { //메시지를 직렬화
 
             dos.write(bao.toByteArray());
             dos.flush();
+        }
+        catch (IOException e) {
+            System.out.println(e);
+        }
+    }
 
+    public void sendStoreDTO(StoreDTO storeDTO) {
+        try {
+            byte[] bodyBytes = storeDTO.getBytes();
+            size = bodyBytes.length;
+            byte[] headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+
+            dataWrite.write(headerBytes);
+            dataWrite.write(bodyBytes);
+
+            dos.write(bao.toByteArray());
+            dos.flush();
         }
         catch (IOException e) {
             System.out.println(e);

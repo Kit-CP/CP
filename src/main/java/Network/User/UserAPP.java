@@ -1,5 +1,6 @@
 package Network.User;
 
+import Database.persistence.dto.StoreDTO;
 import Database.persistence.dto.UserDTO;
 import Database.service.UserService;
 import Network.Protocol.ProtocolAnswer;
@@ -161,7 +162,7 @@ public class UserAPP {
         return false;
     }
 
-    private boolean ownerRun() {
+    private boolean ownerRun() throws IOException {
         boolean isRun = true;
         while ( isRun ) {
             int command = 0;
@@ -187,11 +188,26 @@ public class UserAPP {
         return false;
     }
 
-    private void insertStore() {
-        System.out.println(UserScreen.ENTER_NAME);
-        String storeName = input.nextLine();
-        System.out.println(UserScreen.ENTER_ADDRESS);
-        String storeAddress = input.next();
+    private void insertStore() throws IOException {
+        StoreDTO dto = makeStoreDTO();
+
+        userPacket = new UserPacket(dos, ProtocolType.REGISTER, ProtocolCode.STORE_INSERT, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.sendStoreDTO(dto);
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveInsertStoreResult();
+    }
+
+    private StoreDTO makeStoreDTO() {
+        StoreDTO temp = new StoreDTO();
+        String str;
+        System.out.println(UserScreen.ENTER_NAME);  str = input.nextLine();  temp.setStore_name(str);
+        System.out.println(UserScreen.ENTER_ADDRESS);  str = input.nextLine();  temp.setStore_address(str);
+        System.out.println(UserScreen.ENTER_PHONE);  str = input.nextLine();  temp.setStore_phone(str);
+        System.out.println(UserScreen.ENTER_INFORMATION); str = input.nextLine();  temp.setInformation(str);
+        temp.setUser_ID(this.user_ID);
+        temp.setIsAccept(0);
+        return temp;
     }
 
     private boolean managerRun() {
