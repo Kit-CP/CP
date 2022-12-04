@@ -34,6 +34,12 @@ public class UserDTO implements IDTO {
         this.state = state;
     }
 
+    public UserDTO(String id, String pw) {
+        user_ID = id;
+        user_PW  = pw;
+    }
+
+
     @Override
     public byte[] getBytes() throws IOException {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();

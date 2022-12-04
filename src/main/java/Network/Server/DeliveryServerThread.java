@@ -26,7 +26,6 @@ public class DeliveryServerThread extends Thread{
                 /* 역직렬화 과정 여기부터 */
                 ServerController serverController = new ServerController(dis.readByte(), dis.readByte(), dis.readByte(), dis.readByte());
                 int bodySize = dis.readInt();
-
                 if ( bodySize > 0 ) {
                     byte[] bytes = new byte[bodySize];
                     dis.read(bytes);
@@ -44,6 +43,11 @@ public class DeliveryServerThread extends Thread{
 
             }catch(IOException e) {
                 System.out.println(portNum + " ERROR reading: " + e.getMessage());
+                try {
+                    this.close();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         }
     }
