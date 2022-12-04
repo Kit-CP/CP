@@ -1,6 +1,7 @@
 package Network.User;
 
 import Database.persistence.dto.UserDTO;
+import Database.service.UserService;
 import Network.Protocol.ProtocolAnswer;
 import Network.Protocol.ProtocolAuthority;
 import Network.Protocol.ProtocolCode;
@@ -97,7 +98,7 @@ public class UserAPP {
             return;
         }
 
-        UserDTO dto = makeUserDTO();
+        UserDTO dto = makeUserDTO(newAuthority);
 
         userPacket = new UserPacket(dos, ProtocolType.SIGNUP, ProtocolCode.REGISTER_INFO, authority, ProtocolAnswer.DEFAULT);
         userPacket.sendUserDTO(dto);
@@ -106,11 +107,17 @@ public class UserAPP {
         userMessage.receiveSignUpResult();
     }
 
-    private UserDTO makeUserDTO() {
+    private UserDTO makeUserDTO(int authority) {
         UserDTO temp = new UserDTO();
         String str;
         System.out.println(UserScreen.ENTER_ID);  str = input.nextLine();  temp.setUser_ID(str);
         System.out.println(UserScreen.ENTER_PW);  str = input.nextLine();  temp.setUser_PW(str);
+        System.out.println(UserScreen.ENTER_ADDRESS);  str = input.nextLine();  temp.setUser_address(str);
+        System.out.println(UserScreen.ENTER_NAME);  str = input.nextLine();  temp.setUser_name(str);
+        System.out.println(UserScreen.ENTER_PHONE);  str = input.nextLine();  temp.setUser_phone(str);
+        System.out.println(UserScreen.ENTER_AGE);  str = input.nextLine();  temp.setAge(Integer.parseInt(str));
+        temp.setAuthority(authority);
+        temp.setState(0);
         return temp;
     }
 
