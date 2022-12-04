@@ -122,8 +122,12 @@ public class OrderDAO {
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         try {
-            sqlSession.update("mapper.OrderMapper.cancelOrder", order_id);
-            result = true;
+            int canceledOrder = sqlSession.update("mapper.OrderMapper.cancelOrder", order_id);
+
+            if (canceledOrder == 1) {
+                sqlSession.update("mapper.OrderMapper.restockMenu", order_id);
+                result = true;
+            }
         } catch (Exception e) {
             sqlSession.rollback();
             result = false;
