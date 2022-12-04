@@ -32,7 +32,8 @@ public class ProtocolCode {
 
     //Type:5 , OWNER
     public final static byte CHANGE_OWNER_INFO = 1;
-    public final static byte CHANGE_STORE_INFO = 2;
+    public final static byte CHANGE_MENU_INFO = 2;
+    public final static byte CHANGE_MENU_STOCK = 3;
 
     //TYPE:5 , MANAGER
     public final static byte CHANGE_MANAGER_INFO = 1;
