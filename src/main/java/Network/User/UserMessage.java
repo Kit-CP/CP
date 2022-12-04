@@ -1,13 +1,51 @@
 package Network.User;
 
-public class UserMessage {
-    public final static String START_MENU = "반갑습니다!  [1]로그인  [2]회원가입  [3]종료";
-    public final static String INPUT_ERROR = "잘못된 입력입니다!";
-    public final static String SELECT_AUTHORITY = "고객 회원가입은 [1], 점주 회원가입은 [2]를 입력하세요.";
-    public final static String SIGNUP = "ID, P/W, 주소, 이름, 전화번호, 나이를 입력하세요.";
-    public final static String SUCCESS_SIGNUP = "회원가입 완료";
-    public final static String FAIL_SIGNUP = "회원가입 실패, 중독한 아이디가 존재합니다.";
-    public final static String ENTER_ID = "ID를 입력하세요";
-    public final static String ENTER_PW = "P/W를 입력하세요";
+import Network.Protocol.ProtocolAnswer;
 
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+
+public class UserMessage {
+    private byte answer;
+    private byte[] body;
+    private int size;
+    ByteArrayInputStream bai;
+    DataInputStream dis;
+
+    public UserMessage(DataInputStream dis) throws IOException {
+        this.answer = dis.readByte();
+        this.size = dis.readInt();
+
+        if ( size > 0 ) {
+            body = new byte[size];
+            dis.read(body);
+            this.bai = new ByteArrayInputStream(body);
+            this.dis = new DataInputStream(bai);
+
+        }
+        else {
+            body = new byte[0];
+        }
+    }
+
+    public void receiveSignUpResult() {
+        if ( answer == ProtocolAnswer.SUCCESS ) {
+            System.out.println(UserScreen.SUCCESS_SIGNUP);
+        }
+        else if ( answer == ProtocolAnswer.ERROR ) {
+            System.out.println(UserScreen.FAIL_SIGNUP);
+        }
+    }
+
+    public int receiveLoginResult() throws IOException {
+        if ( answer == ProtocolAnswer.SUCCESS ) {
+            System.out.println(UserScreen.SUCCESS_LOGIN);
+            return this.dis.readInt();
+        }
+        else if ( answer == ProtocolAnswer.ERROR ) {
+            System.out.println(UserScreen.FAIL_LOGIN);
+        }
+        return -1;
+    }
 }

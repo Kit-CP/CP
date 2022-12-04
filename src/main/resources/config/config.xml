@@ -17,6 +17,7 @@
         <typeAlias alias="OrderViewDTO" type="Database.persistence.dto.OrderViewDTO"/>
         <typeAlias alias="MenuSalesDTO" type="Database.persistence.dto.MenuSalesDTO"/>
         <typeAlias alias="StoreSalesDTO" type="Database.persistence.dto.StoreSalesDTO"/>
+        <typeAlias alias="NewOrderDTO" type="Database.persistence.dto.NewOrderDTO"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">

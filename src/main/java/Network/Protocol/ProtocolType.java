@@ -9,7 +9,7 @@ public class ProtocolType {
 
     public final static int HEADER_SIZE = 4;
     //TYPE
-    public final static byte SINE_UP = 1;
+    public final static byte SIGNUP = 1;
     public final static byte LOGIN = 2;
     public final static byte REGISTER = 3;
     public final static byte ACCEPT = 4;

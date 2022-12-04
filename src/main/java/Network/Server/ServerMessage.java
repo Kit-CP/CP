@@ -49,7 +49,7 @@ public class ServerMessage {
         ByteArrayInputStream bai = new ByteArrayInputStream(body);
         DataInputStream dis = new DataInputStream(bai);
 
-        if (type == ProtocolType.SINE_UP) {
+        if (type == ProtocolType.SIGNUP) {
 
             if (authority == ProtocolAuthority.CLIENT) { //회원가입 고객
 
@@ -83,8 +83,8 @@ public class ServerMessage {
                     }
                 }
             }
-
-        } else if (type == ProtocolType.LOGIN) { //로그인
+        } 
+        else if (type == ProtocolType.LOGIN) { //로그인
 
             if (authority == ProtocolAuthority.ANONYMITY) {//default값으로 익명
 
@@ -105,7 +105,8 @@ public class ServerMessage {
                 }
             }
 
-        } else if (type == ProtocolType.REGISTER) { //등록
+        } 
+        else if (type == ProtocolType.REGISTER) { //등록
 
             if (authority == ProtocolAuthority.CLIENT) {
 
@@ -160,7 +161,8 @@ public class ServerMessage {
                 }
             }
 
-        } else if (type == ProtocolType.ACCEPT) { //승인
+        } 
+        else if (type == ProtocolType.ACCEPT) { //승인
 
             if (authority == ProtocolAuthority.CLIENT) { //고객
 
@@ -182,7 +184,7 @@ public class ServerMessage {
                     int order_id = dis.readInt();
                     int state = dis.readInt();
                     orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (orderDAO.updateState(storeName, order_id, state)) {
+                    if (orderDAO.updateState(order_id, storeName, state)) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
@@ -232,7 +234,8 @@ public class ServerMessage {
                 }
             }
 
-        } else if (type == ProtocolType.CORRECTION) { //수정
+        } 
+        else if (type == ProtocolType.CORRECTION) { //수정
 
             if (authority == ProtocolAuthority.CLIENT) { //고객
 
@@ -270,7 +273,6 @@ public class ServerMessage {
                 }
             }
         }
-
         else if (type == ProtocolType.INQUIRY) {//조회
             if (authority == ProtocolAuthority.CLIENT) {//고객
 

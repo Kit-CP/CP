@@ -3,15 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.OrderMapper">
-    <insert id="makeOrder" parameterType="orderDTO" useGeneratedKeys="true" keyProperty="order_id">
+    <insert id="makeOrder" parameterType="NewOrderDTO" useGeneratedKeys="true" keyProperty="order_id">
         INSERT INTO `delivery`.`order` (`User_ID`, `Store_name`)
-        VALUES (#{User_ID}, #{Store_name});
+        VALUES (#{user_ID}, #{store_name});
     </insert>
 
-    <update id="acceptOrder" parameterType="Map">
+    <update id="judgeOrder" parameterType="Map">
         UPDATE `order`
         SET state = (${state})
-        WHERE order_id = (${orderId});
+        WHERE order_id = (${orderId}) AND Store_name = #{store_name}
     </update>
 
     <update id="cancelOrder" parameterType="int">
