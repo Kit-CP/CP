@@ -1,8 +1,10 @@
 package Network.User;
 
 import Database.persistence.dto.UserDTO;
-import Network.Packet;
-import Network.Protocol;
+import Network.Protocol.ProtocolAnswer;
+import Network.Protocol.ProtocolAuthority;
+import Network.Protocol.ProtocolCode;
+import Network.Protocol.ProtocolType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -65,10 +67,10 @@ public class UserAPP {
         int newAuthority = Integer.parseInt(input.nextLine());
         byte authority = 0;
         if ( newAuthority == 1 ) {
-            authority = Protocol.CLIENT;
+            authority = ProtocolAuthority.CLIENT;
         }
         else if ( newAuthority == 2 ) {
-            authority = Protocol.OWNER;
+            authority = ProtocolAuthority.OWNER;
         }
         else {
             System.out.println(UserMessage.INPUT_ERROR);
@@ -80,9 +82,14 @@ public class UserAPP {
         String[] strs = str.split(" ");
         UserDTO dto = new UserDTO(strs[0], strs[1], strs[2], strs[3], strs[4], Integer.parseInt(strs[5]), 0, newAuthority);
 
-        Packet packet = new Packet(Protocol.SINE_UP, Protocol.REGISTER_INFO,authority,Protocol.DEFAULT);
-        packet.sendSignUpInfo(dos, dto);
+        UserPacket userPacket = new UserPacket(ProtocolType.SINE_UP, ProtocolCode.REGISTER_INFO,authority, ProtocolAnswer.DEFAULT);
+        userPacket.sendSignUpInfo(dos, dto);
         dis.readByte();
+        dis.readByte();
+        dis.readByte();
+        dis.readByte();
+        dis.readInt();
+        //body
     }
 
     public void login() throws IOException {

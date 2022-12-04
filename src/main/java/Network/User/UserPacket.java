@@ -1,16 +1,15 @@
-package Network;
+package Network.User;
 
 import Database.persistence.dto.*;
-import lombok.Getter;
-import lombok.Setter;
+import Network.Protocol.ProtocolType;
 
 import java.io.*;
 
-public class Packet { //메시지를 직렬화
+public class UserPacket { //메시지를 직렬화
     byte type, code, authority, answer;
     int size = 0;
 
-    public Packet(byte type, byte code, byte authority, byte answer) {
+    public UserPacket(byte type, byte code, byte authority, byte answer) {
         this.type = type;
         this.code = code;
         this.authority = authority;
@@ -22,7 +21,7 @@ public class Packet { //메시지를 직렬화
         try {
             byte[] bodyBytes = user.getBytes();
             size = bodyBytes.length;
-            byte[] headerBytes = Protocol.getHeader(type, code, authority, answer, size);
+            byte[] headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
 
             dataWrite.write(headerBytes);
             dataWrite.write(bodyBytes);
