@@ -15,16 +15,21 @@ public class ReviewDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public synchronized void writeReview(ReviewDTO dto) {
+    public synchronized boolean writeReview(ReviewDTO dto) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             sqlSession.insert("mapper.ReviewMapper.writeReview", dto);
             sqlSession.commit();
+            result = true;
         } catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         } finally {
             sqlSession.close();
         }
+
+        return result;
     }
 
     public List<Map<String, Object>> showReview(String user_id, int crtPage) {
@@ -57,7 +62,8 @@ public class ReviewDAO {
         return numOfReviews;
     }
 
-    public synchronized void writeReply(String reply, int review_id) {
+    public synchronized boolean writeReply(String reply, int review_id) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Object> map = new HashMap<>();
         map.put("reply", reply);
@@ -65,10 +71,14 @@ public class ReviewDAO {
         try{
             sqlSession.update("mapper.ReviewMapper.writeReply", map);
             sqlSession.commit();
+            result = true;
         } catch (Exception e) {
             sqlSession.rollback();
+            result = false;
         } finally {
             sqlSession.close();
         }
+
+        return result;
     }
 }

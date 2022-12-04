@@ -11,18 +11,23 @@ public class OrderedOptionDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public synchronized void orderedOption(OrderedOptionDTO dto) {
+    public synchronized boolean orderedOption(OrderedOptionDTO dto) {
+        boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             sqlSession.insert("mapper.OrderedOptionMapper.orderOption", dto);
             sqlSession.commit();
+            result = true;
         }
         catch (Exception e) {
             sqlSession.rollback();
             e.printStackTrace();
+            result = false;
         }
         finally {
             sqlSession.close();
         }
+
+        return result;
     }
 }

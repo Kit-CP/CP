@@ -24,33 +24,42 @@ public class StoreDAO {
         return dtos;
     }
 
-    public synchronized void insertStore(StoreDTO sdto) {
+    public synchronized boolean insertStore(StoreDTO sdto) {
+        boolean result = false;
         SqlSession session = sqlSessionFactory.openSession(false);
         try{
             session.insert("mapper.StoreMapper.insertStore", sdto);
             session.commit();
+            result = true;
         }
         catch (Exception e) {
             session.rollback();
+            result = false;
         }
         finally {
             session.close();
         }
+
+        return result;
     }
 
-    public synchronized void acceptStore(String name) {
+    public synchronized boolean acceptStore(String name) {
+        boolean result = false;
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
             session.update("mapper.StoreMapper.acceptStore", name);
             session.commit();
+            result = true;
         }
         catch (Exception e) {
             session.rollback();
+            result = false;
         }
         finally {
             session.close();
         }
 
+        return result;
     }
 
 }

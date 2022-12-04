@@ -25,59 +25,91 @@ public class UserDAO {
         return dtos;
     }
 
-    public synchronized void signUpStoreKeeper(UserDTO dto) {
+    public synchronized boolean signUpStoreKeeper(UserDTO dto) {
+        boolean result = false;
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
             session.insert("mapper.UserMapper.signUpStoreKeeper", dto);
             session.commit();;
+            result = true;
         }
         catch (Exception e) {
             session.rollback();
+            result = false;
         }
         finally {
             session.close();
         }
+
+        return result;
     }
 
-    public synchronized void signUpClient(UserDTO dto) {
+    public synchronized boolean signUpClient(UserDTO dto) {
+        boolean result = false;
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
             session.insert("mapper.UserMapper.signUpClient", dto);
-            session.commit();;
+            session.commit();
+            result = true;
         }
         catch (Exception e) {
             session.rollback();
+            result = false;
         }
         finally {
             session.close();
         }
+
+        return result;
     }
 
-    public synchronized void updateInfor(Map<String, Object> param) {
+    public synchronized boolean updateInfor(Map<String, Object> param) {
+        boolean result = false;
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
             session.update("mapper.UserMapper.updateInfor", param);
             session.commit();
+            result = true;
         }
         catch (Exception e) {
             session.rollback();
+            result = false;
         }
         finally {
             session.close();
         }
+
+        return result;
     }
 
-    public synchronized void judgeStoreKeeper(Map<String, Object> param) {
+    public synchronized boolean judgeStoreKeeper(Map<String, Object> param) {
+        boolean result = false;
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
             session.update("mapper.UserMapper.judgeStoreKeeper", param);
             session.commit();
+            result = true;
         }
         catch (Exception e) {
             session.rollback();
+            result = false;
         }
         finally {
             session.close();
         }
+
+        return result;
+    }
+
+    public boolean signIn(UserDTO dto) {
+        boolean result = false;
+        SqlSession session = sqlSessionFactory.openSession(false);
+        try {
+            result = session.selectOne("mapper.UserMapper.signIn", dto);
+        } finally {
+            session.close();
+        }
+
+        return result;
     }
 }
