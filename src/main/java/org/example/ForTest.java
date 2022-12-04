@@ -445,4 +445,9 @@ public class ForTest {
             System.out.println("로그인 실패");
         }
     }*/
+
+    public static void test(NewOrderDTO dto) {
+        OrderDAO dao = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        dao.newMakeOrder(dto);
+    }
 }

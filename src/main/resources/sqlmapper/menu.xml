@@ -17,7 +17,7 @@
     </select>
 
     <select id="getStock" resultType="int" parameterType="String">
-        select stock from menu where menu_name like #{menuName}
+        select stock from menu where menu_name like #{menu_name}
     </select>
 
     <update id="updateStock" parameterType="Map">
