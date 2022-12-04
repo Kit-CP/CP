@@ -59,6 +59,7 @@ public class UserDTO implements IDTO {
 
     public static UserDTO readUserDTO(DataInputStream dis) throws IOException {
         UserDTO dto = new UserDTO();
+
         dto.setUser_ID(dis.readUTF());
         dto.setUser_PW(dis.readUTF());
         dto.setAuthority(dis.readInt());

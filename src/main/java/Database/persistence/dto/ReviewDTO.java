@@ -13,7 +13,7 @@ import java.io.IOException;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewDTO implements IDTO {
-    private int review_id;
+    private int review_id; //auto
     private String content;
     private int review_score;
     private int order_id;

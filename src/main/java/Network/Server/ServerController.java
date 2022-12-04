@@ -1,6 +1,7 @@
 package Network.Server;
 
 import Database.persistence.MyBatisConnectionFactory;
+import Database.persistence.dao.ReviewDAO;
 import Database.persistence.dao.UserDAO;
 import Database.persistence.dto.*;
 import Network.Protocol.ProtocolAnswer;
@@ -15,6 +16,8 @@ public class ServerController {
     byte type, code, authority, answer;
     byte[] body;
     int size = 0;
+    ServerPacket serverPacket = new ServerPacket();
+
     public ServerController(byte type, byte code, byte authority, byte answer) {
         this.type = type;
         this.code = code;
@@ -34,11 +37,9 @@ public class ServerController {
                     int temp = user.getAuthority();
                     if (temp == 1) {
                         UserDAO dao = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                        dao.signUpClient(user);
+                        dao.signUpClient(user);//조건 수정되면 바꾸기.
                         answer = ProtocolAnswer.SUCCESS;
-                        ServerPacket sf = new ServerPacket();
-                        dos.write(sf.sendSineUpResult(answer, null));
-                        dos.flush();
+                        serverPacket.sendSineUpResult(answer, null, dos);
                     }
                 }
             }
@@ -48,11 +49,9 @@ public class ServerController {
                     int temp = user.getAuthority();
                     if (temp == 2) {
                         UserDAO dao = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                        dao.signUpClient(user);
+                        dao.signUpStoreKeeper(user);//조건 수정되면 바꾸기.
                         answer = ProtocolAnswer.SUCCESS;
-                        ServerPacket sf = new ServerPacket();
-                        dos.write(sf.sendSineUpResult(answer, null));
-                        dos.flush();
+                        serverPacket.sendSineUpResult(answer, null, dos);
                     }
                 }
             }
@@ -79,7 +78,11 @@ public class ServerController {
 
                     }
                     if (code == ProtocolCode.REVIEW) {
-
+                        String id = dis.readUTF();
+                        ReviewDTO reviewDTO = new ReviewDTO();
+                        ReviewDAO reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                        reviewDAO.writeReview(reviewDTO);
+                        serverPacket.sendReviewResult(answer,null,dos);
                     }
                 } else if (authority == ProtocolAuthority.OWNER) { //점주
                     if (code == ProtocolCode.MENU_INSERT) { // 메뉴 등록
