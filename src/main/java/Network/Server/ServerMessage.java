@@ -54,7 +54,7 @@ public class ServerMessage {
                             answer = ProtocolAnswer.ERROR;
                         }
 
-                        serverPacket.sendSineUpResult(answer, null, dos);
+                        serverPacket.sendSignUpResult(answer, null, dos);
                     }
                 }
             }
@@ -69,7 +69,7 @@ public class ServerMessage {
                             answer = ProtocolAnswer.ERROR;
                         }
 
-                        serverPacket.sendSineUpResult(answer, null, dos);
+                        serverPacket.sendSignUpResult(answer, null, dos);
                     }
                 }
             }
@@ -84,7 +84,7 @@ public class ServerMessage {
                             answer = ProtocolAnswer.ERROR;
                         }
 
-                        serverPacket.sednLoginResult(answer,null,dos);
+                        serverPacket.sendLoginResult(answer,null,dos);
                     }
                 }
                 if (authority == ProtocolAuthority.OWNER) { //로그인 점주
@@ -97,7 +97,7 @@ public class ServerMessage {
                             answer = ProtocolAnswer.ERROR;
                         }
 
-                        serverPacket.sednLoginResult(answer,null,dos);
+                        serverPacket.sendLoginResult(answer,null,dos);
                     }
                 }
                 if (authority == ProtocolAuthority.MANAGER) { // 로그인 관리자
@@ -110,7 +110,7 @@ public class ServerMessage {
                             answer = ProtocolAnswer.ERROR;
                         }
 
-                        serverPacket.sednLoginResult(answer,null,dos);
+                        serverPacket.sendLoginResult(answer,null,dos);
                     }
                 }
             }

@@ -85,8 +85,8 @@ public class UserAPP {
         UserPacket userPacket = new UserPacket(ProtocolType.SINE_UP, ProtocolCode.REGISTER_INFO,authority, ProtocolAnswer.DEFAULT);
         userPacket.sendSignUpInfo(dos, dto);
 
-        UserMessage userMessage = new UserMessage();
-        //body
+        UserMessage userMessage = new UserMessage(dis);
+        userMessage.receiveSignUpResult();
     }
 
     public void login() throws IOException {

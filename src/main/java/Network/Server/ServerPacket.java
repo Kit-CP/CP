@@ -20,12 +20,12 @@ public class ServerPacket {
         return bao.toByteArray();
     }
 
-    public void sendSineUpResult(byte answer,byte[] body, DataOutputStream dos) throws IOException {
+    public void sendSignUpResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
         dos.write(sendFormat(answer, body));
         dos.flush();
     }
 
-    public void sednLoginResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
+    public void sendLoginResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
         dos.write(sendFormat(answer, body));
         dos.flush();
     }
