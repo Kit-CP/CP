@@ -34,48 +34,51 @@ public class UserAPP {
 
     public void run() throws IOException {
         boolean isLogin = false;
+        boolean isExit = false;
 
-        while ( !isLogin ) {
-            int command = 0;
+        while ( !isExit ) {
+            while ( !isLogin && !isExit ) {
+                int command = 0;
 
-            try {
-                System.out.println(UserScreen.START_MENU);
-                command = Integer.parseInt(input.nextLine());
-            }
-            catch (InputMismatchException e) {
-                input = new Scanner(System.in);
-                System.out.println(UserScreen.INPUT_ERROR);
-            }
-
-            switch (command) {
-                case 1:
-                    if ( login() ) {
-                        isLogin = true;
-                    }
-                    break;
-                case 2:
-                    signUp();
-                    break;
-                case 3:
-                    System.exit(0);
-                default:
+                try {
+                    System.out.println(UserScreen.START_MENU);
+                    command = Integer.parseInt(input.nextLine());
+                } catch (InputMismatchException e) {
+                    input = new Scanner(System.in);
                     System.out.println(UserScreen.INPUT_ERROR);
-                    break;
-            }
-        }
+                }
 
-        while ( isLogin ) {
-            int command = 0;
+                switch (command) {
+                    case 1:
+                        if (login()) {
+                            isLogin = true;
+                        }
+                        break;
+                    case 2:
+                        signUp();
+                        break;
+                    case 3:
+                        isExit = true;
+                    default:
+                        System.out.println(UserScreen.INPUT_ERROR);
+                        break;
+                }
+            }
 
-            try {
-                System.out.println(UserScreen.START_MENU);
-                command = Integer.parseInt(input.nextLine());
+            while ( isLogin && !isExit ) {
+                if ( this.authority == 1 ) {
+                    //isLogin = clientRun();
+                }
+                else if ( this.authority == 2 ) {
+                    //isLogin = onwerRun();
+                }
+                else if ( this.authority == 3 ) {
+                    //isLogin = managerRun();
+                }
             }
-            catch (InputMismatchException e) {
-                input = new Scanner(System.in);
-                System.out.println(UserScreen.INPUT_ERROR);
-            }
+
         }
+        System.out.println(UserScreen.EXIT);
     }
 
     public void signUp() throws IOException {
