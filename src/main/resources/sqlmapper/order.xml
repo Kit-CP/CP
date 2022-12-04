@@ -20,6 +20,15 @@
         WHERE order_id = (${orderId});
     </update>
 
+    <update id="restockMenu" parameterType="int">
+        UPDATE menu
+        SET stock = stock +1
+        WHERE menu_name  IN
+                (SELECT menu_name
+                FROM ordered_menu
+                WHERE order_id = ${order_id})
+    </update>
+
     <update id="updatePriceSum" parameterType="Map">
         UPDATE `delivery`.`order` SET `priceSum` = ${priceSum} WHERE (`order_id` = ${order_id});
     </update>

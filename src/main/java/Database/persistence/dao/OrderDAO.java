@@ -123,6 +123,7 @@ public class OrderDAO {
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         try {
             sqlSession.update("mapper.OrderMapper.cancelOrder", order_id);
+            sqlSession.update("mapper.OrderMapper.restockMenu", order_id);
             result = true;
         } catch (Exception e) {
             sqlSession.rollback();
