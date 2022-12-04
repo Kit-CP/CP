@@ -58,6 +58,7 @@ public class DeliveryServer implements Runnable {
                 users[userCount].open();
                 users[userCount].start();
                 userCount++;
+
             }catch(IOException e) {
                 System.out.println("Error opening Thread: "+ e);
             }

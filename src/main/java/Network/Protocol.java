@@ -54,6 +54,7 @@ public class Protocol {
     public final static byte ORDER_LIST = 1;
     public final static byte STORE_LIST = 2;
     public final static byte MENU_LIST = 3;
+    public final static byte REVIEW_LIST = 4;
 
     //TYPE:6 , OWNER
     public final static byte MYSTORE_LIST = 1;

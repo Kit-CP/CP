@@ -23,17 +23,19 @@ public class DeliveryServerThread extends Thread{
         System.out.println("Server Thread " + portNum + " running.");
         while(true) {
             try {
-
+                //역직렬화 과정
                 ServerController serverController = new ServerController(dis.readByte(), dis.readByte(), dis.readByte(), dis.readByte());
                 int bodySize = dis.readInt();
-                if ( bodySize != 0 ) {
+                if ( bodySize > 0 ) {
                     byte[] bytes = new byte[bodySize];
                     dis.read(bytes);
                     serverController.setSize(bodySize);
                     serverController.setBody(bytes);
                 }
-                serverController.run(dos); //회원가입 insert
-                stop();
+
+                serverController.run(dos);
+
+                stop();//임시
 
             }catch(IOException e) {
                 System.out.println(portNum + " ERROR reading: " + e.getMessage());

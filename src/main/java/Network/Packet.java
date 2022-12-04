@@ -54,6 +54,7 @@ public class Packet { //메시지를 직렬화
 
             dos.write(bao.toByteArray());
             dos.flush();
+
         }
         catch (IOException e) {
             System.out.println(e);
