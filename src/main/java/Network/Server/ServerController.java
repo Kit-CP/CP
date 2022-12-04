@@ -2,12 +2,14 @@ package Network.Server;
 
 import Database.persistence.MyBatisConnectionFactory;
 import Database.persistence.dao.ReviewDAO;
+import Database.persistence.dao.StoreDAO;
 import Database.persistence.dao.UserDAO;
 import Database.persistence.dto.*;
 import Network.Protocol.ProtocolAnswer;
 import Network.Protocol.ProtocolAuthority;
 import Network.Protocol.ProtocolCode;
 import Network.Protocol.ProtocolType;
+import com.mysql.cj.x.protobuf.MysqlxCrud;
 import lombok.Setter;
 
 import java.io.*;
@@ -34,11 +36,14 @@ public class ServerController {
             if (authority == ProtocolAuthority.CLIENT) { //회원가입 고객
                 if (code == ProtocolCode.REGISTER_INFO) {
                     UserDTO user = UserDTO.readUserDTO(dis);
-                    int temp = user.getAuthority();
-                    if (temp == 1) {
+                    int userAuthority = user.getAuthority();
+                    if (userAuthority == 1) {
                         UserDAO dao = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                        dao.signUpClient(user);//조건 수정되면 바꾸기.
-                        answer = ProtocolAnswer.SUCCESS;
+                        if(dao.signUpClient(user)) {
+                            answer = ProtocolAnswer.SUCCESS;
+                        }else
+                            answer = ProtocolAnswer.ERROR;
+
                         serverPacket.sendSineUpResult(answer, null, dos);
                     }
                 }
@@ -46,55 +51,102 @@ public class ServerController {
             if (authority == ProtocolAuthority.OWNER) { //회원가입 점주
                 if (code == ProtocolCode.REGISTER_INFO) {
                     UserDTO user = UserDTO.readUserDTO(dis);
-                    int temp = user.getAuthority();
-                    if (temp == 2) {
+                    int userAuthority = user.getAuthority();
+                    if (userAuthority == 2) {
                         UserDAO dao = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                        dao.signUpStoreKeeper(user);//조건 수정되면 바꾸기.
-                        answer = ProtocolAnswer.SUCCESS;
+                        if(dao.signUpStoreKeeper(user)) {
+                            answer = ProtocolAnswer.SUCCESS;
+                        }else
+                            answer = ProtocolAnswer.ERROR;
+
                         serverPacket.sendSineUpResult(answer, null, dos);
                     }
                 }
             }
             if (type == ProtocolType.LOGIN) {
                 if (authority == ProtocolAuthority.CLIENT) { //로그인 고객
+
                     if (code == ProtocolCode.LOGIN_INFO) {
-                    
+                        UserDTO user = UserDTO.readUserDTO(dis);
+                        UserDAO dao = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                        if(dao.signIn(user)) {
+                            answer = ProtocolAnswer.SUCCESS;
+                        }else
+                            answer = ProtocolAnswer.ERROR;
+
+                        serverPacket.sednLoginResult(answer,null,dos);
                     }
                 }
                 if (authority == ProtocolAuthority.OWNER) { //로그인 점주
-                    if (code == ProtocolCode.LOGIN_INFO) {
 
+                    if (code == ProtocolCode.LOGIN_INFO) {
+                        UserDTO user = UserDTO.readUserDTO(dis);
+                        UserDAO dao = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                        if(dao.signIn(user)) {
+                            answer = ProtocolAnswer.SUCCESS;
+                        }else
+                            answer = ProtocolAnswer.ERROR;
+
+                        serverPacket.sednLoginResult(answer,null,dos);
                     }
                 }
                 if (authority == ProtocolAuthority.MANAGER) { // 로그인 관리자
-                    if (code == ProtocolCode.LOGIN_INFO) {
 
+                    if (code == ProtocolCode.LOGIN_INFO) {
+                        UserDTO user = UserDTO.readUserDTO(dis);
+                        UserDAO dao = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                        if(dao.signIn(user)) {
+                            answer = ProtocolAnswer.SUCCESS;
+                        }else
+                            answer = ProtocolAnswer.ERROR;
+
+                        serverPacket.sednLoginResult(answer,null,dos);
                     }
                 }
             }
             if (type == ProtocolType.REGISTER) { //등록
-                if (authority == ProtocolAuthority.CLIENT) { //고객 리뷰 등록
+                if (authority == ProtocolAuthority.CLIENT) {
+
                     if (code == ProtocolCode.ORDER) {
 
                     }
-                    if (code == ProtocolCode.REVIEW) {
-                        String id = dis.readUTF();
-                        ReviewDTO reviewDTO = new ReviewDTO();
+                    if (code == ProtocolCode.REVIEW) { //고객 리뷰 등록
+                        ReviewDTO reviewDTO = ReviewDTO.readReviewDTO(dis);
                         ReviewDAO reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                        reviewDAO.writeReview(reviewDTO);
+                        if(reviewDAO.writeReview(reviewDTO)){
+                            answer = ProtocolAnswer.SUCCESS;
+                        }else
+                            answer = ProtocolAnswer.ERROR;
+
                         serverPacket.sendReviewResult(answer,null,dos);
                     }
                 } else if (authority == ProtocolAuthority.OWNER) { //점주
+
                     if (code == ProtocolCode.MENU_INSERT) { // 메뉴 등록
 
                     }
                     if (code == ProtocolCode.STORE_INSERT) { // 가게 등록
+                        StoreDTO storeDTO = StoreDTO.readStoreDTO(dis);
+                        StoreDAO storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                        if(storeDAO.insertStore(storeDTO)) {
+                            answer = ProtocolAnswer.SUCCESS;
+                        }else
+                            answer = ProtocolAnswer.ERROR;
 
+                        serverPacket.sendStoreInsertResult(answer, null, dos);
                     }
                     if (code == ProtocolCode.OPTION_INSERT) { // 옵션 등록
 
                     }
-                    if (code == ProtocolCode.REPLY) { // 리뷰 답글 작성
+                    if (code == ProtocolCode.REPLY) { // 리뷰 답글 작성\
+                        ReviewDTO reviewDTO = ReviewDTO.readReviewDTO(dis);
+                        ReviewDAO reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                        if(reviewDAO.writeReply(reviewDTO)) {
+                            answer = ProtocolAnswer.SUCCESS;
+                        }else
+                            answer = ProtocolAnswer.ERROR;
+
+                        serverPacket.sendReviewReplyResult(answer, null, dos);
 
                     }
                 }
@@ -112,6 +164,12 @@ public class ServerController {
                 }
                 if (authority == ProtocolAuthority.MANAGER) { //관리자
                     if (code == ProtocolCode.ACCEPT_STORE) { //가게 승인
+                        StoreDTO storeDTO = StoreDTO.readStoreDTO(dis);
+                        StoreDAO storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                        if(storeDAO.acceptStore(storeDTO)) {
+                            answer = ProtocolAnswer.SUCCESS;
+                        }else
+                            answer = ProtocolAnswer.ERROR;
 
                     }
                     if (code == ProtocolCode.ACCEPT_MENU) { //메뉴 승인

@@ -43,11 +43,11 @@ public class StoreDAO {
         return result;
     }
 
-    public synchronized boolean acceptStore(String name) {
+    public synchronized boolean acceptStore(StoreDTO storeDTO) {
         boolean result = false;
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
-            session.update("mapper.StoreMapper.acceptStore", name);
+            session.update("mapper.StoreMapper.acceptStore", storeDTO.getStore_name());
             session.commit();
             result = true;
         }

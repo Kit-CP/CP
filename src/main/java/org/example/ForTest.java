@@ -45,7 +45,7 @@ public class ForTest {
 
         StoreDAO storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         storeDAO.insertStore(sdto);
-        storeDAO.acceptStore("한솥도시락 금오공대점");
+        //storeDAO.acceptStore("한솥도시락 금오공대점");
     }
 
     public static void test2() {
@@ -387,7 +387,7 @@ public class ForTest {
 
     public static void test18(String reply, int review_id) { // 리뷰 작성 테스트
         ReviewDAO dao = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        dao.writeReply(reply, review_id);
+        //dao.writeReply(reply, review_id);
     }
 
     public static void test19(String user_ID, int state) {  // 점주 상태 변경

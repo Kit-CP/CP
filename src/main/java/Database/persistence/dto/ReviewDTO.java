@@ -13,7 +13,7 @@ import java.io.IOException;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewDTO implements IDTO {
-    private int review_id; //auto
+    private int review_id; //auto >> 답글 등록은 지정해주는 것으로.
     private String content;
     private int review_score;
     private int order_id;

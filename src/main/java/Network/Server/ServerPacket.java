@@ -25,8 +25,22 @@ public class ServerPacket {
         dos.flush();
     }
 
+    public void sednLoginResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
+        dos.write(sendFormat(answer, body));
+        dos.flush();
+    }
+
     public void sendReviewResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
         dos.write(sendFormat(answer, body));
+        dos.flush();
+    }
+    public void sendStoreInsertResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
+        dos.write(sendFormat(answer,body));
+        dos.flush();
+    }
+
+    public void sendReviewReplyResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
+        dos.write(sendFormat(answer,body));
         dos.flush();
     }
 

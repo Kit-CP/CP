@@ -62,12 +62,12 @@ public class ReviewDAO {
         return numOfReviews;
     }
 
-    public synchronized boolean writeReply(String reply, int review_id) {
+    public synchronized boolean writeReply(ReviewDTO reviewDTO) {
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Object> map = new HashMap<>();
-        map.put("reply", reply);
-        map.put("review_id", review_id);
+        map.put("reply", reviewDTO.getReply());
+        map.put("review_id", reviewDTO.getReview_id());
         try{
             sqlSession.update("mapper.ReviewMapper.writeReply", map);
             sqlSession.commit();
