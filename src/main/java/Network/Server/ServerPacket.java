@@ -22,28 +22,30 @@ public class ServerPacket {
         }
         return bao.toByteArray();
     }
-    public byte[] sendLoginResultFormat(byte authority, byte answer, byte[] body) throws IOException {
+
+    public byte[] sendFormat(int authority, byte answer, byte[] body) throws IOException {
         if(body != null) {
             size = body.length;
         }else {
             size = 0;
         }
-        byte[] headerBytes = ProtocolType.getLoginResultHeader(authority, answer, size);
+        byte[] headerBytes = ProtocolType.getAnswerHeader(answer, size);
         ds.write(headerBytes);
         if(size > 0) {
+            ds.writeInt(authority);
             ds.write(body);
+        }else {
+            ds.writeInt(authority);
         }
         return bao.toByteArray();
-
     }
-
     public void sendSignUpResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
         dos.write(sendFormat(answer, body));
         dos.flush();
     }
 
-    public void sendLoginResult(byte authority, byte answer, byte[] body, DataOutputStream dos) throws IOException {
-        dos.write(sendLoginResultFormat(authority, answer, body));
+    public void sendLoginResult(int authority, byte answer, byte[] body, DataOutputStream dos) throws IOException {
+        dos.write(sendFormat(authority,answer, body));
         dos.flush();
     }
 
@@ -87,6 +89,11 @@ public class ServerPacket {
     }
 
     public void sendJudgeOwnerResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
+        dos.write(sendFormat(answer,body));
+        dos.flush();
+    }
+
+    public void sendUpdateMenuPrice(byte answer, byte[] body, DataOutputStream dos) throws IOException {
         dos.write(sendFormat(answer,body));
         dos.flush();
     }
