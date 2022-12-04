@@ -13,7 +13,7 @@ public class MenuHasOptionDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public void insertMenuOption(List<MenuHasOptionDTO> dtos) {
+    public synchronized void insertMenuOption(List<MenuHasOptionDTO> dtos) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             for ( MenuHasOptionDTO dto : dtos ) {

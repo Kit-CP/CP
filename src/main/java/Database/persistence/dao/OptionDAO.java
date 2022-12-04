@@ -14,7 +14,7 @@ public class OptionDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public void insertOptionAll(List<OptionDTO> dtos) {
+    public synchronized void insertOptionAll(List<OptionDTO> dtos) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             for ( OptionDTO dto : dtos ) {
@@ -42,7 +42,7 @@ public class OptionDAO {
         return result;
     }
 
-    public void judgeOption(Map<String, Object> param) {
+    public synchronized void judgeOption(Map<String, Object> param) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
             sqlSession.update("mapper.OptionMapper.judgeOption", param);

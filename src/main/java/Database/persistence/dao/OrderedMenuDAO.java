@@ -14,7 +14,7 @@ public class OrderedMenuDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public void orderMenu(OrderedMenuDTO dto) {
+    public synchronized void orderMenu(OrderedMenuDTO dto) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             sqlSession.insert("mapper.OrderedMenuMapper.orderMenu", dto);
@@ -29,7 +29,7 @@ public class OrderedMenuDAO {
         }
     }
 
-    public void updatePrice(int orderedMenuId, int newPrice) {
+    public synchronized void updatePrice(int orderedMenuId, int newPrice) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Integer> param = new HashMap<>();
         param.put("ordered_menu_id", orderedMenuId);

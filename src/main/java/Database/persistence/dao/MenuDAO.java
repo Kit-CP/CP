@@ -16,7 +16,7 @@ public class MenuDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public void insertMenuAll(List<MenuDTO> dtos) {
+    public synchronized void insertMenuAll(List<MenuDTO> dtos) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             for ( MenuDTO dto : dtos ) {
@@ -44,7 +44,7 @@ public class MenuDAO {
         return result;
     }
 
-    public void updateMenu(String name, String newName, Integer price) {
+    public synchronized void updateMenu(String name, String newName, Integer price) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Object> param = new HashMap<>();
         param.put("menu_name", name);
@@ -62,7 +62,7 @@ public class MenuDAO {
         }
     }
 
-    public void updateMenu(String name, String newName) {
+    public synchronized void updateMenu(String name, String newName) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, String> param = new HashMap<>();
         param.put("menu_name", name);
@@ -79,7 +79,7 @@ public class MenuDAO {
         }
     }
 
-    public void updateMenu(String name, Integer price) {
+    public synchronized void updateMenu(String name, Integer price) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Object> param = new HashMap<>();
         param.put("menu_name", name);
@@ -108,7 +108,7 @@ public class MenuDAO {
         return temp;
     }
 
-    public void updateStock(String menuName, int newStock) {
+    public synchronized void updateStock(String menuName, int newStock) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Object> param = new HashMap<>();
         param.put("menu_name", menuName);
@@ -137,7 +137,7 @@ public class MenuDAO {
         return result;
     }
 
-    public void judgeMenu(Map<String, Object> param) {
+    public synchronized void judgeMenu(Map<String, Object> param) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
             sqlSession.update("mapper.MenuMapper.judgeMenu", param);
