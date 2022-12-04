@@ -24,21 +24,21 @@ public class DeliveryServerThread extends Thread{
         while(true) {
             try {
                 /* 역직렬화 과정 여기부터 */
-                ServerController serverController = new ServerController(dis.readByte(), dis.readByte(), dis.readByte(), dis.readByte());
+                ServerMessage serverMessage = new ServerMessage(dis.readByte(), dis.readByte(), dis.readByte(), dis.readByte());
                 int bodySize = dis.readInt();
                 if ( bodySize > 0 ) {
                     byte[] bytes = new byte[bodySize];
                     dis.read(bytes);
-                    serverController.setSize(bodySize);
-                    serverController.setBody(bytes);
+                    serverMessage.setSize(bodySize);
+                    serverMessage.setBody(bytes);
                 }
                 else if ( bodySize == 0 ) {
-                    serverController.setSize(0);
-                    serverController.setBody(null);
+                    serverMessage.setSize(0);
+                    serverMessage.setBody(null);
                 }
                 /* 여기까지 */
 
-                serverController.run(dos);
+                serverMessage.run(dos);
                 stop();
 
             }catch(IOException e) {
