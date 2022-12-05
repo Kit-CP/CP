@@ -7,6 +7,7 @@ import Network.Protocol.ProtocolAnswer;
 import Network.Protocol.ProtocolAuthority;
 import Network.Protocol.ProtocolCode;
 import Network.Protocol.ProtocolType;
+import Util.State;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +25,7 @@ public class UserAPP {
     DataOutputStream dos;
     String user_ID;
     int authority;
+    int state;
     UserPacket userPacket = null;
     UserMessage userMessage = null;
 
@@ -31,6 +33,11 @@ public class UserAPP {
         this.dos = dos;
         this.dis = dis;
         input = new Scanner(System.in);
+    }
+
+    private void printUserInfor() {
+        System.out.println("<<" + State.getAuthority(authority) + ">>\t아이디 : " + user_ID + "\t상태 : " + State.getState(state));
+        return;
     }
 
     public void run() throws IOException {
@@ -82,6 +89,8 @@ public class UserAPP {
         }
         System.out.println(UserScreen.EXIT);
     }
+
+    /*=============================================== 시작 메뉴 ===============================================*/
 
     private void signUp() throws IOException {
         System.out.println(UserScreen.SELECT_AUTHORITY);
@@ -136,6 +145,7 @@ public class UserAPP {
         if ( resultDTO != null ) {
             this.authority = resultDTO.getAuthority();
             this.user_ID = resultDTO.getUser_ID();
+            this.state = resultDTO.getState();
             return true;
         }
         else {
@@ -143,12 +153,15 @@ public class UserAPP {
         }
     }
 
+    /*=============================================== 고객 ===============================================*/
+
     private boolean clientRun() {
         boolean isRun = true;
         while ( isRun ) {
             int command = 0;
 
             try {
+                printUserInfor();
                 System.out.println(UserScreen.CLIENT_SCREEN);
                 command = Integer.parseInt(input.nextLine());
             } catch (InputMismatchException e) {
@@ -161,12 +174,15 @@ public class UserAPP {
         return false;
     }
 
+    /*=============================================== 점주 ===============================================*/
+
     private boolean ownerRun() throws IOException {
         boolean isRun = true;
         while ( isRun ) {
             int command = 0;
 
             try {
+                printUserInfor();
                 System.out.println(UserScreen.OWNER_SCREEN);
                 command = Integer.parseInt(input.nextLine());
             } catch (InputMismatchException e) {
@@ -177,6 +193,10 @@ public class UserAPP {
             switch ( command ) {
                 case 1:
                     insertStore();
+                    break;
+                case 7:
+                    System.out.println(UserScreen.LOGOUT);
+                    isRun = false;
                     break;
                 default:
                     System.out.println(UserScreen.INPUT_ERROR);
@@ -209,12 +229,15 @@ public class UserAPP {
         return temp;
     }
 
+    /*=============================================== 관리자 ===============================================*/
+
     private boolean managerRun() {
         boolean isRun = true;
         while ( isRun ) {
             int command = 0;
 
             try {
+                printUserInfor();
                 System.out.println(UserScreen.MANAGER_SCREEN);
                 command = Integer.parseInt(input.nextLine());
             } catch (InputMismatchException e) {
