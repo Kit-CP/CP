@@ -19,7 +19,6 @@ import java.util.Scanner;
 @Getter
 @Setter
 public class UserAPP {
-    Socket socket;
     Scanner input;
     DataInputStream dis;
     DataOutputStream dos;
@@ -28,11 +27,10 @@ public class UserAPP {
     UserPacket userPacket = null;
     UserMessage userMessage = null;
 
-    public UserAPP(Socket socket) throws IOException {
-        this.socket = socket;
+    public UserAPP(DataOutputStream dos, DataInputStream dis) throws IOException {
+        this.dos = dos;
+        this.dis = dis;
         input = new Scanner(System.in);
-        dos = new DataOutputStream(socket.getOutputStream());// 출력 전용 >> 직렬화 >> 소켓에 쓰는 것 >> 각 모든 데이터를 Byte
-        dis = new DataInputStream(socket.getInputStream());//읽기 전용 >> 소켓의 데이터를 읽는 것 >> Data 어떻게 읽을 지 Byte or int
     }
 
     public void run() throws IOException {
@@ -62,6 +60,7 @@ public class UserAPP {
                         break;
                     case 3:
                         isExit = true;
+                        break;
                     default:
                         System.out.println(UserScreen.INPUT_ERROR);
                         break;

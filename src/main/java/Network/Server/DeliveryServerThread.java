@@ -20,22 +20,20 @@ public class DeliveryServerThread extends Thread{
         return portNum;
     }
     public void run() {
-        System.out.println("Server Thread " + portNum + " running.");
-        while(true) {
+        System.out.println("서버 스레드 " + portNum + " 실행중");
+        while( !socket.isClosed() ) {
             try {
-                ServerMessage serverMessage = new ServerMessage(dis);
-
-
-
-                serverMessage.run(dos);
-                stop();
+                //while(isConnect) {
+                    ServerMessage serverMessage = new ServerMessage(dis);
+                    serverMessage.run(dos);
+                //}
 
             }catch(IOException e) {
-                System.out.println(portNum + " ERROR reading: " + e.getMessage());
+                System.out.println(portNum + " 소켓에러 : " + e.getMessage());
                 try {
-                    this.close();
+                    socket.close();
                 } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+
                 }
             }
         }
@@ -55,5 +53,6 @@ public class DeliveryServerThread extends Thread{
         if(dos != null){
             dos.close();
         }
+        this.stop();
     }
 }

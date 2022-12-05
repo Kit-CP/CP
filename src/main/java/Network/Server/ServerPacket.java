@@ -1,5 +1,6 @@
 package Network.Server;
 
+import Network.Protocol.ProtocolAnswer;
 import Network.Protocol.ProtocolType;
 
 import java.io.*;
@@ -33,7 +34,7 @@ public class ServerPacket {
         if(size > 0) {
             ds.writeInt(authority);
             ds.write(body);
-        }else {
+        }else if(answer != ProtocolAnswer.ERROR){
             ds.writeInt(authority);
         }
         return bao.toByteArray();
