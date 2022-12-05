@@ -61,12 +61,12 @@ public class UserDAO {
         return result;
     }
 
-    public synchronized boolean updateInfor(String new_User_ID, UserDTO dto) {
+    public synchronized boolean updateInfor(String prev_User_ID, UserDTO dto) {
         boolean result = false;
         SqlSession session = sqlSessionFactory.openSession(false);
         Map<String, Object> map = new HashMap<>();
-        map.put("user_ID", dto.getUser_ID());
-        map.put("new_User_ID", new_User_ID);
+        map.put("user_ID", prev_User_ID);
+        map.put("new_User_ID", dto.getUser_ID());
         map.put("new_User_PW", dto.getUser_PW());
         map.put("new_user_address", dto.getUser_address());
         map.put("new_user_name", dto.getUser_name());

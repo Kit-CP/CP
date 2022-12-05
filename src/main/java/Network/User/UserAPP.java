@@ -92,7 +92,7 @@ public class UserAPP {
 
     /*=============================================== 시작 메뉴 ===============================================*/
 
-    private void signUp() throws IOException {
+    private void signUp() {
         System.out.println(UserScreen.SELECT_AUTHORITY);
         int newAuthority = Integer.parseInt(input.nextLine());
         byte authority = 0;
@@ -169,9 +169,79 @@ public class UserAPP {
                 System.out.println(UserScreen.INPUT_ERROR);
             }
 
+            switch ( command ) {
+                case 1:
+                    //showStore();
+                    break;
+                case 2:
+                    //order();
+                    break;
+                case 3:
+                    //orderCancel();
+                    break;
+                case 4:
+                    //orderedList();
+                    break;
+                case 5:
+                    updateInfor();
+                    break;
+                case 6:
+                    System.out.println(UserScreen.LOGOUT);
+                    isRun = false;
+                    break;
+                default:
+                    System.out.println(UserScreen.INPUT_ERROR);
+            }
+
 
         }
         return false;
+    }
+
+    public void updateInfor() {
+        UserDTO dto = new UserDTO();
+        dto.setAuthority(this.authority);
+        dto.setState(this.state);
+
+        int command = 0;
+        System.out.println(UserScreen.UPDATE_USER_INFOR_MENU);
+        command = Integer.parseInt(input.nextLine());
+        while ( command != 7 ) {
+            System.out.println(UserScreen.ENTER_NEW_INFOR);
+            String temp = input.nextLine();
+            switch ( command ) {
+                case 1:
+                    dto.setUser_ID(temp);
+                    break;
+                case 2:
+                    dto.setUser_PW(temp);
+                    break;
+                case 3:
+                    dto.setUser_name(temp);
+                    break;
+                case 4:
+                    dto.setUser_phone(temp);
+                    break;
+                case 5:
+                    dto.setUser_address(temp);
+                    break;
+                case 6:
+                    dto.setAge(Integer.parseInt(temp));
+                    break;
+            }
+            System.out.println(UserScreen.UPDATE_USER_INFOR_MENU);
+            command = Integer.parseInt(input.nextLine());
+        }
+
+        userPacket = new UserPacket(dos, ProtocolType.CORRECTION, ProtocolCode.CHANGE_CLIENT_INFO, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.sendNewUserDTO(this.user_ID, dto);
+
+        userMessage = new UserMessage(dis);
+        if ( userMessage.receiveUpdateInforResult() ) {
+            if ( dto.getUser_ID() != "" ) {
+                this.user_ID = dto.getUser_ID();
+            }
+        }
     }
 
     /*=============================================== 점주 ===============================================*/
@@ -194,7 +264,19 @@ public class UserAPP {
                 case 1:
                     insertStore();
                     break;
-                case 7:
+                case 2:
+                    //insertOptin();
+                    break;
+                case 3:
+                    //insertMenu();
+                    break;
+                case 4:
+                    //reviewList();
+                    break;
+                case 5:
+                    //statisticsOwner();
+                    break;
+                case 6:
                     System.out.println(UserScreen.LOGOUT);
                     isRun = false;
                     break;

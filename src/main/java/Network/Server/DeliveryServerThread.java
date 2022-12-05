@@ -23,11 +23,8 @@ public class DeliveryServerThread extends Thread{
         System.out.println("서버 스레드 " + portNum + " 실행중");
         while( !socket.isClosed() ) {
             try {
-                //while(isConnect) {
-                    ServerMessage serverMessage = new ServerMessage(dis);
-                    serverMessage.run(dos);
-                //}
-
+                ServerMessage serverMessage = new ServerMessage(dis);
+                serverMessage.run(dos);
             }
             catch(IOException e) {
                 System.out.println(portNum + " 소켓에러 : " + e.getMessage());

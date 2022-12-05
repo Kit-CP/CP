@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String args[]) throws IOException {
-        List<MenuSalesDTO> list = new ArrayList<>();
+        /*List<MenuSalesDTO> list = new ArrayList<>();
         list.add(new MenuSalesDTO("name", 1, 1));
         list.add(new MenuSalesDTO("name1", 1, 1));
         list.add(new MenuSalesDTO("name2", 1, 1));
@@ -33,6 +33,14 @@ public class Main {
         for ( int i = 0; i < 3; i++ ) {
             MenuSalesDTO dto = MenuSalesDTO.readMenuSalesDTO(dis);
             System.out.println(dto.toString());
-        }
+        }*/
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUser_ID("hoxu");
+        userDTO.setUser_name("민민민");
+        userDTO.setAge(33);
+
+        UserDAO userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+        userDAO.updateInfor("please", userDTO);
     }
 }

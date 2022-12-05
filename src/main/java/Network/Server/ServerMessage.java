@@ -85,7 +85,7 @@ public class ServerMessage {
 
             if (authority == ProtocolAuthority.ANONYMITY) {//default값으로 익명
 
-                /*if (code == ProtocolCode.LOGIN_INFO) {
+                if (code == ProtocolCode.LOGIN_INFO) {
                     UserDTO user = UserDTO.readUserDTO(dataInput);  //여기서 두 번째 통신 때 에러남..
                     userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     UserDTO replyDTO = userDAO.login(user);
@@ -101,7 +101,7 @@ public class ServerMessage {
                     } else {
                         serverPacket.sendLoginResult(answer, null, dos);
                     }
-                }*/
+                }
             }
 
         } else if (type == ProtocolType.REGISTER) { //등록
@@ -243,10 +243,10 @@ public class ServerMessage {
             if (authority == ProtocolAuthority.CLIENT) { //고객
 
                 if (code == ProtocolCode.CHANGE_CLIENT_INFO) {//고객 정보 수정
-                    String newID = dataInput.readUTF();
+                    String curID = dataInput.readUTF();
                     UserDTO userDTO = UserDTO.readUserDTO(dataInput);
                     userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (userDAO.updateInfor(newID, userDTO)) {
+                    if (userDAO.updateInfor(curID, userDTO)) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
