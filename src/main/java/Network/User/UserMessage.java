@@ -2,7 +2,6 @@ package Network.User;
 
 import Database.persistence.dto.StoreDTO;
 import Database.persistence.dto.UserDTO;
-import Database.view.StoreView;
 import Network.Protocol.ProtocolAnswer;
 
 import java.io.DataInputStream;
@@ -80,7 +79,7 @@ public class UserMessage {
             }
         }
         else {
-            System.out.println("등록된 매장이 없습니다.\n");
+            System.out.println("매장이 없습니다.\n");
         }
         return list;
     }
@@ -94,7 +93,7 @@ public class UserMessage {
         }
     }
 
-    public List<UserDTO> receiveUserDTOs() {
+    public List<UserDTO> receiveUserDTOList() {
         List<UserDTO> list = new ArrayList<>();
         if ( answer == ProtocolAnswer.SUCCESS ) {
             try {
