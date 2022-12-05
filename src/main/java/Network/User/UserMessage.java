@@ -13,10 +13,14 @@ public class UserMessage {
     private DataInputStream dis;
 
 
-    public UserMessage(DataInputStream dis) throws IOException {
-        this.answer = dis.readByte();
-        this.size = dis.readInt();
-        this.dis = dis;
+    public UserMessage(DataInputStream dis) {
+        try {
+            this.answer = dis.readByte();
+            this.size = dis.readInt();
+            this.dis = dis;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void receiveSignUpResult() {
@@ -45,6 +49,17 @@ public class UserMessage {
         }
         else {
             System.out.println(UserScreen.FAIL_REGISTER);
+        }
+    }
+
+    public boolean receiveUpdateInforResult() {
+        if ( answer == ProtocolAnswer.SUCCESS ) {
+            System.out.println("정보 수정 성공!");
+            return true;
+        }
+        else {
+            System.out.println("정보 수정 실패!");
+            return false;
         }
     }
 }

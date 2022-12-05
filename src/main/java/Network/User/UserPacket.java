@@ -60,7 +60,8 @@ public class UserPacket { //메시지를 직렬화
             headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
 
             dos.write(headerBytes);
-            dos.write(bodyBytes);
+            dos.writeUTF(userId);
+            dos.write(dto.getBytes());
 
             dos.flush();
         }

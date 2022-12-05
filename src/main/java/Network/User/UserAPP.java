@@ -92,7 +92,7 @@ public class UserAPP {
 
     /*=============================================== 시작 메뉴 ===============================================*/
 
-    private void signUp() throws IOException {
+    private void signUp() {
         System.out.println(UserScreen.SELECT_AUTHORITY);
         int newAuthority = Integer.parseInt(input.nextLine());
         byte authority = 0;
@@ -204,9 +204,9 @@ public class UserAPP {
         dto.setState(this.state);
 
         int command = 0;
-        while ( command == 7 ) {
-            System.out.println(UserScreen.UPDATE_USER_INFOR_MENU);
-            command = Integer.parseInt(input.nextLine());
+        System.out.println(UserScreen.UPDATE_USER_INFOR_MENU);
+        command = Integer.parseInt(input.nextLine());
+        while ( command != 7 ) {
             System.out.println(UserScreen.ENTER_NEW_INFOR);
             String temp = input.nextLine();
             switch ( command ) {
@@ -228,16 +228,20 @@ public class UserAPP {
                 case 6:
                     dto.setAge(Integer.parseInt(temp));
                     break;
-                case 7:
-                    break;
             }
+            System.out.println(UserScreen.UPDATE_USER_INFOR_MENU);
+            command = Integer.parseInt(input.nextLine());
         }
 
         userPacket = new UserPacket(dos, ProtocolType.CORRECTION, ProtocolCode.CHANGE_CLIENT_INFO, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
         userPacket.sendNewUserDTO(this.user_ID, dto);
 
-
-
+        userMessage = new UserMessage(dis);
+        if ( userMessage.receiveUpdateInforResult() ) {
+            if ( dto.getUser_ID() != "" ) {
+                this.user_ID = dto.getUser_ID();
+            }
+        }
     }
 
     /*=============================================== 점주 ===============================================*/
