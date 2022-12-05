@@ -84,8 +84,8 @@ public class ServerMessage {
 
             if (authority == ProtocolAuthority.ANONYMITY) {//default값으로 익명
 
-                /*if (code == ProtocolCode.LOGIN_INFO) {
-                    UserDTO user = UserDTO.readUserDTO(dataInput);  //여기서 두 번째 통신 때 에러남..
+                if (code == ProtocolCode.LOGIN_INFO) {
+                    UserDTO user = UserDTO.readUserDTO(dataInput);
                     userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     UserDTO replyDTO = userDAO.login(user);
                     if ( replyDTO != null ) {
@@ -100,7 +100,7 @@ public class ServerMessage {
                     } else {
                         serverPacket.sendLoginResult(answer, null, dos);
                     }
-                }*/
+                }
             }
 
         } else if (type == ProtocolType.REGISTER) { //등록
@@ -108,9 +108,9 @@ public class ServerMessage {
             if (authority == ProtocolAuthority.CLIENT) {
 
                 if (code == ProtocolCode.ORDER) {//주문 등록
-                    OrderDTO orderDTO = OrderDTO.readOrderDTO(dataInput);
+                    NewOrderDTO dto = NewOrderDTO.readNewOrderDTO(dataInput);
                     orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (orderDAO.makeOrder(orderDTO)) {
+                    if (orderDAO.makeOrder(dto)) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
@@ -167,9 +167,9 @@ public class ServerMessage {
             if (authority == ProtocolAuthority.CLIENT) { //고객
 
                 if (code == ProtocolCode.CANCEL_ORDER) { // 메뉴 주문 취소
-                    int order_id = dataInput.readInt();
+                    OrderDTO dto = OrderDTO.readOrderDTO(dataInput);
                     orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (orderDAO.cancelOrder(order_id)) {
+                    if (orderDAO.cancelOrder(dto)) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
@@ -180,11 +180,9 @@ public class ServerMessage {
             if (authority == ProtocolAuthority.OWNER) { //점주
 
                 if (code == ProtocolCode.ACCEPT_ORDER) { // 주문 승인 or 취소
-                    String storeName = dataInput.readUTF();
-                    int order_id = dataInput.readInt();
-                    int state = dataInput.readInt();
+                    OrderDTO dto = OrderDTO.readOrderDTO(dataInput);
                     orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (orderDAO.updateState(order_id, storeName, state)) {
+                    if (orderDAO.updateState(dto)) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
