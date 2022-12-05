@@ -153,6 +153,8 @@ public class ServerMessage {
                     for (int i = 0; i < listSize; i++) {
                         list.add(OptionDTO.readOptionDTO(dataInput));
                     }
+                    optionDAO = new OptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+
                     if( optionDAO.insertOptionAll(list) ) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
