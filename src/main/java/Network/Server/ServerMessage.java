@@ -410,7 +410,7 @@ public class ServerMessage {
                     if (size != 0) {
                         serverPacket.sendMyStoreListResult(answer, body, dos);
                     } else {
-                        serverPacket.sendMyStoreListResult(answer, body, dos);
+                        serverPacket.sendMyStoreListResult(answer, null, dos);
                     }
 
                 }
@@ -427,7 +427,20 @@ public class ServerMessage {
             if (authority == ProtocolAuthority.MANAGER) {//관리자
 
                 if (code == ProtocolCode.PENDING_OWNER_LIST) { //미승인된 점주 리스트
+                    userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<UserDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(userDAO.getPendingStoreKeepers());
 
+                    if(body != null) {
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    if (size != 0) {
+                        serverPacket.sendPendingOwnersList(answer, body, dos);
+                    } else {
+                        serverPacket.sendPendingOwnersList(answer, null, dos);
+                    }
                 }
                 if (code == ProtocolCode.PENDING_STORE_LIST) { //미승인된 가게 리스트
 
