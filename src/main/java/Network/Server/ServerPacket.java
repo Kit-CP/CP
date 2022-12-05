@@ -143,4 +143,9 @@ public class ServerPacket {
         dataOutPut = dos;
         sendFormat(answer, body);
     }
+
+    public void sendMyStoreListResult(byte answer, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+        sendListFormat(answer, body);
+    }
 }

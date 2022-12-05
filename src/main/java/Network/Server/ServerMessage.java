@@ -149,8 +149,8 @@ public class ServerMessage {
                 }
                 if (code == ProtocolCode.OPTION_INSERT) { // 옵션 등록
                     List<OptionDTO> list = new ArrayList<>();
-                    int bodySize = dataInput.readInt();
-                    for (int i = 0; i < bodySize; i++) {
+                    int listSize = dataInput.readInt();
+                    for (int i = 0; i < listSize; i++) {
                         list.add(OptionDTO.readOptionDTO(dataInput));
                     }
                     if( optionDAO.insertOptionAll(list) ) {
@@ -394,6 +394,19 @@ public class ServerMessage {
 
                 if (code == ProtocolCode.MYSTORE_LIST) {//나의 가게 정보 조회
                     String owner_id = dataInput.readUTF();
+                    storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<StoreDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(storeDAO.getMyStoreList(owner_id));
+                    if(body != null) {
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    if (size != 0) {
+                        serverPacket.sendMyStoreListResult(answer, body, dos);
+                    } else {
+                        serverPacket.sendMyStoreListResult(answer, body, dos);
+                    }
 
                 }
                 if (code == ProtocolCode.MYMENU_LIST) {//나의 가게 메뉴 조회
