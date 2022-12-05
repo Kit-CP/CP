@@ -3,6 +3,7 @@ package Network.Server;
 import Database.persistence.MyBatisConnectionFactory;
 import Database.persistence.dao.*;
 import Database.persistence.dto.*;
+import Network.MyListSerializer;
 import Network.Protocol.ProtocolAnswer;
 import Network.Protocol.ProtocolAuthority;
 import Network.Protocol.ProtocolCode;
@@ -10,9 +11,7 @@ import Network.Protocol.ProtocolType;
 import lombok.Setter;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Setter
@@ -310,16 +309,54 @@ public class ServerMessage {
         }
 
         else if (type == ProtocolType.INQUIRY) {//조회
+
             if (authority == ProtocolAuthority.CLIENT) {//고객
 
                 if (code == ProtocolCode.ORDER_LIST) {//주문 내역 조회
-
+                    String storeName = dataInput.readUTF();//가게 이름 받기
+                    orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<OrderViewDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(orderDAO.getOrderList(storeName));
+                    if(body != null) {
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    if(size != 0) {
+                        serverPacket.sendOrderList(answer, body, dos);
+                    } else {
+                        serverPacket.sendOrderList(answer, null, dos);
+                    }
                 }
-                if (code == ProtocolCode.STORE_LIST) {//가게 정보 조회
-
+                if (code == ProtocolCode.STORE_LIST) {//승인된 가게 정보 조회
+                    storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<StoreDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(storeDAO.showAcceptedStore());
+                    if(body != null) {
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    if (size != 0) {
+                        serverPacket.sendAcceptedStoreList(answer, body, dos);
+                    } else {
+                        serverPacket.sendAcceptedStoreList(answer, null, dos);
+                    }
                 }
                 if (code == ProtocolCode.MENU_LIST) {//메뉴 조회
-
+                    menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<MenuDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(menuDAO.showAcceptedMenu());
+                    if(body != null) {
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    if (size != 0) {
+                        serverPacket.sendAcceptedStoreList(answer, body, dos);
+                    } else {
+                        serverPacket.sendAcceptedStoreList(answer, null, dos);
+                    }
                 }
                 if (code == ProtocolCode.REVIEW_LIST) {//리뷰 조회
 
