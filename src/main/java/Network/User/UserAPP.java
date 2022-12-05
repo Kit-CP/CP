@@ -3,7 +3,6 @@ package Network.User;
 import Database.persistence.dto.OptionDTO;
 import Database.persistence.dto.StoreDTO;
 import Database.persistence.dto.UserDTO;
-import Database.service.UserService;
 import Database.view.StoreView;
 import Network.Protocol.ProtocolAnswer;
 import Network.Protocol.ProtocolAuthority;
@@ -14,8 +13,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.*;
-import java.net.Socket;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -207,7 +204,7 @@ public class UserAPP {
         userPacket.requestAcceptedStore();
 
         userMessage = new UserMessage(dis);
-        StoreView.printAll(userMessage.receiveStoreList());
+        StoreView.printAcceptedStore(userMessage.receiveStoreList());
     }
 
     private void updateInfor() {
@@ -260,15 +257,16 @@ public class UserAPP {
 
     private boolean ownerRun() throws IOException {
         boolean isRun = true;
-        List<StoreDTO> myList = getMyStore();
+        List<StoreDTO> myList;
 
         while ( isRun ) {
             int command = 0;
 
             try {
+                myList = getMyStore();
                 printUserInfor();
                 System.out.println("나의 매장 정보");
-                StoreView.printAll(myList);
+                StoreView.printMyStores(myList);
                 System.out.println(UserScreen.OWNER_SCREEN);
                 command = Integer.parseInt(input.nextLine());
             } catch (InputMismatchException e) {

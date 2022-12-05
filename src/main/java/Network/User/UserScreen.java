@@ -22,7 +22,7 @@ public class UserScreen {
     public final static String ENTER_INFORMATION = "가게 소개를 입력하세요.";
     public final static String SUCCESS_REGISTER = "등록 성공!";
     public final static String FAIL_REGISTER = "등록 실패!";
-    public final static String LOGOUT = "로그 아웃";
+    public final static String LOGOUT = "로그아웃\n";
     public final static String UPDATE_USER_INFOR_MENU = "업데이트할 정보를 고르시오\n[1]ID  [2]PW  [3]이름  [4]전화번호  [5]주소  [6]나이  [7]수정 종료";
     public final static String ENTER_NEW_INFOR = "새 정보를 입력하세요.";
 
