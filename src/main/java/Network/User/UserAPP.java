@@ -171,7 +171,7 @@ public class UserAPP {
 
             switch ( command ) {
                 case 1:
-                    //showStore();
+                    showStore();
                     break;
                 case 2:
                     //order();
@@ -198,7 +198,15 @@ public class UserAPP {
         return false;
     }
 
-    public void updateInfor() {
+    private void showStore() {
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.STORE_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.requestAcceptedStore();
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveStoreList();
+    }
+
+    private void updateInfor() {
         UserDTO dto = new UserDTO();
         dto.setAuthority(this.authority);
         dto.setState(this.state);

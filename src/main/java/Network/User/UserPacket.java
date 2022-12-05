@@ -69,4 +69,14 @@ public class UserPacket { //메시지를 직렬화
             System.out.println(e);
         }
     }
+
+    public void requestAcceptedStore() {
+        try {
+            bodyBytes = null;
+            size = 0;
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
 }
