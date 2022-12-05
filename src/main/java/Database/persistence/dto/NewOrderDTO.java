@@ -21,24 +21,33 @@ public class NewOrderDTO implements IDTO {
     String menus_options;
 
     @Override
-    public byte[] getBytes() throws IOException {
+    public byte[] getBytes() {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);
-
-        dos.writeInt(order_id);
-        dos.writeUTF(user_ID);
-        dos.writeUTF(store_name);
-        dos.writeUTF(menus_options);
+        try {
+            dos.writeInt(order_id);
+            dos.writeUTF(user_ID);
+            dos.writeUTF(store_name);
+            dos.writeUTF(menus_options);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return buf.toByteArray();
     }
 
-    public NewOrderDTO readNewOrderDTO(DataInputStream dis) throws IOException {
+    public NewOrderDTO readNewOrderDTO(DataInputStream dis) {
         NewOrderDTO dto = new NewOrderDTO();
-        dto.setOrder_id(dis.readInt());
-        dto.setUser_ID(dis.readUTF());
-        dto.setStore_name(dis.readUTF());
-        dto.setMenus_options(dis.readUTF());
+        try {
+            dto.setOrder_id(dis.readInt());
+            dto.setUser_ID(dis.readUTF());
+            dto.setStore_name(dis.readUTF());
+            dto.setMenus_options(dis.readUTF());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return dto;
     }
