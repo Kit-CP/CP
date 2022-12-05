@@ -244,10 +244,10 @@ public class ServerMessage {
             if (authority == ProtocolAuthority.CLIENT) { //고객
 
                 if (code == ProtocolCode.CHANGE_CLIENT_INFO) {//고객 정보 수정
-                    String id = dataInput.readUTF();
+                    String newID = dataInput.readUTF();
                     UserDTO userDTO = UserDTO.readUserDTO(dataInput);
                     userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (userDAO.updateInfor(id, userDTO)) {
+                    if (userDAO.updateInfor(newID, userDTO)) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
@@ -259,10 +259,10 @@ public class ServerMessage {
             if (authority == ProtocolAuthority.OWNER) {//점주
 
                 if (code == ProtocolCode.CHANGE_OWNER_INFO) { //점주 정보 수정
-                    String id = dataInput.readUTF();
+                    String newID = dataInput.readUTF();
                     UserDTO userDTO = UserDTO.readUserDTO(dataInput);
                     userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (userDAO.updateInfor(id, userDTO)) {
+                    if (userDAO.updateInfor(newID, userDTO)) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
@@ -297,10 +297,10 @@ public class ServerMessage {
             if (authority == ProtocolAuthority.MANAGER) { //관리자
 
                 if (code == ProtocolCode.CHANGE_MANAGER_INFO) {//관리자 정보 수정
-                    String id = dataInput.readUTF();
+                    String newID = dataInput.readUTF();
                     UserDTO userDTO = UserDTO.readUserDTO(dataInput);
                     userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (userDAO.updateInfor(id, userDTO)) {
+                    if (userDAO.updateInfor(newID, userDTO)) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
