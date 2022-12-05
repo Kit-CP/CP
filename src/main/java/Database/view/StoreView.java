@@ -20,5 +20,6 @@ public class StoreView {
             sb.append(dto.getStore_score());
             System.out.println(sb);
         }
+        System.out.println();
     }
 }

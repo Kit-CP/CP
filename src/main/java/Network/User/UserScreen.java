@@ -15,6 +15,7 @@ public class UserScreen {
     public final static String OWNER_SCREEN = "[1]음식점 등록  [2]옵션 등록  [3]메뉴 등록  [4]리뷰 조회  [5]통계  [6]로그아웃";
     public final static String MANAGER_SCREEN = "[1]점주 가입 승인  [2]가게 등록 승인  [3]옵션 등록 승인  [4]메뉴 등록 승인  [5]통계";
     public final static String ENTER_NAME = "이름을 입력하세요.";
+    public final static String ENTER_PRICE = "가격을 입력하세요.";
     public final static String ENTER_PHONE = "전화번호를 입력하세요.";
     public final static String ENTER_ADDRESS = "주소를 입력하세요.";
     public final static String ENTER_AGE = "나이를 입력하세요.";

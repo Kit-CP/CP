@@ -1,10 +1,12 @@
 package Network.User;
 
 import Database.persistence.dto.*;
+import Network.MyListSerializer;
 import Network.Protocol.ProtocolType;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.*;
+import java.util.List;
 
 public class UserPacket { //메시지를 직렬화
     DataOutputStream dos;
@@ -79,6 +81,34 @@ public class UserPacket { //메시지를 직렬화
             dos.flush();
         } catch (IOException e) {
             System.out.println(e);
+        }
+    }
+
+    public void sendString(String infor) {
+        try {
+            size = infor.length();
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+            dos.write(headerBytes);
+            dos.writeUTF(infor);
+            dos.flush();
+        }
+        catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void sendOptionDTOList(List<OptionDTO> list) {
+        try {
+            MyListSerializer<OptionDTO> temp = new MyListSerializer<>();
+            size = list.size();
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+            dos.write(headerBytes);
+            dos.writeInt(list.size());
+            dos.write(temp.listToByte(list));
+            dos.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

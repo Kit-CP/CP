@@ -67,7 +67,7 @@ public class UserMessage {
         }
     }
 
-    public void receiveStoreList() {
+    public List<StoreDTO> receiveStoreList() {
         List<StoreDTO> list = new ArrayList<>();
         if ( answer == ProtocolAnswer.SUCCESS ) {
             try {
@@ -78,12 +78,21 @@ public class UserMessage {
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
-            if ( list.size() != 0 ) {
-                StoreView.printAll(list);
-            }
         }
         else {
-            System.out.println("등록된 매장이 없습니다.");
+            System.out.println("등록된 매장이 없습니다.\n");
+        }
+        return list;
+    }
+
+    public void receiveInsertOptionResult() {
+        if ( answer == ProtocolAnswer.SUCCESS ) {
+            System.out.println(UserScreen.SUCCESS_REGISTER);
+        }
+        else {
+            System.out.println(UserScreen.FAIL_REGISTER);
         }
     }
+
+
 }
