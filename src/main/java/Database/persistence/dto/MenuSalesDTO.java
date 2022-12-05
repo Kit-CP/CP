@@ -28,22 +28,31 @@ public class MenuSalesDTO implements IDTO {
     }
 
     @Override
-    public byte[] getBytes() throws IOException {
+    public byte[] getBytes() {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);
-
-        dos.writeUTF(menu_name);
-        dos.writeInt(count);
-        dos.writeInt(priceSum);
+        try {
+            dos.writeUTF(menu_name);
+            dos.writeInt(count);
+            dos.writeInt(priceSum);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return buf.toByteArray();
     }
 
-    public static MenuSalesDTO readMenuSalesDTO(DataInputStream dis) throws IOException {
+    public static MenuSalesDTO readMenuSalesDTO(DataInputStream dis) {
         MenuSalesDTO dto = new MenuSalesDTO();
-        dto.setMenu_name(dis.readUTF());
-        dto.setCount(dis.readInt());
-        dto.setPriceSum(dis.readInt());
+        try {
+            dto.setMenu_name(dis.readUTF());
+            dto.setCount(dis.readInt());
+            dto.setPriceSum(dis.readInt());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return dto;
     }

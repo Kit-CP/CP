@@ -27,26 +27,35 @@ public class ReviewDTO implements IDTO {
     }
 
     @Override
-    public byte[] getBytes() throws IOException {
+    public byte[] getBytes() {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);
-
-        dos.writeInt(review_id);
-        dos.writeUTF(content);
-        dos.writeInt(review_score);
-        dos.writeInt(order_id);
-        dos.writeUTF(reply);
+        try {
+            dos.writeInt(review_id);
+            dos.writeUTF(content);
+            dos.writeInt(review_score);
+            dos.writeInt(order_id);
+            dos.writeUTF(reply);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return buf.toByteArray();
     }
 
-    public static ReviewDTO readReviewDTO(DataInputStream dis) throws IOException {
+    public static ReviewDTO readReviewDTO(DataInputStream dis) {
         ReviewDTO dto = new ReviewDTO();
-        dto.setReview_id(dis.readInt());
-        dto.setContent(dis.readUTF());
-        dto.setReview_score(dis.readInt());
-        dto.setOrder_id(dis.readInt());
-        dto.setReply(dis.readUTF());
+        try {
+            dto.setReview_id(dis.readInt());
+            dto.setContent(dis.readUTF());
+            dto.setReview_score(dis.readInt());
+            dto.setOrder_id(dis.readInt());
+            dto.setReply(dis.readUTF());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return dto;
     }

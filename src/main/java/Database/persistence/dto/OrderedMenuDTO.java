@@ -26,24 +26,33 @@ public class OrderedMenuDTO implements IDTO {
     }
 
     @Override
-    public byte[] getBytes() throws IOException {
+    public byte[] getBytes() {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);
-
-        dos.writeInt(ordered_menu_id);
-        dos.writeInt(order_id);
-        dos.writeUTF(menu_name);
-        dos.writeInt(price);
+        try {
+            dos.writeInt(ordered_menu_id);
+            dos.writeInt(order_id);
+            dos.writeUTF(menu_name);
+            dos.writeInt(price);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return buf.toByteArray();
     }
 
-    public static OrderedMenuDTO readOrderedMenuDTO(DataInputStream dis) throws IOException {
+    public static OrderedMenuDTO readOrderedMenuDTO(DataInputStream dis) {
         OrderedMenuDTO dto = new OrderedMenuDTO();
-        dto.setOrdered_menu_id(dis.readInt());
-        dto.setOrder_id(dis.readInt());
-        dto.setMenu_name(dis.readUTF());
-        dto.setPrice(dis.readInt());
+        try {
+            dto.setOrdered_menu_id(dis.readInt());
+            dto.setOrder_id(dis.readInt());
+            dto.setMenu_name(dis.readUTF());
+            dto.setPrice(dis.readInt());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return dto;
     }
