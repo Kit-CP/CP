@@ -7,7 +7,6 @@ import lombok.ToString;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 
 @Getter
 @Setter

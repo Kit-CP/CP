@@ -72,18 +72,6 @@ public class UserPacket { //메시지를 직렬화
         }
     }
 
-    public void requestAcceptedStore() {
-        try {
-            bodyBytes = null;
-            size = 0;
-            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
-            dos.write(headerBytes);
-            dos.flush();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-    }
-
     public void sendString(String infor) {
         try {
             size = infor.length();
@@ -126,7 +114,7 @@ public class UserPacket { //메시지를 직렬화
         }
     }
 
-    public void requestPendingOwners() {
+    public void request() {
         try {
             int size = 0;
             headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
@@ -138,11 +126,14 @@ public class UserPacket { //메시지를 직렬화
         }
     }
 
-    public void requestPendingStores() {
+    public void sendMenuList(List<MenuDTO> dtos, List<String> strs) {
         try {
-            int size = 0;
+            int size = dtos.size();
             headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
-            dos.write(headerBytes);
+            for ( int i = 0; i < size; i++ ) {
+                dos.write(dtos.get(i).getBytes());
+                dos.writeUTF(strs.get(i));
+            }
             dos.flush();
         }
         catch (IOException e) {

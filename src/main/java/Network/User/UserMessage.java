@@ -1,5 +1,6 @@
 package Network.User;
 
+import Database.persistence.dto.OptionDTO;
 import Database.persistence.dto.StoreDTO;
 import Database.persistence.dto.UserDTO;
 import Network.Protocol.ProtocolAnswer;
@@ -35,7 +36,7 @@ public class UserMessage {
         }
     }
 
-    public UserDTO receiveLoginResult() throws IOException {
+    public UserDTO receiveLoginResult() {
         if ( answer == ProtocolAnswer.SUCCESS ) {
             System.out.println(UserScreen.SUCCESS_LOGIN);
             return UserDTO.readUserDTO(dis);
@@ -52,6 +53,15 @@ public class UserMessage {
         }
         else {
             System.out.println(UserScreen.FAIL_REGISTER);
+        }
+    }
+
+    public void receiveInsertResult() {
+        if ( answer == ProtocolAnswer.SUCCESS ) {
+            System.out.println("등록 성공!");
+        }
+        else {
+            System.out.println("등록 실패!");
         }
     }
 
@@ -109,6 +119,26 @@ public class UserMessage {
         }
         else {
             System.out.println("보류중인 점주가 없습니다.");
+        }
+        return null;
+    }
+
+    public List<OptionDTO> receiveOptionDTOList() {
+        List<OptionDTO> list = new ArrayList<>();
+        if ( answer == ProtocolAnswer.SUCCESS ) {
+            try {
+                int size = dis.readInt();
+                for ( int i = 0; i < size; i++ ) {
+                    list.add(OptionDTO.readOptionDTO(dis));
+                }
+                return list;
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("옵션이 없습니다.");
         }
         return null;
     }
