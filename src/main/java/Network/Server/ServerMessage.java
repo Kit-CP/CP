@@ -128,7 +128,7 @@ public class ServerMessage {
                         answer = ProtocolAnswer.ERROR;
                     }
 
-                    serverPacket.sendReviewResult(answer, null, dos);
+                    serverPacket.sendWriteReviewResult(answer, null, dos);
                 }
 
             } else if (authority == ProtocolAuthority.OWNER) { //점주
@@ -402,15 +402,16 @@ public class ServerMessage {
                     reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     MyListSerializer<ReviewDTO> dtos = new MyListSerializer<>();
                     body = dtos.listToByte(reviewDAO.showUserReview(user_id, storeName, crtPage));
+                    int userPage = reviewDAO.getUserReviewNum(storeName);
                     if(body != null) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
                     }
                     if (size != 0) {
-                        serverPacket.sendReviewList(answer, body, dos);
+                        serverPacket.sendReviewList(answer, userPage, body, dos); //TODO 페이지 정보와 바디 같이 보냄 주의!!
                     } else {
-                        serverPacket.sendReviewList(answer, null, dos);
+                        serverPacket.sendReviewList(answer, 0,null, dos);
                     }
                 }
             }

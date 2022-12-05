@@ -50,6 +50,27 @@ public class ServerPacket {
         }
     }
 
+    public void sendReviewFormat(byte answer, int userPage, byte[] body) {
+        try {
+            if (body != null) {
+                size = body.length;
+            } else {
+                size = 0;
+            }
+            byte[] headerBytes = ProtocolType.getAnswerHeader(answer, size);
+            dataOutPut.write(headerBytes);
+            if(size > 0) {
+                dataOutPut.writeInt(userPage);
+                dataOutPut.write(body);
+            }
+
+            dataOutPut.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void sendSignUpResult(byte answer, byte[] body, DataOutputStream dos) {
         dataOutPut = dos;
         sendFormat(answer, body);
@@ -60,7 +81,7 @@ public class ServerPacket {
         sendFormat(answer, body);
     }
 
-    public void sendReviewResult(byte answer, byte[] body, DataOutputStream dos) {
+    public void sendWriteReviewResult(byte answer, byte[] body, DataOutputStream dos) {
         dataOutPut = dos;
         sendFormat(answer, body);
     }
@@ -139,9 +160,9 @@ public class ServerPacket {
         sendListFormat(answer, body);
     }
 
-    public void sendReviewList(byte answer, byte[] body, DataOutputStream dos) {
+    public void sendReviewList(byte answer, int userPage, byte[] body, DataOutputStream dos) {
         dataOutPut = dos;
-        sendListFormat(answer, body);
+        sendReviewFormat(answer, userPage, body);
     }
 
     public void sendInsertOptionResult(byte answer, byte[] body, DataOutputStream dos) {
