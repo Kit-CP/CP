@@ -18,7 +18,7 @@ public class NewOrderDTO implements IDTO {
     int order_id;
     String user_ID;
     String store_name;
-    List<String> menus_options;
+    String menus_options;
 
     @Override
     public byte[] getBytes() throws IOException {
@@ -28,21 +28,17 @@ public class NewOrderDTO implements IDTO {
         dos.writeInt(order_id);
         dos.writeUTF(user_ID);
         dos.writeUTF(store_name);
-
-        for (String menu_options : menus_options) {
-            dos.writeUTF(menu_options);
-        }
+        dos.writeUTF(menus_options);
 
         return buf.toByteArray();
     }
 
-    public static NewOrderDTO readNewOrderDTO(DataInputStream dis) throws IOException {
+    public NewOrderDTO readNewOrderDTO(DataInputStream dis) throws IOException {
         NewOrderDTO dto = new NewOrderDTO();
         dto.setOrder_id(dis.readInt());
         dto.setUser_ID(dis.readUTF());
         dto.setStore_name(dis.readUTF());
-        List<String> menu_options = new ArrayList<>();
-
+        dto.setMenus_options(dis.readUTF());
 
         return dto;
     }

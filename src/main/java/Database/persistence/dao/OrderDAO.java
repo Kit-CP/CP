@@ -21,15 +21,18 @@ public class OrderDAO {
         Map<String, Object> map = new HashMap<>();
         int priceSum = 0;
         int stock = 0;
+        int menuPrice = 0;
+        int optionPrice = 0;
+        int priceSumOptions = 0;
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
 
         try {
             sqlSession.insert("mapper.OrderMapper.makeOrder", dto); // 주문 생성
+            String[] menu_options = dto.getMenus_options().split("\\$"); // 각 메뉴 구분
+            for (int i = 0; i < menu_options.length; i++) {
 
-            for (String menu_opitons : dto.getMenus_options()) {
-
-                String[] list = menu_opitons.split("/");
+                String[] list = menu_options[i].split("/");     // 메뉴와 옵션들을 배열로
                 String menu_name = list[0];
                 orderedMenuDTO.setOrder_id(dto.getOrder_id());
                 orderedMenuDTO.setMenu_name(menu_name);
@@ -41,16 +44,22 @@ public class OrderDAO {
                     map.put("menu_name", menu_name);
                     map.put("new_stock", stock - 1);
                     sqlSession.update("mapper.MenuMapper.updateStock", map);    // 메뉴재고 1 차감
-                    int price = sqlSession.selectOne("mapper.MenuMapper.getMenuPrice", menu_name);  // 메뉴가격 가져옴
-                    priceSum += price;
+                    menuPrice = sqlSession.selectOne("mapper.MenuMapper.getMenuPrice", menu_name);  // 메뉴가격 가져옴
+                    priceSum += menuPrice;
                     orderedOptionDTO.setOrdered_menu_id(orderedMenuDTO.getOrdered_menu_id());
 
-                    for (int i = 1; i < list.length; i++) {
-                        orderedOptionDTO.setOption_name(list[i]);
+                    priceSumOptions = 0;
+                    for (int j = 1; j < list.length; j++) {
+                        orderedOptionDTO.setOption_name(list[j]);
                         sqlSession.insert("mapper.OrderedOptionMapper.orderOption", orderedOptionDTO); // 주문 옵션 생성
-                        price = sqlSession.selectOne("mapper.OptionMapper.getOptionPrice", list[i]);    // 옵션 가격 가져옴
-                        priceSum += price;
+                        optionPrice = sqlSession.selectOne("mapper.OptionMapper.getOptionPrice", orderedOptionDTO.getOption_name());    // 옵션 가격 가져옴
+                        priceSum += optionPrice;
+                        priceSumOptions += optionPrice;
                     }
+                    map = new HashMap<>();
+                    map.put("ordered_menu_id", orderedMenuDTO.getOrdered_menu_id());
+                    map.put("price", menuPrice + priceSumOptions);
+                    sqlSession.update("mapper.OrderedMenuMapper.updatePrice", map);
                 }
                 else {
                     throw new Exception("재고가 부족하여 오류 발생");
