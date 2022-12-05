@@ -94,5 +94,27 @@ public class UserMessage {
         }
     }
 
+    public List<UserDTO> receiveUserDTOs() {
+        List<UserDTO> list = new ArrayList<>();
+        if ( answer == ProtocolAnswer.SUCCESS ) {
+            try {
+                int size = dis.readInt();
+                for ( int i = 0; i < size; i++ ) {
+                    list.add(UserDTO.readUserDTO(dis));
+                }
+                return list;
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("보류중인 점주가 없습니다.");
+        }
+        return null;
+    }
+
+
+
 
 }

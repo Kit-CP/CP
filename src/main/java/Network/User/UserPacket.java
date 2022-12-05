@@ -110,4 +110,31 @@ public class UserPacket { //메시지를 직렬화
             e.printStackTrace();
         }
     }
+
+    public void requestMyReview(String user_id, String store_name, int crtPage) {
+        try {
+            size = user_id.getBytes().length;
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+            dos.write(headerBytes);
+            dos.writeUTF(user_id);
+            dos.writeUTF(store_name);
+            dos.writeInt(crtPage);
+            dos.flush();
+        }
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void requestPendingOwners() {
+        try {
+            int size = 0;
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+            dos.write(headerBytes);
+            dos.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
