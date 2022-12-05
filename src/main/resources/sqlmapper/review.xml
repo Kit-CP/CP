@@ -20,7 +20,7 @@
         FROM (
                  SELECT review_id, user_id, review_score, review.order_id, content, reply
                  FROM review JOIN `order` ON review.order_id = `order`.order_id
-                 WHERE user_id like #{user_id} AND store_name = #{}
+                 WHERE user_id like #{user_id} AND store_name = #{store_name}
              )
                  ORDERS LIMIT 2 OFFSET ${numOfPages - 2}
     </select>
