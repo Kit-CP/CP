@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import Database.persistence.dto.StoreDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StoreDAO {
@@ -86,6 +87,19 @@ public class StoreDAO {
         }
 
         return store_name;
+    }
+
+    public List<StoreDTO> getMyStoreList(String user_id) {
+        List<StoreDTO> list = new ArrayList<>();
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            list = session.selectList("mapper.StoreMapper.getMyStoreList", user_id);
+        }
+        finally {
+            session.close();
+        }
+
+        return list;
     }
 
 }
