@@ -190,6 +190,11 @@ public class ServerPacket {
         sendListFormat(answer, body);
     }
 
+    public void sendMyReviewList(byte answer, int storePage, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+        sendReviewFormat(answer, storePage, body);
+    }
+
     public void sendMyTotalList(byte answer, byte[] body, DataOutputStream dos) {
         dataOutPut = dos;
         sendListFormat(answer, body);
