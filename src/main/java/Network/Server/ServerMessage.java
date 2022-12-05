@@ -421,7 +421,6 @@ public class ServerMessage {
                     storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     MyListSerializer<StoreDTO> dtos = new MyListSerializer<>();
                     body = dtos.listToByte(storeDAO.getMyStoreList(owner_id));
-                    size = body.length;
 
                     if(body != null) {
                         size = body.length;

@@ -203,7 +203,7 @@ public class UserAPP {
 
     private void showStore() {
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.STORE_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
-        userPacket.requestAcceptedStore();
+        userPacket.request();
 
         userMessage = new UserMessage(dis);
         StoreView.printAcceptedStore(userMessage.receiveStoreList());
@@ -290,6 +290,7 @@ public class UserAPP {
                     insertOption();
                     break;
                 case 3:
+                    getMyOption();
                     insertMenu();
                     break;
                 case 4:
@@ -365,6 +366,14 @@ public class UserAPP {
             list.add(dto);
         }
         return list;
+    }
+
+    private void getMyOption() {
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYOPTION_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.request();
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveOptionDTOList();
     }
 
     private void insertMenu() {
@@ -447,7 +456,7 @@ public class UserAPP {
 
     private void showPendingOwners() {
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.PENDING_OWNER_LIST, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
-        userPacket.requestPendingOwners();
+        userPacket.request();
 
         userMessage = new UserMessage(dis);
         List<UserDTO> dtos = userMessage.receiveUserDTOList();
@@ -472,7 +481,7 @@ public class UserAPP {
 
     private void showPendingStores() {
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.PENDING_STORE_LIST, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
-        userPacket.requestPendingStores();
+        userPacket.request();
 
         userMessage = new UserMessage(dis);
         List<StoreDTO> dtos = userMessage.receiveStoreList();

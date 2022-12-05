@@ -72,18 +72,6 @@ public class UserPacket { //메시지를 직렬화
         }
     }
 
-    public void requestAcceptedStore() {
-        try {
-            bodyBytes = null;
-            size = 0;
-            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
-            dos.write(headerBytes);
-            dos.flush();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-    }
-
     public void sendString(String infor) {
         try {
             size = infor.length();
@@ -126,19 +114,7 @@ public class UserPacket { //메시지를 직렬화
         }
     }
 
-    public void requestPendingOwners() {
-        try {
-            int size = 0;
-            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
-            dos.write(headerBytes);
-            dos.flush();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void requestPendingStores() {
+    public void request() {
         try {
             int size = 0;
             headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
