@@ -388,7 +388,8 @@ public class UserAPP {
                     selectOwner();
                     break;
                 case 2:
-
+                    showPendingStores();
+                    selectStore();
                     break;
                 case 3:
 
@@ -412,7 +413,7 @@ public class UserAPP {
         userPacket.requestPendingOwners();
 
         userMessage = new UserMessage(dis);
-        List<UserDTO> dtos = userMessage.receiveUserDTOs();
+        List<UserDTO> dtos = userMessage.receiveUserDTOList();
         if ( dtos != null ) {
             UserView.printAll(dtos);
         }
@@ -427,6 +428,31 @@ public class UserAPP {
 
         userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.ACCEPT_OWNER, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
         userPacket.sendUserDTO(dto);
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveUpdateInforResult();
+    }
+
+    private void showPendingStores() {
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.PENDING_STORE_LIST, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
+        userPacket.requestPendingStores();
+
+        userMessage = new UserMessage(dis);
+        List<StoreDTO> dtos = userMessage.receiveStoreList();
+        if ( dtos != null ) {
+            StoreView.printMyStores(dtos);
+        }
+    }
+
+    private void selectStore() {
+        System.out.println("상태를 바꿀 가게 이름을 선택하세요.");
+        String sname = input.nextLine();
+        System.out.println(UserScreen.SELECT_STATE);
+        int state = Integer.parseInt(input.nextLine());
+        StoreDTO dto = new StoreDTO(sname, state);
+
+        userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.ACCEPT_STORE, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
+        userPacket.sendStoreDTO(dto);
 
         userMessage = new UserMessage(dis);
         userMessage.receiveUpdateInforResult();

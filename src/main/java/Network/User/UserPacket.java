@@ -137,4 +137,16 @@ public class UserPacket { //메시지를 직렬화
             e.printStackTrace();
         }
     }
+
+    public void requestPendingStores() {
+        try {
+            int size = 0;
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+            dos.write(headerBytes);
+            dos.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

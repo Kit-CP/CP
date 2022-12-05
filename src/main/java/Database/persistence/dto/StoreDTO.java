@@ -21,6 +21,13 @@ public class StoreDTO implements IDTO {
     private int isAccept;
     private String user_ID;
 
+    public StoreDTO(String store_name, int state) {
+        this.store_name = store_name;
+        this.isAccept = state;
+        store_address = store_phone = information = user_ID = "";
+        store_score = 0;
+    }
+
     @Override
     public byte[] getBytes() {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
