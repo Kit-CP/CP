@@ -64,6 +64,11 @@ public class ServerPacket {
         dataOutPut = dos;
         sendFormat(answer, body);
     }
+
+    public void sendInsertMenuResult(byte answer, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+        sendFormat(answer, body);
+    }
     public void sendStoreInsertResult(byte answer, byte[] body, DataOutputStream dos) {
             dataOutPut = dos;
             sendFormat(answer, body);
