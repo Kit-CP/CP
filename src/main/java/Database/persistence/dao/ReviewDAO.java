@@ -32,7 +32,7 @@ public class ReviewDAO {
         return result;
     }
 
-    public List<ReviewDTO> showReview(String user_id, String store_name, int crtPage) {
+    public List<ReviewDTO> showUserReview(String user_id, String store_name, int crtPage) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         List<ReviewDTO> list = null;
         Map<String, Object> map = new HashMap<>();
@@ -40,8 +40,7 @@ public class ReviewDAO {
         map.put("numOfPages", crtPage*2);
         map.put("store_name", store_name);
         try {
-            list = sqlSession.selectList("mapper.ReviewMapper.showReview", map);
-            sqlSession.commit();
+            list = sqlSession.selectList("mapper.ReviewMapper.showUserReview", map);
         } catch (Exception e) {
             sqlSession.rollback();
         } finally {
@@ -50,11 +49,41 @@ public class ReviewDAO {
         return list;
     }
 
-    public int getReviewNum(String user_id) {
+    public List<ReviewDTO> showStoreReview(String store_name, int crtPage) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
+        List<ReviewDTO> list = null;
+        Map<String, Object> map = new HashMap<>();
+        map.put("store_name", store_name);
+        map.put("numOfPages", crtPage*2);
+        try {
+            list = sqlSession.selectList("mapper.ReviewMapper.showStoreReview", map);
+        } catch (Exception e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+
+        return list;
+    }
+
+    public int getUserReviewNum(String user_id) {
         int numOfReviews = 0;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
-            numOfReviews = sqlSession.selectOne("mapper.ReviewMapper.getReviewNum", user_id);
+            numOfReviews = sqlSession.selectOne("mapper.ReviewMapper.getUserReviewNum", user_id);
+        } catch (Exception e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+        return numOfReviews;
+    }
+
+    public int getStoreReviewNum(String store_name) {
+        int numOfReviews = 0;
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
+        try {
+            numOfReviews = sqlSession.selectOne("mapper.ReviewMapper.getStoreReviewNum", store_name);
         } catch (Exception e) {
             sqlSession.rollback();
         } finally {
