@@ -61,4 +61,10 @@
         FROM `user`
         WHERE `user`.user_ID = #{user_ID} AND `user_PW` = #{user_PW}
     </select>
+
+    <select id="getPendingStoreKeepers" resultType="UserDTO">
+        SELECT *
+        FROM `user`
+        WHERE state = 0 AND authority = 2
+    </select>
 </mapper>
