@@ -1,9 +1,7 @@
 package Network.Server;
 
-import Network.Protocol.ProtocolAnswer;
 import Network.Protocol.ProtocolType;
 
-import javax.xml.crypto.Data;
 import java.io.*;
 public class ServerPacket {
     int size  = 0;
@@ -123,8 +121,11 @@ public class ServerPacket {
 
     public void sendOrderList(byte answer, byte[] body, DataOutputStream dos) {
         dataOutPut = dos;
-
-        sendFormat(answer, body);
+        sendListFormat(answer, body);
     }
 
+    public void sendAcceptedStoreList(byte answer, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+        sendListFormat(answer, body);
+    }
 }

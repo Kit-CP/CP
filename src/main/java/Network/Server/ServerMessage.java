@@ -11,9 +11,7 @@ import Network.Protocol.ProtocolType;
 import lombok.Setter;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Setter
@@ -329,8 +327,20 @@ public class ServerMessage {
                         serverPacket.sendOrderList(answer, null, dos);
                     }
                 }
-                if (code == ProtocolCode.STORE_LIST) {//가게 정보 조회
-
+                if (code == ProtocolCode.STORE_LIST) {//승인된 가게 정보 조회
+                    storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<StoreDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(storeDAO.showAcceptedStore());
+                    if(body != null) {
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    if (size != 0) {
+                        serverPacket.sendAcceptedStoreList(answer, body, dos);
+                    } else {
+                        serverPacket.sendAcceptedStoreList(answer, null, dos);
+                    }
                 }
                 if (code == ProtocolCode.MENU_LIST) {//메뉴 조회
 
