@@ -19,6 +19,7 @@ public class UserDAO {
         SqlSession session = sqlSessionFactory.openSession(false);
         try{
             dtos = session.selectList("mapper.UserMapper.showAll");
+            session.commit();
         } finally {
             session.close();
         }
@@ -30,6 +31,7 @@ public class UserDAO {
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
             session.insert("mapper.UserMapper.signUpStoreKeeper", dto);
+            session.commit();
             result = true;
         }
         catch (Exception e) {
@@ -48,6 +50,7 @@ public class UserDAO {
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
             session.insert("mapper.UserMapper.signUpClient", dto);
+            session.commit();
             result = true;
         }
         catch (Exception e) {

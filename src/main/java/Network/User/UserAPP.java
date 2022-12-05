@@ -1,8 +1,10 @@
 package Network.User;
 
+import Database.persistence.dto.OptionDTO;
 import Database.persistence.dto.StoreDTO;
 import Database.persistence.dto.UserDTO;
 import Database.service.UserService;
+import Database.view.StoreView;
 import Network.Protocol.ProtocolAnswer;
 import Network.Protocol.ProtocolAuthority;
 import Network.Protocol.ProtocolCode;
@@ -14,7 +16,9 @@ import lombok.Setter;
 import java.io.*;
 import java.net.Socket;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 @Getter
@@ -203,7 +207,7 @@ public class UserAPP {
         userPacket.requestAcceptedStore();
 
         userMessage = new UserMessage(dis);
-        userMessage.receiveStoreList();
+        StoreView.printAll(userMessage.receiveStoreList());
     }
 
     private void updateInfor() {
@@ -256,11 +260,15 @@ public class UserAPP {
 
     private boolean ownerRun() throws IOException {
         boolean isRun = true;
+        List<StoreDTO> myList = getMyStore();
+
         while ( isRun ) {
             int command = 0;
 
             try {
                 printUserInfor();
+                System.out.println("나의 매장 정보");
+                StoreView.printAll(myList);
                 System.out.println(UserScreen.OWNER_SCREEN);
                 command = Integer.parseInt(input.nextLine());
             } catch (InputMismatchException e) {
@@ -273,7 +281,7 @@ public class UserAPP {
                     insertStore();
                     break;
                 case 2:
-                    //insertOptin();
+                    insertOption();
                     break;
                 case 3:
                     //insertMenu();
@@ -297,7 +305,15 @@ public class UserAPP {
         return false;
     }
 
-    private void insertStore() throws IOException {
+    private List<StoreDTO> getMyStore() {
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYSTORE_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.sendString(user_ID);
+
+        userMessage = new UserMessage(dis);
+        return userMessage.receiveStoreList();
+    }
+
+    private void insertStore() {
         StoreDTO dto = makeStoreDTO();
 
         userPacket = new UserPacket(dos, ProtocolType.REGISTER, ProtocolCode.STORE_INSERT, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
@@ -317,6 +333,32 @@ public class UserAPP {
         temp.setUser_ID(this.user_ID);
         temp.setIsAccept(0);
         return temp;
+    }
+
+    private void insertOption() {
+        userPacket = new UserPacket(dos, ProtocolType.REGISTER, ProtocolCode.OPTION_INSERT, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.sendOptionDTOList(makeOptionDTOList());
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveInsertOptionResult();
+    }
+
+    private List<OptionDTO> makeOptionDTOList() {
+        System.out.println("옵션을 등록할 가게이름을 입력하세요.");
+        String storeName = input.nextLine();
+        System.out.println("등록할 옵션의 수를 입력하세요.");
+        int cnt = Integer.parseInt(input.nextLine());
+
+        List<OptionDTO> list = new ArrayList<>();
+        for ( int i = 0; i < cnt; i++ ) {
+            System.out.println(UserScreen.ENTER_NAME);
+            String oName = input.nextLine();
+            System.out.println(UserScreen.ENTER_PRICE);
+            int price = Integer.parseInt(input.nextLine());
+            OptionDTO dto = new OptionDTO(oName, price, storeName);
+            list.add(dto);
+        }
+        return list;
     }
 
     /*=============================================== 관리자 ===============================================*/

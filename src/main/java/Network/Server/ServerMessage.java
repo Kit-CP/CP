@@ -332,8 +332,10 @@ public class ServerMessage {
                     storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     MyListSerializer<StoreDTO> dtos = new MyListSerializer<>();
                     body = dtos.listToByte(storeDAO.showAcceptedStore());
+
                     if(body != null) {
                         answer = ProtocolAnswer.SUCCESS;
+                        size = body.length;
                     } else {
                         answer = ProtocolAnswer.ERROR;
                     }
