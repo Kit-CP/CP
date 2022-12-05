@@ -153,4 +153,9 @@ public class ServerPacket {
         dataOutPut = dos;
         sendListFormat(answer, body);
     }
+
+    public void sendPendingStoreList(byte answer, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+        sendListFormat(answer, body);
+    }
 }

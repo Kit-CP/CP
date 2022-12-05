@@ -209,9 +209,12 @@ public class ServerMessage {
             if (authority == ProtocolAuthority.MANAGER) { //관리자
 
                 if (code == ProtocolCode.ACCEPT_STORE) { //관리자의 가게 승인
-                    String storeName = dataInput.readUTF();
+                    StoreDTO storeDTO = StoreDTO.readStoreDTO(dataInput);
                     storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (storeDAO.judgeStore(storeName)) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("store_name", storeDTO.getStore_name());
+                    map.put("state", storeDTO.getIsAccept());
+                    if (storeDAO.judgeStore(map)) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
@@ -402,7 +405,7 @@ public class ServerMessage {
                     storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     MyListSerializer<StoreDTO> dtos = new MyListSerializer<>();
                     body = dtos.listToByte(storeDAO.getMyStoreList(owner_id));
-
+                    size = body.length;
 
                     if(body != null) {
                         size = body.length;
@@ -447,7 +450,21 @@ public class ServerMessage {
                     }
                 }
                 if (code == ProtocolCode.PENDING_STORE_LIST) { //미승인된 가게 리스트
+                    storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<StoreDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(storeDAO.showPendingStore());
+                    size = body.length;
 
+                    if(body != null) {
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    if (size != 0) {
+                        serverPacket.sendPendingStoreList(answer, body, dos);
+                    } else {
+                        serverPacket.sendPendingStoreList(answer, null, dos);
+                    }
                 }
                 if (code == ProtocolCode.PENDING_MENU_LIST) { //미승인된 메뉴 리스트
 
