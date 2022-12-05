@@ -402,6 +402,8 @@ public class ServerMessage {
                     storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     MyListSerializer<StoreDTO> dtos = new MyListSerializer<>();
                     body = dtos.listToByte(storeDAO.getMyStoreList(owner_id));
+                    size = body.length;
+
                     if(body != null) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
@@ -430,6 +432,7 @@ public class ServerMessage {
                     userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     MyListSerializer<UserDTO> dtos = new MyListSerializer<>();
                     body = dtos.listToByte(userDAO.getPendingStoreKeepers());
+                    size = body.length;
 
                     if(body != null) {
                         answer = ProtocolAnswer.SUCCESS;
