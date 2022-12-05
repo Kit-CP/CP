@@ -103,7 +103,6 @@ public class UserPacket { //메시지를 직렬화
             size = list.size();
             headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
             dos.write(headerBytes);
-            dos.writeInt(list.size());
             dos.write(temp.listToByte(list));
             dos.flush();
         }

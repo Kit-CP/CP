@@ -153,6 +153,8 @@ public class ServerMessage {
                     for (int i = 0; i < listSize; i++) {
                         list.add(OptionDTO.readOptionDTO(dataInput));
                     }
+                    optionDAO = new OptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+
                     if( optionDAO.insertOptionAll(list) ) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
@@ -247,6 +249,7 @@ public class ServerMessage {
 
                     serverPacket.sendJudgeOwnerResult(answer, null, dos);
                 }
+
             }
 
         } else if (type == ProtocolType.CORRECTION) { //수정
@@ -414,7 +417,7 @@ public class ServerMessage {
                 if (code == ProtocolCode.MYMENU_LIST) {//나의 가게 메뉴 조회
 
                 }
-                if (code == ProtocolCode.MYORDER_LIST) {//가게 주문 조회
+                if (code == ProtocolCode.REVIEW_LIST) {//나의 가게 리뷰 조회
 
                 }
                 if (code == ProtocolCode.MYTOTAL_LIST) {//통계 정보 조회
@@ -423,6 +426,15 @@ public class ServerMessage {
             }
             if (authority == ProtocolAuthority.MANAGER) {//관리자
 
+                if (code == ProtocolCode.PENDING_OWNER_LIST) { //미승인된 점주 리스트
+
+                }
+                if (code == ProtocolCode.PENDING_STORE_LIST) { //미승인된 가게 리스트
+
+                }
+                if (code == ProtocolCode.PENDING_MENU_LIST) { //미승인된 메뉴 리스트
+
+                }
                 if (code == ProtocolCode.TOTAL_LIST) {//매출 조회
 
                 }
