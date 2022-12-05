@@ -130,6 +130,8 @@ public class UserPacket { //메시지를 직렬화
         try {
             int size = dtos.size();
             headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+            dos.write(headerBytes);
+            dos.writeInt(size);
             for ( int i = 0; i < size; i++ ) {
                 dos.write(dtos.get(i).getBytes());
                 dos.writeUTF(strs.get(i));

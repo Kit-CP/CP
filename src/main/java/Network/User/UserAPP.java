@@ -4,6 +4,7 @@ import Database.persistence.dto.MenuDTO;
 import Database.persistence.dto.OptionDTO;
 import Database.persistence.dto.StoreDTO;
 import Database.persistence.dto.UserDTO;
+import Database.view.OptionView;
 import Database.view.StoreView;
 import Database.view.UserView;
 import Network.Protocol.ProtocolAnswer;
@@ -271,9 +272,9 @@ public class UserAPP {
             int command = 0;
 
             try {
-                myList = getMyStore();
                 printUserInfor();
                 System.out.println("나의 매장 정보");
+                myList = getMyStore();
                 StoreView.printMyStores(myList);
                 System.out.println(UserScreen.OWNER_SCREEN);
                 command = Integer.parseInt(input.nextLine());
@@ -373,7 +374,7 @@ public class UserAPP {
         userPacket.request();
 
         userMessage = new UserMessage(dis);
-        userMessage.receiveOptionDTOList();
+        OptionView.printAll(userMessage.receiveOptionDTOList());
     }
 
     private void insertMenu() {
