@@ -101,19 +101,19 @@ public class UserDAO {
         return result;
     }
 
-    public int signIn(UserDTO dto) {
-        int authority = -1;
+    public UserDTO signIn(UserDTO dto) {
+        UserDTO userDTO = new UserDTO();
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
-            authority = session.selectOne("mapper.UserMapper.signIn", dto);
+            userDTO = session.selectOne("mapper.UserMapper.signIn", dto);
         }
         catch (Exception e) {
-            authority = -1;
+            userDTO.setAuthority(-1);
         }
         finally {
             session.close();
         }
 
-        return authority;
+        return userDTO;
     }
 }
