@@ -4,7 +4,6 @@ import Database.persistence.dto.*;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,7 @@ public class OrderDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public synchronized boolean newMakeOrder(NewOrderDTO dto) {
+    public synchronized boolean makeOrder(NewOrderDTO dto) {
         OrderedMenuDTO orderedMenuDTO = new OrderedMenuDTO();
         OrderedOptionDTO orderedOptionDTO = new OrderedOptionDTO();
         Map<String, Object> map = new HashMap<>();
@@ -83,7 +82,7 @@ public class OrderDAO {
         return result;
     }
 
-    public synchronized boolean makeOrder(OrderDTO dto) {
+    /*public synchronized boolean makeOrder(OrderDTO dto) {                 // 사용안함
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
@@ -100,26 +99,21 @@ public class OrderDAO {
         }
 
         return result;
-    }
+    }*/
 
-    public synchronized boolean updateState(int order_id, String store_name, int state) {
+    public synchronized boolean updateState(OrderDTO orderDTO) {
         boolean result = false;
-        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("orderId", order_id);
-        map.put("store_name", store_name);
-        map.put("state", state);
+        map.put("orderId", orderDTO.getOrder_id());
+        map.put("store_name", orderDTO.getStore_name());
+        map.put("state", orderDTO.getState());
         try {
-            int success = sqlSession.update("mapper.OrderMapper.judgeOrder", map);
+            sqlSession.update("mapper.OrderMapper.judgeOrder", map);
             sqlSession.commit();
-            if (success == 1) {
-                result = true;
-            } else {
-                result = false;
-            }
+            result = true;
         } catch (Exception e) {
             sqlSession.rollback();
-            result = false;
         } finally {
             sqlSession.close();
         }
@@ -127,19 +121,18 @@ public class OrderDAO {
         return result;
     }
 
-    public synchronized boolean cancelOrder(int order_id) {
+    public synchronized boolean cancelOrder(OrderDTO orderDTO) {
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         try {
-            int canceledOrder = sqlSession.update("mapper.OrderMapper.cancelOrder", order_id);
+            int canceledOrder = sqlSession.update("mapper.OrderMapper.cancelOrder", orderDTO.getOrder_id());
 
             if (canceledOrder == 1) {
-                sqlSession.update("mapper.OrderMapper.restockMenu", order_id);
+                sqlSession.update("mapper.OrderMapper.restockMenu", orderDTO.getOrder_id());
                 result = true;
             }
         } catch (Exception e) {
             sqlSession.rollback();
-            result = false;
         } finally {
             sqlSession.close();
         }
@@ -147,20 +140,21 @@ public class OrderDAO {
         return result;
     }
 
-    public int getOrderState(int order_id) {
+    public OrderDTO getOrderState(OrderDTO orderDTO) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
-        int temp = -1;
+        OrderDTO dto = new OrderDTO();
         try {
-            temp = sqlSession.selectOne("mapper.OrderMapper.getOrderState", order_id);
+            dto.setState(sqlSession.selectOne("mapper.OrderMapper.getOrderState", orderDTO.getOrder_id()));
         } catch (Exception e) {
             sqlSession.rollback();
+            dto.setState(-1);
         } finally {
             sqlSession.close();
         }
-        return temp;
+        return dto;
     }
 
-    public synchronized boolean updatePriceSum(int order_id, int newPriceSum) {
+    /*public synchronized boolean updatePriceSum(int order_id, int newPriceSum) {       // 사용안함
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Integer> param = new HashMap<>();
@@ -180,7 +174,7 @@ public class OrderDAO {
         }
 
         return result;
-    }
+    }*/
 
     public List<OrderViewDTO> getOrderList(String store_name) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -206,7 +200,7 @@ public class OrderDAO {
         return result;
     }
 
-    public List<MenuSalesDTO> getMenuSales(String store_name) {
+    public List<MenuSalesDTO> getMenuSales(String store_name) {         // 메뉴이름, 시킨횟수, 총 가격
         SqlSession sqlSession = sqlSessionFactory.openSession();
         List<MenuSalesDTO> result;
         try {
@@ -218,7 +212,7 @@ public class OrderDAO {
         return result;
     }
 
-    public List<StoreSalesDTO> getStoreSales() {
+    public List<StoreSalesDTO> getStoreSales() {            // 가게이름, 주문횟수, 총 매출
         SqlSession sqlSession = sqlSessionFactory.openSession();
         List<StoreSalesDTO> result;
         try {

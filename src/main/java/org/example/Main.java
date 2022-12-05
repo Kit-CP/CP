@@ -5,6 +5,7 @@ import Database.persistence.dao.OrderDAO;
 import Database.persistence.dao.UserDAO;
 import Database.persistence.dto.*;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.ibatis.session.SqlSession;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -18,10 +19,13 @@ public class Main {
         list.add(new MenuSalesDTO("name", 1, 1));
         list.add(new MenuSalesDTO("name1", 1, 1));
         list.add(new MenuSalesDTO("name2", 1, 1));
+
         byte[] bytes = new byte[0];
+
         for ( MenuSalesDTO dto : list ) {
                 bytes = ArrayUtils.addAll(bytes, dto.getBytes());
         }
+
 
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         DataInputStream dis = new DataInputStream(bis);
