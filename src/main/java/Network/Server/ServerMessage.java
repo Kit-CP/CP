@@ -30,6 +30,8 @@ public class ServerMessage {
     private ReviewDAO reviewDAO = null;
     private StoreDAO storeDAO = null;
     private UserDAO userDAO = null;
+    ByteArrayInputStream bai;
+    DataInputStream dis;
 
     public ServerMessage(DataInputStream dis) throws IOException {
         this.type = dis.readByte();
@@ -44,12 +46,11 @@ public class ServerMessage {
         } else {
             body = new byte[0];
         }
+        this.bai = new ByteArrayInputStream(body);
+        this.dis = new DataInputStream(bai);
     }
 
     public void run(DataOutputStream dos) throws IOException {
-
-        ByteArrayInputStream bai = new ByteArrayInputStream(body);
-        DataInputStream dis = new DataInputStream(bai);
 
         if (type == ProtocolType.SIGNUP) {
 

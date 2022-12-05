@@ -28,11 +28,13 @@ public class DeliveryServerThread extends Thread{
                     serverMessage.run(dos);
                 //}
 
-            }catch(IOException e) {
+            }
+            catch(IOException e) {
                 System.out.println(portNum + " 소켓에러 : " + e.getMessage());
                 try {
                     socket.close();
-                } catch (IOException ex) {
+                }
+                catch (IOException ex) {
 
                 }
             }
