@@ -20,4 +20,15 @@
         SELECT * FROM STORE, USER WHERE isAccept = 0 AND STORE.user_ID = USER.user_ID
     </select>
 
+    <select id="getStoreName" parameterType="String" resultType="String">
+        SELECT store_name
+        FROM store
+        WHERE user_ID = #{user_ID}
+    </select>
+
+    <select id="getMyStoreList" parameterType="String" resultType="StoreDTO">
+        SELECT store_name
+        FROM store
+        WHERE user_ID = #{user_ID}
+    </select>
 </mapper>

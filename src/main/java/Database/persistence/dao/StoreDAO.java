@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import Database.persistence.dto.StoreDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StoreDAO {
@@ -58,7 +59,7 @@ public class StoreDAO {
 
     public synchronized boolean acceptStore(String name) { //가게 승인
         boolean result = false;
-        SqlSession session = sqlSessionFactory.openSession(false);
+        SqlSession session = sqlSessionFactory.openSession();
         try {
             session.update("mapper.StoreMapper.acceptStore", name);
             session.commit();
@@ -73,6 +74,32 @@ public class StoreDAO {
         }
 
         return result;
+    }
+
+    public String getStoreName(String user_id) {
+        String store_name = "";
+        SqlSession session = sqlSessionFactory.openSession(false);
+        try {
+            store_name = session.selectOne("mapper.StoreMapper.getStoreName", user_id);
+        }
+        finally {
+            session.close();
+        }
+
+        return store_name;
+    }
+
+    public List<StoreDTO> getMyStoreList(String user_id) {
+        List<StoreDTO> list = new ArrayList<>();
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            list = session.selectList("mapper.StoreMapper.getMyStoreList", user_id);
+        }
+        finally {
+            session.close();
+        }
+
+        return list;
     }
 
 }
