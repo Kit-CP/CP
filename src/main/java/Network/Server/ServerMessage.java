@@ -87,14 +87,14 @@ public class ServerMessage {
                 if (code == ProtocolCode.LOGIN_INFO) {
                     UserDTO user = UserDTO.readUserDTO(dataInput);  //여기서 두 번째 통신 때 에러남..
                     userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    UserDTO replyDTO = userDAO.signIn(user);
-                    if(replyDTO.getAuthority() != -1) {
+                    UserDTO replyDTO = userDAO.login(user);
+                    if ( replyDTO != null ) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
                     }
 
-                    if(answer == ProtocolAnswer.SUCCESS) {
+                    if (answer == ProtocolAnswer.SUCCESS) {
                         body = replyDTO.getBytes();
                         serverPacket.sendLoginResult(answer, body, dos);
                     } else {

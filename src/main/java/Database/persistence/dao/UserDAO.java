@@ -4,7 +4,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import Database.persistence.dto.UserDTO;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -101,19 +100,11 @@ public class UserDAO {
         return result;
     }
 
-    public UserDTO signIn(UserDTO dto) {
+    public UserDTO login(UserDTO dto) {
         UserDTO userDTO = new UserDTO();
         SqlSession session = sqlSessionFactory.openSession(false);
-        try {
-            userDTO = session.selectOne("mapper.UserMapper.signIn", dto);
-        }
-        catch (Exception e) {
-            userDTO.setAuthority(-1);
-        }
-        finally {
-            session.close();
-        }
-
+        userDTO = session.selectOne("mapper.UserMapper.signIn", dto);
+        session.close();
         return userDTO;
     }
 }

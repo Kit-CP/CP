@@ -5,7 +5,7 @@
 <mapper namespace="mapper.UserMapper">
     <resultMap id="user" type="UserDTO">
         <result property="user_ID" column="user_ID"/>
-        <result property="user_PW" column="user_P/W"/>
+        <result property="user_PW" column="user_PW"/>
         <result property="authority" column="authority"/>
         <result property="user_address" column="user_address"/>
         <result property="user_name" column="user_name"/>
@@ -18,12 +18,12 @@
     </select>
 
     <insert id="signUpStoreKeeper" parameterType="UserDTO">
-        INSERT INTO `delivery`.`user` (`user_ID`, `user_P/W`, `authority`, `user_address`, `user_name`, `user_phone`, `age`)
+        INSERT INTO `delivery`.`user` (`user_ID`, `user_PW`, `authority`, `user_address`, `user_name`, `user_phone`, `age`)
         VALUES (#{user_ID}, #{user_PW}, 2, #{user_address}, #{user_name}, #{user_phone}, ${age});
     </insert>
 
     <insert id="signUpClient" parameterType="UserDTO">
-        INSERT INTO `delivery`.`user` (`user_ID`, `user_P/W`, `authority`, `user_address`, `user_name`, `user_phone`, `age`, `state`)
+        INSERT INTO `delivery`.`user` (`user_ID`, `user_PW`, `authority`, `user_address`, `user_name`, `user_phone`, `age`, `state`)
         VALUES (#{user_ID}, #{user_PW}, 1, #{user_address}, #{user_name}, #{user_phone}, ${age}, 1);
     </insert>
 
@@ -34,7 +34,7 @@
                 `user_ID` = #{new_User_ID},
             </if>
             <if test="new_user_PW != null">
-                `user_P/W` = #{new_User_PW},
+                `user_PW` = #{new_User_PW},
             </if>
             <if test="new_user_address != null">
                 `user_address` = #{new_user_address},
@@ -59,6 +59,6 @@
     <select id="signIn" parameterType="UserDTO" resultType="UserDTO">
         SELECT *
         FROM `user`
-        WHERE `user`.user_ID = #{user_ID} AND `user_P/W` = #{user_PW}
+        WHERE `user`.user_ID = #{user_ID} AND `user_PW` = #{user_PW}
     </select>
 </mapper>

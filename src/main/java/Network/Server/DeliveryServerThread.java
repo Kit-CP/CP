@@ -2,7 +2,7 @@ package Network.Server;
 
 import java.net.*;
 import java.io.*;
-public class DeliveryServerThread extends Thread {
+public class DeliveryServerThread extends Thread{
     private DeliveryServer server = null;
     private Socket socket = null;
     private int portNum = 0;
@@ -28,12 +28,13 @@ public class DeliveryServerThread extends Thread {
                     serverMessage.run(dos);
                 //}
 
-            }catch(IOException e) {
-                e.printStackTrace();
+            }
+            catch(IOException e) {
                 System.out.println(portNum + " 소켓에러 : " + e.getMessage());
                 try {
                     socket.close();
-                } catch (IOException ex) {
+                }
+                catch (IOException ex) {
 
                 }
             }
