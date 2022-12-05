@@ -421,7 +421,6 @@ public class ServerMessage {
                     storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     MyListSerializer<StoreDTO> dtos = new MyListSerializer<>();
                     body = dtos.listToByte(storeDAO.getMyStoreList(owner_id));
-                    size = body.length;
 
                     if(body != null) {
                         size = body.length;
@@ -436,8 +435,23 @@ public class ServerMessage {
                     }
 
                 }
-                if (code == ProtocolCode.MYOPTION_LIST) {//나의 메뉴 옵션 조회
+                if (code == ProtocolCode.MYOPTION_LIST) {//나의 옵션 조회
+                        optionDAO = new OptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                        MyListSerializer<OptionDTO> dtos = new MyListSerializer<>();
+                        body = dtos.listToByte(optionDAO.showOptions());
 
+                        if( body != null)  {
+                            size = body.length;
+                            answer = ProtocolAnswer.SUCCESS;
+                        } else {
+                            answer = ProtocolAnswer.ERROR;
+                        }
+
+                        if( size != 0) {
+                            serverPacket.sendMyOptionList(answer, body, dos);
+                        } else {
+                            serverPacket.sendMyOptionList(answer, null, dos);
+                        }
                 }
                 if (code == ProtocolCode.REVIEW_LIST) {//나의 가게 리뷰 조회
 
@@ -452,9 +466,10 @@ public class ServerMessage {
                     userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     MyListSerializer<UserDTO> dtos = new MyListSerializer<>();
                     body = dtos.listToByte(userDAO.getPendingStoreKeepers());
-                    size = body.length;
+
 
                     if(body != null) {
+                        size = body.length;
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
@@ -469,9 +484,10 @@ public class ServerMessage {
                     storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     MyListSerializer<StoreDTO> dtos = new MyListSerializer<>();
                     body = dtos.listToByte(storeDAO.showPendingStore());
-                    size = body.length;
+
 
                     if(body != null) {
+                        size = body.length;
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
