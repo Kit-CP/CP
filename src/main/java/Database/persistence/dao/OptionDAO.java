@@ -67,11 +67,11 @@ public class OptionDAO {
         return result;
     }
 
-    public List<OptionDTO> showAcceptedOption() {
+    public List<OptionDTO> showOptions() {
         List<OptionDTO> dtos = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
-            dtos = session.selectList("mapper.OptionMapper.showAcceptedMenu");
+            dtos = session.selectList("mapper.OptionMapper.showOptions");
         } finally {
             session.close();
         }
