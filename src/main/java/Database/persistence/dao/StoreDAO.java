@@ -1,5 +1,6 @@
 package Database.persistence.dao;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import Database.persistence.dto.StoreDTO;
@@ -13,7 +14,7 @@ public class StoreDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public List<StoreDTO> showAcceptedStore(){
+    public List<StoreDTO> showAcceptedStore() { //승인된 가게 조회
         List<StoreDTO> dtos = null;
         SqlSession session = sqlSessionFactory.openSession();
         try{
@@ -24,7 +25,18 @@ public class StoreDAO {
         return dtos;
     }
 
-    public synchronized boolean insertStore(StoreDTO sdto) {
+    public List<StoreDTO> showPendingStore() { //보류중인 가게 조회
+        List<StoreDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.StoreMapper.showPendingStore");
+        } finally {
+            session.close();
+        }
+        return dtos;
+    }
+
+    public synchronized boolean insertStore(StoreDTO sdto) { //가게 등록
         boolean result = false;
         SqlSession session = sqlSessionFactory.openSession(false);
         try{
@@ -43,7 +55,8 @@ public class StoreDAO {
         return result;
     }
 
-    public synchronized boolean acceptStore(String name) {
+
+    public synchronized boolean acceptStore(String name) { //가게 승인
         boolean result = false;
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
