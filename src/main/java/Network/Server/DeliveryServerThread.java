@@ -40,8 +40,8 @@ public class DeliveryServerThread extends Thread {
         }
     }
     public void open() throws IOException {
-        dis = new DataInputStream(socket.getInputStream());
-        dos = new DataOutputStream(socket.getOutputStream());
+        dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+        dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
     }
 
     public void close() throws IOException {

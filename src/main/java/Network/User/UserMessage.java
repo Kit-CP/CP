@@ -10,8 +10,7 @@ public class UserMessage {
     private byte answer;
     private byte[] body;
     private int size;
-    ByteArrayInputStream bai;
-    DataInputStream dis;
+
 
     public UserMessage(DataInputStream dis) throws IOException {
         this.answer = dis.readByte();
@@ -20,8 +19,7 @@ public class UserMessage {
         if ( size > 0 ) {
             body = new byte[size];
             dis.read(body);
-            this.bai = new ByteArrayInputStream(body);
-            this.dis = new DataInputStream(bai);
+
 
         }
         else {
@@ -38,10 +36,10 @@ public class UserMessage {
         }
     }
 
-    public int receiveLoginResult() throws IOException {
+    public int receiveLoginResult(DataInputStream dis) throws IOException {
         if ( answer == ProtocolAnswer.SUCCESS ) {
             System.out.println(UserScreen.SUCCESS_LOGIN);
-            return this.dis.readInt();
+            return dis.readInt();
         }
         else {
             System.out.println(UserScreen.FAIL_LOGIN);

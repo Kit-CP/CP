@@ -9,8 +9,8 @@ public class UserPacket { //메시지를 직렬화
     DataOutputStream dos;
     byte type, code, authority, answer;
     int size = 0;
-    ByteArrayOutputStream bao = new ByteArrayOutputStream();
-    DataOutputStream dataWrite = new DataOutputStream(bao);
+    /*ByteArrayOutputStream bao = new ByteArrayOutputStream();
+    DataOutputStream dataWrite = new DataOutputStream(bao);*/
 
     public UserPacket(DataOutputStream dos, byte type, byte code, byte authority, byte answer) {
         this.dos = dos;
@@ -25,10 +25,9 @@ public class UserPacket { //메시지를 직렬화
             size = bodyBytes.length;
             byte[] headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
 
-            dataWrite.write(headerBytes);
-            dataWrite.write(bodyBytes);
+            dos.write(headerBytes);
+            dos.write(bodyBytes);
 
-            dos.write(bao.toByteArray());
             dos.flush();
         }
         catch (IOException e) {
@@ -42,10 +41,9 @@ public class UserPacket { //메시지를 직렬화
             size = bodyBytes.length;
             byte[] headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
 
-            dataWrite.write(headerBytes);
-            dataWrite.write(bodyBytes);
+            dos.write(headerBytes);
+            dos.write(bodyBytes);
 
-            dos.write(bao.toByteArray());
             dos.flush();
         }
         catch (IOException e) {
