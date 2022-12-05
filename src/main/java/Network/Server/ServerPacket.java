@@ -2,7 +2,6 @@ package Network.Server;
 
 import Network.Protocol.ProtocolType;
 
-import javax.xml.crypto.Data;
 import java.io.*;
 public class ServerPacket {
     int size  = 0;
@@ -26,7 +25,7 @@ public class ServerPacket {
 
             dataOutPut.flush();
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -46,7 +45,7 @@ public class ServerPacket {
 
             dataOutPut.flush();
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -131,6 +130,21 @@ public class ServerPacket {
     }
 
     public void sendAcceptedMenuList(byte answer, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+        sendListFormat(answer, body);
+    }
+
+    public void sendReviewList(byte answer, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+        sendListFormat(answer, body);
+    }
+
+    public void sendInsertOptionResult(byte answer, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+        sendFormat(answer, body);
+    }
+
+    public void sendMyStoreListResult(byte answer, byte[] body, DataOutputStream dos) {
         dataOutPut = dos;
         sendListFormat(answer, body);
     }

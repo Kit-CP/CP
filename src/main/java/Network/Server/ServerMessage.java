@@ -11,7 +11,9 @@ import Network.Protocol.ProtocolType;
 import lombok.Setter;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Setter
@@ -132,7 +134,7 @@ public class ServerMessage {
             } else if (authority == ProtocolAuthority.OWNER) { //점주
 
                 if (code == ProtocolCode.MENU_INSERT) { // 메뉴 등록
-                        //직렬화한 리스트 받기.
+
                 }
                 if (code == ProtocolCode.STORE_INSERT) { // 가게 등록
                     StoreDTO storeDTO = StoreDTO.readStoreDTO(dataInput);
@@ -146,7 +148,18 @@ public class ServerMessage {
                     serverPacket.sendStoreInsertResult(answer, null, dos);
                 }
                 if (code == ProtocolCode.OPTION_INSERT) { // 옵션 등록
-                    //리스트 받기
+                    List<OptionDTO> list = new ArrayList<>();
+                    int listSize = dataInput.readInt();
+                    for (int i = 0; i < listSize; i++) {
+                        list.add(OptionDTO.readOptionDTO(dataInput));
+                    }
+                    if( optionDAO.insertOptionAll(list) ) {
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+
+                    serverPacket.sendInsertOptionResult(answer, null, dos);
                 }
                 if (code == ProtocolCode.REPLY) { // 리뷰 답글 작성
                     ReviewDTO reviewDTO = ReviewDTO.readReviewDTO(dataInput);
@@ -353,18 +366,47 @@ public class ServerMessage {
                         answer = ProtocolAnswer.ERROR;
                     }
                     if (size != 0) {
-                        serverPacket.sendAcceptedStoreList(answer, body, dos);
+                        serverPacket.sendAcceptedMenuList(answer, body, dos);
                     } else {
-                        serverPacket.sendAcceptedStoreList(answer, null, dos);
+                        serverPacket.sendAcceptedMenuList(answer, null, dos);
                     }
                 }
                 if (code == ProtocolCode.REVIEW_LIST) {//리뷰 조회
-
+                    String user_id = dataInput.readUTF(); //유저 아이디
+                    String storeName = dataInput.readUTF(); //가게 이름
+                    int crtPage = dataInput.readInt(); //보고싶은 페이지
+                    reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<ReviewDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(reviewDAO.showReview(user_id, storeName, crtPage));
+                    if(body != null) {
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    if (size != 0) {
+                        serverPacket.sendReviewList(answer, body, dos);
+                    } else {
+                        serverPacket.sendReviewList(answer, null, dos);
+                    }
                 }
             }
             if (authority == ProtocolAuthority.OWNER) {//점주
 
                 if (code == ProtocolCode.MYSTORE_LIST) {//나의 가게 정보 조회
+                    String owner_id = dataInput.readUTF();
+                    storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<StoreDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(storeDAO.getMyStoreList(owner_id));
+                    if(body != null) {
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    if (size != 0) {
+                        serverPacket.sendMyStoreListResult(answer, body, dos);
+                    } else {
+                        serverPacket.sendMyStoreListResult(answer, body, dos);
+                    }
 
                 }
                 if (code == ProtocolCode.MYMENU_LIST) {//나의 가게 메뉴 조회
