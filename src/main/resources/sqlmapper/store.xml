@@ -25,4 +25,10 @@
         FROM store
         WHERE user_ID = #{user_ID}
     </select>
+
+    <select id="getMyStoreList" parameterType="String" resultType="StoreDTO">
+        SELECT store_name
+        FROM store
+        WHERE user_ID = #{user_ID}
+    </select>
 </mapper>
