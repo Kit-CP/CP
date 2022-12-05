@@ -211,7 +211,7 @@ public class ServerMessage {
                 if (code == ProtocolCode.ACCEPT_STORE) { //관리자의 가게 승인
                     String storeName = dataInput.readUTF();
                     storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (storeDAO.acceptStore(storeName)) {
+                    if (storeDAO.judgeStore(storeName)) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
