@@ -4,6 +4,6 @@ public class SeverMain {
     public static void main(String[] args) {
         String host = "127.0.0.1";
         int port = 7777;
-        DeliveryServer deliveryServer = new DeliveryServer(host, port);
+        new DeliveryServer(host, port);
     }
 }
