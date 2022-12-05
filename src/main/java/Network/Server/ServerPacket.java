@@ -3,6 +3,7 @@ package Network.Server;
 import Network.Protocol.ProtocolAnswer;
 import Network.Protocol.ProtocolType;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 public class ServerPacket {
     int size  = 0;
@@ -25,7 +26,28 @@ public class ServerPacket {
             }
 
             dataOutPut.flush();
-        } catch (IOException e) {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendListFormat(byte answer, byte[] body) {
+        try {
+            if (body != null) {
+                size = body.length;
+            } else {
+                size = 0;
+            }
+            byte[] headerBytes = ProtocolType.getAnswerHeader(answer, size);
+            dataOutPut.write(headerBytes);
+            if(size > 0) {
+                dataOutPut.write(body);
+            }
+
+            dataOutPut.flush();
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -96,6 +118,12 @@ public class ServerPacket {
 
     public void sendUpdateMenuPrice(byte answer, byte[] body, DataOutputStream dos) {
         dataOutPut = dos;
+        sendFormat(answer, body);
+    }
+
+    public void sendOrderList(byte answer, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+
         sendFormat(answer, body);
     }
 

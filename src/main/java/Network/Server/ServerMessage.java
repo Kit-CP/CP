@@ -3,6 +3,7 @@ package Network.Server;
 import Database.persistence.MyBatisConnectionFactory;
 import Database.persistence.dao.*;
 import Database.persistence.dto.*;
+import Network.MyListSerializer;
 import Network.Protocol.ProtocolAnswer;
 import Network.Protocol.ProtocolAuthority;
 import Network.Protocol.ProtocolCode;
@@ -313,7 +314,20 @@ public class ServerMessage {
             if (authority == ProtocolAuthority.CLIENT) {//고객
 
                 if (code == ProtocolCode.ORDER_LIST) {//주문 내역 조회
-
+                    String storeName = dataInput.readUTF();//가게 이름 받기
+                    orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<OrderViewDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(orderDAO.getOrderList(storeName));
+                    if(body != null) {
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    if(size != 0) {
+                        serverPacket.sendOrderList(answer, body, dos);
+                    } else {
+                        serverPacket.sendOrderList(answer, null, dos);
+                    }
                 }
                 if (code == ProtocolCode.STORE_LIST) {//가게 정보 조회
 
