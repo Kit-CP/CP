@@ -65,6 +65,14 @@ public class UserMessage {
         }
     }
 
+    public void receiveCancelOrderResult() {
+        if ( answer == ProtocolAnswer.SUCCESS ) {
+            System.out.println("정상적으로 주문 취소되었습니다.");
+        }else {
+            System.out.println("배달 중인 상태이므로 취소가 불가능합니다.");
+        }
+    }
+
     public boolean receiveUpdateInforResult() {
         if ( answer == ProtocolAnswer.SUCCESS ) {
             System.out.println("정보 수정 성공!");

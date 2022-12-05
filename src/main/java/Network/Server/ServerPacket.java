@@ -168,4 +168,20 @@ public class ServerPacket {
         dataOutPut = dos;
         sendListFormat(answer, body);
     }
+
+    public void sendMyTotalList(byte answer, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+        sendListFormat(answer, body);
+    }
+
+    public void sendPendingMenuList(byte answer, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+        sendListFormat(answer, body);
+    }
+
+    public void sendTotalList(byte answer, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+        sendListFormat(answer, body);
+    }
+
 }
