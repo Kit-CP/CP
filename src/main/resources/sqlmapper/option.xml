@@ -16,8 +16,8 @@
         UPDATE `option` SET state = ${state} WHERE option_name = #{option_name}
     </update>
 
-    <select id="showAcceptedOption" resultType="OptionDTO">
-        SELECT * FROM `option` WHERE isAccept = 1
+    <select id="showOptions" resultType="OptionDTO">
+        SELECT * FROM `option`
     </select>
 
     <select id="showPendingOption" resultType="OptionDTO">
