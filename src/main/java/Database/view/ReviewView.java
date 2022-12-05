@@ -13,7 +13,7 @@ public class ReviewView {
             sb.append("\t\t");
             sb.append(dto.getUser_id());
             sb.append("\t\t");
-            sb.append(dto.getReview_score();
+            sb.append(dto.getReview_score());
             sb.append("\t\t");
             sb.append(dto.getOrder_id());
             sb.append("\t\t\t");
