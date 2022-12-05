@@ -4,8 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 public class ProtocolType {
-    static ByteArrayOutputStream bao = new ByteArrayOutputStream();
-    static DataOutputStream dos = new DataOutputStream(bao);
 
     public final static int HEADER_SIZE = 4;
     //TYPE
@@ -18,6 +16,10 @@ public class ProtocolType {
 
 
     public static byte[] getHeader(byte type, byte code, byte authority, byte answer, int size) throws  IOException {
+
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        DataOutputStream dos = new DataOutputStream(bao);
+
         dos.writeByte(type);
         dos.writeByte(code);
         dos.writeByte(authority);
@@ -28,12 +30,20 @@ public class ProtocolType {
     }
 
     public static byte[] getAnswerHeader(byte answer, int size) throws IOException {
+
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        DataOutputStream dos = new DataOutputStream(bao);
+
         dos.writeByte(answer);
         dos.writeInt(size);
 
         return bao.toByteArray();
     }
     public static byte[] getLoginResultHeader(byte authority, byte answer, int size) throws IOException {
+
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        DataOutputStream dos = new DataOutputStream(bao);
+
         dos.writeByte(authority);
         dos.write(answer);
         dos.writeInt(size);
