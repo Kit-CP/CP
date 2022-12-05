@@ -436,7 +436,7 @@ public class ServerMessage {
                     }
 
                 }
-                if (code == ProtocolCode.MYMENU_LIST) {//나의 가게 메뉴 조회
+                if (code == ProtocolCode.MYOPTION_LIST) {//나의 메뉴 옵션 조회
 
                 }
                 if (code == ProtocolCode.REVIEW_LIST) {//나의 가게 리뷰 조회
