@@ -26,7 +26,7 @@ public class MyListSerializer<E extends IDTO> {
                     bytes = ArrayUtils.addAll(bytes, dto.getBytes());
                 }
             }
-            dos.write(dtoCount);
+            dos.writeInt(dtoCount);
             dos.write(bytes);
 
         } catch (Exception e) {
