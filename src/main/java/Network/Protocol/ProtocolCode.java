@@ -47,9 +47,12 @@ public class ProtocolCode {
     //TYPE:6 , OWNER
     public final static byte MYSTORE_LIST = 1;
     public final static byte MYMENU_LIST = 2;
-    public final static byte MYORDER_LIST = 3;
-    public final static byte MYTOTAL_LIST = 3;
+    public final static byte MYREVIEW_LIST = 3;
+    public final static byte MYTOTAL_LIST = 4;
 
     //TYPE:6 , MANAGER
+    public final static byte PENDING_OWNER_LIST = 1;
+    public final static byte PENDING_STORE_LIST = 2;
+    public final static byte PENDING_MENU_LIST = 3;
     public final static byte TOTAL_LIST = 4;
 }
