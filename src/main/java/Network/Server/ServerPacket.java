@@ -2,6 +2,7 @@ package Network.Server;
 
 import Network.Protocol.ProtocolType;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 public class ServerPacket {
     int size  = 0;
@@ -125,6 +126,11 @@ public class ServerPacket {
     }
 
     public void sendAcceptedStoreList(byte answer, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+        sendListFormat(answer, body);
+    }
+
+    public void sendAcceptedMenuList(byte answer, byte[] body, DataOutputStream dos) {
         dataOutPut = dos;
         sendListFormat(answer, body);
     }

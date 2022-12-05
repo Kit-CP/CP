@@ -309,6 +309,7 @@ public class ServerMessage {
         }
 
         else if (type == ProtocolType.INQUIRY) {//조회
+
             if (authority == ProtocolAuthority.CLIENT) {//고객
 
                 if (code == ProtocolCode.ORDER_LIST) {//주문 내역 조회
@@ -343,7 +344,19 @@ public class ServerMessage {
                     }
                 }
                 if (code == ProtocolCode.MENU_LIST) {//메뉴 조회
-
+                    menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<MenuDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(menuDAO.showAcceptedMenu());
+                    if(body != null) {
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    if (size != 0) {
+                        serverPacket.sendAcceptedStoreList(answer, body, dos);
+                    } else {
+                        serverPacket.sendAcceptedStoreList(answer, null, dos);
+                    }
                 }
                 if (code == ProtocolCode.REVIEW_LIST) {//리뷰 조회
 
