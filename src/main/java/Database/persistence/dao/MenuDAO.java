@@ -1,5 +1,6 @@
 package Database.persistence.dao;
 
+import Database.persistence.dto.MenuHasOptionDTO;
 import Database.persistence.dto.MenuOptionDTO;
 import Database.persistence.dto.StoreDTO;
 import org.apache.ibatis.session.SqlSession;
@@ -17,19 +18,27 @@ public class MenuDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public synchronized boolean insertMenuAll(List<MenuDTO> dtos) {
+    public synchronized boolean insertMenuAll(List<MenuDTO> menuDTOS, List<String> menu_options) {
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
+        int size = menuDTOS.size();
         try {
-            for ( MenuDTO dto : dtos ) {
-                sqlSession.insert("mapper.MenuMapper.insertMenuAll", dto);
-                sqlSession.commit();
-                result = true;
+            for ( int i = 0; i < size; i++ ) {
+                sqlSession.insert("mapper.MenuMapper.insertMenuAll", menuDTOS.get(i));
+                String menu_name = menuDTOS.get(i).getMenu_name();
+                String[] options = menu_options.get(i).split("/");
+                for ( String option : options ) {
+                    MenuHasOptionDTO menuHasOptionDTO = new MenuHasOptionDTO();
+                    menuHasOptionDTO.setMenu_name(menu_name);
+                    menuHasOptionDTO.setOption_name(option);
+                    sqlSession.insert("mapper.MenuHasOptionMapper.insertMenuOption", menuHasOptionDTO);
+                }
             }
+            sqlSession.commit();
+            result = true;
         }
         catch (Exception e) {
             sqlSession.rollback();
-            result = false;
         }
         finally {
             sqlSession.close();
