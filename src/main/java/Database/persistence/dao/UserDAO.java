@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import Database.persistence.dto.UserDTO;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,5 +116,13 @@ public class UserDAO {
         userDTO = session.selectOne("mapper.UserMapper.signIn", dto);
         session.close();
         return userDTO;
+    }
+
+    public List<UserDTO> getPendingStoreKeepers() {
+        List<UserDTO> list = new ArrayList<>();
+        SqlSession session = sqlSessionFactory.openSession();
+        list = session.selectList("mapper.UserMapper.getPendingStoreKeepers");
+        session.close();
+        return list;
     }
 }
