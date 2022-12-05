@@ -30,22 +30,22 @@
     <update id="updateInfor" parameterType="Map">
         UPDATE `delivery`.`user`
         <trim prefix="SET" suffixOverrides=",">
-            <if test="new_user_ID != null">
+            <if test="new_User_ID != null and !new_User_ID.equals('')">
                 `user_ID` = #{new_User_ID},
             </if>
-            <if test="new_user_PW != null">
+            <if test="new_User_PW != null and !new_User_PW.equals('')">
                 `user_PW` = #{new_User_PW},
             </if>
-            <if test="new_user_address != null">
+            <if test="new_user_address != null and !new_user_address.equals('')">
                 `user_address` = #{new_user_address},
             </if>
-            <if test="new_user_name != null">
+            <if test="new_user_name != null and !new_user_name.equals('')">
                 `user_name` = #{new_user_name},
             </if>
-            <if test="new_user_phone != null">
+            <if test="new_user_phone != null and !new_user_phone.equals('')">
                 `user_phone` = #{new_user_phone},
             </if>
-            <if test="new_age != null">
+            <if test="new_age != null and !new_age.equals('')">
                 `age` = ${new_age}
             </if>
         </trim>

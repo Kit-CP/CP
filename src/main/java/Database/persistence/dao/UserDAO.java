@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import Database.persistence.dto.UserDTO;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public class UserDAO {
     }
     public List<UserDTO> showAll(){
         List<UserDTO> dtos = null;
-        SqlSession session = sqlSessionFactory.openSession();
+        SqlSession session = sqlSessionFactory.openSession(false);
         try{
             dtos = session.selectList("mapper.UserMapper.showAll");
         } finally {
@@ -29,7 +30,6 @@ public class UserDAO {
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
             session.insert("mapper.UserMapper.signUpStoreKeeper", dto);
-            session.commit();;
             result = true;
         }
         catch (Exception e) {
@@ -48,7 +48,6 @@ public class UserDAO {
         SqlSession session = sqlSessionFactory.openSession(false);
         try {
             session.insert("mapper.UserMapper.signUpClient", dto);
-            session.commit();
             result = true;
         }
         catch (Exception e) {
@@ -62,17 +61,25 @@ public class UserDAO {
         return result;
     }
 
-    public synchronized boolean updateInfor(Map<String, Object> param) {
+    public synchronized boolean updateInfor(String new_User_ID, UserDTO dto) {
         boolean result = false;
         SqlSession session = sqlSessionFactory.openSession(false);
+        Map<String, Object> map = new HashMap<>();
+        map.put("user_ID", dto.getUser_ID());
+        map.put("new_User_ID", new_User_ID);
+        map.put("new_User_PW", dto.getUser_PW());
+        map.put("new_user_address", dto.getUser_address());
+        map.put("new_user_name", dto.getUser_name());
+        map.put("new_user_phone", dto.getUser_phone());
+        map.put("new_age", dto.getAge());
+
         try {
-            session.update("mapper.UserMapper.updateInfor", param);
+            session.update("mapper.UserMapper.updateInfor", map);
             session.commit();
             result = true;
         }
         catch (Exception e) {
             session.rollback();
-            result = false;
         }
         finally {
             session.close();
@@ -91,7 +98,6 @@ public class UserDAO {
         }
         catch (Exception e) {
             session.rollback();
-            result = false;
         }
         finally {
             session.close();
@@ -102,7 +108,7 @@ public class UserDAO {
 
     public UserDTO login(UserDTO dto) {
         UserDTO userDTO = new UserDTO();
-        SqlSession session = sqlSessionFactory.openSession(false);
+        SqlSession session = sqlSessionFactory.openSession();
         userDTO = session.selectOne("mapper.UserMapper.signIn", dto);
         session.close();
         return userDTO;

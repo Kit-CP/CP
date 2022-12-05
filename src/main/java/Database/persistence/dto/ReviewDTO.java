@@ -14,6 +14,7 @@ import java.io.IOException;
 @NoArgsConstructor
 public class ReviewDTO implements IDTO {
     private int review_id;
+    private String user_id;
     private String content;
     private int review_score;
     private int order_id;
@@ -32,6 +33,7 @@ public class ReviewDTO implements IDTO {
         DataOutputStream dos = new DataOutputStream(buf);
         try {
             dos.writeInt(review_id);
+            dos.writeUTF(user_id);
             dos.writeUTF(content);
             dos.writeInt(review_score);
             dos.writeInt(order_id);
@@ -48,6 +50,7 @@ public class ReviewDTO implements IDTO {
         ReviewDTO dto = new ReviewDTO();
         try {
             dto.setReview_id(dis.readInt());
+            dto.setUser_id(dis.readUTF());
             dto.setContent(dis.readUTF());
             dto.setReview_score(dis.readInt());
             dto.setOrder_id(dis.readInt());

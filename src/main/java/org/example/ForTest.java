@@ -4,18 +4,6 @@ package org.example;
 import Database.persistence.MyBatisConnectionFactory;
 import Database.persistence.dao.*;
 import Database.persistence.dto.*;
-import Database.persistence.dto.OrderedOptionDTO;
-import Database.view.MenuOptionView;
-import Database.view.OrderView;
-import Database.view.ReviewView;
-import Database.view.StoreView;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
-
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class ForTest {
     /*ALTER TABLE menu AUTO_INCREMENT = 0;
@@ -448,7 +436,7 @@ public class ForTest {
 
     public static void test(NewOrderDTO dto) {
         OrderDAO dao = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        dao.newMakeOrder(dto);
+        dao.makeOrder(dto);
     }
 }
 

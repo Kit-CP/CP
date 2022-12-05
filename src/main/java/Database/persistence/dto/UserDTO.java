@@ -1,6 +1,7 @@
 package Database.persistence.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -21,7 +22,9 @@ public class UserDTO implements IDTO {
     private String user_phone;
     private int age;
     private int state;
+
     public UserDTO() {
+
     }
     public UserDTO(String id, String pw, String address, String name, String phone, int age, int state , int authority) {
         user_ID = id;
