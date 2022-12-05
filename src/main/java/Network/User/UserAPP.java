@@ -385,6 +385,7 @@ public class UserAPP {
             switch ( command ) {
                 case 1:
                     showPendingOwners();
+                    selectOwner();
                     break;
                 case 2:
 
@@ -415,6 +416,20 @@ public class UserAPP {
         if ( dtos != null ) {
             UserView.printAll(dtos);
         }
+    }
+
+    private void selectOwner() {
+        System.out.println("상태를 바꿀 user_ID를 적으세요.");
+        String id = input.nextLine();
+        System.out.println(UserScreen.SELECT_STATE);
+        int state = Integer.parseInt(input.nextLine());
+        UserDTO dto = new UserDTO(id, state);
+
+        userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.ACCEPT_OWNER, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
+        userPacket.sendUserDTO(dto);
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveUpdateInforResult();
     }
 
 }

@@ -45,6 +45,14 @@ public class UserDTO implements IDTO {
         user_address = user_name = user_phone = "";
     }
 
+    public UserDTO(String id, int state) {
+        user_ID = id;
+        user_PW  = "";
+        age = authority = 0;
+        this.state = state;
+        user_address = user_name = user_phone = "";
+    }
+
 
     @Override
     public byte[] getBytes() {
