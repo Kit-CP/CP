@@ -1,5 +1,6 @@
 package Network.User;
 
+import Database.persistence.dto.MenuDTO;
 import Database.persistence.dto.OptionDTO;
 import Database.persistence.dto.StoreDTO;
 import Database.persistence.dto.UserDTO;
@@ -289,7 +290,7 @@ public class UserAPP {
                     insertOption();
                     break;
                 case 3:
-                    //insertMenu();
+                    insertMenu();
                     break;
                 case 4:
                     //reviewList();
@@ -364,6 +365,42 @@ public class UserAPP {
             list.add(dto);
         }
         return list;
+    }
+
+    private void insertMenu() {
+        System.out.println("메뉴를 등록할 가게이름을 입력하세요.");
+        String storeName = input.nextLine();
+        System.out.println("등록할 메뉴의 수를 입력하세요.");
+        int cnt = Integer.parseInt(input.nextLine());
+
+        List<MenuDTO> dtos = new ArrayList<>();
+        List<String> strs = new ArrayList<>();
+
+        for ( int i = 0; i < cnt; i++ ) {
+            System.out.println("메뉴 카테고리를 입력하세요.");
+            String cate = input.nextLine();
+            System.out.println(UserScreen.ENTER_NAME);
+            String name = input.nextLine();
+            System.out.println(UserScreen.ENTER_PRICE);
+            int price = Integer.parseInt(input.nextLine());
+            System.out.println("재고를 입력하세요.");
+            int stock = Integer.parseInt(input.nextLine());
+            dtos.add(new MenuDTO(name, storeName, cate, price, stock));
+            System.out.println("옵션을 입력하세요(구분자:/) (없으면 \"없음\"입력)");
+            String temp = input.nextLine();
+            if ( temp.equals("없음") ) {
+                strs.add("");
+            }
+            else {
+                strs.add(temp);
+            }
+        }
+
+        userPacket = new UserPacket(dos, ProtocolType.REGISTER, ProtocolCode.MENU_INSERT, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.sendMenuList(dtos, strs);
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveInsertResult();
     }
 
     /*=============================================== 관리자 ===============================================*/

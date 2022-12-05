@@ -35,7 +35,7 @@ public class UserMessage {
         }
     }
 
-    public UserDTO receiveLoginResult() throws IOException {
+    public UserDTO receiveLoginResult() {
         if ( answer == ProtocolAnswer.SUCCESS ) {
             System.out.println(UserScreen.SUCCESS_LOGIN);
             return UserDTO.readUserDTO(dis);
@@ -52,6 +52,15 @@ public class UserMessage {
         }
         else {
             System.out.println(UserScreen.FAIL_REGISTER);
+        }
+    }
+
+    public void receiveInsertResult() {
+        if ( answer == ProtocolAnswer.SUCCESS ) {
+            System.out.println("등록 성공!");
+        }
+        else {
+            System.out.println("등록 실패!");
         }
     }
 

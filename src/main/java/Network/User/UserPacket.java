@@ -149,4 +149,19 @@ public class UserPacket { //메시지를 직렬화
             e.printStackTrace();
         }
     }
+
+    public void sendMenuList(List<MenuDTO> dtos, List<String> strs) {
+        try {
+            int size = dtos.size();
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+            for ( int i = 0; i < size; i++ ) {
+                dos.write(dtos.get(i).getBytes());
+                dos.writeUTF(strs.get(i));
+            }
+            dos.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
