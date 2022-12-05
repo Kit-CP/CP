@@ -53,7 +53,7 @@ public class DeliveryServer implements Runnable {
         int pos = findUser(portNum);
         if(pos >= 0) {
             DeliveryServerThread terminate = users[pos];
-            System.out.println(pos + "에서 유저 스레드 " + portNum + "를 삭제합니다.");
+            System.out.println(portNum + "를 삭제합니다.");
             if (pos < userCount -1) {
                 for(int i = pos+1; i<userCount; i++) {
                     users[i-1] = users[i];
