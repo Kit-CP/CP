@@ -132,7 +132,7 @@ public class UserAPP {
         userPacket.sendUserDTO(dto);
 
         userMessage = new UserMessage(dis);
-        this.authority = userMessage.receiveLoginResult();
+        this.authority = userMessage.receiveLoginResult(dis);
 
         if ( this.authority != -1 ) {
             this.user_ID = id;

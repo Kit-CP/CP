@@ -6,101 +6,103 @@ import Network.Protocol.ProtocolType;
 import java.io.*;
 public class ServerPacket {
     int size  = 0;
-    ByteArrayOutputStream bao = new ByteArrayOutputStream();
-    DataOutputStream ds = new DataOutputStream(bao);
 
-    public byte[] sendFormat(byte answer, byte[] body) throws IOException {
+    DataOutputStream dataOutPut;
+    /*ByteArrayOutputStream bao = new ByteArrayOutputStream();
+    DataOutputStream ds = new DataOutputStream(bao);*/
+
+    public void sendFormat(byte answer, byte[] body) throws IOException {
         if(body != null) {
             size = body.length;
         }else {
             size = 0;
         }
         byte[] headerBytes = ProtocolType.getAnswerHeader(answer, size);
-        ds.write(headerBytes);
+        dataOutPut.write(headerBytes);
         if(size > 0) {
-            ds.write(body);
+            dataOutPut.write(body);
         }
-        return bao.toByteArray();
+        dataOutPut.flush();
     }
 
-    public byte[] sendFormat(int authority, byte answer, byte[] body) throws IOException {
+    public void sendFormat(int authority, byte answer, byte[] body) throws IOException {
         if(body != null) {
             size = body.length;
         }else {
             size = 0;
         }
         byte[] headerBytes = ProtocolType.getAnswerHeader(answer, size);
-        ds.write(headerBytes);
-        if(size > 0) {
-            ds.writeInt(authority);
-            ds.write(body);
-        }else if(answer != ProtocolAnswer.ERROR){
-            ds.writeInt(authority);
+        dataOutPut.write(headerBytes);
+        if (size > 0) {
+            dataOutPut.writeInt(authority);
+            dataOutPut.write(body);
+        } else if (answer != ProtocolAnswer.ERROR) {
+            dataOutPut.writeInt(authority);
         }
-        return bao.toByteArray();
+        dataOutPut.flush();
     }
     public void sendSignUpResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
-        dos.write(sendFormat(answer, body));
-        dos.flush();
+        dataOutPut = dos;
+        sendFormat(answer, body);
     }
 
     public void sendLoginResult(int authority, byte answer, byte[] body, DataOutputStream dos) throws IOException {
-        dos.write(sendFormat(authority,answer, body));
-        dos.flush();
+        dataOutPut = dos;
+        sendFormat(authority, answer, body);
     }
 
     public void sendReviewResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
-        dos.write(sendFormat(answer, body));
-        dos.flush();
+        dataOutPut = dos;
+        sendFormat(answer, body);
     }
     public void sendStoreInsertResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
-        dos.write(sendFormat(answer,body));
-        dos.flush();
+        dataOutPut = dos;
+        sendFormat(answer, body);
     }
 
     public void sendOrderResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
-        dos.write(sendFormat(answer, body));
-        dos.flush();
+        dataOutPut = dos;
+        sendFormat(answer, body);
     }
 
     public void sendReviewReplyResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
-        dos.write(sendFormat(answer,body));
-        dos.flush();
+        dataOutPut = dos;
+        sendFormat(answer, body);
     }
 
     public void sendJudgeStoreResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
-        dos.write(sendFormat(answer, body));
-        dos.flush();
+        dataOutPut = dos;
+        sendFormat(answer, body);
     }
 
     public void sendJudgeMenuResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
-        dos.write(sendFormat(answer, body));
-        dos.flush();
+        dataOutPut = dos;
+        sendFormat(answer, body);
     }
 
     public void sendCancelMenuResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
-        dos.write(sendFormat(answer, body));
-        dos.flush();
+        dataOutPut = dos;
+        sendFormat(answer, body);
     }
 
     public void sendCancelOrderResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
-        dos.write(sendFormat(answer, body));
-        dos.flush();
+        dataOutPut = dos;
+        sendFormat(answer, body);
     }
 
     public void sendJudgeOwnerResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
-        dos.write(sendFormat(answer,body));
-        dos.flush();
+        dataOutPut = dos;
+        sendFormat(answer, body);
     }
 
     public void sendUpdateMenuPrice(byte answer, byte[] body, DataOutputStream dos) throws IOException {
-        dos.write(sendFormat(answer,body));
-        dos.flush();
+        dataOutPut = dos;
+        sendFormat(answer, body);
     }
 
     public void sendUpdateStockResult(byte answer, byte[] body, DataOutputStream dos) throws  IOException {
-        dos.write(sendFormat(answer, body));
-        dos.flush();
+        dataOutPut = dos;
+        sendFormat(answer, body);
     }
 
 }

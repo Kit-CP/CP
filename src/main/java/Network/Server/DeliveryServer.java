@@ -14,10 +14,10 @@ public class DeliveryServer implements Runnable {
     public DeliveryServer(String host, int port) {
         try {
             this.port = port;
-            System.out.println("포트 " + port + " 서버만드는 중...");
+            System.out.println("포트 " + port + " 서버를 만듭니다...");
             server = new ServerSocket();
             server.bind(new InetSocketAddress(host, port));
-            System.out.println("연결...");
+            System.out.println("정상적으로 서버가 생성되었습니다.");
             start();
         } catch (IOException e) {
             System.out.println(port + ": " + e.getMessage());
@@ -63,11 +63,11 @@ public class DeliveryServer implements Runnable {
                 userCount++;
 
             }catch(IOException e) {
-                System.out.println("Error opening Thread: "+ e);
+                System.out.println("에러로 스레드를 정지합니다. : "+ e);
             }
         }
         else {
-            System.out.println("Client refused: maximum " + users.length + " reached.");
+            System.out.println("유저가 꽉 찼습니다. 현재 " + users.length + "만큼 할당되었습니다.");
         }
     }
 }
