@@ -44,4 +44,13 @@
     <update id="judgeMenu" parameterType="Map">
         UPDATE menu SET state = ${state} WHERE menu_name = #{menu_name}
     </update>
+
+    <select id="showAcceptedMenu" resultType="MenuDTO">
+        SELECT * FROM `menu` WHERE isAccept = 1
+    </select>
+
+    <select id="showPendingMenu" resultType="MenuDTO">
+        SELECT * FROM `menu` WHERE isAccept = 0
+    </select>
+
 </mapper>

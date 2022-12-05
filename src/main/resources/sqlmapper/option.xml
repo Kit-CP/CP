@@ -15,4 +15,13 @@
     <update id="judgeOption" parameterType="Map">
         UPDATE `option` SET state = ${state} WHERE option_name = #{option_name}
     </update>
+
+    <select id="showAcceptedOption" resultType="OptionDTO">
+        SELECT * FROM `option` WHERE isAccept = 1
+    </select>
+
+    <select id="showPendingOption" resultType="OptionDTO">
+        SELECT * FROM `option` WHERE isAccept = 0
+    </select>
+
 </mapper>

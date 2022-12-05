@@ -37,7 +37,7 @@ public class NewOrderDTO implements IDTO {
         return buf.toByteArray();
     }
 
-    public NewOrderDTO readNewOrderDTO(DataInputStream dis) {
+    public static NewOrderDTO readNewOrderDTO(DataInputStream dis) {
         NewOrderDTO dto = new NewOrderDTO();
         try {
             dto.setOrder_id(dis.readInt());

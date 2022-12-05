@@ -4,21 +4,35 @@ import Database.persistence.MyBatisConnectionFactory;
 import Database.persistence.dao.OrderDAO;
 import Database.persistence.dao.UserDAO;
 import Database.persistence.dto.*;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.ibatis.session.SqlSession;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String args[]){
-        NewOrderDTO newOrderDTO = new NewOrderDTO();
-        newOrderDTO.setUser_ID("hodu");
-        newOrderDTO.setStore_name("한솥도시락 금오공대점");
-        newOrderDTO.setMenus_options("돈까스고기고기/한솥밥 곱빼기/계란후라이$새치 고기고기/한솥밥 곱빼기$새치 고기고기/한솥밥 곱빼기$돈치 고기고기/청양고추");
-        OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-        boolean result = orderDAO.newMakeOrder(newOrderDTO);
+    public static void main(String args[]) throws IOException {
+        List<MenuSalesDTO> list = new ArrayList<>();
+        list.add(new MenuSalesDTO("name", 1, 1));
+        list.add(new MenuSalesDTO("name1", 1, 1));
+        list.add(new MenuSalesDTO("name2", 1, 1));
 
-        System.out.println(result);
+        byte[] bytes = new byte[0];
+
+        for ( MenuSalesDTO dto : list ) {
+                bytes = ArrayUtils.addAll(bytes, dto.getBytes());
+        }
+
+
+        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+        DataInputStream dis = new DataInputStream(bis);
+
+        for ( int i = 0; i < 3; i++ ) {
+            MenuSalesDTO dto = MenuSalesDTO.readMenuSalesDTO(dis);
+            System.out.println(dto.toString());
+        }
     }
 }

@@ -32,9 +32,9 @@ public class ReviewDAO {
         return result;
     }
 
-    public List<Map<String, Object>> showReview(String user_id, int crtPage) {
+    public List<ReviewDTO> showReview(String user_id, int crtPage) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
-        List<Map<String, Object>> list = null;
+        List<ReviewDTO> list = null;
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", user_id);
         map.put("numOfPages", crtPage*2);

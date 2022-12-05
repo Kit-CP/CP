@@ -44,7 +44,7 @@ public class UserMessage {
             System.out.println(UserScreen.SUCCESS_REGISTER);
         }
         else {
-            System.out.println(UserScreen.FAIL_LOGIN);
+            System.out.println(UserScreen.FAIL_REGISTER);
         }
     }
 }

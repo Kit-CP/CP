@@ -1,5 +1,6 @@
 package Database.persistence.dao;
 
+import Database.persistence.dto.StoreDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import Database.persistence.dto.OptionDTO;
@@ -64,5 +65,27 @@ public class OptionDAO {
         }
 
         return result;
+    }
+
+    public List<OptionDTO> showAcceptedOption() {
+        List<OptionDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.OptionMapper.showAcceptedMenu");
+        } finally {
+            session.close();
+        }
+        return dtos;
+    }
+
+    public List<StoreDTO> showPendingOption() {
+        List<StoreDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.StoreMapper.showPendingMenu");
+        } finally {
+            session.close();
+        }
+        return dtos;
     }
 }

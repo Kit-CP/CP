@@ -15,14 +15,14 @@
         INSERT INTO review (content, review_score, order_id)
         VALUE (#{content}, ${review_score}, ${order_id})
     </insert>
-    <select id="showReview" parameterType="map" resultMap="reviews">
+    <select id="showReview" parameterType="map" resultType="ReviewDTO">
         SELECT *
         FROM (
-        SELECT review_id, user_id, store_name, review_score, review.order_id, content
-        FROM review JOIN `order` ON review.order_id = `order`.order_id
-        WHERE user_id like #{user_id}
-        )
-        ORDERS LIMIT 2 OFFSET ${numOfPages - 2}
+                 SELECT review_id, user_id, review_score, review.order_id, content, reply
+                 FROM review JOIN `order` ON review.order_id = `order`.order_id
+                 WHERE user_id like #{user_id} AND store_name = #{}
+             )
+                 ORDERS LIMIT 2 OFFSET ${numOfPages - 2}
     </select>
     <select id="getReviewNum" parameterType="String" resultType="int">
         SELECT COUNT(*)
