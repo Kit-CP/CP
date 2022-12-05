@@ -1,6 +1,7 @@
 package Database.persistence.dao;
 
 import Database.persistence.dto.MenuOptionDTO;
+import Database.persistence.dto.StoreDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import Database.persistence.dto.MenuDTO;
@@ -177,5 +178,27 @@ public class MenuDAO {
         }
 
         return result;
+    }
+
+    public List<MenuDTO> showAcceptedMenu() {
+        List<MenuDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.MenuMapper.showAcceptedMenu");
+        } finally {
+            session.close();
+        }
+        return dtos;
+    }
+
+    public List<MenuDTO> showPendingMenu() {
+        List<MenuDTO> dtos = null;
+        SqlSession session = sqlSessionFactory.openSession();
+        try{
+            dtos = session.selectList("mapper.MenuMapper.showPendingMenu");
+        } finally {
+            session.close();
+        }
+        return dtos;
     }
 }

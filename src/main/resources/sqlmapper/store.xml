@@ -15,4 +15,9 @@
     <update id="acceptStore" parameterType="String">
         UPDATE `delivery`.`store` SET `isAccept` = 1 WHERE (`store_name` = #{name});
     </update>
+
+    <select id="showPendingStore" resultType="StoreDTO">
+        SELECT * FROM STORE, USER WHERE isAccept = 0 AND STORE.user_ID = USER.user_ID
+    </select>
+
 </mapper>
