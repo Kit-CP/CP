@@ -1,8 +1,8 @@
 package Network.User;
 
+import Database.persistence.dto.UserDTO;
 import Network.Protocol.ProtocolAnswer;
 
-import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 
@@ -10,21 +10,13 @@ public class UserMessage {
     private byte answer;
     private byte[] body;
     private int size;
+    private DataInputStream dis;
 
 
     public UserMessage(DataInputStream dis) throws IOException {
         this.answer = dis.readByte();
         this.size = dis.readInt();
-
-        if ( size > 0 ) {
-            body = new byte[size];
-            dis.read(body);
-
-
-        }
-        else {
-            body = new byte[0];
-        }
+        this.dis = dis;
     }
 
     public void receiveSignUpResult() {
@@ -36,15 +28,15 @@ public class UserMessage {
         }
     }
 
-    public int receiveLoginResult(DataInputStream dis) throws IOException {
+    public UserDTO receiveLoginResult() throws IOException {
         if ( answer == ProtocolAnswer.SUCCESS ) {
             System.out.println(UserScreen.SUCCESS_LOGIN);
-            return dis.readInt();
+            return UserDTO.readUserDTO(dis);
         }
         else {
             System.out.println(UserScreen.FAIL_LOGIN);
+            return null;
         }
-        return -1;
     }
 
     public void receiveInsertStoreResult() {
