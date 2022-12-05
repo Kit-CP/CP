@@ -30,30 +30,39 @@ public class OrderDTO implements IDTO {
     }
 
     @Override
-    public byte[] getBytes() throws IOException {
+    public byte[] getBytes() {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);
-
-        dos.writeInt(order_id);
-        dos.writeUTF(User_ID);
-        dos.writeUTF(Store_name);
-        dos.writeInt(priceSum);
-        dos.writeInt(state);
-        dos.write(orderedMenuDTO.getBytes());
-        dos.write(orderedOptionDTO.getBytes());
+        try {
+            dos.writeInt(order_id);
+            dos.writeUTF(User_ID);
+            dos.writeUTF(Store_name);
+            dos.writeInt(priceSum);
+            dos.writeInt(state);
+            dos.write(orderedMenuDTO.getBytes());
+            dos.write(orderedOptionDTO.getBytes());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return buf.toByteArray();
     }
 
-    public static OrderDTO readOrderDTO(DataInputStream dis) throws IOException {
+    public static OrderDTO readOrderDTO(DataInputStream dis) {
         OrderDTO dto = new OrderDTO();
-        dto.setOrder_id(dis.readInt());
-        dto.setUser_ID(dis.readUTF());
-        dto.setStore_name(dis.readUTF());
-        dto.setPriceSum(dis.readInt());
-        dto.setState(dis.readInt());
-        dto.setOrderedMenuDTO(OrderedMenuDTO.readOrderedMenuDTO(dis));
-        dto.setOrderedOptionDTO(OrderedOptionDTO.readOrderedOptionDTO(dis));
+        try {
+            dto.setOrder_id(dis.readInt());
+            dto.setUser_ID(dis.readUTF());
+            dto.setStore_name(dis.readUTF());
+            dto.setPriceSum(dis.readInt());
+            dto.setState(dis.readInt());
+            dto.setOrderedMenuDTO(OrderedMenuDTO.readOrderedMenuDTO(dis));
+            dto.setOrderedOptionDTO(OrderedOptionDTO.readOrderedOptionDTO(dis));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return dto;
     }

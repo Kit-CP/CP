@@ -26,22 +26,31 @@ public class OrderedOptionDTO implements IDTO {
     }
 
     @Override
-    public byte[] getBytes() throws IOException {
+    public byte[] getBytes() {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);
-
-        dos.writeInt(ordered_option_id);
-        dos.writeInt(ordered_menu_id);
-        dos.writeUTF(option_name);
+        try {
+            dos.writeInt(ordered_option_id);
+            dos.writeInt(ordered_menu_id);
+            dos.writeUTF(option_name);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return buf.toByteArray();
     }
 
-    public static OrderedOptionDTO readOrderedOptionDTO(DataInputStream dis) throws IOException {
+    public static OrderedOptionDTO readOrderedOptionDTO(DataInputStream dis) {
         OrderedOptionDTO dto = new OrderedOptionDTO();
-        dto.setOrdered_option_id(dis.readInt());
-        dto.setOrdered_menu_id(dis.readInt());
-        dto.setOption_name(dis.readUTF());
+        try {
+            dto.setOrdered_option_id(dis.readInt());
+            dto.setOrdered_menu_id(dis.readInt());
+            dto.setOption_name(dis.readUTF());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return dto;
     }

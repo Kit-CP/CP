@@ -32,28 +32,37 @@ public class MenuDTO implements IDTO{
     }
 
     @Override
-    public byte[] getBytes() throws IOException {
+    public byte[] getBytes() {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);
-
-        dos.writeUTF(menu_name);
-        dos.writeUTF(store_name);
-        dos.writeUTF(category);
-        dos.writeInt(menu_price);
-        dos.writeInt(stock);
-        dos.writeInt(state);
+        try {
+            dos.writeUTF(menu_name);
+            dos.writeUTF(store_name);
+            dos.writeUTF(category);
+            dos.writeInt(menu_price);
+            dos.writeInt(stock);
+            dos.writeInt(state);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return buf.toByteArray();
     }
 
     public static MenuDTO readMenuDTO(DataInputStream dis) throws IOException {
         MenuDTO dto = new MenuDTO();
-        dto.setMenu_name(dis.readUTF());
-        dto.setStore_name(dis.readUTF());
-        dto.setCategory(dis.readUTF());
-        dto.setMenu_price(dis.readInt());
-        dto.setStock(dis.readInt());
-        dto.setState(dis.readInt());
+        try {
+            dto.setMenu_name(dis.readUTF());
+            dto.setStore_name(dis.readUTF());
+            dto.setCategory(dis.readUTF());
+            dto.setMenu_price(dis.readInt());
+            dto.setStock(dis.readInt());
+            dto.setState(dis.readInt());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return dto;
     }

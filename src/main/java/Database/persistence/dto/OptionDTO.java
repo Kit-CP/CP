@@ -30,24 +30,33 @@ public class OptionDTO implements IDTO {
     }
 
     @Override
-    public byte[] getBytes() throws IOException {
+    public byte[] getBytes() {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);
-
-        dos.writeUTF(option_name);
-        dos.writeInt(option_price);
-        dos.writeUTF(store_name);
-        dos.writeInt(state);
+        try {
+            dos.writeUTF(option_name);
+            dos.writeInt(option_price);
+            dos.writeUTF(store_name);
+            dos.writeInt(state);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return buf.toByteArray();
     }
 
-    public static OptionDTO readOptionDTO(DataInputStream dis) throws IOException {
+    public static OptionDTO readOptionDTO(DataInputStream dis) {
         OptionDTO dto = new OptionDTO();
-        dto.setOption_name(dis.readUTF());
-        dto.setOption_price(dis.readInt());
-        dto.setStore_name(dis.readUTF());
-        dto.setState(dis.readInt());
+        try {
+            dto.setOption_name(dis.readUTF());
+            dto.setOption_price(dis.readInt());
+            dto.setStore_name(dis.readUTF());
+            dto.setState(dis.readInt());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return dto;
     }
