@@ -22,33 +22,18 @@ public class ServerPacket {
         if(size > 0) {
             dataOutPut.write(body);
         }
+
         dataOutPut.flush();
     }
 
-    public void sendFormat(int authority, byte answer, byte[] body) throws IOException {
-        if(body != null) {
-            size = body.length;
-        }else {
-            size = 0;
-        }
-        byte[] headerBytes = ProtocolType.getAnswerHeader(answer, size);
-        dataOutPut.write(headerBytes);
-        if (size > 0) {
-            dataOutPut.writeInt(authority);
-            dataOutPut.write(body);
-        } else if (answer != ProtocolAnswer.ERROR) {
-            dataOutPut.writeInt(authority);
-        }
-        dataOutPut.flush();
-    }
     public void sendSignUpResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
         dataOutPut = dos;
         sendFormat(answer, body);
     }
 
-    public void sendLoginResult(int authority, byte answer, byte[] body, DataOutputStream dos) throws IOException {
+    public void sendLoginResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
         dataOutPut = dos;
-        sendFormat(authority, answer, body);
+        sendFormat(answer, body);
     }
 
     public void sendReviewResult(byte answer, byte[] body, DataOutputStream dos) throws IOException {
