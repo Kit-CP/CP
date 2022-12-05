@@ -108,9 +108,9 @@ public class ServerMessage {
             if (authority == ProtocolAuthority.CLIENT) {
 
                 if (code == ProtocolCode.ORDER) {//주문 등록
-                    OrderDTO orderDTO = OrderDTO.readOrderDTO(dataInput);
+                    NewOrderDTO neworderDTO = NewOrderDTO.readNewOrderDTO(dataInput);
                     orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (orderDAO.makeOrder(orderDTO)) {
+                    if (orderDAO.makeOrder(newOrderDTO)) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
@@ -147,7 +147,7 @@ public class ServerMessage {
                     serverPacket.sendStoreInsertResult(answer, null, dos);
                 }
                 if (code == ProtocolCode.OPTION_INSERT) { // 옵션 등록
-
+                    //리스트 받기
                 }
                 if (code == ProtocolCode.REPLY) { // 리뷰 답글 작성
                     ReviewDTO reviewDTO = ReviewDTO.readReviewDTO(dataInput);
