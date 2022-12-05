@@ -148,4 +148,9 @@ public class ServerPacket {
         dataOutPut = dos;
         sendListFormat(answer, body);
     }
+
+    public void sendPendingOwnersList(byte answer, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+        sendListFormat(answer, body);
+    }
 }
