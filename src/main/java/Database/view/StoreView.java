@@ -6,7 +6,6 @@ import java.util.List;
 
 public class StoreView {
     public static void printAll(List<StoreDTO> dtos) {
-        System.out.println("매장 정보");
         for (StoreDTO dto : dtos) {
             StringBuilder sb = new StringBuilder();
             sb.append(dto.getStore_name());

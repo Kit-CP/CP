@@ -16,7 +16,9 @@ public class MyListSerializer<E extends IDTO> {
 
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);
-
+        if ( dtos.size() == 0 ) {
+            return null;
+        }
         try {
             byte[] bytes = null;
             int dtoCount = 0;
