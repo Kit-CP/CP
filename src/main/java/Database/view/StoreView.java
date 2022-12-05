@@ -5,7 +5,7 @@ import Database.persistence.dto.StoreDTO;
 import java.util.List;
 
 public class StoreView {
-    public void printAll(List<StoreDTO> dtos) {
+    public static void printAll(List<StoreDTO> dtos) {
         System.out.println("매장 정보");
         for (StoreDTO dto : dtos) {
             StringBuilder sb = new StringBuilder();
@@ -16,6 +16,8 @@ public class StoreView {
             sb.append(dto.getStore_address());
             sb.append(", ");
             sb.append(dto.getStore_phone());
+            sb.append(", ");
+            sb.append(dto.getStore_score());
             System.out.println(sb);
         }
     }
