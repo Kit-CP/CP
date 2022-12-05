@@ -59,7 +59,7 @@ public class OrderDAO {
                     map = new HashMap<>();
                     map.put("ordered_menu_id", orderedMenuDTO.getOrdered_menu_id());
                     map.put("price", menuPrice + priceSumOptions);
-                    sqlSession.update("mapper.OrderedMenuMapper.updatePrice", map);
+                    sqlSession.update("mapper.OrderedMenuMapper.updatePrice", map);     // 주문한 메뉴의 가격 업데이트
                 }
                 else {
                     throw new Exception("재고가 부족하여 오류 발생");
