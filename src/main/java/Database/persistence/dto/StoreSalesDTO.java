@@ -18,22 +18,31 @@ public class StoreSalesDTO implements IDTO{
     int sales;
 
     @Override
-    public byte[] getBytes() throws IOException {
+    public byte[] getBytes() {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);
-
-        dos.writeUTF(store_name);
-        dos.writeInt(order_count);
-        dos.writeInt(sales);
+        try {
+            dos.writeUTF(store_name);
+            dos.writeInt(order_count);
+            dos.writeInt(sales);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return buf.toByteArray();
     }
 
-    public static StoreSalesDTO readStoreSalesDTO(DataInputStream dis) throws IOException {
+    public static StoreSalesDTO readStoreSalesDTO(DataInputStream dis) {
         StoreSalesDTO dto = new StoreSalesDTO();
-        dto.setStore_name(dis.readUTF());
-        dto.setOrder_count(dis.readInt());
-        dto.setSales(dis.readInt());
+        try {
+            dto.setStore_name(dis.readUTF());
+            dto.setOrder_count(dis.readInt());
+            dto.setSales(dis.readInt());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return dto;
     }

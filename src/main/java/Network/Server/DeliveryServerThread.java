@@ -2,7 +2,7 @@ package Network.Server;
 
 import java.net.*;
 import java.io.*;
-public class DeliveryServerThread extends Thread{
+public class DeliveryServerThread extends Thread {
     private DeliveryServer server = null;
     private Socket socket = null;
     private int portNum = 0;

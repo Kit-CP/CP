@@ -27,22 +27,32 @@ public class MenuHasOptionDTO implements IDTO {
     }
 
     @Override
-    public byte[] getBytes() throws IOException {
+    public byte[] getBytes() {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);
 
-        dos.writeUTF(menu_has_option_id);
-        dos.writeUTF(option_name);
-        dos.writeUTF(menu_name);
+        try {
+            dos.writeUTF(menu_has_option_id);
+            dos.writeUTF(option_name);
+            dos.writeUTF(menu_name);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return buf.toByteArray();
     }
 
-    public static MenuHasOptionDTO readMenuHasOptionDTO(DataInputStream dis) throws IOException {
+    public static MenuHasOptionDTO readMenuHasOptionDTO(DataInputStream dis) {
         MenuHasOptionDTO dto = new MenuHasOptionDTO();
-        dto.setMenu_has_option_id(dis.readUTF());
-        dto.setOption_name(dis.readUTF());
-        dto.setMenu_name(dis.readUTF());
+        try {
+            dto.setMenu_has_option_id(dis.readUTF());
+            dto.setOption_name(dis.readUTF());
+            dto.setMenu_name(dis.readUTF());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return dto;
     }

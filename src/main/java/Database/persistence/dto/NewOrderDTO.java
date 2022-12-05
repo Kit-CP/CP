@@ -18,31 +18,36 @@ public class NewOrderDTO implements IDTO {
     int order_id;
     String user_ID;
     String store_name;
-    List<String> menus_options;
+    String menus_options;
 
     @Override
-    public byte[] getBytes() throws IOException {
+    public byte[] getBytes() {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(buf);
-
-        dos.writeInt(order_id);
-        dos.writeUTF(user_ID);
-        dos.writeUTF(store_name);
-
-        for (String menu_options : menus_options) {
-            dos.writeUTF(menu_options);
+        try {
+            dos.writeInt(order_id);
+            dos.writeUTF(user_ID);
+            dos.writeUTF(store_name);
+            dos.writeUTF(menus_options);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
 
         return buf.toByteArray();
     }
 
-    public static NewOrderDTO readNewOrderDTO(DataInputStream dis) throws IOException {
+    public NewOrderDTO readNewOrderDTO(DataInputStream dis) {
         NewOrderDTO dto = new NewOrderDTO();
-        dto.setOrder_id(dis.readInt());
-        dto.setUser_ID(dis.readUTF());
-        dto.setStore_name(dis.readUTF());
-        List<String> menu_options = new ArrayList<>();
-
+        try {
+            dto.setOrder_id(dis.readInt());
+            dto.setUser_ID(dis.readUTF());
+            dto.setStore_name(dis.readUTF());
+            dto.setMenus_options(dis.readUTF());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return dto;
     }
