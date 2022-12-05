@@ -4,6 +4,7 @@ import Database.persistence.dto.OptionDTO;
 import Database.persistence.dto.StoreDTO;
 import Database.persistence.dto.UserDTO;
 import Database.view.StoreView;
+import Database.view.UserView;
 import Network.Protocol.ProtocolAnswer;
 import Network.Protocol.ProtocolAuthority;
 import Network.Protocol.ProtocolCode;
@@ -251,6 +252,12 @@ public class UserAPP {
                 this.user_ID = dto.getUser_ID();
             }
         }
+
+        /*private void getReviewList() {
+            userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.REVIEW_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+            System.out.println("");
+            userPacket.requestMyReview();
+        }*/
     }
 
     /*=============================================== 점주 ===============================================*/
@@ -375,9 +382,39 @@ public class UserAPP {
                 System.out.println(UserScreen.INPUT_ERROR);
             }
 
+            switch ( command ) {
+                case 1:
+                    showPendingOwners();
+                    break;
+                case 2:
 
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+                case 5:
+                    System.out.println(UserScreen.LOGOUT);
+                    isRun = false;
+                    break;
+                default:
+                    System.out.println(UserScreen.INPUT_ERROR);
+            }
         }
         return false;
+    }
+
+    private void showPendingOwners() {
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.PENDING_OWNER_LIST, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
+        userPacket.requestPendingOwners();
+
+        userMessage = new UserMessage(dis);
+        List<UserDTO> dtos = userMessage.receiveUserDTOs();
+        if ( dtos != null ) {
+            UserView.printAll(dtos);
+        }
     }
 
 }
