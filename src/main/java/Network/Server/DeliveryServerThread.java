@@ -27,16 +27,14 @@ public class DeliveryServerThread extends Thread{
                 serverMessage.run(dos);
             }
             catch(IOException e) {
-                System.out.println(portNum + " 소켓에러 : " + e.getMessage());
-                try {
-                    socket.close();
-                }
-                catch (IOException ex) {
-
-                }
+                System.out.println(portNum + "을 종료합니다." + e.getMessage());
+                server.remove(portNum);
+                stop();
             }
+
         }
     }
+
     public void open() throws IOException {
         dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));

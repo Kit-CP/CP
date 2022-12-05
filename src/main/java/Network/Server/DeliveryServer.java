@@ -40,6 +40,34 @@ public class DeliveryServer implements Runnable {
         }
     }
 
+    private int findUser(int portNum) {
+        for(int i=0; i < userCount; i++) {
+            if (users[i].getPortNum() == portNum) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public synchronized void remove(int portNum) {
+        int pos = findUser(portNum);
+        if(pos >= 0) {
+            DeliveryServerThread terminate = users[pos];
+            System.out.println(pos + "에서 유저 스레드 " + portNum + "를 삭제합니다.");
+            if (pos < userCount -1) {
+                for(int i = pos+1; i<userCount; i++) {
+                    users[i-1] = users[i];
+                }
+                userCount--;
+                try{
+                    terminate.close();
+                } catch (IOException e) {
+                    System.out.println("스레드 종료 오류" + e.getMessage());
+                }
+            }
+        }
+    }
+
     public void start() {
         if(thread == null) {
             thread = new Thread(this);
