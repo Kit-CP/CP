@@ -1,12 +1,12 @@
 package Database.persistence.dao;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import Database.persistence.dto.StoreDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class StoreDAO {
     private final SqlSessionFactory sqlSessionFactory;
@@ -57,11 +57,11 @@ public class StoreDAO {
     }
 
 
-    public synchronized boolean acceptStore(String name) { //가게 승인
+    public synchronized boolean judgeStore(Map<String, Object> param) { //가게 승인
         boolean result = false;
         SqlSession session = sqlSessionFactory.openSession();
         try {
-            session.update("mapper.StoreMapper.acceptStore", name);
+            session.update("mapper.StoreMapper.judgeStore", param);
             session.commit();
             result = true;
         }
