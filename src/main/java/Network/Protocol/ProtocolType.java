@@ -39,15 +39,5 @@ public class ProtocolType {
 
         return bao.toByteArray();
     }
-    public static byte[] getLoginResultHeader(byte authority, byte answer, int size) throws IOException {
 
-        ByteArrayOutputStream bao = new ByteArrayOutputStream();
-        DataOutputStream dos = new DataOutputStream(bao);
-
-        dos.writeByte(authority);
-        dos.write(answer);
-        dos.writeInt(size);
-
-        return bao.toByteArray();
-    }
 }
