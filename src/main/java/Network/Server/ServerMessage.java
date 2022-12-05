@@ -134,6 +134,22 @@ public class ServerMessage {
             } else if (authority == ProtocolAuthority.OWNER) { //점주
 
                 if (code == ProtocolCode.MENU_INSERT) { // 메뉴 등록
+                    List<String> strList = new ArrayList<>();
+                    List<MenuDTO> menuDTOList = new ArrayList<>();
+                    int listSize = dataInput.readInt();
+                    for(int i=0; i<listSize; i++) {
+                        menuDTOList.add(MenuDTO.readMenuDTO(dataInput));
+                        strList.add(dataInput.readUTF());
+                    }
+                    menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+
+                    if(menuDAO.insertMenuAll(menuDTOList, strList)) {
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+
+                    serverPacket.sendInsertMenuResult(answer, null, dos);
 
                 }
                 if (code == ProtocolCode.STORE_INSERT) { // 가게 등록
