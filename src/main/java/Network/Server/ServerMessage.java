@@ -59,8 +59,7 @@ public class ServerMessage {
                         } else {
                             answer = ProtocolAnswer.ERROR;
                         }
-
-                        serverPacket.sendSignUpResult(answer, null, dos);
+                        serverPacket.sendSignUpResult(answer, body, dos);
                     }
                 }
             }
@@ -76,7 +75,6 @@ public class ServerMessage {
                         } else {
                             answer = ProtocolAnswer.ERROR;
                         }
-
                         serverPacket.sendSignUpResult(answer, null, dos);
                     }
                 }
@@ -89,15 +87,19 @@ public class ServerMessage {
                 if (code == ProtocolCode.LOGIN_INFO) {
                     UserDTO user = UserDTO.readUserDTO(dataInput);  //여기서 두 번째 통신 때 에러남..
                     userDAO = new UserDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    UserDTO replyDTO = userDAO.signIn(user);
-                    if(replyDTO.getAuthority() != -1) {
+                    UserDTO replyDTO = userDAO.login(user);
+                    if ( replyDTO != null ) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
                     }
-                    body = replyDTO.getBytes();
-                    serverPacket.sendLoginResult(answer, body, dos);
 
+                    if(answer == ProtocolAnswer.SUCCESS) {
+                        body = replyDTO.getBytes();
+                        serverPacket.sendLoginResult(answer, body, dos);
+                    } else {
+                        serverPacket.sendLoginResult(answer, null, dos);
+                    }
                 }
             }
 

@@ -10,10 +10,10 @@ public class UserMain {
 
         try {
             cliSocket = new Socket(host, 7777);
-            DataOutputStream dos = new DataOutputStream(cliSocket.getOutputStream());
-            DataInputStream dis = new DataInputStream(cliSocket.getInputStream());
+            DataOutputStream socketDOS = new DataOutputStream(cliSocket.getOutputStream());
+            DataInputStream socketDIS = new DataInputStream(cliSocket.getInputStream());
             //while ( true ) {
-                UserAPP app = new UserAPP(dos, dis);
+                UserAPP app = new UserAPP(socketDOS, socketDIS);
                 app.run();
             //}
         }
