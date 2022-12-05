@@ -163,4 +163,9 @@ public class ServerPacket {
         dataOutPut = dos;
         sendListFormat(answer, body);
     }
+
+    public void sendMyOptionList(byte answer, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+        sendListFormat(answer, body);
+    }
 }
