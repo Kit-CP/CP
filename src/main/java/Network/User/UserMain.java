@@ -6,7 +6,7 @@ import java.net.*;
 public class UserMain {
     public static void main(String args[]) {
         Socket cliSocket = null;
-        String host = "192.168.0.34";
+        String host = "127.0.0.1";
 
         try {
             cliSocket = new Socket(host, 7777);

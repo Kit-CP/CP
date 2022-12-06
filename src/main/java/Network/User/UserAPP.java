@@ -173,18 +173,15 @@ public class UserAPP {
                     showStore();
                     break;
                 case 2:
-                    order(); //TODO 주문 구현 해야함.
+                    order();
                     break;
                 case 3:
-                    orderCancel();
-                    break;
-                case 4:
                     orderedList();
                     break;
-                case 5:
+                case 4:
                     updateInfor();
                     break;
-                case 6:
+                case 5:
                     System.out.println(UserScreen.LOGOUT);
                     isRun = false;
                     break;
@@ -232,20 +229,6 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         userMessage.receiveOrderResult();
-        System.out.println();
-    }
-
-    private void orderCancel() {
-        OrderDTO dto = new OrderDTO();
-        System.out.println(UserScreen.ENTER_ORDER_ID);
-        int order_id = Integer.parseInt(input.nextLine());
-        dto.setOrder_id(order_id);
-        dto.setUser_ID(user_ID);
-        userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.CANCEL_ORDER, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
-        userPacket.sendOrderCancel(dto);
-
-        userMessage = new UserMessage(dis);
-        userMessage.receiveCancelOrderResult();
         System.out.println();
     }
 
@@ -300,6 +283,37 @@ public class UserAPP {
         userPacket.sendString(user_ID);
         userMessage = new UserMessage(dis);
         OrderView.UserPrint(userMessage.receiveOrderViewDTOList());
+
+        System.out.println("[1]주문 취소  [2]리뷰 등록  [3]뒤로가기");
+        int command = Integer.parseInt(input.nextLine());
+        switch ( command ) {
+            case 1:
+                orderCancel();
+                return;
+            case 2:
+                //리뷰등록
+                return;
+            case 3:
+                System.out.println();
+                return;
+            default:
+                System.out.println();
+                return;
+        }
+    }
+
+    private void orderCancel() {
+        OrderDTO dto = new OrderDTO();
+        System.out.println(UserScreen.ENTER_ORDER_ID);
+        int order_id = Integer.parseInt(input.nextLine());
+        dto.setOrder_id(order_id);
+        dto.setUser_ID(user_ID);
+        userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.CANCEL_ORDER, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.sendOrderCancel(dto);
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveCancelOrderResult();
+        System.out.println();
     }
 
     /*private void getReviewList() {
