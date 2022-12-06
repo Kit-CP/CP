@@ -23,6 +23,5 @@ public class MenuView {
             sb.append(State.getState(dto.getState()));
             System.out.println(sb);
         }
-        System.out.println();
     }
 }
