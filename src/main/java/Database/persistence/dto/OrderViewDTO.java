@@ -10,7 +10,6 @@ import java.io.IOException;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
 public class OrderViewDTO implements IDTO {
     private int order_id;
@@ -19,6 +18,15 @@ public class OrderViewDTO implements IDTO {
     private String menu_name;
     private String option_name;
     private int state;
+
+    public OrderViewDTO() {
+        order_id = 0;
+        user_ID = "";
+        pricesum = 0;
+        menu_name = "";
+        option_name = "";
+        state = 0;
+    }
 
     @Override
     public byte[] getBytes() {
