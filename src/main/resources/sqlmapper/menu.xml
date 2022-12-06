@@ -9,7 +9,7 @@
     </insert>
 
     <select id="showMenu" parameterType="String" resultType="MenuOptionDTO">
-        select category, menu.menu_name, menu.menu_price, `menu_has_option`.option_name
+        select category, menu.menu_name, menu.menu_price, `menu_has_option`.option_name, stock
         from menu
         left join menu_has_option
         on menu.menu_name = menu_has_option.menu_name

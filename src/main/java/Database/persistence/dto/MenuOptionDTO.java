@@ -16,6 +16,7 @@ public class MenuOptionDTO implements IDTO {
     private String menu_name;
     private String option_name;
     private int menu_price;
+    private int stock;
 
     public MenuOptionDTO() {
     }
