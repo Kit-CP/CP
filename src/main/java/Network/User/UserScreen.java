@@ -1,7 +1,7 @@
 package Network.User;
 
 public class UserScreen {
-    public final static String Start_SCREEN = "<<음식 주문 프로그램>>\n반갑습니다!  [1]로그인  [2]회원가입  [3]종료";
+    public final static String Start_SCREEN = "<================ 음식 주문 프로그램 ================>\n반갑습니다!  [1]로그인  [2]회원가입  [3]종료";
     public final static String EXIT = "종료합니다";
     public final static String INPUT_ERROR = "잘못된 입력입니다!";
     public final static String SELECT_AUTHORITY = "고객 회원가입은 [1], 점주 회원가입은 [2]를 입력하세요.";

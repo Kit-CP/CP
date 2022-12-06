@@ -28,6 +28,9 @@ public class MenuDAO {
                 String menu_name = menuDTOS.get(i).getMenu_name();
                 String[] options = menu_options.get(i).split("/");
                 for ( String option : options ) {
+                    if ( option.equals("") ) {
+                        continue;
+                    }
                     MenuHasOptionDTO menuHasOptionDTO = new MenuHasOptionDTO();
                     menuHasOptionDTO.setMenu_name(menu_name);
                     menuHasOptionDTO.setOption_name(option);

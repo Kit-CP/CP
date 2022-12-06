@@ -280,6 +280,10 @@ public class UserAPP {
 
             try {
                 printUserInfor();
+                if ( this.state != 1 ) {
+                    System.out.println("승인되지 않은 점주이므로 로그아웃 됩니다.\n");
+                    return false;
+                }
                 System.out.println("나의 매장 정보");
                 myList = getMyStore();
                 StoreView.printMyStores(myList);
@@ -386,6 +390,7 @@ public class UserAPP {
     private void insertMenu() {
         System.out.println("메뉴를 등록할 가게이름을 입력하세요.");
         String storeName = input.nextLine();
+
         getMyOption(storeName);
         System.out.println("등록할 메뉴의 수를 입력하세요.");
         int cnt = Integer.parseInt(input.nextLine());
