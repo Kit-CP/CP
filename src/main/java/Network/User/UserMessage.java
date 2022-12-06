@@ -242,7 +242,7 @@ public class UserMessage {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("미승인된 가게가 존재하지 않습니다.");
+            System.out.println("미승인된 메뉴가 존재하지 않습니다.");
         }
         return null;
     }
@@ -283,4 +283,11 @@ public class UserMessage {
         return list;
     }
 
+    public void receiveWriteReviewResult() {
+        if (answer == ProtocolAnswer.SUCCESS) {
+            System.out.println("리뷰 등록 성공!");
+        } else {
+            System.out.println("리뷰 등록 실패!");
+        }
+    }
 }

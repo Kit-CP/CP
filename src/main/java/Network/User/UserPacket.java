@@ -21,6 +21,7 @@ public class UserPacket { //메시지를 직렬화
         this.code = code;
         this.authority = authority;
         this.answer = answer;
+
     }
     public void sendUserDTO(UserDTO userDTO) {
         try {
@@ -200,6 +201,18 @@ public class UserPacket { //메시지를 직렬화
     }
 
     public void sendNewOrderDTO(NewOrderDTO dto) {
+        try {
+            size = dto.getBytes().length;
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+            dos.write(headerBytes);
+            dos.write(dto.getBytes());
+            dos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendReviewDTO(ReviewDTO dto) {
         try {
             size = dto.getBytes().length;
             headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
