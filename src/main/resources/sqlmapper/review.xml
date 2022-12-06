@@ -37,10 +37,10 @@
                  ORDERS LIMIT 2 OFFSET ${numOfPages - 2}
     </select>
 
-    <select id="getUserReviewNum" parameterType="String" resultType="int">
+    <select id="getUserReviewNum" parameterType="Map" resultType="int">
         SELECT COUNT(*)
         FROM review JOIN `order` ON review.order_id = `order`.order_id
-        WHERE user_id like #{user_id}
+        WHERE user_id like #{user_id} AND store_name = #{store_name}
     </select>
 
     <select id="getStoreReviewNum" parameterType="String" resultType="int">
