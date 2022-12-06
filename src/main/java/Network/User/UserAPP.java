@@ -461,12 +461,20 @@ public class UserAPP {
             userMessage = new UserMessage(dis);
             List<Object> list = userMessage.receiveStoreReviewList();
 
-            int reviewNum = (int)list.get(0);
-            List<ReviewDTO> reviewDTOS = (List<ReviewDTO>) list.get(1);
-            ReviewView.printAll(reviewDTOS, crtPage, reviewNum);
+            int reviewNum = 0;
+            List<ReviewDTO> reviewDTOS = new ArrayList<>();
+            if(list.size() != 0) {
+                reviewNum = (int) list.get(0);
+                reviewDTOS = (List<ReviewDTO>) list.get(1);
 
-            System.out.println(UserScreen.SELECT_REVIEW_PAGE);
-            crtPage = Integer.parseInt(input.nextLine());
+                ReviewView.printAll(reviewDTOS, crtPage, reviewNum);
+
+                System.out.println(UserScreen.SELECT_REVIEW_PAGE);
+                crtPage = Integer.parseInt(input.nextLine());
+            } else {
+                System.out.println("조회되는 리뷰가 존재하지 않습니다.");
+                crtPage = -1;
+            }
         }
     }
 
