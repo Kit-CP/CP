@@ -237,4 +237,19 @@ public class UserPacket { //메시지를 직렬화
             e.printStackTrace();
         }
     }
+
+    public void sendJudgeOrder(OrderDTO orderDTO) {
+        try {
+            bodyBytes = orderDTO.getBytes();
+            size = bodyBytes.length;
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+
+            dos.write(headerBytes);
+            dos.write(bodyBytes);
+            dos.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
