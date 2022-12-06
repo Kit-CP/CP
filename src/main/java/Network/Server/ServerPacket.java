@@ -145,7 +145,12 @@ public class ServerPacket {
         sendFormat(answer, body);
     }
 
-    public void sendOrderList(byte answer, byte[] body, DataOutputStream dos) {
+    public void sendUserOrderList(byte answer, byte[] body, DataOutputStream dos) {
+        dataOutPut = dos;
+        sendListFormat(answer, body);
+    }
+
+    public void sendStoreOrderList(byte answer, byte[] body, DataOutputStream dos) {
         dataOutPut = dos;
         sendListFormat(answer, body);
     }
@@ -209,5 +214,7 @@ public class ServerPacket {
         dataOutPut = dos;
         sendListFormat(answer, body);
     }
+
+
 
 }
