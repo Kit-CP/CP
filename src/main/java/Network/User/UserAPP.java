@@ -386,6 +386,7 @@ public class UserAPP {
     private void insertMenu() {
         System.out.println("메뉴를 등록할 가게이름을 입력하세요.");
         String storeName = input.nextLine();
+
         getMyOption(storeName);
         System.out.println("등록할 메뉴의 수를 입력하세요.");
         int cnt = Integer.parseInt(input.nextLine());
