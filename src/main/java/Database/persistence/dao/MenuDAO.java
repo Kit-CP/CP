@@ -62,7 +62,7 @@ public class MenuDAO {
         return result;
     }
 
-    public synchronized  boolean updateMenu(String crt_menu_name, MenuDTO menuDTO) {
+    public synchronized boolean updateMenu(String crt_menu_name, MenuDTO menuDTO) {
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Object> param = new HashMap<>();
