@@ -446,6 +446,7 @@ public class UserAPP {
     private List<OptionDTO> makeOptionDTOList() {
         System.out.println("옵션을 등록할 가게이름을 입력하세요.");
         String storeName = input.nextLine();
+        getMyOption(storeName);
         System.out.println("등록할 옵션의 수를 입력하세요.");
         int cnt = Integer.parseInt(input.nextLine());
 
