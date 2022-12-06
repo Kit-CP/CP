@@ -2,6 +2,7 @@ package Network.User;
 
 import Database.persistence.dto.*;
 import Database.view.OptionView;
+import Database.view.OrderView;
 import Database.view.StoreView;
 import Database.view.UserView;
 import Network.Protocol.ProtocolAnswer;
@@ -274,7 +275,10 @@ public class UserAPP {
     }
 
     public void orderedList() {
-
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.ORDER_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.sendString(user_ID);
+        userMessage = new UserMessage(dis);
+        OrderView.printAll(userMessage.receiveOrderViewDTOList());
     }
 
     /*=============================================== 점주 ===============================================*/

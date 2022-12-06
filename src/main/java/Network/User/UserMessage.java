@@ -1,9 +1,11 @@
 package Network.User;
 
 import Database.persistence.dto.OptionDTO;
+import Database.persistence.dto.OrderViewDTO;
 import Database.persistence.dto.StoreDTO;
 import Database.persistence.dto.UserDTO;
 import Network.Protocol.ProtocolAnswer;
+import com.mysql.cj.x.protobuf.MysqlxCrud;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -147,6 +149,26 @@ public class UserMessage {
         }
         else {
             System.out.println("옵션이 없습니다.");
+        }
+        return null;
+    }
+
+    public List<OrderViewDTO> receiveOrderViewDTOList() {
+        List<OrderViewDTO> list = new ArrayList<>();
+        if ( answer == ProtocolAnswer.SUCCESS ) {
+            try {
+                int size = dis.readInt();
+                for ( int i = 0; i < size; i++ ) {
+                    list.add(OrderViewDTO.readOrderViewDTO(dis));
+                }
+                return list;
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("주문내역이 없습니다.");
         }
         return null;
     }

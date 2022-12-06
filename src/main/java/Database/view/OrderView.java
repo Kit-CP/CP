@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderView {
-    public void printAll(List<OrderViewDTO> dtos) {
+    public static void printAll(List<OrderViewDTO> dtos) {
         if ( dtos == null ) {
             return;
         }
