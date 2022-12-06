@@ -43,7 +43,7 @@
         WHERE user_id like #{user_id}
     </select>
 
-    <select id="getUserReviewNum" parameterType="String" resultType="int">
+    <select id="getStoreReviewNum" parameterType="String" resultType="int">
         SELECT COUNT(*)
         FROM review JOIN `order` ON review.order_id = `order`.order_id
         WHERE Store_name = #{store_name}

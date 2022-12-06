@@ -298,7 +298,6 @@ public class UserAPP {
                     insertOption();
                     break;
                 case 3:
-                    getMyOption();
                     insertMenu();
                     break;
                 case 4:
@@ -376,17 +375,18 @@ public class UserAPP {
         return list;
     }
 
-    private void getMyOption() {
+    private void getMyOption(String str) {
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYOPTION_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
-        userPacket.request();
+        userPacket.sendString(str);
 
         userMessage = new UserMessage(dis);
-        OptionView.printAll(userMessage.receiveOptionDTOList());
+        OptionView.printNamePrice(userMessage.receiveOptionDTOList());
     }
 
     private void insertMenu() {
         System.out.println("메뉴를 등록할 가게이름을 입력하세요.");
         String storeName = input.nextLine();
+        getMyOption(storeName);
         System.out.println("등록할 메뉴의 수를 입력하세요.");
         int cnt = Integer.parseInt(input.nextLine());
 

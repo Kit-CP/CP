@@ -437,9 +437,10 @@ public class ServerMessage {
 
                 }
                 if (code == ProtocolCode.MYOPTION_LIST) {//나의 옵션 조회
+                        String target = dataInput.readUTF();
                         optionDAO = new OptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                         MyListSerializer<OptionDTO> dtos = new MyListSerializer<>();
-                        body = dtos.listToByte(optionDAO.showOptions());
+                        body = dtos.listToByte(optionDAO.showOptions(target));
 
                         if( body != null)  {
                             size = body.length;
