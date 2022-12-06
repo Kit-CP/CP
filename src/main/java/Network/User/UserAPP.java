@@ -191,6 +191,15 @@ public class UserAPP {
         OptionView.printNamePrice(userMessage.receiveOptionDTOList());
     }
 
+    private void showReview(String str) {
+        System.out.println("<등록된 리뷰>");
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.SHOW_STORE_REVIEW, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.sendString(str);
+
+        userMessage = new UserMessage(dis);
+        ReviewView.print(userMessage.receiveStoreReview());
+    }
+
     /*=============================================== 고객 ===============================================*/
 
     private boolean clientRun() {
@@ -209,7 +218,7 @@ public class UserAPP {
 
             switch (command) {
                 case 1:
-                    showStore();
+                    startShowStore();
                     break;
                 case 2:
                     order();
@@ -231,6 +240,17 @@ public class UserAPP {
 
         }
         return false;
+    }
+
+    private void startShowStore() {
+        showStore();
+        System.out.println("자세히 볼 가게이름을 입력하세요." + UserScreen.GO_BACK);
+        String sname = input.nextLine();
+        if ( sname.equals("-1") ) {
+            return;
+        }
+        showMenu(sname);
+        showReview(sname);
     }
 
     private void order() {

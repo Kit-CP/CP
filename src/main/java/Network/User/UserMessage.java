@@ -196,6 +196,25 @@ public class UserMessage {
         return null;
     }
 
+    public List<ReviewDTO> receiveStoreReview() {
+        List<ReviewDTO> list = new ArrayList<>();
+        if (answer == ProtocolAnswer.SUCCESS) {
+            try {
+                int size = dis.readInt();
+                for (int i = 0; i < size; i++) {
+                    list.add(ReviewDTO.readReviewDTO(dis));
+                }
+                return list;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println(UserScreen.FAIL_GET_REVIEW);
+        }
+        return list;
+    }
+
+
     public int receiveReviewNum() {
         int result = 0;
         if (answer == ProtocolAnswer.SUCCESS) {
