@@ -21,7 +21,6 @@ public class StoreView {
             sb.append(dto.getStore_score());
             System.out.println(sb);
         }
-        System.out.println();
     }
 
     public static void printMyStores(List<StoreDTO> dtos) {
@@ -40,7 +39,6 @@ public class StoreView {
             sb.append(State.getState(dto.getIsAccept()));
             System.out.println(sb);
         }
-        System.out.println();
     }
 
 }
