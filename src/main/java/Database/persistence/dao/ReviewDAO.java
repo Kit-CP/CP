@@ -106,9 +106,11 @@ public class ReviewDAO {
         map.put("reply", reply);
         map.put("review_id", review_id);
         try{
-            sqlSession.update("mapper.ReviewMapper.writeReply", map);
+            int updated = sqlSession.update("mapper.ReviewMapper.writeReply", map);
             sqlSession.commit();
-            result = true;
+            if (updated > 0) {
+                result = true;
+            }
         } catch (Exception e) {
             sqlSession.rollback();
         } finally {

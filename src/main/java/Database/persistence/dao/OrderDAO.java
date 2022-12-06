@@ -178,7 +178,24 @@ public class OrderDAO {
         return result;
     }
 
+    public synchronized boolean finishOwnerOrder(OrderDTO orderDTO) {
+        boolean result = false;
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            int updatedOrder = sqlSession.update("mapper.OrderMapper.finishOwnerOrder", orderDTO);
 
+            if ( updatedOrder == 1 ) {
+                result = true;
+            }
+        }
+        catch (Exception e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+
+        return result;
+    }
 
     public OrderDTO getOrderState(OrderDTO orderDTO) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
