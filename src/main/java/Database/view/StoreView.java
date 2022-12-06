@@ -1,5 +1,6 @@
 package Database.view;
 
+import Database.persistence.dto.MenuDTO;
 import Database.persistence.dto.StoreDTO;
 import Util.State;
 
@@ -41,4 +42,5 @@ public class StoreView {
         }
         System.out.println();
     }
+
 }

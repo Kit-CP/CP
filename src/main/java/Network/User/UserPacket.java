@@ -72,6 +72,20 @@ public class UserPacket { //메시지를 직렬화
         }
     }
 
+    public void sendMenuDTO(MenuDTO dto) {
+        try {
+            bodyBytes = dto.getBytes();
+            size = bodyBytes.length;
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+
+            dos.write(headerBytes);
+            dos.write(bodyBytes);
+            dos.flush();
+        } catch (IOException e ) {
+            e.printStackTrace();
+        }
+    }
+
     public void sendString(String infor) {
         try {
             size = infor.length();

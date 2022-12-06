@@ -54,6 +54,13 @@ public class UserMessage {
             System.out.println(UserScreen.FAIL_REGISTER);
         }
     }
+    public void receiveJudgeMenuResult() {
+        if ( answer == ProtocolAnswer.SUCCESS) {
+            System.out.println("상태 변경 완료");
+        } else {
+            System.out.println("상태 변경 실패");
+        }
+    }
 
     public void receiveInsertResult() {
         if ( answer == ProtocolAnswer.SUCCESS ) {
@@ -188,5 +195,39 @@ public class UserMessage {
         return null;
     }
 
+    public List<MenuDTO> receivePendingMenuList() {
+        List<MenuDTO> list = new ArrayList<>();
+        if ( answer == ProtocolAnswer.SUCCESS) {
+            try {
+                int size = dis.readInt();
+                for(int i=0; i<size; i++) {
+                    list.add(MenuDTO.readMenuDTO(dis));
+                }
+                return list;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("미승인된 가게가 존재하지 않습니다.");
+        }
+        return null;
+    }
+
+    public List<StoreSalesDTO> receiveAllTotalList() {
+        List<StoreSalesDTO> list = new ArrayList<>();
+        if( answer == ProtocolAnswer.SUCCESS) {
+            try {
+                int size = dis.readInt();
+                for (int i = 0; i < size; i++) {
+                    list.add(StoreSalesDTO.readStoreSalesDTO(dis));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("전체 통계 정보가 존재하지 않습니다.");
+        }
+        return null;
+    }
 
 }

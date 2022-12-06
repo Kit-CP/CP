@@ -1,10 +1,7 @@
 package Network.User;
 
 import Database.persistence.dto.*;
-import Database.view.OptionView;
-import Database.view.OrderView;
-import Database.view.StoreView;
-import Database.view.UserView;
+import Database.view.*;
 import Network.Protocol.ProtocolAnswer;
 import Network.Protocol.ProtocolAuthority;
 import Network.Protocol.ProtocolCode;
@@ -478,10 +475,11 @@ public class UserAPP {
                     selectStore();
                     break;
                 case 3:
-
+                    showPendingMenus();
+                    selectMenu();
                     break;
                 case 4:
-
+                    showAllTotalList();
                     break;
                 case 5:
                     System.out.println(UserScreen.LOGOUT);
@@ -542,6 +540,39 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         userMessage.receiveUpdateInforResult();
+    }
+
+    public void showPendingMenus() {
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.PENDING_MENU_LIST, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
+        userPacket.request();
+
+        userMessage = new UserMessage(dis);
+        List<MenuDTO> dtos = userMessage.receivePendingMenuList();
+        if( dtos != null) {
+            MenuView.printPendingMenus(dtos);
+        }
+    }
+
+    public void selectMenu() {
+        System.out.println("상태를 바꿀 메뉴 이름을 선택하세요.");
+        String menu_name = input.nextLine();
+        System.out.println(UserScreen.SELECT_STATE);
+        int state = Integer.parseInt(input.nextLine());
+        MenuDTO dto = new MenuDTO(menu_name, state);
+
+        userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.ACCEPT_MENU, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
+        userPacket.sendMenuDTO(dto);
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveJudgeMenuResult();
+    }
+
+    private void showAllTotalList() {
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.TOTAL_LIST, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
+        userPacket.request();
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveAllTotalList();
     }
 
 }
