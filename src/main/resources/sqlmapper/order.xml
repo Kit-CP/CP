@@ -39,12 +39,8 @@
     </update>
 
     <update id="restockMenu" parameterType="OrderDTO">
-        UPDATE menu
-        SET stock = stock +1
-        WHERE menu_name  IN
-                (SELECT menu_name
-                FROM ordered_menu
-                WHERE order_id = ${order_id})
+        UPDATE menu SET stock = stock + (SELECT count(menu_name) FROM ordered_menu WHERE order_id = ${order_id})
+                    WHERE menu_name IN (SELECT menu_name FROM ordered_menu WHERE order_id = ${order_id})
     </update>
 
     <update id="updatePriceSum" parameterType="Map">
@@ -76,14 +72,14 @@
     </select>
 
     <select id="getMenuSales" parameterType="String" resultType="MenuSalesDTO">
-        select menu_name, count(menu_name) as `count`, sum(priceSum) as priceSum
+        select menu_name, count(menu_name) as `count`, priceSum
         from ordered_menu join `order` on `order`.order_id = ordered_menu.order_id
         where Store_name like #{store_name} and state = 3
         group by menu_name
     </select>
 
     <select id="getStoreSales" resultType="StoreSalesDTO">
-        select Store_name as store_name, count(order_id) as order_count , sum(priceSum) as sales
+        select Store_name as store_name, count(order_id) as order_count , priceSum as sales
         from `order`
         where state = 3
         group by Store_name
