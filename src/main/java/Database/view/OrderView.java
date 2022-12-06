@@ -57,7 +57,7 @@ public class OrderView {
             return;
         }
         for (MenuSalesDTO dto : dtos) {
-            System.out.printf("메뉴 이름 : %s 주문된 횟수 : %d 총 가격 : %d\n", dto.getMenu_name(), dto.getCount(), dto.getPriceSum());
+            System.out.printf("메뉴 이름 : %s\t| 주문된 횟수 : %d\t| 총 가격 : %d\n", dto.getMenu_name(), dto.getCount(), dto.getPriceSum());
             sales += dto.getPriceSum();
         }
         System.out.println("\n총 매출 : " + sales);
@@ -68,7 +68,7 @@ public class OrderView {
             return;
         }
         for (StoreSalesDTO dto : dtos) {
-            System.out.printf("가게 이름 : %s 총 주문횟수 : %d 총 매출 : %d\n", dto.getStore_name(), dto.getOrder_count(), dto.getSales());
+            System.out.printf("가게 이름 : %s\t| 총 주문횟수 : %d\t| 총 매출 : %d\n", dto.getStore_name(), dto.getOrder_count(), dto.getSales());
         }
     }
 }
