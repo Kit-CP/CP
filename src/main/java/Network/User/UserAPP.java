@@ -453,17 +453,18 @@ public class UserAPP {
         System.out.println(UserScreen.ENTER_STORE);
         String store_name = input.nextLine();
 
-        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.STORE_REVIEW_NUM, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
-        userPacket.sendString(store_name);
-
-        userMessage = new UserMessage(dis);
-        int reviewNum = userMessage.receiveReviewNum();
         int crtPage = 1;
         while (crtPage != -1) {
+            userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYREVIEW_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
             userPacket.requestReviewList(store_name, user_ID , crtPage);
 
             userMessage = new UserMessage(dis);
-            ReviewView.printAll(userMessage.receiveStoreReviewList(), crtPage, reviewNum);
+            List<Object> list = userMessage.receiveStoreReviewList();
+
+            int reviewNum = (int)list.get(0);
+            List<ReviewDTO> reviewDTOS = (List<ReviewDTO>) list.get(1);
+            ReviewView.printAll(reviewDTOS, crtPage, reviewNum);
+
             System.out.println(UserScreen.SELECT_REVIEW_PAGE);
             crtPage = Integer.parseInt(input.nextLine());
         }

@@ -164,14 +164,18 @@ public class UserMessage {
         return null;
     }
 
-    public List<ReviewDTO> receiveStoreReviewList() {
-        List<ReviewDTO> list = new ArrayList<>();
+    public List<Object> receiveStoreReviewList() {
+        List<Object> list = new ArrayList<>();
+        List<ReviewDTO> reviewDTOList = new ArrayList<>();
         if (answer == ProtocolAnswer.SUCCESS) {
             try {
+                int reviewNum = dis.readInt();
+                list.add(reviewNum);
                 int size = dis.readInt();
                 for (int i = 0; i < size; i++) {
-                    list.add(ReviewDTO.readReviewDTO(dis));
+                    reviewDTOList.add(ReviewDTO.readReviewDTO(dis));
                 }
+                list.add(reviewDTOList);
                 return list;
             } catch (IOException e) {
                 e.printStackTrace();
