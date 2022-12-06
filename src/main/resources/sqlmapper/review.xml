@@ -32,9 +32,10 @@
         FROM (
                  SELECT review_id, content, review_score, reply
                  FROM review JOIN `order` on review.order_id = `order`.order_id
-                 WHERE Store_name = #{store_name} AND `order`.User_ID = #{user_id}
+                 WHERE Store_name LIKE
+                       ( SELECT Store_name FROM store WHERE store.user_id = #{user_id})
              )
-                 ORDERS LIMIT 2 OFFSET ${numOfPages - 2}
+                 ORDERS LIMIT 2 OFFSET ${crtPage - 2}
     </select>
 
     <select id="getUserReviewNum" parameterType="Map" resultType="int">
