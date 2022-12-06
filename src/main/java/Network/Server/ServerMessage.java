@@ -348,6 +348,23 @@ public class ServerMessage {
             if (authority == ProtocolAuthority.CLIENT) {//고객
 
                 if (code == ProtocolCode.ORDER_LIST) {//주문 내역 조회
+                    String store_name = dataInput.readUTF();
+                    orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<OrderViewDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(orderDAO.getUserOrderList(store_name));
+
+                    if( body != null) {
+                        size = body.length;
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+
+                    if( size != 0 ) {
+                        serverPacket.sendUserOrderList(answer, body, dos);
+                    } else {
+                        serverPacket.sendStoreOrderList(answer, null, dos);
+                    }
 
                 }
                 if (code == ProtocolCode.STORE_LIST) {//승인된 가게 정보 조회
@@ -371,7 +388,9 @@ public class ServerMessage {
                     menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     MyListSerializer<MenuDTO> dtos = new MyListSerializer<>();
                     body = dtos.listToByte(menuDAO.showAcceptedMenu());
+
                     if(body != null) {
+                        size = body.length;
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
@@ -475,9 +494,9 @@ public class ServerMessage {
                         answer = ProtocolAnswer.ERROR;
                     }
                     if(size != 0) {
-                        serverPacket.sendOrderList(answer, body, dos);
+                        serverPacket.sendStoreOrderList(answer, body, dos);
                     } else {
-                        serverPacket.sendOrderList(answer, null, dos);
+                        serverPacket.sendStoreOrderList(answer, null, dos);
                     }
                 }
                 if (code == ProtocolCode.MYTOTAL_LIST) {//통계 정보 조회
