@@ -401,7 +401,7 @@ public class ServerMessage {
                     int crtPage = dataInput.readInt(); //보고싶은 페이지
                     reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     MyListSerializer<ReviewDTO> dtos = new MyListSerializer<>();
-                    body = dtos.listToByte(reviewDAO.showReview(user_id, storeName, crtPage));
+                    body = dtos.listToByte(reviewDAO.showUserReview(user_id, storeName, crtPage));
                     if(body != null) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {

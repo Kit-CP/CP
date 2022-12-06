@@ -11,11 +11,13 @@
         <result property="order_id" column="order_id"/>
         <result property="content" column="content"/>
     </resultMap>
+
     <insert id="writeReview" parameterType="ReviewDTO">
         INSERT INTO review (content, review_score, order_id)
         VALUE (#{content}, ${review_score}, ${order_id})
     </insert>
-    <select id="showReview" parameterType="map" resultType="ReviewDTO">
+
+    <select id="showUserReview" parameterType="map" resultType="ReviewDTO">
         SELECT *
         FROM (
                  SELECT review_id, user_id, review_score, review.order_id, content, reply
@@ -24,11 +26,29 @@
              )
                  ORDERS LIMIT 2 OFFSET ${numOfPages - 2}
     </select>
-    <select id="getReviewNum" parameterType="String" resultType="int">
+
+    <select id="showStoreReview" parameterType="Map" resultType="ReviewDTO">
+        SELECT *
+        FROM (
+                 SELECT review_id, content, review_score, reply
+                 FROM review JOIN `order` on review.order_id = `order`.order_id
+                 WHERE Store_name = #{store_name}
+             )
+                 ORDERS LIMIT 2 OFFSET ${numOfPages - 2}
+    </select>
+
+    <select id="getUserReviewNum" parameterType="String" resultType="int">
         SELECT COUNT(*)
         FROM review JOIN `order` ON review.order_id = `order`.order_id
         WHERE user_id like #{user_id}
     </select>
+
+    <select id="getUserReviewNum" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM review JOIN `order` ON review.order_id = `order`.order_id
+        WHERE Store_name = #{store_name}
+    </select>
+
     <update id="writeReply" parameterType="Map">
         UPDATE review SET reply = #{reply} WHERE review_id = ${review_id}
     </update>
