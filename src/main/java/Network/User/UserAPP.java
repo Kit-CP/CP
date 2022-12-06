@@ -43,8 +43,8 @@ public class UserAPP {
         boolean isLogin = false;
         boolean isExit = false;
 
-        while ( !isExit ) {
-            while ( !isLogin && !isExit ) {
+        while (!isExit) {
+            while (!isLogin && !isExit) {
                 int command = 0;
 
                 try {
@@ -73,14 +73,12 @@ public class UserAPP {
                 }
             }
 
-            while ( isLogin && !isExit ) {
-                if ( this.authority == 1 ) {
+            while (isLogin && !isExit) {
+                if (this.authority == 1) {
                     isLogin = clientRun();
-                }
-                else if ( this.authority == 2 ) {
+                } else if (this.authority == 2) {
                     isLogin = ownerRun();
-                }
-                else if ( this.authority == 3 ) {
+                } else if (this.authority == 3) {
                     isLogin = managerRun();
                 }
             }
@@ -95,13 +93,11 @@ public class UserAPP {
         System.out.println(UserScreen.SELECT_AUTHORITY);
         int newAuthority = Integer.parseInt(input.nextLine());
         byte authority = 0;
-        if ( newAuthority == 1 ) {
+        if (newAuthority == 1) {
             authority = ProtocolAuthority.CLIENT;
-        }
-        else if ( newAuthority == 2 ) {
+        } else if (newAuthority == 2) {
             authority = ProtocolAuthority.OWNER;
-        }
-        else {
+        } else {
             System.out.println(UserScreen.INPUT_ERROR);
             return;
         }
@@ -118,12 +114,24 @@ public class UserAPP {
     private UserDTO makeUserDTO(int authority) {
         UserDTO temp = new UserDTO();
         String str;
-        System.out.println(UserScreen.ENTER_ID);  str = input.nextLine();  temp.setUser_ID(str);
-        System.out.println(UserScreen.ENTER_PW);  str = input.nextLine();  temp.setUser_PW(str);
-        System.out.println(UserScreen.ENTER_ADDRESS);  str = input.nextLine();  temp.setUser_address(str);
-        System.out.println(UserScreen.ENTER_NAME);  str = input.nextLine();  temp.setUser_name(str);
-        System.out.println(UserScreen.ENTER_PHONE);  str = input.nextLine();  temp.setUser_phone(str);
-        System.out.println(UserScreen.ENTER_AGE);  str = input.nextLine();  temp.setAge(Integer.parseInt(str));
+        System.out.println(UserScreen.ENTER_ID);
+        str = input.nextLine();
+        temp.setUser_ID(str);
+        System.out.println(UserScreen.ENTER_PW);
+        str = input.nextLine();
+        temp.setUser_PW(str);
+        System.out.println(UserScreen.ENTER_ADDRESS);
+        str = input.nextLine();
+        temp.setUser_address(str);
+        System.out.println(UserScreen.ENTER_NAME);
+        str = input.nextLine();
+        temp.setUser_name(str);
+        System.out.println(UserScreen.ENTER_PHONE);
+        str = input.nextLine();
+        temp.setUser_phone(str);
+        System.out.println(UserScreen.ENTER_AGE);
+        str = input.nextLine();
+        temp.setAge(Integer.parseInt(str));
         temp.setAuthority(authority);
         temp.setState(0);
         return temp;
@@ -141,13 +149,12 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         UserDTO resultDTO = userMessage.receiveLoginResult();
-        if ( resultDTO != null ) {
+        if (resultDTO != null) {
             this.authority = resultDTO.getAuthority();
             this.user_ID = resultDTO.getUser_ID();
             this.state = resultDTO.getState();
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -156,7 +163,7 @@ public class UserAPP {
 
     private boolean clientRun() {
         boolean isRun = true;
-        while ( isRun ) {
+        while (isRun) {
             int command = 0;
 
             try {
@@ -168,7 +175,7 @@ public class UserAPP {
                 System.out.println(UserScreen.INPUT_ERROR);
             }
 
-            switch ( command ) {
+            switch (command) {
                 case 1:
                     showStore();
                     break;
@@ -206,7 +213,7 @@ public class UserAPP {
     private void order() { //TODO 주문
         System.out.println("주문할 가게이름을 입력하세요." + UserScreen.GO_BACK);
         String sname = input.nextLine();
-        if ( sname.equals("-1") ) {
+        if (sname.equals("-1")) {
             return;
         }
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MENU_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
@@ -217,16 +224,16 @@ public class UserAPP {
 
         System.out.println("주문할 메뉴의 수를 입력하세요." + UserScreen.GO_BACK);
         int cnt = Integer.parseInt(input.nextLine());
-        if ( cnt == -1 ) {
+        if (cnt == -1) {
             return;
         }
 
         StringBuilder sb = new StringBuilder();
-        for ( int i = 0; i < cnt; i++ ) {
+        for (int i = 0; i < cnt; i++) {
             System.out.println("메뉴/옵션을 입력하세요 ( 구분자 : / )");
             String temp = input.nextLine();
             sb.append(temp);
-            if ( i != cnt -1 ) {
+            if (i != cnt - 1) {
                 sb.append("$");
             }
         }
@@ -247,10 +254,10 @@ public class UserAPP {
         int command = 0;
         System.out.println(UserScreen.UPDATE_USER_INFOR_MENU);
         command = Integer.parseInt(input.nextLine());
-        while ( command != 7 ) {
+        while (command != 7) {
             System.out.println(UserScreen.ENTER_NEW_INFOR);
             String temp = input.nextLine();
-            switch ( command ) {
+            switch (command) {
                 case 1:
                     dto.setUser_ID(temp);
                     break;
@@ -278,8 +285,8 @@ public class UserAPP {
         userPacket.sendNewUserDTO(this.user_ID, dto);
 
         userMessage = new UserMessage(dis);
-        if ( userMessage.receiveUpdateInforResult() ) {
-            if ( !dto.getUser_ID().equals("") ) {
+        if (userMessage.receiveUpdateInforResult()) {
+            if (!dto.getUser_ID().equals("")) {
                 this.user_ID = dto.getUser_ID();
             }
         }
@@ -293,7 +300,7 @@ public class UserAPP {
 
         System.out.println("[1]주문 취소  [2]리뷰 등록  [3]뒤로가기");
         int command = Integer.parseInt(input.nextLine());
-        switch ( command ) {
+        switch (command) {
             case 1:
                 orderCancel();
                 return;
@@ -313,7 +320,7 @@ public class UserAPP {
         OrderDTO dto = new OrderDTO();
         System.out.println(UserScreen.ENTER_ORDER_ID + UserScreen.GO_BACK);
         int order_id = Integer.parseInt(input.nextLine());
-        if ( order_id == -1 ) {
+        if (order_id == -1) {
             return;
         }
         dto.setOrder_id(order_id);
@@ -350,12 +357,12 @@ public class UserAPP {
         boolean isRun = true;
         List<StoreDTO> myList = null;
 
-        while ( isRun ) {
+        while (isRun) {
             int command = 0;
 
             try {
                 printUserInfor();
-                if ( this.state != 1 ) {
+                if (this.state != 1) {
                     System.out.println("승인되지 않은 점주이므로 로그아웃 됩니다.");
                     return false;
                 }
@@ -369,7 +376,7 @@ public class UserAPP {
                 System.out.println(UserScreen.INPUT_ERROR);
             }
 
-            switch ( command ) {
+            switch (command) {
                 case 1:
                     insertStore();
                     break;
@@ -383,6 +390,7 @@ public class UserAPP {
                     judgeOrder();
                 case 5:
                     reviewList();
+                    replyReview();
                     break;
                 case 6:
                     statisticsOwner();
@@ -421,10 +429,18 @@ public class UserAPP {
     private StoreDTO makeStoreDTO() {
         StoreDTO temp = new StoreDTO();
         String str;
-        System.out.println(UserScreen.ENTER_NAME);  str = input.nextLine();  temp.setStore_name(str);
-        System.out.println(UserScreen.ENTER_ADDRESS);  str = input.nextLine();  temp.setStore_address(str);
-        System.out.println(UserScreen.ENTER_PHONE);  str = input.nextLine();  temp.setStore_phone(str);
-        System.out.println(UserScreen.ENTER_INFORMATION); str = input.nextLine();  temp.setInformation(str);
+        System.out.println(UserScreen.ENTER_NAME);
+        str = input.nextLine();
+        temp.setStore_name(str);
+        System.out.println(UserScreen.ENTER_ADDRESS);
+        str = input.nextLine();
+        temp.setStore_address(str);
+        System.out.println(UserScreen.ENTER_PHONE);
+        str = input.nextLine();
+        temp.setStore_phone(str);
+        System.out.println(UserScreen.ENTER_INFORMATION);
+        str = input.nextLine();
+        temp.setInformation(str);
         temp.setUser_ID(this.user_ID);
         temp.setIsAccept(0);
         return temp;
@@ -445,7 +461,7 @@ public class UserAPP {
         int cnt = Integer.parseInt(input.nextLine());
 
         List<OptionDTO> list = new ArrayList<>();
-        for ( int i = 0; i < cnt; i++ ) {
+        for (int i = 0; i < cnt; i++) {
             System.out.println(UserScreen.ENTER_NAME);
             String oName = input.nextLine();
             System.out.println(UserScreen.ENTER_PRICE);
@@ -475,7 +491,7 @@ public class UserAPP {
         List<MenuDTO> dtos = new ArrayList<>();
         List<String> strs = new ArrayList<>();
 
-        for ( int i = 0; i < cnt; i++ ) {
+        for (int i = 0; i < cnt; i++) {
             System.out.println("메뉴 카테고리를 입력하세요.");
             String cate = input.nextLine();
             System.out.println(UserScreen.ENTER_NAME);
@@ -487,10 +503,9 @@ public class UserAPP {
             dtos.add(new MenuDTO(name, storeName, cate, price, stock));
             System.out.println("옵션을 입력하세요(구분자:/) (없으면 \"없음\"입력)");
             String temp = input.nextLine();
-            if ( temp.equals("없음") ) {
+            if (temp.equals("없음")) {
                 strs.add("");
-            }
-            else {
+            } else {
                 strs.add(temp);
             }
         }
@@ -501,10 +516,11 @@ public class UserAPP {
         userMessage = new UserMessage(dis);
         userMessage.receiveInsertResult();
     }
+
     public void statisticsOwner() {
         System.out.println("가게 이름을 입력하시오." + UserScreen.GO_BACK);
         String store_name = input.nextLine();
-        if ( store_name.equals("-1") ) {
+        if (store_name.equals("-1")) {
             return;
         }
 
@@ -518,14 +534,14 @@ public class UserAPP {
     public void reviewList() {
         System.out.println(UserScreen.ENTER_STORE + UserScreen.GO_BACK);
         String store_name = input.nextLine();
-        if ( store_name.equals("-1") ) {
+        if (store_name.equals("-1")) {
             return;
         }
 
         int crtPage = 1;
         while (crtPage != -1) {
             userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYREVIEW_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
-            userPacket.requestReviewList(store_name, user_ID , crtPage);
+            userPacket.requestReviewList(store_name, user_ID, crtPage);
 
             userMessage = new UserMessage(dis);
             try {
@@ -533,7 +549,7 @@ public class UserAPP {
 
                 int reviewNum = 0;
                 List<ReviewDTO> reviewDTOS = new ArrayList<>();
-                if(list.size() != 0) {
+                if (list.size() != 0) {
                     reviewNum = (int) list.get(0);
                     reviewDTOS = (List<ReviewDTO>) list.get(1);
 
@@ -560,11 +576,40 @@ public class UserAPP {
         OrderDTO orderDTO = new OrderDTO();
     }
 
+    public void replyReview() {
+        System.out.println(UserScreen.REPLY_REVIEW);
+        int number = Integer.parseInt(input.nextLine());
+        if (number == 1) {
+            int review_id = 0;
+            System.out.println("답글을 입력할 리뷰 번호를 입력해주세요");
+            try {
+                review_id = Integer.parseInt(input.nextLine());
+            }catch (Exception e) {
+                System.out.println("잘못된 값 입력으로 다시 입력해주세요.");
+                review_id = Integer.parseInt(input.nextLine());
+            }
+            System.out.println("답글을 입력해주세요.");
+            String reply_Review = input.nextLine();
+            ReviewDTO reviewDTO = new ReviewDTO(reply_Review, review_id);
+            userPacket = new UserPacket(dos, ProtocolType.REGISTER, ProtocolCode.REPLY, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+            userPacket.sendReplyReviewInfo(reviewDTO);
+
+            userMessage = new UserMessage(dis);
+            userMessage.receiveReplyReviewResult();
+        }
+        else if(number == 2) {
+            System.out.println("정상 종료합니다.");
+        }
+        else {
+            System.out.println("잘못된 값 입력으로 답글 기능을 종료합니다.");
+        }
+    }
+
     /*=============================================== 관리자 ===============================================*/
 
     private boolean managerRun() {
         boolean isRun = true;
-        while ( isRun ) {
+        while (isRun) {
             int command = 0;
 
             try {
@@ -576,7 +621,7 @@ public class UserAPP {
                 System.out.println(UserScreen.INPUT_ERROR);
             }
 
-            switch ( command ) {
+            switch (command) {
                 case 1:
                     showPendingOwners();
                     selectOwner();
@@ -610,7 +655,7 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         List<UserDTO> dtos = userMessage.receiveUserDTOList();
-        if ( dtos != null ) {
+        if (dtos != null) {
             UserView.printAll(dtos);
         }
     }
@@ -618,7 +663,7 @@ public class UserAPP {
     private void selectOwner() {
         System.out.println("상태를 바꿀 user_ID를 적으세요." + UserScreen.GO_BACK);
         String id = input.nextLine();
-        if ( id.equals("-1") ) {
+        if (id.equals("-1")) {
             return;
         }
         System.out.println(UserScreen.SELECT_STATE);
@@ -639,7 +684,7 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         List<StoreDTO> dtos = userMessage.receiveStoreList();
-        if ( dtos != null ) {
+        if (dtos != null) {
             StoreView.printMyStores(dtos);
         }
     }
@@ -647,7 +692,7 @@ public class UserAPP {
     private void selectStore() {
         System.out.println("상태를 바꿀 가게 이름을 선택하세요." + UserScreen.GO_BACK);
         String sname = input.nextLine();
-        if ( sname.equals("-1") ) {
+        if (sname.equals("-1")) {
             return;
         }
         System.out.println(UserScreen.SELECT_STATE);
@@ -668,7 +713,7 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         List<MenuDTO> dtos = userMessage.receivePendingMenuList();
-        if( dtos != null) {
+        if (dtos != null) {
             MenuView.printPendingMenus(dtos);
         }
     }
@@ -676,7 +721,7 @@ public class UserAPP {
     public void selectMenu() {
         System.out.println("상태를 바꿀 메뉴 이름을 선택하세요." + UserScreen.GO_BACK);
         String menu_name = input.nextLine();
-        if ( menu_name.equals("-1") ) {
+        if (menu_name.equals("-1")) {
             return;
         }
         System.out.println(UserScreen.SELECT_STATE);
@@ -696,7 +741,7 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         List<StoreSalesDTO> list = userMessage.receiveAllTotalList(); //TODO view 만들기.
-        for( StoreSalesDTO dto : list) {
+        for (StoreSalesDTO dto : list) {
             System.out.println(dto.toString());
         }
     }

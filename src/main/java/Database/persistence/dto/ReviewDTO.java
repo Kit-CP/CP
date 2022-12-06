@@ -28,6 +28,15 @@ public class ReviewDTO implements IDTO {
         this.reply = "";
     }
 
+    public ReviewDTO(String reply, int review_id) {
+        this.review_id = review_id;
+        user_id = "";
+        content = "";
+        review_score = 0;
+        order_id = 0;
+        this.reply = reply;
+    }
+
     public ReviewDTO() {
         this.review_id = 0;
         this.user_id = "";
