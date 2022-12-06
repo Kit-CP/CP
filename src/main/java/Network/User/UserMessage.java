@@ -107,7 +107,7 @@ public class UserMessage {
                 System.out.println(e.getMessage());
             }
         } else {
-            System.out.println("매장이 없습니다.\n");
+            System.out.println("매장이 없습니다.");
         }
         return list;
     }
@@ -169,7 +169,7 @@ public class UserMessage {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("주문내역이 없습니다.\n");
+            System.out.println("주문내역이 없습니다.");
         }
         return null;
     }

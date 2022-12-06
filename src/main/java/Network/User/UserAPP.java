@@ -35,7 +35,7 @@ public class UserAPP {
     }
 
     private void printUserInfor() {
-        System.out.println("<<" + State.getAuthority(authority) + ">>\t아이디 : " + user_ID + "\t상태 : " + State.getState(state));
+        System.out.println("\n<<" + State.getAuthority(authority) + ">>\t아이디 : " + user_ID + "\t상태 : " + State.getState(state));
         return;
     }
 
@@ -176,15 +176,12 @@ public class UserAPP {
                     order();
                     break;
                 case 3:
-                    orderCancel();
-                    break;
-                case 4:
                     orderedList();
                     break;
-                case 5:
+                case 4:
                     updateInfor();
                     break;
-                case 6:
+                case 5:
                     System.out.println(UserScreen.LOGOUT);
                     isRun = false;
                     break;
@@ -198,6 +195,7 @@ public class UserAPP {
     }
 
     private void showStore() {
+        System.out.println("<등록된 음식점>");
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.STORE_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
         userPacket.request();
 
@@ -206,16 +204,22 @@ public class UserAPP {
     }
 
     private void order() { //TODO 주문
-        System.out.println("주문할 가게이름을 입력하세요.");
+        System.out.println("주문할 가게이름을 입력하세요." + UserScreen.GO_BACK);
         String sname = input.nextLine();
+        if ( sname.equals("-1") ) {
+            return;
+        }
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MENU_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
         userPacket.sendString(sname);
 
         userMessage = new UserMessage(dis);
         MenuOptionView.printAll(userMessage.receiveMenuList());
 
-        System.out.println("주문할 메뉴의 수를 입력하세요.");
+        System.out.println("주문할 메뉴의 수를 입력하세요." + UserScreen.GO_BACK);
         int cnt = Integer.parseInt(input.nextLine());
+        if ( cnt == -1 ) {
+            return;
+        }
 
         StringBuilder sb = new StringBuilder();
         for ( int i = 0; i < cnt; i++ ) {
@@ -232,20 +236,6 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         userMessage.receiveOrderResult();
-        System.out.println();
-    }
-
-    private void orderCancel() {
-        OrderDTO dto = new OrderDTO();
-        System.out.println(UserScreen.ENTER_ORDER_ID);
-        int order_id = Integer.parseInt(input.nextLine());
-        dto.setOrder_id(order_id);
-        dto.setUser_ID(user_ID);
-        userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.CANCEL_ORDER, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
-        userPacket.sendOrderCancel(dto);
-
-        userMessage = new UserMessage(dis);
-        userMessage.receiveCancelOrderResult();
         System.out.println();
     }
 
@@ -300,6 +290,40 @@ public class UserAPP {
         userPacket.sendString(user_ID);
         userMessage = new UserMessage(dis);
         OrderView.UserPrint(userMessage.receiveOrderViewDTOList());
+
+        System.out.println("[1]주문 취소  [2]리뷰 등록  [3]뒤로가기");
+        int command = Integer.parseInt(input.nextLine());
+        switch ( command ) {
+            case 1:
+                orderCancel();
+                return;
+            case 2:
+                //리뷰등록
+                return;
+            case 3:
+                System.out.println();
+                return;
+            default:
+                System.out.println();
+                return;
+        }
+    }
+
+    private void orderCancel() {
+        OrderDTO dto = new OrderDTO();
+        System.out.println(UserScreen.ENTER_ORDER_ID + UserScreen.GO_BACK);
+        int order_id = Integer.parseInt(input.nextLine());
+        if ( order_id == -1 ) {
+            return;
+        }
+        dto.setOrder_id(order_id);
+        dto.setUser_ID(user_ID);
+        userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.CANCEL_ORDER, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.sendOrderCancel(dto);
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveCancelOrderResult();
+        System.out.println();
     }
 
     /*private void getReviewList() {
@@ -320,10 +344,10 @@ public class UserAPP {
             try {
                 printUserInfor();
                 if ( this.state != 1 ) {
-                    System.out.println("승인되지 않은 점주이므로 로그아웃 됩니다.\n");
+                    System.out.println("승인되지 않은 점주이므로 로그아웃 됩니다.");
                     return false;
                 }
-                System.out.println("나의 매장 정보");
+                System.out.println("<나의 매장 정보>");
                 myList = getMyStore();
                 StoreView.printMyStores(myList);
                 System.out.println(UserScreen.OWNER_SCREEN);
@@ -466,8 +490,11 @@ public class UserAPP {
         userMessage.receiveInsertResult();
     }
     public void statisticsOwner() {
-        System.out.println("가게 이름을 입력하시오.");
+        System.out.println("가게 이름을 입력하시오." + UserScreen.GO_BACK);
         String store_name = input.nextLine();
+        if ( store_name.equals("-1") ) {
+            return;
+        }
 
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYTOTAL_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
         userPacket.requestMyTotalList(store_name);
@@ -477,8 +504,11 @@ public class UserAPP {
     }
 
     public void reviewList() {
-        System.out.println(UserScreen.ENTER_STORE);
+        System.out.println(UserScreen.ENTER_STORE + UserScreen.GO_BACK);
         String store_name = input.nextLine();
+        if ( store_name.equals("-1") ) {
+            return;
+        }
 
         int crtPage = 1;
         while (crtPage != -1) {
@@ -486,21 +516,25 @@ public class UserAPP {
             userPacket.requestReviewList(store_name, user_ID , crtPage);
 
             userMessage = new UserMessage(dis);
-            List<Object> list = userMessage.receiveStoreReviewList();
+            try {
+                List<Object> list = userMessage.receiveStoreReviewList();
 
-            int reviewNum = 0;
-            List<ReviewDTO> reviewDTOS = new ArrayList<>();
-            if(list.size() != 0) {
-                reviewNum = (int) list.get(0);
-                reviewDTOS = (List<ReviewDTO>) list.get(1);
+                int reviewNum = 0;
+                List<ReviewDTO> reviewDTOS = new ArrayList<>();
+                if(list.size() != 0) {
+                    reviewNum = (int) list.get(0);
+                    reviewDTOS = (List<ReviewDTO>) list.get(1);
 
-                ReviewView.printAll(reviewDTOS, crtPage, reviewNum);
+                    ReviewView.printAll(reviewDTOS, crtPage, reviewNum);
 
-                System.out.println(UserScreen.SELECT_REVIEW_PAGE);
-                crtPage = Integer.parseInt(input.nextLine());
-            } else {
-                System.out.println("조회되는 리뷰가 존재하지 않습니다.");
-                crtPage = -1;
+                    System.out.println(UserScreen.SELECT_REVIEW_PAGE);
+                    crtPage = Integer.parseInt(input.nextLine());
+                } else {
+                    System.out.println("조회되는 리뷰가 존재하지 않습니다.");
+                    crtPage = -1;
+                }
+            } catch (NullPointerException e) {
+                return;
             }
         }
     }
@@ -558,6 +592,7 @@ public class UserAPP {
     }
 
     private void showPendingOwners() {
+        System.out.println(UserScreen.PENDING_LIST);
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.PENDING_OWNER_LIST, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
         userPacket.request();
 
@@ -569,8 +604,11 @@ public class UserAPP {
     }
 
     private void selectOwner() {
-        System.out.println("상태를 바꿀 user_ID를 적으세요.");
+        System.out.println("상태를 바꿀 user_ID를 적으세요." + UserScreen.GO_BACK);
         String id = input.nextLine();
+        if ( id.equals("-1") ) {
+            return;
+        }
         System.out.println(UserScreen.SELECT_STATE);
         int state = Integer.parseInt(input.nextLine());
         UserDTO dto = new UserDTO(id, state);
@@ -583,6 +621,7 @@ public class UserAPP {
     }
 
     private void showPendingStores() {
+        System.out.println(UserScreen.PENDING_LIST);
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.PENDING_STORE_LIST, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
         userPacket.request();
 
@@ -594,8 +633,11 @@ public class UserAPP {
     }
 
     private void selectStore() {
-        System.out.println("상태를 바꿀 가게 이름을 선택하세요.");
+        System.out.println("상태를 바꿀 가게 이름을 선택하세요." + UserScreen.GO_BACK);
         String sname = input.nextLine();
+        if ( sname.equals("-1") ) {
+            return;
+        }
         System.out.println(UserScreen.SELECT_STATE);
         int state = Integer.parseInt(input.nextLine());
         StoreDTO dto = new StoreDTO(sname, state);
@@ -608,6 +650,7 @@ public class UserAPP {
     }
 
     public void showPendingMenus() {
+        System.out.println(UserScreen.PENDING_LIST);
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.PENDING_MENU_LIST, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
         userPacket.request();
 
@@ -619,8 +662,11 @@ public class UserAPP {
     }
 
     public void selectMenu() {
-        System.out.println("상태를 바꿀 메뉴 이름을 선택하세요.");
+        System.out.println("상태를 바꿀 메뉴 이름을 선택하세요." + UserScreen.GO_BACK);
         String menu_name = input.nextLine();
+        if ( menu_name.equals("-1") ) {
+            return;
+        }
         System.out.println(UserScreen.SELECT_STATE);
         int state = Integer.parseInt(input.nextLine());
         MenuDTO dto = new MenuDTO(menu_name, state);
