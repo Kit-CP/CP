@@ -315,7 +315,13 @@ public class UserAPP {
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.ORDER_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
         userPacket.sendString(user_ID);
         userMessage = new UserMessage(dis);
-        OrderView.userPrint(userMessage.receiveOrderViewDTOList());
+
+        try {
+            OrderView.userPrint(userMessage.receiveOrderViewDTOList());
+        }
+        catch (NullPointerException e) {
+            return;
+        }
 
         System.out.println("[1]주문 취소  [2]리뷰 등록  [3]뒤로가기");
         int command = Integer.parseInt(input.nextLine());
@@ -324,7 +330,7 @@ public class UserAPP {
                 orderCancel();
                 return;
             case 2:
-                //리뷰등록
+                writeReview();
                 return;
             case 3:
                 System.out.println();
@@ -350,6 +356,24 @@ public class UserAPP {
         userMessage = new UserMessage(dis);
         userMessage.receiveCancelOrderResult();
         System.out.println();
+    }
+
+    private  void writeReview() {
+        int review_id = 0;
+        System.out.println("작성하고자 하는 주문의 번호를 입력하세요");
+        try {
+            review_id = Integer.parseInt(input.nextLine());
+        } catch (Exception e) {
+            System.out.println("잘못된 값을 입력했습니다.");
+            review_id = Integer.parseInt(input.nextLine());
+        }
+        ReviewDTO reviewDTO = new ReviewDTO(review_id);
+
+        userPacket = new UserPacket(dos, ProtocolType.REGISTER, ProtocolCode.REVIEW, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.sendReviewDTO(reviewDTO);
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveWriteReviewResult();
     }
 
     /*private void getReviewList() {

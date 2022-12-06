@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderView {
-    public static void userPrint(List<OrderViewDTO> dtos) {
-        if ( dtos == null ) {
-            return;
+    public static void userPrint(List<OrderViewDTO> dtos) throws NullPointerException {
+        if ( dtos == null )  {
+            throw new NullPointerException();
         }
         List<Integer> oidl = new ArrayList<>();
         List<Integer> omidl = new ArrayList<>();

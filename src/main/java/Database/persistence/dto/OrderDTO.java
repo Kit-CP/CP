@@ -1,5 +1,6 @@
 package Database.persistence.dto;
 
+import com.mysql.cj.x.protobuf.MysqlxCrud;
 import lombok.*;
 
 import java.io.ByteArrayOutputStream;

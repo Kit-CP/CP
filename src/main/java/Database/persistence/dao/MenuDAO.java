@@ -167,7 +167,7 @@ public class MenuDAO {
         return temp;
     }
 
-    /*public synchronized boolean updateStock(String menuName, int newStock) {
+    public synchronized boolean updateStock(String menuName, int newStock) {
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Object> param = new HashMap<>();
@@ -187,7 +187,7 @@ public class MenuDAO {
         }
 
         return result;
-    }*/
+    }
 
     public int getMenuPrice(String menu_name) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
