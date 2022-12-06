@@ -420,6 +420,9 @@ public class ServerMessage {
                         serverPacket.sendReviewList(answer, 0,null, dos);
                     }*/
                 }
+                if( code == ProtocolCode.USERREVIEWNUM) {//고객이 작성한 리뷰의 개수 조회
+                    
+                }
             }
             if (authority == ProtocolAuthority.OWNER) {//점주
 
@@ -518,6 +521,9 @@ public class ServerMessage {
                     } else {
                         serverPacket.sendMyTotalList(answer, null, dos);
                     }
+                }
+                if( code == ProtocolCode.STOREREVIEWNUM) { //나의 가게의 리뷰 개수를 주는 것.
+
                 }
             }
             if (authority == ProtocolAuthority.MANAGER) {//관리자

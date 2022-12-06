@@ -26,6 +26,10 @@ public class MenuDTO implements IDTO{
     public MenuDTO(String menu_name, int state) {
         this.menu_name = menu_name;
         this.state = state;
+        store_name = "";
+        category = "";
+        menu_price= 0;
+        stock = 0;
     }
     public MenuDTO(String menu_name, String store_name, String category, int menu_price, int stock) {
         this.menu_name = menu_name;
