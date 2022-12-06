@@ -125,10 +125,10 @@ public class OrderDAO {
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         try {
-            int canceledOrder = sqlSession.update("mapper.OrderMapper.cancelOrder", orderDTO.getOrder_id());
+            int canceledOrder = sqlSession.update("mapper.OrderMapper.cancelOrder", orderDTO);
 
             if (canceledOrder == 1) {
-                sqlSession.update("mapper.OrderMapper.restockMenu", orderDTO.getOrder_id());
+                sqlSession.update("mapper.OrderMapper.restockMenu", orderDTO);
                 result = true;
             }
         } catch (Exception e) {
@@ -176,11 +176,23 @@ public class OrderDAO {
         return result;
     }*/
 
-    public List<OrderViewDTO> getOrderList(String store_name) {
+    public List<OrderViewDTO> getStoreOrderList(String store_name) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         List<OrderViewDTO> result;
         try {
-            result = sqlSession.selectList("mapper.OrderMapper.getOrderList", store_name);
+            result = sqlSession.selectList("mapper.OrderMapper.getStoreOrderList", store_name);
+        }
+        finally {
+            sqlSession.close();
+        }
+        return result;
+    }
+
+    public List<OrderViewDTO> getUserOrderList(String user_id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<OrderViewDTO> result;
+        try {
+            result = sqlSession.selectList("mapper.OrderMapper.getUserOrderList", user_id);
         }
         finally {
             sqlSession.close();

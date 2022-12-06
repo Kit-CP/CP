@@ -9,28 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderView {
-    public void printAll(List<OrderViewDTO> dtos) {
+    public static void UserPrint(List<OrderViewDTO> dtos) {
         if ( dtos == null ) {
             return;
         }
         List<Integer> oidl = new ArrayList<>();
-        List<String> ml = new ArrayList<>();
         for ( OrderViewDTO dto : dtos ) {
             if ( !oidl.contains(dto.getOrder_id()) ) {
                 oidl.add(dto.getOrder_id());
-                System.out.print("\n" + dto.getOrder_id() + " ");
-                System.out.print(dto.getUser_ID() + " ");
-                System.out.print(State.getDeliverySate(dto.getState()) + " ");
-                System.out.print(dto.getPricesum() + " ");
-                System.out.print(dto.getMenu_name() + " ");
+                System.out.printf("\n주문번호 : %d | 상태 : %4s | 가격 : %s | 메뉴 : %s ", dto.getOrder_id(), State.getDeliverySate(dto.getState()), dto.getPricesum(), dto.getMenu_name());
             }
             if ( dto.getOption_name() != null ) {
-                System.out.print(dto.getOption_name() + " ");
+                System.out.print(" " + dto.getOption_name());
             }
         }
+        System.out.println("\n");
     }
 
-    public void printMenuSales(List<MenuSalesDTO> dtos) {
+    public static void printMenuSales(List<MenuSalesDTO> dtos) {
         int sales = 0;
         if ( dtos == null ) {
             return;
@@ -45,7 +41,7 @@ public class OrderView {
         System.out.println("\n총 매출 : " + sales);
     }
 
-    public void printStoreSales(List<StoreSalesDTO> dtos) {
+    public static void printStoreSales(List<StoreSalesDTO> dtos) {
         if ( dtos == null) {
             return;
         }

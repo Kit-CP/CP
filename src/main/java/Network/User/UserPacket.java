@@ -72,6 +72,20 @@ public class UserPacket { //메시지를 직렬화
         }
     }
 
+    public void sendMenuDTO(MenuDTO dto) {
+        try {
+            bodyBytes = dto.getBytes();
+            size = bodyBytes.length;
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+
+            dos.write(headerBytes);
+            dos.write(bodyBytes);
+            dos.flush();
+        } catch (IOException e ) {
+            e.printStackTrace();
+        }
+    }
+
     public void sendString(String infor) {
         try {
             size = infor.length();
@@ -92,6 +106,20 @@ public class UserPacket { //메시지를 직렬화
             headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
             dos.write(headerBytes);
             dos.write(temp.listToByte(list));
+            dos.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void requestReviewList(String store_name, String user_id , int crtPage) {
+        try {
+            size = store_name.getBytes().length;
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+            dos.writeUTF(store_name);
+            dos.writeUTF(user_id);
+            dos.writeInt(crtPage);
             dos.flush();
         }
         catch (IOException e) {
@@ -134,7 +162,6 @@ public class UserPacket { //메시지를 직렬화
 
             dos.write(headerBytes);
             dos.write(bodyBytes);
-
             dos.flush();
         }
         catch (IOException e) {
@@ -155,6 +182,18 @@ public class UserPacket { //메시지를 직렬화
             dos.flush();
         }
         catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void requestMyTotalList(String store_name) {
+        try {
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+            dos.write(headerBytes);
+            dos.writeUTF(store_name);
+            dos.flush();
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

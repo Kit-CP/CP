@@ -14,13 +14,13 @@
         WHERE order_id = (${orderId}) AND Store_name = #{store_name}
     </update>
 
-    <update id="cancelOrder" parameterType="int">
+    <update id="cancelOrder" parameterType="OrderDTO">
         UPDATE `order`
         SET state = 1
-        WHERE order_id = (${orderId}) AND state = 0
+        WHERE order_id = (${order_id}) AND state = 0 AND User_ID = #{User_ID}
     </update>
 
-    <update id="restockMenu" parameterType="int">
+    <update id="restockMenu" parameterType="OrderDTO">
         UPDATE menu
         SET stock = stock +1
         WHERE menu_name  IN
@@ -39,10 +39,16 @@
         WHERE order_id = (${orderId});
     </select>
 
-    <select id="getOrderList" parameterType="String" resultType="OrderViewDTO">
+    <select id="getStoreOrderList" parameterType="String" resultType="OrderViewDTO">
         select `order`.order_id, User_ID, menu_name, option_name, pricesum, state
         from (`order` join ordered_menu on `order`.order_id = ordered_menu.order_id) left outer join ordered_option on ordered_menu.ordered_menu_id = ordered_option.ordered_menu_id
         where store_name like #{store_name}
+    </select>
+
+    <select id="getUserOrderList" parameterType="String" resultType="OrderViewDTO">
+        select `order`.order_id, User_ID, menu_name, option_name, pricesum, state
+        from (`order` join ordered_menu on `order`.order_id = ordered_menu.order_id) left outer join ordered_option on ordered_menu.ordered_menu_id = ordered_option.ordered_menu_id
+        where `order`.User_ID = #{user_id}
     </select>
 
     <select id="getOrderFinishList" parameterType="String" resultType="OrderViewDTO">

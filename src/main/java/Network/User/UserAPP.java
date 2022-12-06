@@ -1,9 +1,7 @@
 package Network.User;
 
 import Database.persistence.dto.*;
-import Database.view.OptionView;
-import Database.view.StoreView;
-import Database.view.UserView;
+import Database.view.*;
 import Network.Protocol.ProtocolAnswer;
 import Network.Protocol.ProtocolAuthority;
 import Network.Protocol.ProtocolCode;
@@ -175,13 +173,13 @@ public class UserAPP {
                     showStore();
                     break;
                 case 2:
-                    //order();
+                    order(); //TODO 주문 구현 해야함.
                     break;
                 case 3:
                     orderCancel();
                     break;
                 case 4:
-                    //orderedList();
+                    orderedList();
                     break;
                 case 5:
                     updateInfor();
@@ -207,14 +205,23 @@ public class UserAPP {
         StoreView.printAcceptedStore(userMessage.receiveStoreList());
     }
 
-    private void orderCancel() { //찬진이가 함.
+    private  void order() { //TODO 주문
+        NewOrderDTO newOrderDTO = new NewOrderDTO();
+
+    }
+
+    private void orderCancel() {
         OrderDTO dto = new OrderDTO();
-        //취소 시 어떤 것이 필요한 지 set할 것. >> cli부분 수정할 것.
+        System.out.println(UserScreen.ENTER_ORDER_ID);
+        int order_id = Integer.parseInt(input.nextLine());
+        dto.setOrder_id(order_id);
+        dto.setUser_ID(user_ID);
         userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.CANCEL_ORDER, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
         userPacket.sendOrderCancel(dto);
 
         userMessage = new UserMessage(dis);
         userMessage.receiveCancelOrderResult();
+        System.out.println();
     }
 
     private void updateInfor() {
@@ -261,19 +268,26 @@ public class UserAPP {
                 this.user_ID = dto.getUser_ID();
             }
         }
-
-        /*private void getReviewList() {
-            userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.REVIEW_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
-            System.out.println("");
-            userPacket.requestMyReview();
-        }*/
     }
+
+    public void orderedList() {
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.ORDER_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.sendString(user_ID);
+        userMessage = new UserMessage(dis);
+        OrderView.UserPrint(userMessage.receiveOrderViewDTOList());
+    }
+
+    /*private void getReviewList() {
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.REVIEW_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        System.out.println("");
+        userPacket.requestMyReview();
+    }*/
 
     /*=============================================== 점주 ===============================================*/
 
     private boolean ownerRun() throws IOException {
         boolean isRun = true;
-        List<StoreDTO> myList;
+        List<StoreDTO> myList = null;
 
         while ( isRun ) {
             int command = 0;
@@ -305,10 +319,10 @@ public class UserAPP {
                     insertMenu();
                     break;
                 case 4:
-                    //reviewList();
+                    reviewList();
                     break;
                 case 5:
-                    //statisticsOwner();
+                    statisticsOwner();
                     break;
                 case 6:
                     System.out.println(UserScreen.LOGOUT);
@@ -424,6 +438,36 @@ public class UserAPP {
         userMessage = new UserMessage(dis);
         userMessage.receiveInsertResult();
     }
+    public void statisticsOwner() {
+        System.out.println("가게 이름을 입력하시오.");
+        String store_name = input.nextLine();
+
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYTOTAL_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.requestMyTotalList(store_name);
+
+        userMessage = new UserMessage(dis);
+        OrderView.printMenuSales(userMessage.receiveMyTotalList());
+    }
+
+    public void reviewList() {
+        System.out.println(UserScreen.ENTER_STORE);
+        String store_name = input.nextLine();
+
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.STORE_REVIEW_NUM, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.sendString(store_name);
+
+        userMessage = new UserMessage(dis);
+        int reviewNum = userMessage.receiveReviewNum();
+        int crtPage = 1;
+        while (crtPage != -1) {
+            userPacket.requestReviewList(store_name, user_ID , crtPage);
+
+            userMessage = new UserMessage(dis);
+            ReviewView.printAll(userMessage.receiveStoreReviewList(), crtPage, reviewNum);
+            System.out.println(UserScreen.SELECT_REVIEW_PAGE);
+            crtPage = Integer.parseInt(input.nextLine());
+        }
+    }
 
     /*=============================================== 관리자 ===============================================*/
 
@@ -451,10 +495,11 @@ public class UserAPP {
                     selectStore();
                     break;
                 case 3:
-
+                    showPendingMenus();
+                    selectMenu();
                     break;
                 case 4:
-
+                    showAllTotalList();
                     break;
                 case 5:
                     System.out.println(UserScreen.LOGOUT);
@@ -515,6 +560,39 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         userMessage.receiveUpdateInforResult();
+    }
+
+    public void showPendingMenus() {
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.PENDING_MENU_LIST, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
+        userPacket.request();
+
+        userMessage = new UserMessage(dis);
+        List<MenuDTO> dtos = userMessage.receivePendingMenuList();
+        if( dtos != null) {
+            MenuView.printPendingMenus(dtos);
+        }
+    }
+
+    public void selectMenu() {
+        System.out.println("상태를 바꿀 메뉴 이름을 선택하세요.");
+        String menu_name = input.nextLine();
+        System.out.println(UserScreen.SELECT_STATE);
+        int state = Integer.parseInt(input.nextLine());
+        MenuDTO dto = new MenuDTO(menu_name, state);
+
+        userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.ACCEPT_MENU, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
+        userPacket.sendMenuDTO(dto);
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveJudgeMenuResult();
+    }
+
+    private void showAllTotalList() {
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.TOTAL_LIST, ProtocolAuthority.MANAGER, ProtocolAnswer.DEFAULT);
+        userPacket.request();
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveAllTotalList();
     }
 
 }

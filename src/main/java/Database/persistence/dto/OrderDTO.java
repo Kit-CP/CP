@@ -1,8 +1,6 @@
 package Database.persistence.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -12,21 +10,25 @@ import java.io.IOException;
 @Setter
 @Getter
 @ToString
+@AllArgsConstructor
 public class OrderDTO implements IDTO {
     private int order_id;
     private String User_ID;
     private String Store_name;
     private int priceSum;
     private int state;
-    private OrderedMenuDTO orderedMenuDTO;
-    private OrderedOptionDTO orderedOptionDTO;
-
-    public OrderDTO() {
-    }
 
     public OrderDTO(String user_ID, String store_name) {
         User_ID = user_ID;
         Store_name = store_name;
+    }
+
+    public OrderDTO() {
+        order_id = 0;
+        User_ID = "";
+        Store_name = "";
+        priceSum = 0;
+        state = 0;
     }
 
     @Override
@@ -39,8 +41,6 @@ public class OrderDTO implements IDTO {
             dos.writeUTF(Store_name);
             dos.writeInt(priceSum);
             dos.writeInt(state);
-            dos.write(orderedMenuDTO.getBytes());
-            dos.write(orderedOptionDTO.getBytes());
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -57,8 +57,6 @@ public class OrderDTO implements IDTO {
             dto.setStore_name(dis.readUTF());
             dto.setPriceSum(dis.readInt());
             dto.setState(dis.readInt());
-            dto.setOrderedMenuDTO(OrderedMenuDTO.readOrderedMenuDTO(dis));
-            dto.setOrderedOptionDTO(OrderedOptionDTO.readOrderedOptionDTO(dis));
         }
         catch (Exception e) {
             e.printStackTrace();

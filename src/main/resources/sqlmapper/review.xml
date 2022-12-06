@@ -32,7 +32,7 @@
         FROM (
                  SELECT review_id, content, review_score, reply
                  FROM review JOIN `order` on review.order_id = `order`.order_id
-                 WHERE Store_name = #{store_name}
+                 WHERE Store_name = #{store_name} AND `order`.User_ID = #{user_id}
              )
                  ORDERS LIMIT 2 OFFSET ${numOfPages - 2}
     </select>
