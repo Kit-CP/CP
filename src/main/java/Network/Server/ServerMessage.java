@@ -401,28 +401,27 @@ public class ServerMessage {
                         serverPacket.sendAcceptedMenuList(answer, null, dos);
                     }
                 }
-                if (code == ProtocolCode.REVIEW_LIST) {//리뷰 조회
-                    /*String user_id = dataInput.readUTF(); //유저 아이디
+                if (code == ProtocolCode.REVIEW_LIST) {//고객 리뷰 조회
+                    String user_id = dataInput.readUTF(); //유저 아이디
                     String storeName = dataInput.readUTF(); //가게 이름
-                    int crtPage = dataInput.readInt(); //보고싶은 페이지
+                    int crtPage = dataInput.readInt(); //현재 페이지
                     reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     MyListSerializer<ReviewDTO> dtos = new MyListSerializer<>();
                     body = dtos.listToByte(reviewDAO.showUserReview(user_id, storeName, crtPage));
-                    int userPage = reviewDAO.getUserReviewNum(storeName);
+                    int userReviewNum = reviewDAO.getUserReviewNum(user_id, storeName); //유저 리뷰 갯수
+                    
                     if(body != null) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
                     }
                     if (size != 0) {
-                        serverPacket.sendReviewList(answer, userPage, body, dos); //TODO 페이지 정보와 바디 같이 보냄 주의!!
+                        serverPacket.sendReviewList(answer, userReviewNum, body, dos); //TODO 페이지 정보와 바디 같이 보냄 주의!!
                     } else {
                         serverPacket.sendReviewList(answer, 0,null, dos);
-                    }*/
+                    }
                 }
-                if( code == ProtocolCode.USER_REVIEW_NUM) {//고객이 작성한 리뷰의 개수 조회
-                    
-                }
+
             }
             if (authority == ProtocolAuthority.OWNER) {//점주
 
@@ -464,14 +463,14 @@ public class ServerMessage {
                             serverPacket.sendMyOptionList(answer, null, dos);
                         }
                 }
-                if (code == ProtocolCode.REVIEW_LIST) {//나의 가게 리뷰 조회
+                if (code == ProtocolCode.MYREVIEW_LIST) {//나의 가게 리뷰 조회
                     String store_name = dataInput.readUTF();
                     String user_id = dataInput.readUTF();
                     int crtPage = dataInput.readInt();
                     MyListSerializer<ReviewDTO> dtos = new MyListSerializer<>();
                     reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     body = dtos.listToByte(reviewDAO.showStoreReview(store_name, user_id, crtPage));
-                    int storePage = reviewDAO.getStoreReviewNum(store_name);
+                    int storeReviewNum = reviewDAO.getStoreReviewNum(store_name);
 
                     if ( body != null ) {
                         size = body.length;
@@ -480,12 +479,12 @@ public class ServerMessage {
                         answer = ProtocolAnswer.ERROR;
                     }
                     if ( size != 0 ) {
-                        serverPacket.sendMyReviewList(answer, storePage, body, dos); //TODO 리뷰 페이지 정보와 같이 바디에 붙임.
+                        serverPacket.sendMyReviewList(answer, storeReviewNum, body, dos); //TODO 리뷰 페이지 정보와 같이 바디에 붙임.
                     } else {
                         serverPacket.sendMyReviewList(answer, 0, null, dos);
                     }
                 }
-                if (code == ProtocolCode.MYORDER_LIST) {
+                if (code == ProtocolCode.MYORDER_LIST) { //내 가게에 온 주문 목록 조회
                     String storeName = dataInput.readUTF();//가게 이름 받기
                     orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     MyListSerializer<OrderViewDTO> dtos = new MyListSerializer<>();
@@ -522,11 +521,7 @@ public class ServerMessage {
                         serverPacket.sendMyTotalList(answer, null, dos);
                     }
                 }
-                if( code == ProtocolCode.STORE_REVIEW_NUM) { //나의 가게의 리뷰 개수를 주는 것.
-                    String store_name = dataInput.readUTF();
-                    reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    reviewDAO.getStoreReviewNum(store_name);
-                }
+
             }
             if (authority == ProtocolAuthority.MANAGER) {//관리자
 

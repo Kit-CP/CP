@@ -32,7 +32,7 @@ public class ReviewDAO {
         return result;
     }
 
-    /*public List<ReviewDTO> showUserReview(String user_id, String store_name, int crtPage) {
+    public List<ReviewDTO> showUserReview(String user_id, String store_name, int crtPage) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         List<ReviewDTO> list = null;
         Map<String, Object> map = new HashMap<>();
@@ -47,7 +47,7 @@ public class ReviewDAO {
             sqlSession.close();
         }
         return list;
-    }*/
+    }
 
     public List<ReviewDTO> showStoreReview(String store_name, String user_id, int crtPage) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
@@ -67,7 +67,7 @@ public class ReviewDAO {
         return list;
     }
 
-    /*public int getUserReviewNum(String user_id, String store_name) {
+    public int getUserReviewNum(String user_id, String store_name) {
         int numOfReviews = 0;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Object> map = new HashMap<>();
@@ -81,7 +81,7 @@ public class ReviewDAO {
             sqlSession.close();
         }
         return numOfReviews;
-    }*/
+    }
 
     public int getStoreReviewNum(String store_name) {
         int numOfReviews = 0;
