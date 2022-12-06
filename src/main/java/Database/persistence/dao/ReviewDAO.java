@@ -84,7 +84,7 @@ public class ReviewDAO {
     }
 
     public int getStoreReviewNum(String store_name) {
-        int numOfReviews = 0;
+        int numOfReviews = -1;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             numOfReviews = sqlSession.selectOne("mapper.ReviewMapper.getStoreReviewNum", store_name);
