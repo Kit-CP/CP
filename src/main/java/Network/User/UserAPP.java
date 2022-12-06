@@ -205,9 +205,33 @@ public class UserAPP {
         StoreView.printAcceptedStore(userMessage.receiveStoreList());
     }
 
-    private  void order() { //TODO 주문
-        NewOrderDTO newOrderDTO = new NewOrderDTO();
+    private void order() { //TODO 주문
+        System.out.println("주문할 가게이름을 입력하세요.");
+        String sname = input.nextLine();
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MENU_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.sendString(sname);
 
+        userMessage = new UserMessage(dis);
+        MenuOptionView.printAll(userMessage.receiveMenuList());
+
+        System.out.println("주문할 메뉴의 수를 입력하세요.");
+        int cnt = Integer.parseInt(input.nextLine());
+
+        StringBuilder sb = new StringBuilder();
+        for ( int i = 0; i < cnt; i++ ) {
+            System.out.println("메뉴/옵션을 입력하세요 ( 구분자 : / )");
+            String temp = input.nextLine();
+            sb.append(temp);
+            if ( i - 1 == cnt ) {
+                sb.append("\\");
+            }
+        }
+        NewOrderDTO dto = new NewOrderDTO(0, this.user_ID, sname, sb.toString());
+        userPacket = new UserPacket(dos, ProtocolType.REGISTER, ProtocolCode.ORDER, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.sendNewOrderDTO(dto);
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveOrderResult();
     }
 
     private void orderCancel() {
@@ -264,7 +288,7 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         if ( userMessage.receiveUpdateInforResult() ) {
-            if ( dto.getUser_ID() != "" ) {
+            if ( !dto.getUser_ID().equals("") ) {
                 this.user_ID = dto.getUser_ID();
             }
         }
@@ -461,12 +485,20 @@ public class UserAPP {
             userMessage = new UserMessage(dis);
             List<Object> list = userMessage.receiveStoreReviewList();
 
-            int reviewNum = (int)list.get(0);
-            List<ReviewDTO> reviewDTOS = (List<ReviewDTO>) list.get(1);
-            ReviewView.printAll(reviewDTOS, crtPage, reviewNum);
+            int reviewNum = 0;
+            List<ReviewDTO> reviewDTOS = new ArrayList<>();
+            if(list.size() != 0) {
+                reviewNum = (int) list.get(0);
+                reviewDTOS = (List<ReviewDTO>) list.get(1);
 
-            System.out.println(UserScreen.SELECT_REVIEW_PAGE);
-            crtPage = Integer.parseInt(input.nextLine());
+                ReviewView.printAll(reviewDTOS, crtPage, reviewNum);
+
+                System.out.println(UserScreen.SELECT_REVIEW_PAGE);
+                crtPage = Integer.parseInt(input.nextLine());
+            } else {
+                System.out.println("조회되는 리뷰가 존재하지 않습니다.");
+                crtPage = -1;
+            }
         }
     }
 
@@ -593,7 +625,10 @@ public class UserAPP {
         userPacket.request();
 
         userMessage = new UserMessage(dis);
-        userMessage.receiveAllTotalList();
+        List<StoreSalesDTO> list = userMessage.receiveAllTotalList(); //TODO view 만들기.
+        for( StoreSalesDTO dto : list) {
+            System.out.println(dto.toString());
+        }
     }
 
 }

@@ -4,6 +4,7 @@ import Database.persistence.dto.*;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,7 @@ public class OrderDAO {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public synchronized boolean makeOrder(NewOrderDTO dto) {
+    public synchronized boolean makeOrder(NewOrderDTO dto) throws StockException  {
         OrderedMenuDTO orderedMenuDTO = new OrderedMenuDTO();
         OrderedOptionDTO orderedOptionDTO = new OrderedOptionDTO();
         Map<String, Object> map = new HashMap<>();
@@ -61,7 +62,7 @@ public class OrderDAO {
                     sqlSession.update("mapper.OrderedMenuMapper.updatePrice", map);     // 주문한 메뉴의 가격 업데이트
                 }
                 else {
-                    throw new Exception("재고가 부족하여 오류 발생");
+                    throw new StockException("재고가 부족하여 주문 불가");
                 }
             }
             map = new HashMap<>();
@@ -73,12 +74,10 @@ public class OrderDAO {
         }
         catch (Exception e) {
             sqlSession.rollback();
-            result = false;
         }
         finally {
             sqlSession.close();
         }
-
         return result;
     }
 

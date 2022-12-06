@@ -67,6 +67,16 @@ public class UserMessage {
         }
     }
 
+    public void receiveOrderResult() {
+        if (answer == ProtocolAnswer.SUCCESS) {
+            System.out.println("주문 성공!");
+        } else if ( answer == ProtocolAnswer.ERROR ) {
+            System.out.println("주문 실패!");
+        } else {
+            System.out.println("재고 부족!");
+        }
+    }
+
     public void receiveCancelOrderResult() {
         if (answer == ProtocolAnswer.SUCCESS) {
             System.out.println("정상적으로 주문 취소되었습니다.");
@@ -159,7 +169,7 @@ public class UserMessage {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("주문내역이 없습니다.");
+            System.out.println("주문내역이 없습니다.\n");
         }
         return null;
     }
@@ -181,7 +191,7 @@ public class UserMessage {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("리뷰가 존재하지 않습니다.");
+            System.out.println(UserScreen.FAIL_GET_REVIEW);
         }
         return null;
     }
@@ -195,7 +205,7 @@ public class UserMessage {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("리뷰가 존재하지 않습니다.");
+            System.out.println(UserScreen.FAIL_GET_REVIEW);
         }
         return result;
     }
@@ -245,13 +255,32 @@ public class UserMessage {
                 for (int i = 0; i < size; i++) {
                     list.add(StoreSalesDTO.readStoreSalesDTO(dis));
                 }
+                return list;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
             System.out.println("전체 통계 정보가 존재하지 않습니다.");
         }
-        return null;
+        return list;
+    }
+
+    public List<MenuOptionDTO> receiveMenuList() {
+        List<MenuOptionDTO> list = new ArrayList<>();
+        if ( answer == ProtocolAnswer.SUCCESS ) {
+            try {
+                int size = dis.readInt();
+                for ( int i = 0; i < size; i++ ) {
+                    list.add(MenuOptionDTO.readMenuOptionDTO(dis));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("메뉴가 없습니다.");
+        }
+        return list;
     }
 
 }
