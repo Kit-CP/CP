@@ -11,13 +11,25 @@
     <update id="judgeOrder" parameterType="Map">
         UPDATE `order`
         SET state = (${state})
-        WHERE order_id = (${orderId}) AND Store_name = #{store_name}
+        WHERE order_id = (${order_id}) AND Store_name = #{Store_name}
     </update>
 
     <update id="cancelOrder" parameterType="OrderDTO">
         UPDATE `order`
         SET state = 1
         WHERE order_id = (${order_id}) AND state = 0 AND User_ID = #{User_ID}
+    </update>
+
+    <update id="cancelOwnerOrder" parameterType="OrderDTO">
+        UPDATE `order`
+        SET state = 1
+        WHERE order_id = (${order_id}) AND state = 0
+    </update>
+
+    <update id="acceptOwnerOrder" parameterType="OrderDTO">
+        UPDATE `order`
+        SET state = 2
+        WHERE order_id = (${order_id}) AND state = 0
     </update>
 
     <update id="restockMenu" parameterType="OrderDTO">

@@ -298,4 +298,13 @@ public class UserMessage {
             System.out.println("답글 등록 실패!");
         }
     }
+
+    public void receiveJudgeOrderResult() {
+        if ( answer == ProtocolAnswer.SUCCESS ) {
+            System.out.println("주문 상태 변경 성공!");
+        }
+        else {
+            System.out.println("주문 상태 변경 실패!");
+        }
+    }
 }
