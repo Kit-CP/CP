@@ -32,6 +32,12 @@
         WHERE order_id = (${order_id}) AND state = 0
     </update>
 
+    <update id="finishOwnerOrder" parameterType="OrderDTO">
+        UPDATE `order`
+        SET state = 3
+        WHERE order_id = (${order_id}) AND state = 2
+    </update>
+
     <update id="restockMenu" parameterType="OrderDTO">
         UPDATE menu
         SET stock = stock +1
