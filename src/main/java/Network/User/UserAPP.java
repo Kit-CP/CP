@@ -208,7 +208,7 @@ public class UserAPP {
         StoreView.printAcceptedStore(userMessage.receiveStoreList());
     }
 
-    private void orderCancel() { //찬진이가 함. 고객입장에서 주문취소
+    private void orderCancel() {
         OrderDTO dto = new OrderDTO();
         System.out.println(UserScreen.ENTER_ORDER_ID);
         int order_id = Integer.parseInt(input.nextLine());
