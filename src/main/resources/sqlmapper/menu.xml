@@ -8,11 +8,12 @@
         VALUES (#{menu_name}, #{store_name}, #{category}, ${menu_price}, ${stock});
     </insert>
 
-    <select id="showMenu" resultType="MenuOptionDTO">
+    <select id="showMenu" parameterType="String" resultType="MenuOptionDTO">
         select category, menu.menu_name, menu.menu_price, `menu_has_option`.option_name
         from menu
         left join menu_has_option
         on menu.menu_name = menu_has_option.menu_name
+        where `menu`.store_name like #{store_name}
         order by menu.category, menu.menu_name
     </select>
 

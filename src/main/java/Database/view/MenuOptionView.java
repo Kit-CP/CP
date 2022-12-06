@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuOptionView {
-    public void printAll(List<MenuOptionDTO> dtos) {
-        if ( dtos == null ) {
+    public static void printAll(List<MenuOptionDTO> dtos) {
+        if ( dtos == null || dtos.size() == 0 ) {
             return;
         }
         List<String> cate = new ArrayList<>();
@@ -28,5 +28,6 @@ public class MenuOptionView {
                 System.out.print(dto.getOption_name() + " ");
             }
         }
+        System.out.println();
     }
 }

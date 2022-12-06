@@ -434,9 +434,9 @@ public class ForTest {
     }*/
 
 
-    public static void test(NewOrderDTO dto) {
+    /*public static void test(NewOrderDTO dto) {
         OrderDAO dao = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
         dao.makeOrder(dto);
-    }
+    }*/
 }
 

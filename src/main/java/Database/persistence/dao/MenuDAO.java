@@ -50,11 +50,11 @@ public class MenuDAO {
         return result;
     }
 
-    public List<MenuOptionDTO> showMenu() {
+    public List<MenuOptionDTO> showMenu(String store_name) {
         List<MenuOptionDTO> result;
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            result = sqlSession.selectList("mapper.MenuMapper.showMenu");
+            result = sqlSession.selectList("mapper.MenuMapper.showMenu", store_name);
         }
         finally {
             sqlSession.close();

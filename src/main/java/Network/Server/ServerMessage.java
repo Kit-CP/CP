@@ -111,10 +111,15 @@ public class ServerMessage {
                 if (code == ProtocolCode.ORDER) {//주문 등록
                     NewOrderDTO newOrderDTO = NewOrderDTO.readNewOrderDTO(dataInput);
                     orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (orderDAO.makeOrder(newOrderDTO)) {
-                        answer = ProtocolAnswer.SUCCESS;
-                    } else {
-                        answer = ProtocolAnswer.ERROR;
+                    try {
+                        if (orderDAO.makeOrder(newOrderDTO)) {
+                            answer = ProtocolAnswer.SUCCESS;
+                        } else {
+                            answer = ProtocolAnswer.ERROR;
+                        }
+                    }
+                    catch (StockException e) {
+                       answer = ProtocolAnswer.DEFAULT;
                     }
 
                     serverPacket.sendOrderResult(answer, null, dos);
@@ -385,9 +390,10 @@ public class ServerMessage {
                     }
                 }
                 if (code == ProtocolCode.MENU_LIST) {//메뉴 조회
+                    String sname = dataInput.readUTF();
                     menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    MyListSerializer<MenuDTO> dtos = new MyListSerializer<>();
-                    body = dtos.listToByte(menuDAO.showAcceptedMenu());
+                    MyListSerializer<MenuOptionDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(menuDAO.showMenu(sname));
 
                     if(body != null) {
                         size = body.length;
