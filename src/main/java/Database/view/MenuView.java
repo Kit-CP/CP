@@ -12,11 +12,11 @@ public class MenuView {
             StringBuilder sb = new StringBuilder();
             sb.append("가게 이름: ");
             sb.append(dto.getStore_name());
-            sb.append("메뉴 이름: ");
+            sb.append("\t메뉴 이름: ");
             sb.append(dto.getMenu_name());
-            sb.append("메뉴 가격: ");
+            sb.append("\t메뉴 가격: ");
             sb.append(dto.getMenu_price());
-            sb.append("현재 상태: ");
+            sb.append("\t현재 상태: ");
             sb.append(State.getState(dto.getState()));
             System.out.println(sb);
         }

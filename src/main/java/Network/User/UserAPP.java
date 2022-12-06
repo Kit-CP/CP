@@ -397,8 +397,9 @@ public class UserAPP {
                     judgeOrder();
                     break;
                 case 5:
-                    reviewList();
-                    replyReview();
+                    if ( reviewList() ) {
+                        replyReview();
+                    }
                     break;
                 case 6:
                     statisticsOwner();
@@ -532,11 +533,11 @@ public class UserAPP {
         OrderView.printMenuSales(userMessage.receiveMyTotalList());
     }
 
-    public void reviewList() {
+    public boolean reviewList() {
         System.out.println(UserScreen.ENTER_STORE + UserScreen.GO_BACK);
         String store_name = input.nextLine();
         if (store_name.equals("-1")) {
-            return;
+            return false;
         }
 
         int crtPage = 1;
@@ -561,18 +562,24 @@ public class UserAPP {
                 } else {
                     System.out.println("조회되는 리뷰가 존재하지 않습니다.");
                     crtPage = -1;
+                    return false;
                 }
             } catch (NullPointerException e) {
-                return;
+                return false;
             }
         }
+        return true;
     }
 
     private void judgeOrder() {
-        System.out.println("주문을 수정할 본인의 가게의 이름을 입력하세요.");
+        System.out.println("주문을 수정할 본인의 가게의 이름을 입력하세요." + UserScreen.GO_BACK);
         String store_name = input.nextLine();
-
-        showOrderList(store_name);
+        if ( store_name.equals("-1") ) {
+            return;
+        }
+        if ( !showOrderList(store_name) ) {
+            return;
+        }
 
         System.out.println("주문 상태를 바꾸고자 하는 주문 번호를 입력하세요.");
         int order_id = Integer.parseInt(input.nextLine());
@@ -587,12 +594,17 @@ public class UserAPP {
         userMessage.receiveJudgeOrderResult();
     }
 
-    private void showOrderList(String sname) {
+    private boolean showOrderList(String sname) {
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYORDER_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
         userPacket.sendString(sname);
 
         userMessage = new UserMessage(dis);
-        OrderView.storePrint(userMessage.receiveOrderViewDTOList());
+        try {
+            OrderView.storePrint(userMessage.receiveOrderViewDTOList());
+            return true;
+        } catch (NullPointerException e) {
+            return false;
+        }
     }
 
     public void replyReview() {
