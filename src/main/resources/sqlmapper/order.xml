@@ -54,7 +54,7 @@
     <select id="getOrderState" parameterType="int" resultType="int">
         SELECT state
         FROM `order`
-        WHERE order_id = (${orderId});
+        WHERE order_id = ${orderId};
     </select>
 
     <select id="getStoreOrderList" parameterType="String" resultType="OrderViewDTO">

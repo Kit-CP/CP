@@ -30,9 +30,9 @@
     <select id="showStoreReview" parameterType="Map" resultType="ReviewDTO">
         SELECT *
         FROM (
-                 SELECT review_id, content, review_score, reply
+                 SELECT `order`.User_ID as user_id, review_id, content, review_score, reply, `order`.order_id
                  FROM review JOIN `order` on review.order_id = `order`.order_id
-                 WHERE Store_name LIKE
+                 WHERE Store_name in
                        ( SELECT Store_name FROM store WHERE store.user_id = #{user_id})
              )
                  ORDERS LIMIT 2 OFFSET ${numOfPages - 2}
