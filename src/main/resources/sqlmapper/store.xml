@@ -31,4 +31,15 @@
         FROM store
         WHERE user_ID = #{user_ID}
     </select>
+
+    <select id="getScore" parameterType="String" resultType="int">
+        SELECT store_score
+        FROM store
+        WHERE store_name = #{store_name}
+    </select>
+
+    <update id="updateScore" parameterType="Map">
+        UPDATE store SET store_score = ${store_score} WHERE store_name like #{store_name}
+    </update>
+
 </mapper>

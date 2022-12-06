@@ -148,9 +148,9 @@ public class OrderDAO {
 
             if (canceledOrder == 1) {
                 sqlSession.update("mapper.OrderMapper.restockMenu", orderDTO);
+                sqlSession.commit();
                 result = true;
             }
-            sqlSession.commit();
         } catch (Exception e) {
             sqlSession.rollback();
         } finally {

@@ -126,9 +126,11 @@ public class ServerMessage {
                 }
                 if (code == ProtocolCode.REVIEW) { //고객 리뷰 등록
                     ReviewDTO reviewDTO = ReviewDTO.readReviewDTO(dataInput);
+                    storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     if (reviewDAO.writeReview(reviewDTO)) {
                         answer = ProtocolAnswer.SUCCESS;
+                        storeDAO.updateScore(reviewDTO.getReview_score(), reviewDTO.getOrder_id());
                     } else {
                         answer = ProtocolAnswer.ERROR;
                     }
