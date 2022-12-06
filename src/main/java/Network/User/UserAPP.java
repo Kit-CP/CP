@@ -315,7 +315,7 @@ public class UserAPP {
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.ORDER_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
         userPacket.sendString(user_ID);
         userMessage = new UserMessage(dis);
-        OrderView.UserPrint(userMessage.receiveOrderViewDTOList());
+        OrderView.userPrint(userMessage.receiveOrderViewDTOList());
 
         System.out.println("[1]주문 취소  [2]리뷰 등록  [3]뒤로가기");
         int command = Integer.parseInt(input.nextLine());
@@ -571,6 +571,9 @@ public class UserAPP {
     private void judgeOrder() {
         System.out.println("주문을 수정할 본인의 가게의 이름을 입력하세요.");
         String store_name = input.nextLine();
+
+        showOrderList(store_name);
+
         System.out.println("주문 상태를 바꾸고자 하는 주문 번호를 입력하세요.");
         int order_id = Integer.parseInt(input.nextLine());
         System.out.println("[1]주문 취소 [2]주문 승인 [3]배달 완료");
@@ -582,6 +585,14 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         userMessage.receiveJudgeOrderResult();
+    }
+
+    private void showOrderList(String sname) {
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYORDER_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.sendString(sname);
+
+        userMessage = new UserMessage(dis);
+        OrderView.storePrint(userMessage.receiveOrderViewDTOList());
     }
 
     public void replyReview() {
