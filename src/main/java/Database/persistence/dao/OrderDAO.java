@@ -125,10 +125,10 @@ public class OrderDAO {
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(true);
         try {
-            int canceledOrder = sqlSession.update("mapper.OrderMapper.cancelOrder", orderDTO.getOrder_id());
+            int canceledOrder = sqlSession.update("mapper.OrderMapper.cancelOrder", orderDTO);
 
             if (canceledOrder == 1) {
-                sqlSession.update("mapper.OrderMapper.restockMenu", orderDTO.getOrder_id());
+                sqlSession.update("mapper.OrderMapper.restockMenu", orderDTO);
                 result = true;
             }
         } catch (Exception e) {

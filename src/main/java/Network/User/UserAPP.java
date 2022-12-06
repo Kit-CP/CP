@@ -207,14 +207,18 @@ public class UserAPP {
         StoreView.printAcceptedStore(userMessage.receiveStoreList());
     }
 
-    private void orderCancel() { //찬진이가 함.
+    private void orderCancel() { //찬진이가 함. 고객입장에서 주문취소
         OrderDTO dto = new OrderDTO();
-        //취소 시 어떤 것이 필요한 지 set할 것. >> cli부분 수정할 것.
+        System.out.println(UserScreen.ENTER_ORDER_ID);
+        int order_id = Integer.parseInt(input.nextLine());
+        dto.setOrder_id(order_id);
+        dto.setUser_ID(user_ID);
         userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.CANCEL_ORDER, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
         userPacket.sendOrderCancel(dto);
 
         userMessage = new UserMessage(dis);
         userMessage.receiveCancelOrderResult();
+        System.out.println();
     }
 
     private void updateInfor() {

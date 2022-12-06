@@ -134,7 +134,6 @@ public class UserPacket { //메시지를 직렬화
 
             dos.write(headerBytes);
             dos.write(bodyBytes);
-
             dos.flush();
         }
         catch (IOException e) {

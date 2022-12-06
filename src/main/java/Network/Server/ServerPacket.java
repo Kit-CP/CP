@@ -91,8 +91,8 @@ public class ServerPacket {
         sendFormat(answer, body);
     }
     public void sendStoreInsertResult(byte answer, byte[] body, DataOutputStream dos) {
-            dataOutPut = dos;
-            sendFormat(answer, body);
+        dataOutPut = dos;
+        sendFormat(answer, body);
     }
 
     public void sendOrderResult(byte answer, byte[] body, DataOutputStream dos) {
