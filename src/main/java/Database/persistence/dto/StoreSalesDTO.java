@@ -11,11 +11,16 @@ import java.io.IOException;
 @Setter
 @ToString
 @AllArgsConstructor
-@NoArgsConstructor
 public class StoreSalesDTO implements IDTO{
     String store_name;
     int order_count;
     int sales;
+
+    public StoreSalesDTO() {
+        this.store_name = "";
+        this.order_count = 0;
+        this.sales = 0;
+    }
 
     @Override
     public byte[] getBytes() {

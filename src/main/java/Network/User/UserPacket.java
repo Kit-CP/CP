@@ -117,6 +117,7 @@ public class UserPacket { //메시지를 직렬화
         try {
             size = store_name.getBytes().length;
             headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+            dos.write(headerBytes);
             dos.writeUTF(store_name);
             dos.writeUTF(user_id);
             dos.writeInt(crtPage);

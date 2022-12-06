@@ -2,6 +2,7 @@ package Database.persistence.dto;
 
 
 import com.mysql.cj.x.protobuf.MysqlxExpr;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,6 +21,9 @@ public class MenuSalesDTO implements IDTO {
     int priceSum;
 
     public MenuSalesDTO() {
+        menu_name = "";
+        count = 0;
+        priceSum = 0;
     }
     public MenuSalesDTO(String menu_name, int count, int priceSum) {
         this.menu_name = menu_name;

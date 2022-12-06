@@ -65,7 +65,7 @@
     </select>
 
     <select id="getStoreSales" resultType="StoreSalesDTO">
-        select Store_name, count(order_id) as order_count , sum(priceSum) as sales
+        select Store_name as store_name, count(order_id) as order_count , sum(priceSum) as sales
         from `order`
         where state = 3
         group by Store_name
