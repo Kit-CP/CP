@@ -50,7 +50,7 @@ public class ServerPacket {
         }
     }
 
-    public void sendReviewFormat(byte answer, int userPage, byte[] body) {
+    public void sendReviewFormat(byte answer, int storeReivewNum, byte[] body) {
         try {
             if (body != null) {
                 size = body.length;
@@ -60,7 +60,7 @@ public class ServerPacket {
             byte[] headerBytes = ProtocolType.getAnswerHeader(answer, size);
             dataOutPut.write(headerBytes);
             if(size > 0) {
-                dataOutPut.writeInt(userPage);
+                dataOutPut.writeInt(storeReivewNum);
                 dataOutPut.write(body);
             }
 

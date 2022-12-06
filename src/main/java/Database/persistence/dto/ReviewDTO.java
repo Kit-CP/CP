@@ -11,7 +11,6 @@ import java.io.IOException;
 @Setter
 @ToString
 @AllArgsConstructor
-@NoArgsConstructor
 public class ReviewDTO implements IDTO {
     private int review_id;
     private String user_id;
@@ -21,9 +20,20 @@ public class ReviewDTO implements IDTO {
     private String reply;
 
     public ReviewDTO(String content, int review_score, int order_id) {
+        review_id = 0;
+        user_id = "";
         this.content = content;
         this.review_score = review_score;
         this.order_id = order_id;
+        this.reply = "";
+    }
+
+    public ReviewDTO() {
+        this.review_id = 0;
+        this.user_id = "";
+        this.content = "";
+        this.review_score = 0;
+        this.order_id = 0;
         this.reply = "";
     }
 

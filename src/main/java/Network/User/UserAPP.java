@@ -477,19 +477,28 @@ public class UserAPP {
         System.out.println(UserScreen.ENTER_STORE);
         String store_name = input.nextLine();
 
-        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.STORE_REVIEW_NUM, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
-        userPacket.sendString(store_name);
-
-        userMessage = new UserMessage(dis);
-        int reviewNum = userMessage.receiveReviewNum();
         int crtPage = 1;
         while (crtPage != -1) {
+            userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYREVIEW_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
             userPacket.requestReviewList(store_name, user_ID , crtPage);
 
             userMessage = new UserMessage(dis);
-            ReviewView.printAll(userMessage.receiveStoreReviewList(), crtPage, reviewNum);
-            System.out.println(UserScreen.SELECT_REVIEW_PAGE);
-            crtPage = Integer.parseInt(input.nextLine());
+            List<Object> list = userMessage.receiveStoreReviewList();
+
+            int reviewNum = 0;
+            List<ReviewDTO> reviewDTOS = new ArrayList<>();
+            if(list.size() != 0) {
+                reviewNum = (int) list.get(0);
+                reviewDTOS = (List<ReviewDTO>) list.get(1);
+
+                ReviewView.printAll(reviewDTOS, crtPage, reviewNum);
+
+                System.out.println(UserScreen.SELECT_REVIEW_PAGE);
+                crtPage = Integer.parseInt(input.nextLine());
+            } else {
+                System.out.println("조회되는 리뷰가 존재하지 않습니다.");
+                crtPage = -1;
+            }
         }
     }
 
@@ -616,7 +625,10 @@ public class UserAPP {
         userPacket.request();
 
         userMessage = new UserMessage(dis);
-        userMessage.receiveAllTotalList();
+        List<StoreSalesDTO> list = userMessage.receiveAllTotalList(); //TODO view 만들기.
+        for( StoreSalesDTO dto : list) {
+            System.out.println(dto.toString());
+        }
     }
 
 }
