@@ -325,9 +325,10 @@ public class ServerMessage {
                     serverPacket.sendUpdateUserInfo(answer, null, dos);
                 }
                 if (code == ProtocolCode.CHANGE_MENU_INFO) {//가게 메뉴 가격 수정
+                    String crt_menu_name = dataInput.readUTF();
                     MenuDTO menuDTO = MenuDTO.readMenuDTO(dataInput);
                     menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (menuDAO.updateMenu(menuDTO)) {
+                    if (menuDAO.updateMenu(crt_menu_name, menuDTO)) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
