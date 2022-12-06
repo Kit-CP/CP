@@ -49,7 +49,12 @@ public class UserAPP {
 
                 try {
                     System.out.println(UserScreen.Start_SCREEN);
-                    command = Integer.parseInt(input.nextLine());
+                    try {
+                        command = Integer.parseInt(input.nextLine());
+                    } catch (Exception e) {
+                        System.out.println("주어진 메뉴의 숫자로 입력해주세요.");
+                        command = Integer.parseInt(input.nextLine());
+                    }
                 } catch (InputMismatchException e) {
                     input = new Scanner(System.in);
                     System.out.println(UserScreen.INPUT_ERROR);
@@ -319,7 +324,7 @@ public class UserAPP {
                 orderCancel();
                 return;
             case 2:
-                writeReview();
+                //리뷰등록
                 return;
             case 3:
                 System.out.println();
@@ -340,30 +345,18 @@ public class UserAPP {
         dto.setOrder_id(order_id);
         dto.setUser_ID(user_ID);
         userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.CANCEL_ORDER, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
-        userPacket.sendOrderCancel(dto);
+        userPacket.sendOrderDTO(dto);
 
         userMessage = new UserMessage(dis);
         userMessage.receiveCancelOrderResult();
         System.out.println();
     }
 
-    private void writeReview() {
-        System.out.println("리뷰를 등록할 주문 번호를 입력하세요.");
-        int orderID = Integer.parseInt(input.nextLine());
-        System.out.println("리뷰를 작성하세요.");
-        String str = input.nextLine();
-        System.out.println("별점을 입력하세요.");
-        int score = Integer.parseInt(input.nextLine());
-        ReviewDTO dto = new ReviewDTO(str, score, orderID);
-
-        userPacket = new UserPacket(dos, ProtocolType.REGISTER, ProtocolCode.REVIEW, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
-        userPacket.sendReviewDTO(dto);
-
-        userMessage = new UserMessage(dis);
-        userMessage.receiveWriteReviewResult();
-    }
-
-
+    /*private void getReviewList() {
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.REVIEW_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        System.out.println("");
+        userPacket.requestMyReview();
+    }*/
 
     /*=============================================== 점주 ===============================================*/
 
@@ -401,13 +394,14 @@ public class UserAPP {
                     insertMenu();
                     break;
                 case 4:
-                    judgeOrder();
-                case 5:
                     reviewList();
                     replyReview();
                     break;
-                case 6:
+                case 5:
                     statisticsOwner();
+                    break;
+                case 6:
+                    judgeOrder();
                     break;
                 case 7:
                     System.out.println(UserScreen.LOGOUT);
@@ -575,12 +569,38 @@ public class UserAPP {
     }
 
     private void judgeOrder() {
-        System.out.println("주문을 수령할 본인의 가게의 이름을 입력하세요.");
+        System.out.println("주문을 수정할 본인의 가게의 이름을 입력하세요.");
         String store_name = input.nextLine();
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYORDER_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.sendString(store_name);
+
+        userMessage = new UserMessage(dis);
+        List<OrderViewDTO> orderViewDTOS = userMessage.receiveOrderViewDTOList();
+        OrderView.UserPrint(orderViewDTOS);
         System.out.println("주문 상태를 바꾸고자 하는 주문 번호를 입력하세요.");
-        String order_id = input.nextLine();
+        int order_id = Integer.parseInt(input.nextLine());
 
         OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setStore_name(store_name);
+        orderDTO.setOrder_id(order_id);
+        orderDTO.setUser_ID(user_ID);
+        System.out.println("[1]주문승인 [2] 주문취소");
+        int num = Integer.parseInt(input.nextLine());
+        switch (num) {
+            case 1:
+                orderDTO.setState();
+                break;
+            case 2:
+
+                break;
+        }
+
+
+        userPacket = new UserPacket(dos, ProtocolType.CORRECTION, ProtocolCode.ACCEPT_ORDER, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.sendOrderDTO(orderDTO);
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveJudgeOrderResult();
     }
 
     public void replyReview() {

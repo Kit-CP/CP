@@ -107,12 +107,8 @@ public class OrderDAO {
     public synchronized boolean updateState(OrderDTO orderDTO) {
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("orderId", orderDTO.getOrder_id());
-        map.put("store_name", orderDTO.getStore_name());
-        map.put("state", orderDTO.getState());
         try {
-            sqlSession.update("mapper.OrderMapper.judgeOrder", map);
+            sqlSession.update("mapper.OrderMapper.judgeOrder", orderDTO);
             sqlSession.commit();
             result = true;
         } catch (Exception e) {
@@ -126,9 +122,29 @@ public class OrderDAO {
 
     public synchronized boolean cancelOrder(OrderDTO orderDTO) {
         boolean result = false;
-        SqlSession sqlSession = sqlSessionFactory.openSession(true);
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             int canceledOrder = sqlSession.update("mapper.OrderMapper.cancelOrder", orderDTO);
+
+            if (canceledOrder == 1) {
+                sqlSession.update("mapper.OrderMapper.restockMenu", orderDTO);
+                sqlSession.commit();
+                result = true;
+            }
+        } catch (Exception e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+
+        return result;
+    }
+
+    public synchronized boolean cancelOwnerOrder(OrderDTO orderDTO) {
+        boolean result = false;
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            int canceledOrder = sqlSession.update("mapper.OrderMapper.cancelOwnerOrder", orderDTO);
 
             if (canceledOrder == 1) {
                 sqlSession.update("mapper.OrderMapper.restockMenu", orderDTO);
@@ -142,6 +158,27 @@ public class OrderDAO {
 
         return result;
     }
+
+    public synchronized boolean acceptOwnerOrder(OrderDTO orderDTO) {
+        boolean result = false;
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            int updatedOrder = sqlSession.update("mapper.OrderMapper.acceptOwnerOrder", orderDTO);
+
+            if (updatedOrder == 1) {
+                result = true;
+            }
+        }
+        catch (Exception e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+
+        return result;
+    }
+
+
 
     public OrderDTO getOrderState(OrderDTO orderDTO) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);

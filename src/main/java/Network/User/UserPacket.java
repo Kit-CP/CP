@@ -156,7 +156,7 @@ public class UserPacket { //메시지를 직렬화
         }
     }
 
-    public void sendOrderCancel(OrderDTO orderDTO) { //찬진이가 작성
+    public void sendOrderDTO(OrderDTO orderDTO) { //찬진이가 작성
         try {
             bodyBytes = orderDTO.getBytes();
             size = bodyBytes.length;
