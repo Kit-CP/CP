@@ -6,6 +6,7 @@ import Database.persistence.dto.ReviewDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class ReviewDAO {
 
     public List<ReviewDTO> showUserReview(String user_id, String store_name, int crtPage) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
-        List<ReviewDTO> list = null;
+        List<ReviewDTO> list = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
         map.put("user_id", user_id);
         map.put("numOfPages", crtPage*2);
@@ -54,7 +55,7 @@ public class ReviewDAO {
 
     public List<ReviewDTO> showStoreReview(String store_name, String user_id, int crtPage) {
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
-        List<ReviewDTO> list = null;
+        List<ReviewDTO> list = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
         map.put("store_name", store_name);
         map.put("numOfPages", crtPage*2);

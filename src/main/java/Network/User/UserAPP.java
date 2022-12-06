@@ -362,15 +362,19 @@ public class UserAPP {
     }
 
     private  void writeReview() {
-        int review_id = 0;
+        int order_id = 0;
         System.out.println("작성하고자 하는 주문의 번호를 입력하세요");
         try {
-            review_id = Integer.parseInt(input.nextLine());
+            order_id = Integer.parseInt(input.nextLine());
         } catch (Exception e) {
             System.out.println("잘못된 값을 입력했습니다.");
-            review_id = Integer.parseInt(input.nextLine());
+            order_id = Integer.parseInt(input.nextLine());
         }
-        ReviewDTO reviewDTO = new ReviewDTO(review_id);
+        ReviewDTO reviewDTO = new ReviewDTO(order_id);
+        System.out.println("평점을 입력하세요.");
+        reviewDTO.setReview_score(Integer.parseInt(input.nextLine()));
+        System.out.println("내용을 입력하세요.");
+        reviewDTO.setContent(input.nextLine());
 
         userPacket = new UserPacket(dos, ProtocolType.REGISTER, ProtocolCode.REVIEW, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
         userPacket.sendReviewDTO(reviewDTO);
@@ -588,7 +592,7 @@ public class UserAPP {
                     System.out.println(UserScreen.INPUT_ERROR);
                     break;
             }
-            System.out.println(UserScreen.UPDATE_USER_INFOR_MENU);
+            System.out.println(UserScreen.UPDATE_MENU_INFOR_MENU);
             command = Integer.parseInt(input.nextLine());
         }
 
