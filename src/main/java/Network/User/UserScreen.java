@@ -33,5 +33,6 @@ public class UserScreen {
     public final static String FAIL_GET_REVIEW = "리뷰가 존재하지 않습니다.";
     public final static String GO_BACK = " 뒤로가기는 -1을 입력하세요";
     public final static String PENDING_LIST = "<승인 대기 중인 목록>";
+    public final static String REPLY_REVIEW = "[1]답글 작성 [2]종료";
 
 }

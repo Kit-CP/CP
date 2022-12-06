@@ -394,14 +394,14 @@ public class UserAPP {
                     insertMenu();
                     break;
                 case 4:
+                    judgeOrder();
+                    break;
+                case 5:
                     reviewList();
                     replyReview();
                     break;
-                case 5:
-                    statisticsOwner();
-                    break;
                 case 6:
-                    judgeOrder();
+                    statisticsOwner();
                     break;
                 case 7:
                     System.out.println(UserScreen.LOGOUT);
@@ -571,33 +571,14 @@ public class UserAPP {
     private void judgeOrder() {
         System.out.println("주문을 수정할 본인의 가게의 이름을 입력하세요.");
         String store_name = input.nextLine();
-        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYORDER_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
-        userPacket.sendString(store_name);
-
-        userMessage = new UserMessage(dis);
-        List<OrderViewDTO> orderViewDTOS = userMessage.receiveOrderViewDTOList();
-        OrderView.UserPrint(orderViewDTOS);
         System.out.println("주문 상태를 바꾸고자 하는 주문 번호를 입력하세요.");
         int order_id = Integer.parseInt(input.nextLine());
+        System.out.println("[1]주문 취소 [2]주문 승인 [3]배달 완료");
+        int state = Integer.parseInt(input.nextLine());
+        OrderDTO orderDTO = new OrderDTO(store_name, order_id, state);
 
-        OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setStore_name(store_name);
-        orderDTO.setOrder_id(order_id);
-        orderDTO.setUser_ID(user_ID);
-        System.out.println("[1]주문승인 [2] 주문취소");
-        int num = Integer.parseInt(input.nextLine());
-        switch (num) {
-            case 1:
-                orderDTO.setState();
-                break;
-            case 2:
-
-                break;
-        }
-
-
-        userPacket = new UserPacket(dos, ProtocolType.CORRECTION, ProtocolCode.ACCEPT_ORDER, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
-        userPacket.sendOrderDTO(orderDTO);
+        userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.ACCEPT_ORDER, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.sendJudgeOrder(orderDTO);
 
         userMessage = new UserMessage(dis);
         userMessage.receiveJudgeOrderResult();
