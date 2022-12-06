@@ -252,4 +252,18 @@ public class UserPacket { //메시지를 직렬화
             e.printStackTrace();
         }
     }
+
+    public void sendNewMenuDTO(String mname, MenuDTO dto) {
+        try {
+            bodyBytes = dto.getBytes();
+            size = bodyBytes.length;
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+            dos.write(headerBytes);
+            dos.writeUTF(mname);
+            dos.write(bodyBytes);
+            dos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

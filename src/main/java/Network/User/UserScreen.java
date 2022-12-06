@@ -12,7 +12,7 @@ public class UserScreen {
     public final static String SUCCESS_LOGIN = "로그인 성공!";
     public final static String FAIL_LOGIN = "로그인 실패!\n";
     public final static String CLIENT_SCREEN = "[1]음식점 조회  [2]음식 주문  [3]주문 내역 조회  [4]개인정보 수정  [5]로그아웃";
-    public final static String OWNER_SCREEN = "[1]음식점 등록  [2]옵션 등록  [3]메뉴 등록 [4]주문 조회 [5]리뷰 조회  [6]통계  [7]로그아웃";
+    public final static String OWNER_SCREEN = "[1]음식점 등록  [2]옵션 등록  [3]메뉴 등록 [4]메뉴 수정  [5]주문 조회  [6]리뷰 조회  [7]통계  [8]로그아웃";
     public final static String MANAGER_SCREEN = "[1]점주 가입 승인  [2]가게 등록 승인  [3]메뉴 등록 승인  [4]통계  [5]로그아웃";
     public final static String ENTER_NAME = "이름을 입력하세요.";
     public final static String ENTER_PRICE = "가격을 입력하세요.";
@@ -34,5 +34,6 @@ public class UserScreen {
     public final static String GO_BACK = " 뒤로가기는 -1을 입력하세요";
     public final static String PENDING_LIST = "<승인 대기 중인 목록>";
     public final static String REPLY_REVIEW = "[1]답글 작성 [2]종료";
+    public final static String UPDATE_MENU_INFOR_MENU = "업데이트할 정보를 고르시오\n[1]카테고리  [2]메뉴이름  [3]가격  [4]재고  [5]수정 종료";
 
 }
