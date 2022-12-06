@@ -1,9 +1,6 @@
 package Network.User;
 
-import Database.persistence.dto.OptionDTO;
-import Database.persistence.dto.OrderViewDTO;
-import Database.persistence.dto.StoreDTO;
-import Database.persistence.dto.UserDTO;
+import Database.persistence.dto.*;
 import Network.Protocol.ProtocolAnswer;
 import com.mysql.cj.x.protobuf.MysqlxCrud;
 
