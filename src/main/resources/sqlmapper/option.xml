@@ -17,7 +17,7 @@
     </update>
 
     <select id="showOptions" resultType="OptionDTO">
-        SELECT * FROM `option`
+        SELECT * FROM `option` WHERE `store_name` like #{store_name}
     </select>
 
     <select id="showPendingOption" resultType="OptionDTO">
