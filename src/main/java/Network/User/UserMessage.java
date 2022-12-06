@@ -290,4 +290,12 @@ public class UserMessage {
             System.out.println("리뷰 등록 실패!");
         }
     }
+    
+    public void receiveReplyReviewResult() {
+        if (answer == ProtocolAnswer.SUCCESS) {
+            System.out.println("답글 등록 성공!");
+        } else {
+            System.out.println("답글 등록 실패!");
+        }
+    }
 }
