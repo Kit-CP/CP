@@ -49,7 +49,12 @@ public class UserAPP {
 
                 try {
                     System.out.println(UserScreen.Start_SCREEN);
-                    command = Integer.parseInt(input.nextLine());
+                    try {
+                        command = Integer.parseInt(input.nextLine());
+                    } catch (Exception e) {
+                        System.out.println("주어진 메뉴의 숫자로 입력해주세요.");
+                        command = Integer.parseInt(input.nextLine());
+                    }
                 } catch (InputMismatchException e) {
                     input = new Scanner(System.in);
                     System.out.println(UserScreen.INPUT_ERROR);
