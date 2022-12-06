@@ -35,7 +35,7 @@
                  WHERE Store_name LIKE
                        ( SELECT Store_name FROM store WHERE store.user_id = #{user_id})
              )
-                 ORDERS LIMIT 2 OFFSET ${crtPage - 2}
+                 ORDERS LIMIT 2 OFFSET ${numOfPages - 2}
     </select>
 
     <select id="getUserReviewNum" parameterType="Map" resultType="int">
