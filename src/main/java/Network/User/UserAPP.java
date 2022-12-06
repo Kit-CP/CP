@@ -209,7 +209,9 @@ public class UserAPP {
 
     private void orderCancel() { //찬진이가 함.
         OrderDTO dto = new OrderDTO();
-        //취소 시 어떤 것이 필요한 지 set할 것. >> cli부분 수정할 것.
+        System.out.println("취소하려는 주문 번호를 입력하세요.");
+        int order_id = Integer.parseInt(input.nextLine());
+        dto.setOrder_id(order_id);
         userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.CANCEL_ORDER, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
         userPacket.sendOrderCancel(dto);
 

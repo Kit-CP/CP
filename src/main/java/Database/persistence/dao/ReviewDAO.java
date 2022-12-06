@@ -104,7 +104,6 @@ public class ReviewDAO {
             result = true;
         } catch (Exception e) {
             sqlSession.rollback();
-            result = false;
         } finally {
             sqlSession.close();
         }
