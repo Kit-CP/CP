@@ -43,6 +43,7 @@ public class ProtocolCode {
     public final static byte STORE_LIST = 2;
     public final static byte MENU_LIST = 3;
     public final static byte REVIEW_LIST = 4;
+    public final static byte SHOW_STORE_REVIEW = 5;
 
     //TYPE:6 , OWNER
     public final static byte MYSTORE_LIST = 1;
