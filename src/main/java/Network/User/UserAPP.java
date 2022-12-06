@@ -181,7 +181,7 @@ public class UserAPP {
                     orderCancel();
                     break;
                 case 4:
-                    //orderedList();
+                    orderedList();
                     break;
                 case 5:
                     updateInfor();
@@ -271,6 +271,10 @@ public class UserAPP {
             System.out.println("");
             userPacket.requestMyReview();
         }*/
+    }
+
+    public void orderedList() {
+
     }
 
     /*=============================================== 점주 ===============================================*/
