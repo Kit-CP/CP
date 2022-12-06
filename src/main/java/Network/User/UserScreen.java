@@ -12,7 +12,7 @@ public class UserScreen {
     public final static String SUCCESS_LOGIN = "로그인 성공!";
     public final static String FAIL_LOGIN = "로그인 실패!\n";
     public final static String CLIENT_SCREEN = "[1]음식점 조회  [2]음식 주문  [3]주문 내역 조회  [4]개인정보 수정  [5]로그아웃";
-    public final static String OWNER_SCREEN = "[1]음식점 등록  [2]옵션 등록  [3]메뉴 등록 [4]메뉴 수정  [5]주문 조회  [6]리뷰 조회  [7]통계  [8]로그아웃";
+    public final static String OWNER_SCREEN = "[1]음식점 등록  [2]옵션 등록  [3]메뉴 등록  [4]메뉴 수정  [5]주문 조회  [6]리뷰 조회  [7]통계  [8]로그아웃";
     public final static String MANAGER_SCREEN = "[1]점주 가입 승인  [2]가게 등록 승인  [3]메뉴 등록 승인  [4]통계  [5]로그아웃";
     public final static String ENTER_NAME = "이름을 입력하세요.";
     public final static String ENTER_PRICE = "가격을 입력하세요.";
