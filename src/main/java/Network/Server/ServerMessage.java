@@ -444,6 +444,25 @@ public class ServerMessage {
                         serverPacket.sendReviewList(answer, 0,null, dos);
                     }
                 }
+                if (code == ProtocolCode.SHOW_STORE_REVIEW) {
+                    String storeName = dataInput.readUTF();
+                    reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<ReviewDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(reviewDAO.showStoreUserReview(storeName));
+
+                    if(body != null) {
+                        size = body.length;
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+
+                    if ( size!= 0 ) {
+                        serverPacket.sendShowStoreUserReviewResult(answer, body, dos);
+                    } else {
+                        serverPacket.sendShowStoreUserReviewResult(answer, null, dos);
+                    }
+                }
 
             }
             if (authority == ProtocolAuthority.OWNER) {//점주
@@ -502,7 +521,7 @@ public class ServerMessage {
                         answer = ProtocolAnswer.ERROR;
                     }
                     if ( size != 0 ) {
-                        serverPacket.sendMyReviewList(answer, storeReviewNum, body, dos); //TODO 리뷰 페이지 정보와 같이 바디에 붙임.
+                        serverPacket.sendMyReviewList(answer, storeReviewNum, body, dos);
                     } else {
                         serverPacket.sendMyReviewList(answer, 0, null, dos);
                     }
@@ -544,6 +563,7 @@ public class ServerMessage {
                         serverPacket.sendMyTotalList(answer, null, dos);
                     }
                 }
+
 
             }
             if (authority == ProtocolAuthority.MANAGER) {//관리자
