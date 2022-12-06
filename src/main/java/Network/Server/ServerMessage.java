@@ -128,7 +128,7 @@ public class ServerMessage {
                         answer = ProtocolAnswer.ERROR;
                     }
 
-                    serverPacket.sendReviewResult(answer, null, dos);
+                    serverPacket.sendWriteReviewResult(answer, null, dos);
                 }
 
             } else if (authority == ProtocolAuthority.OWNER) { //점주
@@ -402,15 +402,16 @@ public class ServerMessage {
                     reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     MyListSerializer<ReviewDTO> dtos = new MyListSerializer<>();
                     body = dtos.listToByte(reviewDAO.showUserReview(user_id, storeName, crtPage));
+                    int userPage = reviewDAO.getUserReviewNum(storeName);
                     if(body != null) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
                         answer = ProtocolAnswer.ERROR;
                     }
                     if (size != 0) {
-                        serverPacket.sendReviewList(answer, body, dos);
+                        serverPacket.sendReviewList(answer, userPage, body, dos); //TODO 페이지 정보와 바디 같이 보냄 주의!!
                     } else {
-                        serverPacket.sendReviewList(answer, null, dos);
+                        serverPacket.sendReviewList(answer, 0,null, dos);
                     }
                 }
             }
@@ -454,10 +455,43 @@ public class ServerMessage {
                         }
                 }
                 if (code == ProtocolCode.REVIEW_LIST) {//나의 가게 리뷰 조회
+                    String store_name = dataInput.readUTF();
+                    int crtPage = dataInput.readInt();
+                    MyListSerializer<ReviewDTO> dtos = new MyListSerializer<>();
+                    reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    body = dtos.listToByte(reviewDAO.showStoreReview(store_name, crtPage));
+                    int storePage = reviewDAO.getStoreReviewNum(store_name);
 
+                    if ( body != null ) {
+                        size = body.length;
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    if ( size != 0 ) {
+                        serverPacket.sendMyReviewList(answer, storePage, body, dos); //TODO 리뷰 페이지 정보와 같이 바디에 붙임.
+                    } else {
+                        serverPacket.sendMyReviewList(answer, 0, null, dos);
+                    }
                 }
                 if (code == ProtocolCode.MYTOTAL_LIST) {//통계 정보 조회
+                    String store_name = dataInput.readUTF();
+                    orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<MenuSalesDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(orderDAO.getMenuSales(store_name));
 
+                    if(body != null) {
+                        size = body.length;
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+
+                    if( size != 0 ) {
+                        serverPacket.sendMyTotalList(answer, body, dos);
+                    } else {
+                        serverPacket.sendMyTotalList(answer, null, dos);
+                    }
                 }
             }
             if (authority == ProtocolAuthority.MANAGER) {//관리자
@@ -499,10 +533,38 @@ public class ServerMessage {
                     }
                 }
                 if (code == ProtocolCode.PENDING_MENU_LIST) { //미승인된 메뉴 리스트
+                    menuDAO = new MenuDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<MenuDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(menuDAO.showPendingMenu());
 
+                    if ( body != null) {
+                        size = body.length;
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    if( size != 0 ) {
+                        serverPacket.sendPendingMenuList(answer, body, dos);
+                    } else {
+                        serverPacket.sendPendingMenuList(answer, null, dos);
+                    }
                 }
                 if (code == ProtocolCode.TOTAL_LIST) {//매출 조회
+                    orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<StoreSalesDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(orderDAO.getStoreSales());
 
+                    if(body != null) {
+                        size = body.length;
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    if (size != 0) {
+                        serverPacket.sendTotalList(answer, body, dos);
+                    } else {
+                        serverPacket.sendTotalList(answer, null, dos);
+                    }
                 }
 
             }

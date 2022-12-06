@@ -126,6 +126,22 @@ public class UserPacket { //메시지를 직렬화
         }
     }
 
+    public void sendOrderCancel(OrderDTO orderDTO) { //찬진이가 작성
+        try {
+            bodyBytes = orderDTO.getBytes();
+            size = bodyBytes.length;
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+
+            dos.write(headerBytes);
+            dos.write(bodyBytes);
+
+            dos.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void sendMenuList(List<MenuDTO> dtos, List<String> strs) {
         try {
             int size = dtos.size();

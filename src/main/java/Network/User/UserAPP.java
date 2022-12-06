@@ -1,9 +1,6 @@
 package Network.User;
 
-import Database.persistence.dto.MenuDTO;
-import Database.persistence.dto.OptionDTO;
-import Database.persistence.dto.StoreDTO;
-import Database.persistence.dto.UserDTO;
+import Database.persistence.dto.*;
 import Database.view.OptionView;
 import Database.view.StoreView;
 import Database.view.UserView;
@@ -181,7 +178,7 @@ public class UserAPP {
                     //order();
                     break;
                 case 3:
-                    //orderCancel();
+                    orderCancel();
                     break;
                 case 4:
                     //orderedList();
@@ -208,6 +205,16 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         StoreView.printAcceptedStore(userMessage.receiveStoreList());
+    }
+
+    private void orderCancel() { //찬진이가 함.
+        OrderDTO dto = new OrderDTO();
+        //취소 시 어떤 것이 필요한 지 set할 것. >> cli부분 수정할 것.
+        userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.CANCEL_ORDER, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.sendOrderCancel(dto);
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveCancelOrderResult();
     }
 
     private void updateInfor() {
