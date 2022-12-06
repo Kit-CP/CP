@@ -1,7 +1,11 @@
 package Network.User;
 
-import Database.persistence.dto.*;
+import Database.persistence.dto.OptionDTO;
+import Database.persistence.dto.OrderViewDTO;
+import Database.persistence.dto.StoreDTO;
+import Database.persistence.dto.UserDTO;
 import Network.Protocol.ProtocolAnswer;
+import com.mysql.cj.x.protobuf.MysqlxCrud;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -205,6 +209,23 @@ public class UserMessage {
     }
 
 
+    public List<MenuSalesDTO> receiveMyTotalList() {
+        List<MenuSalesDTO> list = new ArrayList<>();
+        if ( answer == ProtocolAnswer.SUCCESS) {
+            try {
+                int size = dis.readInt();
+                for(int i=0; i<size; i++) {
+                    list.add(MenuSalesDTO.readMenuSalesDTO(dis));
+                }
+                return list;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("통계 정보가 존재하지 않습니다.");
+        }
+        return null;
+    }
 
 
 }

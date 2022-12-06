@@ -171,4 +171,16 @@ public class UserPacket { //메시지를 직렬화
             e.printStackTrace();
         }
     }
+
+    public void requestMyTotalList(String store_name) {
+        try {
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+            dos.write(headerBytes);
+            dos.writeUTF(store_name);
+            dos.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

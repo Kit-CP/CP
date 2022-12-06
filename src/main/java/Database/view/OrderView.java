@@ -26,7 +26,7 @@ public class OrderView {
         System.out.println("\n");
     }
 
-    public void printMenuSales(List<MenuSalesDTO> dtos) {
+    public static void printMenuSales(List<MenuSalesDTO> dtos) {
         int sales = 0;
         if ( dtos == null ) {
             return;
@@ -41,7 +41,7 @@ public class OrderView {
         System.out.println("\n총 매출 : " + sales);
     }
 
-    public void printStoreSales(List<StoreSalesDTO> dtos) {
+    public static void printStoreSales(List<StoreSalesDTO> dtos) {
         if ( dtos == null) {
             return;
         }
