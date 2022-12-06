@@ -295,6 +295,9 @@ public class UserAPP {
                 case 6:
                     dto.setAge(Integer.parseInt(temp));
                     break;
+                default:
+                    System.out.println(UserScreen.INPUT_ERROR);
+                    break;
             }
             System.out.println(UserScreen.UPDATE_USER_INFOR_MENU);
             command = Integer.parseInt(input.nextLine());
@@ -394,22 +397,26 @@ public class UserAPP {
                     insertMenu();
                     break;
                 case 4:
-                    judgeOrder();
+                    updateMenu();
                     break;
                 case 5:
+                    judgeOrder();
+                    break;
+                case 6:
                     if ( reviewList() ) {
                         replyReview();
                     }
                     break;
-                case 6:
+                case 7:
                     statisticsOwner();
                     break;
-                case 7:
+                case 8:
                     System.out.println(UserScreen.LOGOUT);
                     isRun = false;
                     break;
                 default:
                     System.out.println(UserScreen.INPUT_ERROR);
+                    break;
             }
 
 
@@ -519,6 +526,53 @@ public class UserAPP {
         userMessage.receiveInsertResult();
     }
 
+    private void updateMenu() {
+        System.out.println("메뉴를 수정할 가게이름을 입력하세요." + UserScreen.GO_BACK);
+        String sname = input.nextLine();
+        if ( sname.equals("-1") ) {
+            return;
+        }
+        showMenu(sname);
+
+        System.out.println("수정할 메뉴 이름을 입력하세요." + UserScreen.GO_BACK);
+        String mname = input.nextLine();
+        if ( mname.equals("-1") ) {
+            return;
+        }
+
+        MenuDTO dto = new MenuDTO();
+        int command = 0;
+        System.out.println(UserScreen.UPDATE_MENU_INFOR_MENU);
+        command = Integer.parseInt(input.nextLine());
+        while (command != 5) {
+            System.out.println(UserScreen.ENTER_NEW_INFOR);
+            String temp = input.nextLine();
+            switch (command) {
+                case 1:
+                    dto.setCategory(temp);
+                    break;
+                case 2:
+                    dto.setMenu_name(temp);
+                    break;
+                case 3:
+                    dto.setMenu_price(Integer.parseInt(temp));
+                    break;
+                case 4:
+                    dto.setStock(Integer.parseInt(temp));
+                    break;
+                default:
+                    System.out.println(UserScreen.INPUT_ERROR);
+                    break;
+            }
+            System.out.println(UserScreen.UPDATE_USER_INFOR_MENU);
+            command = Integer.parseInt(input.nextLine());
+        }
+
+        //userPacket = new UserPacket(dos, )
+
+    }
+
+
     public void statisticsOwner() {
         System.out.println("가게 이름을 입력하시오." + UserScreen.GO_BACK);
         String store_name = input.nextLine();
@@ -581,8 +635,11 @@ public class UserAPP {
             return;
         }
 
-        System.out.println("주문 상태를 바꾸고자 하는 주문 번호를 입력하세요.");
+        System.out.println("주문 상태를 바꾸고자 하는 주문 번호를 입력하세요." + UserScreen.GO_BACK);
         int order_id = Integer.parseInt(input.nextLine());
+        if ( order_id == -1 ) {
+            return;
+        }
         System.out.println("[1]주문 취소 [2]주문 승인 [3]배달 완료");
         int state = Integer.parseInt(input.nextLine());
         OrderDTO orderDTO = new OrderDTO(store_name, order_id, state);
