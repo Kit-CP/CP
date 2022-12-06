@@ -18,15 +18,18 @@ public class OrderDTO implements IDTO {
     private int priceSum;
     private int state;
 
-    public OrderDTO(String user_ID, String store_name) {
-        User_ID = user_ID;
-        Store_name = store_name;
-    }
-
     public OrderDTO() {
-        order_id = 0;
+        this.order_id = 0;
         User_ID = "";
         Store_name = "";
+        this.priceSum = 0;
+        this.state = 0;
+    }
+
+    public OrderDTO(String user_ID, String store_name) {
+        order_id = 0;
+        User_ID = user_ID;
+        Store_name = store_name;
         priceSum = 0;
         state = 0;
     }

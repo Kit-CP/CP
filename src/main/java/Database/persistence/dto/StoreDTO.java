@@ -10,7 +10,6 @@ import java.io.IOException;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
 public class StoreDTO implements IDTO {
     private String store_name;
@@ -20,6 +19,16 @@ public class StoreDTO implements IDTO {
     private String information;
     private int isAccept;
     private String user_ID;
+
+    public StoreDTO() {
+        this.store_name = "";
+        this.store_address = "";
+        this.store_phone = "";
+        this.store_score = 0;
+        this.information = "";
+        this.isAccept = 0;
+        this.user_ID = "";
+    }
 
     public StoreDTO(String store_name, int state) {
         this.store_name = store_name;

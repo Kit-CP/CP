@@ -1,6 +1,7 @@
 package Database.persistence.dto;
 
 import com.mysql.cj.x.protobuf.MysqlxExpr;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,6 +14,7 @@ import java.io.IOException;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
 public class OptionDTO implements IDTO {
     private String option_name;
     private int option_price;
@@ -20,6 +22,10 @@ public class OptionDTO implements IDTO {
     private int state;
 
     public OptionDTO() {
+        this.option_name = "";
+        this.option_price = 0;
+        this.store_name = "";
+        this.state = 0;
     }
 
     public OptionDTO(String name, int price, String sname) {

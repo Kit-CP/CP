@@ -18,7 +18,12 @@ public class MenuOptionDTO implements IDTO {
     private int menu_price;
 
     public MenuOptionDTO() {
+        this.category = "";
+        this.menu_name = "";
+        this.option_name = "";
+        this.menu_price = 0;
     }
+
     public MenuOptionDTO(String category, String menu_name, String option_name, int menu_price) {
         this.category = category;
         this.menu_name = menu_name;

@@ -1,9 +1,6 @@
 package Database.persistence.dto;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.awt.*;
 import java.io.ByteArrayOutputStream;
@@ -14,14 +11,20 @@ import java.io.IOException;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
 public class MenuHasOptionDTO implements IDTO {
     private String menu_has_option_id;
     private String option_name;
     private String menu_name;
 
     public MenuHasOptionDTO() {
+        this.menu_has_option_id = "";
+        this.option_name = "";
+        this.menu_name = "";
     }
+
     public MenuHasOptionDTO(String option_name, String menu_name) {
+        menu_has_option_id = "";
         this.option_name = option_name;
         this.menu_name = menu_name;
     }

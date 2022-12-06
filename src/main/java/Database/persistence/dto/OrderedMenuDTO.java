@@ -1,5 +1,6 @@
 package Database.persistence.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,6 +13,7 @@ import java.io.IOException;
 @Setter
 @Getter
 @ToString
+@AllArgsConstructor
 public class OrderedMenuDTO implements IDTO {
     private int ordered_menu_id;
     private int order_id;
@@ -19,7 +21,12 @@ public class OrderedMenuDTO implements IDTO {
     private int price;
 
     public OrderedMenuDTO() {
+        this.ordered_menu_id = 0;
+        this.order_id = 0;
+        this.menu_name = "";
+        this.price = 0;
     }
+
     public OrderedMenuDTO(int order_id, String menu_name) {
         this.order_id = order_id;
         this.menu_name = menu_name;
