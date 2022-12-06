@@ -72,8 +72,12 @@ public class OrderDAO {
             sqlSession.commit();
             result = true;
         }
+        catch (StockException e1) {
+            throw new StockException();
+        }
         catch (Exception e) {
             sqlSession.rollback();
+            e.printStackTrace();
         }
         finally {
             sqlSession.close();

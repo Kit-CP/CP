@@ -232,6 +232,7 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         userMessage.receiveOrderResult();
+        System.out.println();
     }
 
     private void orderCancel() {

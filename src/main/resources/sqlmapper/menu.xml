@@ -13,7 +13,7 @@
         from menu
         left join menu_has_option
         on menu.menu_name = menu_has_option.menu_name
-        where `menu`.store_name like #{store_name}
+        where `menu`.store_name like #{store_name} and menu.state = 1
         order by menu.category, menu.menu_name
     </select>
 
