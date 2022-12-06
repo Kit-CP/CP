@@ -1,9 +1,6 @@
 package Database.persistence.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -13,6 +10,7 @@ import java.io.IOException;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
 public class UserDTO implements IDTO {
     private String user_ID;
     private String user_PW;
@@ -24,9 +22,16 @@ public class UserDTO implements IDTO {
     private int state;
 
     public UserDTO() {
-        user_ID = user_PW = user_address = user_name = user_phone = "";
-        age = 0;
+        this.user_ID = "";
+        this.user_PW = "";
+        this.authority = 0;
+        this.user_address = "";
+        this.user_name = "";
+        this.user_phone = "";
+        this.age = 0;
+        this.state = 0;
     }
+
     public UserDTO(String id, String pw, String address, String name, String phone, int age, int state , int authority) {
         user_ID = id;
         user_PW = pw;

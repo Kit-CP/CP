@@ -10,12 +10,18 @@ import java.io.DataOutputStream;
 @Setter
 @ToString
 @AllArgsConstructor
-@NoArgsConstructor
 public class NewOrderDTO implements IDTO {
     int order_id;
     String user_ID;
     String store_name;
     String menus_options;
+
+    public NewOrderDTO() {
+        this.order_id = 0;
+        this.user_ID = "";
+        this.store_name = "";
+        this.menus_options = "";
+    }
 
     @Override
     public byte[] getBytes() {
