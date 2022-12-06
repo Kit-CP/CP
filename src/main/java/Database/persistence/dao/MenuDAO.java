@@ -62,7 +62,33 @@ public class MenuDAO {
         return result;
     }
 
-    public synchronized boolean updateMenu(String name, String newName, Integer price) {
+    public synchronized  boolean updateMenu(String crt_menu_name, MenuDTO menuDTO) {
+        boolean result = false;
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
+        Map<String, Object> param = new HashMap<>();
+        param.put("menu_name", crt_menu_name);
+        param.put("new_menu_name", menuDTO.getMenu_name());
+        param.put("category", menuDTO.getCategory());
+        param.put("menu_price", menuDTO.getMenu_price());
+        param.put("stock", menuDTO.getStock());
+        try {
+            int updatedMenus = sqlSession.update("mapper.MenuMapper.updateMenu", param);
+            sqlSession.commit();
+            if ( updatedMenus > 0 ) {
+                result = true;
+            }
+        }
+        catch (Exception e) {
+            sqlSession.rollback();
+        }
+        finally {
+            sqlSession.close();
+        }
+
+        return result;
+    }
+
+    /*public synchronized boolean updateMenu(String name, String newName, Integer price) {
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Object> param = new HashMap<>();
@@ -83,9 +109,9 @@ public class MenuDAO {
         }
 
         return result;
-    }
+    }*/
 
-    public synchronized boolean updateMenu(String name, String newName) {
+    /*public synchronized boolean updateMenu(String name, String newName) {
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, String> param = new HashMap<>();
@@ -105,9 +131,9 @@ public class MenuDAO {
         }
 
         return result;
-    }
+    }*/
 
-    public synchronized boolean updateMenu(String name, Integer price) {
+    /*public synchronized boolean updateMenu(String name, Integer price) {
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         Map<String, Object> param = new HashMap<>();
@@ -127,7 +153,7 @@ public class MenuDAO {
         }
 
         return result;
-    }
+    }*/
 
     public int getStock(String menuName) {
         int temp = 0;

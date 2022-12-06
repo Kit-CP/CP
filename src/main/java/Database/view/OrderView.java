@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderView {
-    public static void userPrint(List<OrderViewDTO> dtos) {
-        if ( dtos == null ) {
-            return;
+    public static void userPrint(List<OrderViewDTO> dtos) throws NullPointerException {
+        if ( dtos == null )  {
+            throw new NullPointerException();
         }
         List<Integer> oidl = new ArrayList<>();
         List<Integer> omidl = new ArrayList<>();
@@ -56,11 +56,8 @@ public class OrderView {
         if ( dtos == null ) {
             return;
         }
-        System.out.println("메뉴이름\t\t\t주문된 횟수\t\t총 가격");
         for (MenuSalesDTO dto : dtos) {
-            System.out.print(dto.getMenu_name() + "\t\t");
-            System.out.print(dto.getCount() + "\t\t\t\t");
-            System.out.println(dto.getPriceSum());
+            System.out.printf("메뉴 이름 : %s 주문된 횟수 : %d 총 가격 : %d", dto.getMenu_name(), dto.getCount(), dto.getPriceSum());
             sales += dto.getPriceSum();
         }
         System.out.println("\n총 매출 : " + sales);
@@ -70,11 +67,8 @@ public class OrderView {
         if ( dtos == null) {
             return;
         }
-        System.out.println("가게이름\t\t\t\t\t총 주문횟수\t\t\t총 매출");
         for (StoreSalesDTO dto : dtos) {
-            System.out.print(dto.getStore_name() + "\t\t");
-            System.out.print(dto.getOrder_count() + "\t\t\t\t\t");
-            System.out.println(dto.getSales());
+            System.out.printf("가게 이름 : %s 총 주문횟수 : %d 총 매출 : %d", dto.getStore_name(), dto.getOrder_count(), dto.getSales());
         }
     }
 }

@@ -29,17 +29,23 @@
         SELECT menu_price FROM `menu` WHERE menu_name like #{menu_name}
     </select>
 
-    <update id="updateMenu">
-        UPDATE menu
+    <update id="updateMenu" parameterType="Map">
+        UPDATE `delivery`.`menu`
         <trim prefix="SET" suffixOverrides=",">
-            <if test="new_menu_name != null">
-                menu_name = #{new_menu_name},
+            <if test="new_menu_name != null and !new_menu_name.equals('')">
+                `menu_name` = #{new_menu_name},
             </if>
-            <if test="menu_price != null">
-                menu_price = ${new_price}
+            <if test="category != null and !category.equals('')">
+                `category` = #{category},
+            </if>
+            <if test="menu_price != -1">
+                `menu_price` = ${menu_price},
+            </if>
+            <if test="stock != -1">
+                `stock` = ${stock},
             </if>
         </trim>
-        WHERE menu_name like #{menu_name}
+        WHERE `menu_name` like #{menu_name};
     </update>
 
     <update id="judgeMenu" parameterType="Map">

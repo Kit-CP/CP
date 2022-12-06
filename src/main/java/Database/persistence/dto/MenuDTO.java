@@ -26,17 +26,17 @@ public class MenuDTO implements IDTO{
         this.menu_name = "";
         this.store_name = "";
         this.category = "";
-        this.menu_price = 0;
-        this.stock = 0;
-        this.state = 0;
+        this.menu_price = -1;
+        this.stock = -1;
+        this.state = -1;
     }
 
     public MenuDTO(String menu_name, int state) {
         this.menu_name = menu_name;
         store_name = "";
         category = "";
-        menu_price= 0;
-        stock = 0;
+        menu_price= -1;
+        stock = -1;
         this.state = state;
     }
     public MenuDTO(String menu_name, String store_name, String category, int menu_price, int stock) {
@@ -45,7 +45,7 @@ public class MenuDTO implements IDTO{
         this.category = category;
         this.menu_price = menu_price;
         this.stock = stock;
-        this.state = 0;
+        this.state = -1;
     }
 
     @Override

@@ -76,7 +76,7 @@
     </select>
 
     <select id="getMenuSales" parameterType="String" resultType="MenuSalesDTO">
-        select menu_name, count(menu_name), sum(priceSum)
+        select menu_name, count(menu_name) as `count`, sum(priceSum) as priceSum
         from ordered_menu join `order` on `order`.order_id = ordered_menu.order_id
         where Store_name like #{store_name} and state = 3
         group by menu_name
