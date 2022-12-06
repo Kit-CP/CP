@@ -283,4 +283,11 @@ public class UserMessage {
         return list;
     }
 
+    public void receiveWriteReviewResult() {
+        if (answer == ProtocolAnswer.SUCCESS) {
+            System.out.println("리뷰 등록 성공!");
+        } else {
+            System.out.println("리뷰 등록 실패!");
+        }
+    }
 }

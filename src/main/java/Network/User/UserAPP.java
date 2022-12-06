@@ -226,8 +226,8 @@ public class UserAPP {
             System.out.println("메뉴/옵션을 입력하세요 ( 구분자 : / )");
             String temp = input.nextLine();
             sb.append(temp);
-            if ( i - 1 == cnt ) {
-                sb.append("\\");
+            if ( i != cnt -1 ) {
+                sb.append("$");
             }
         }
         NewOrderDTO dto = new NewOrderDTO(0, this.user_ID, sname, sb.toString());
@@ -298,7 +298,7 @@ public class UserAPP {
                 orderCancel();
                 return;
             case 2:
-                //리뷰등록
+                writeReview();
                 return;
             case 3:
                 System.out.println();
@@ -326,11 +326,23 @@ public class UserAPP {
         System.out.println();
     }
 
-    /*private void getReviewList() {
-        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.REVIEW_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
-        System.out.println("");
-        userPacket.requestMyReview();
-    }*/
+    private void writeReview() {
+        System.out.println("리뷰를 등록할 주문 번호를 입력하세요.");
+        int orderID = Integer.parseInt(input.nextLine());
+        System.out.println("리뷰를 작성하세요.");
+        String str = input.nextLine();
+        System.out.println("별점을 입력하세요.");
+        int score = Integer.parseInt(input.nextLine());
+        ReviewDTO dto = new ReviewDTO(str, score, orderID);
+
+        userPacket = new UserPacket(dos, ProtocolType.REGISTER, ProtocolCode.REVIEW, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.sendReviewDTO(dto);
+
+        userMessage = new UserMessage(dis);
+        userMessage.receiveWriteReviewResult();
+    }
+
+
 
     /*=============================================== 점주 ===============================================*/
 

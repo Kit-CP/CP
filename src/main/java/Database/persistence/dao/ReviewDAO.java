@@ -1,6 +1,7 @@
 package Database.persistence.dao;
 
 
+import Database.persistence.MyBatisConnectionFactory;
 import Database.persistence.dto.ReviewDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -19,16 +20,18 @@ public class ReviewDAO {
         boolean result = false;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
-            sqlSession.insert("mapper.ReviewMapper.writeReview", dto);
-            sqlSession.commit();
-            result = true;
+            OrderDAO orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+            int state = orderDAO.getOrderState(dto.getOrder_id());
+            if ( state == 3 ) {
+                sqlSession.insert("mapper.ReviewMapper.writeReview", dto);
+                sqlSession.commit();
+                result = true;
+            }
         } catch (Exception e) {
             sqlSession.rollback();
-            result = false;
         } finally {
             sqlSession.close();
         }
-
         return result;
     }
 
