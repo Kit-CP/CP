@@ -592,8 +592,12 @@ public class UserAPP {
             command = Integer.parseInt(input.nextLine());
         }
 
-        //userPacket = new UserPacket(dos, )
+        userPacket = new UserPacket(dos, ProtocolType.CORRECTION, ProtocolCode.CHANGE_MENU_INFO, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        dto.setStore_name(sname);
+        userPacket.sendNewMenuDTO(mname, dto);
 
+        userMessage = new UserMessage(dis);
+        userMessage.receiveUpdateInforResult();
     }
 
 
