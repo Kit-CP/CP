@@ -164,6 +164,33 @@ public class UserAPP {
         }
     }
 
+    private void showStore() {
+        System.out.println("<등록된 음식점>");
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.STORE_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.request();
+
+        userMessage = new UserMessage(dis);
+        StoreView.printAcceptedStore(userMessage.receiveStoreList());
+    }
+
+    private void showMenu(String sname) {
+        System.out.println("<등록된 메뉴>");
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MENU_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.sendString(sname);
+
+        userMessage = new UserMessage(dis);
+        MenuOptionView.printAll(userMessage.receiveMenuList());
+    }
+
+    private void showOption(String str) {
+        System.out.println("<등록된 옵션>");
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYOPTION_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.sendString(str);
+
+        userMessage = new UserMessage(dis);
+        OptionView.printNamePrice(userMessage.receiveOptionDTOList());
+    }
+
     /*=============================================== 고객 ===============================================*/
 
     private boolean clientRun() {
@@ -206,27 +233,14 @@ public class UserAPP {
         return false;
     }
 
-    private void showStore() {
-        System.out.println("<등록된 음식점>");
-        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.STORE_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
-        userPacket.request();
-
-        userMessage = new UserMessage(dis);
-        StoreView.printAcceptedStore(userMessage.receiveStoreList());
-    }
-
     private void order() {
         System.out.println("주문할 가게이름을 입력하세요." + UserScreen.GO_BACK);
         String sname = input.nextLine();
         if (sname.equals("-1")) {
             return;
         }
-        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MENU_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
-        userPacket.sendString(sname);
 
-        userMessage = new UserMessage(dis);
-        MenuOptionView.printAll(userMessage.receiveMenuList());
-
+        showMenu(sname);
         System.out.println("주문할 메뉴의 수를 입력하세요." + UserScreen.GO_BACK);
         int cnt = Integer.parseInt(input.nextLine());
         if (cnt == -1) {
@@ -451,7 +465,7 @@ public class UserAPP {
     private List<OptionDTO> makeOptionDTOList() {
         System.out.println("옵션을 등록할 가게이름을 입력하세요.");
         String storeName = input.nextLine();
-        getMyOption(storeName);
+        showOption(storeName);
         System.out.println("등록할 옵션의 수를 입력하세요.");
         int cnt = Integer.parseInt(input.nextLine());
 
@@ -467,19 +481,11 @@ public class UserAPP {
         return list;
     }
 
-    private void getMyOption(String str) {
-        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYOPTION_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
-        userPacket.sendString(str);
-
-        userMessage = new UserMessage(dis);
-        OptionView.printNamePrice(userMessage.receiveOptionDTOList());
-    }
-
     private void insertMenu() {
         System.out.println("메뉴를 등록할 가게이름을 입력하세요.");
         String storeName = input.nextLine();
-
-        getMyOption(storeName);
+        showMenu(storeName);
+        showOption(storeName);
         System.out.println("등록할 메뉴의 수를 입력하세요.");
         int cnt = Integer.parseInt(input.nextLine());
 
