@@ -383,7 +383,7 @@ public class ServerMessage {
                     }
                 }
                 if (code == ProtocolCode.REVIEW_LIST) {//리뷰 조회
-                    String user_id = dataInput.readUTF(); //유저 아이디
+                    /*String user_id = dataInput.readUTF(); //유저 아이디
                     String storeName = dataInput.readUTF(); //가게 이름
                     int crtPage = dataInput.readInt(); //보고싶은 페이지
                     reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
@@ -399,7 +399,7 @@ public class ServerMessage {
                         serverPacket.sendReviewList(answer, userPage, body, dos); //TODO 페이지 정보와 바디 같이 보냄 주의!!
                     } else {
                         serverPacket.sendReviewList(answer, 0,null, dos);
-                    }
+                    }*/
                 }
             }
             if (authority == ProtocolAuthority.OWNER) {//점주
@@ -424,9 +424,10 @@ public class ServerMessage {
 
                 }
                 if (code == ProtocolCode.MYOPTION_LIST) {//나의 옵션 조회
+                        String target = dataInput.readUTF();
                         optionDAO = new OptionDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                         MyListSerializer<OptionDTO> dtos = new MyListSerializer<>();
-                        body = dtos.listToByte(optionDAO.showOptions());
+                        body = dtos.listToByte(optionDAO.showOptions(target));
 
                         if( body != null)  {
                             size = body.length;

@@ -1,7 +1,7 @@
 package Network.User;
 
 public class UserScreen {
-    public final static String Start_SCREEN = "<<음식 주문 프로그램>>\n반갑습니다!  [1]로그인  [2]회원가입  [3]종료";
+    public final static String Start_SCREEN = "<================ 음식 주문 프로그램 ================>\n반갑습니다!  [1]로그인  [2]회원가입  [3]종료";
     public final static String EXIT = "종료합니다";
     public final static String INPUT_ERROR = "잘못된 입력입니다!";
     public final static String SELECT_AUTHORITY = "고객 회원가입은 [1], 점주 회원가입은 [2]를 입력하세요.";
@@ -26,5 +26,6 @@ public class UserScreen {
     public final static String UPDATE_USER_INFOR_MENU = "업데이트할 정보를 고르시오\n[1]ID  [2]PW  [3]이름  [4]전화번호  [5]주소  [6]나이  [7]수정 종료";
     public final static String ENTER_NEW_INFOR = "새 정보를 입력하세요.";
     public final static String SELECT_STATE = "승인은 [1], 거절은 [2]를 입력하세요.";
+    public final static String ENTER_ORDER_ID = "주문번호를 입력하세요.";
 
 }

@@ -207,16 +207,18 @@ public class UserAPP {
         StoreView.printAcceptedStore(userMessage.receiveStoreList());
     }
 
-    private void orderCancel() { //찬진이가 함.
+    private void orderCancel() { //찬진이가 함. 고객입장에서 주문취소
         OrderDTO dto = new OrderDTO();
-        System.out.println("취소하려는 주문 번호를 입력하세요.");
+        System.out.println(UserScreen.ENTER_ORDER_ID);
         int order_id = Integer.parseInt(input.nextLine());
         dto.setOrder_id(order_id);
+        dto.setUser_ID(user_ID);
         userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.CANCEL_ORDER, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
         userPacket.sendOrderCancel(dto);
 
         userMessage = new UserMessage(dis);
         userMessage.receiveCancelOrderResult();
+        System.out.println();
     }
 
     private void updateInfor() {
@@ -282,6 +284,10 @@ public class UserAPP {
 
             try {
                 printUserInfor();
+                if ( this.state != 1 ) {
+                    System.out.println("승인되지 않은 점주이므로 로그아웃 됩니다.\n");
+                    return false;
+                }
                 System.out.println("나의 매장 정보");
                 myList = getMyStore();
                 StoreView.printMyStores(myList);
@@ -300,7 +306,6 @@ public class UserAPP {
                     insertOption();
                     break;
                 case 3:
-                    getMyOption();
                     insertMenu();
                     break;
                 case 4:
@@ -378,17 +383,19 @@ public class UserAPP {
         return list;
     }
 
-    private void getMyOption() {
+    private void getMyOption(String str) {
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYOPTION_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
-        userPacket.request();
+        userPacket.sendString(str);
 
         userMessage = new UserMessage(dis);
-        OptionView.printAll(userMessage.receiveOptionDTOList());
+        OptionView.printNamePrice(userMessage.receiveOptionDTOList());
     }
 
     private void insertMenu() {
         System.out.println("메뉴를 등록할 가게이름을 입력하세요.");
         String storeName = input.nextLine();
+
+        getMyOption(storeName);
         System.out.println("등록할 메뉴의 수를 입력하세요.");
         int cnt = Integer.parseInt(input.nextLine());
 
