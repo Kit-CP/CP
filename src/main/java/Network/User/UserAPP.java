@@ -588,7 +588,7 @@ public class UserAPP {
                     System.out.println(UserScreen.INPUT_ERROR);
                     break;
             }
-            System.out.println(UserScreen.UPDATE_USER_INFOR_MENU);
+            System.out.println(UserScreen.UPDATE_MENU_INFOR_MENU);
             command = Integer.parseInt(input.nextLine());
         }
 
