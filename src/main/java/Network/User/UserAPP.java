@@ -274,7 +274,7 @@ public class UserAPP {
     }
 
     public void orderedList() {
-
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.ORDER_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
     }
 
     /*=============================================== 점주 ===============================================*/
