@@ -71,6 +71,20 @@ public class ReviewDAO {
         return list;
     }
 
+    public List<ReviewDTO> showStoreUserReview(String store_name) {
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
+        List<ReviewDTO> list = new ArrayList<>();
+        try {
+            list = sqlSession.selectList("mapper.ReviewMapper.showStoreUserReview", store_name);
+        } catch (Exception e) {
+            sqlSession.rollback();
+        } finally {
+            sqlSession.close();
+        }
+
+        return list;
+    }
+
     public int getUserReviewNum(String user_id, String store_name) {
         int numOfReviews = 0;
         SqlSession sqlSession = sqlSessionFactory.openSession(false);
