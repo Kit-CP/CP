@@ -27,35 +27,33 @@ public class UserMessage {
     }
 
     public void receiveSignUpResult() {
-        if ( answer == ProtocolAnswer.SUCCESS ) {
+        if (answer == ProtocolAnswer.SUCCESS) {
             System.out.println(UserScreen.SUCCESS_SIGNUP);
-        }
-        else {
+        } else {
             System.out.println(UserScreen.FAIL_SIGNUP);
         }
     }
 
     public UserDTO receiveLoginResult() {
-        if ( answer == ProtocolAnswer.SUCCESS ) {
+        if (answer == ProtocolAnswer.SUCCESS) {
             System.out.println(UserScreen.SUCCESS_LOGIN);
             return UserDTO.readUserDTO(dis);
-        }
-        else {
+        } else {
             System.out.println(UserScreen.FAIL_LOGIN);
             return null;
         }
     }
 
     public void receiveInsertStoreResult() {
-        if ( answer == ProtocolAnswer.SUCCESS ) {
+        if (answer == ProtocolAnswer.SUCCESS) {
             System.out.println(UserScreen.SUCCESS_REGISTER);
-        }
-        else {
+        } else {
             System.out.println(UserScreen.FAIL_REGISTER);
         }
     }
+
     public void receiveJudgeMenuResult() {
-        if ( answer == ProtocolAnswer.SUCCESS) {
+        if (answer == ProtocolAnswer.SUCCESS) {
             System.out.println("상태 변경 완료");
         } else {
             System.out.println("상태 변경 실패");
@@ -63,28 +61,26 @@ public class UserMessage {
     }
 
     public void receiveInsertResult() {
-        if ( answer == ProtocolAnswer.SUCCESS ) {
+        if (answer == ProtocolAnswer.SUCCESS) {
             System.out.println("등록 성공!");
-        }
-        else {
+        } else {
             System.out.println("등록 실패!");
         }
     }
 
     public void receiveCancelOrderResult() {
-        if ( answer == ProtocolAnswer.SUCCESS ) {
+        if (answer == ProtocolAnswer.SUCCESS) {
             System.out.println("정상적으로 주문 취소되었습니다.");
-        }else {
+        } else {
             System.out.println("취소가 불가능합니다.");
         }
     }
 
     public boolean receiveUpdateInforResult() {
-        if ( answer == ProtocolAnswer.SUCCESS ) {
+        if (answer == ProtocolAnswer.SUCCESS) {
             System.out.println("정보 수정 성공!");
             return true;
-        }
-        else {
+        } else {
             System.out.println("정보 수정 실패!");
             return false;
         }
@@ -92,7 +88,7 @@ public class UserMessage {
 
     public List<StoreDTO> receiveStoreList() {
         List<StoreDTO> list = new ArrayList<>();
-        if ( answer == ProtocolAnswer.SUCCESS ) {
+        if (answer == ProtocolAnswer.SUCCESS) {
             try {
                 int size = dis.readInt();
                 for (int i = 0; i < size; i++) {
@@ -101,37 +97,33 @@ public class UserMessage {
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
-        }
-        else {
+        } else {
             System.out.println("매장이 없습니다.\n");
         }
         return list;
     }
 
     public void receiveInsertOptionResult() {
-        if ( answer == ProtocolAnswer.SUCCESS ) {
+        if (answer == ProtocolAnswer.SUCCESS) {
             System.out.println(UserScreen.SUCCESS_REGISTER);
-        }
-        else {
+        } else {
             System.out.println(UserScreen.FAIL_REGISTER);
         }
     }
 
     public List<UserDTO> receiveUserDTOList() {
         List<UserDTO> list = new ArrayList<>();
-        if ( answer == ProtocolAnswer.SUCCESS ) {
+        if (answer == ProtocolAnswer.SUCCESS) {
             try {
                 int size = dis.readInt();
-                for ( int i = 0; i < size; i++ ) {
+                for (int i = 0; i < size; i++) {
                     list.add(UserDTO.readUserDTO(dis));
                 }
                 return list;
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("보류중인 점주가 없습니다.");
         }
         return null;
@@ -139,19 +131,17 @@ public class UserMessage {
 
     public List<OptionDTO> receiveOptionDTOList() {
         List<OptionDTO> list = new ArrayList<>();
-        if ( answer == ProtocolAnswer.SUCCESS ) {
+        if (answer == ProtocolAnswer.SUCCESS) {
             try {
                 int size = dis.readInt();
-                for ( int i = 0; i < size; i++ ) {
+                for (int i = 0; i < size; i++) {
                     list.add(OptionDTO.readOptionDTO(dis));
                 }
                 return list;
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("옵션이 없습니다.");
         }
         return null;
@@ -159,19 +149,17 @@ public class UserMessage {
 
     public List<OrderViewDTO> receiveOrderViewDTOList() {
         List<OrderViewDTO> list = new ArrayList<>();
-        if ( answer == ProtocolAnswer.SUCCESS ) {
+        if (answer == ProtocolAnswer.SUCCESS) {
             try {
                 int size = dis.readInt();
-                for ( int i = 0; i < size; i++ ) {
+                for (int i = 0; i < size; i++) {
                     list.add(OrderViewDTO.readOrderViewDTO(dis));
                 }
                 return list;
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("주문내역이 없습니다.");
         }
         return null;
@@ -179,19 +167,17 @@ public class UserMessage {
 
     public List<ReviewDTO> receiveStoreReviewList() {
         List<ReviewDTO> list = new ArrayList<>();
-        if ( answer == ProtocolAnswer.SUCCESS ) {
+        if (answer == ProtocolAnswer.SUCCESS) {
             try {
                 int size = dis.readInt();
-                for ( int i = 0; i < size; i++ ) {
+                for (int i = 0; i < size; i++) {
                     list.add(ReviewDTO.readReviewDTO(dis));
                 }
                 return list;
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("리뷰가 존재하지 않습니다.");
         }
         return null;
@@ -199,17 +185,16 @@ public class UserMessage {
 
     public int receiveReviewNum() {
         int result = 0;
-        if ( answer == ProtocolAnswer.SUCCESS ) {
+        if (answer == ProtocolAnswer.SUCCESS) {
             try {
                 result = dis.readInt();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("리뷰가 존재하지 않습니다.");
         }
+        return result;
     }
 
 
