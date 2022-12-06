@@ -29,7 +29,7 @@ public class OrderDAO {
 
         try {
             sqlSession.insert("mapper.OrderMapper.makeOrder", dto); // 주문 생성
-            String[] menu_options = dto.getMenus_options().split("$"); // 각 메뉴 구분
+            String[] menu_options = dto.getMenus_options().split("\\$"); // 각 메뉴 구분
             for (int i = 0; i < menu_options.length; i++) {
 
                 String[] list = menu_options[i].split("/");     // 메뉴와 옵션들을 배열로

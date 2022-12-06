@@ -14,14 +14,18 @@ public class OrderView {
             return;
         }
         List<Integer> oidl = new ArrayList<>();
+        List<Integer> omidl = new ArrayList<>();
+
         for ( OrderViewDTO dto : dtos ) {
             if ( !oidl.contains(dto.getOrder_id()) ) {
                 oidl.add(dto.getOrder_id());
-                System.out.printf("\n주문번호 : %d \t| 상태 : %s \t| 가격 : %s \t| 메뉴 : %s ", dto.getOrder_id(), State.getDeliverySate(dto.getState()), dto.getPricesum(), dto.getMenu_name());
+                System.out.printf("\n주문번호 : %d \t| 상태 : %s \t| 가격 : %s", dto.getOrder_id(), State.getDeliverySate(dto.getState()), dto.getPricesum());
             }
-            if ( dto.getOption_name() != null ) {
-                System.out.print(" " + dto.getOption_name());
+            if ( !omidl.contains(dto.getOrdered_menu_id()) ) {
+                omidl.add(dto.getOrdered_menu_id());
+                System.out.print("\t| 메뉴 : " + dto.getMenu_name() + " ");
             }
+            System.out.print(dto.getOption_name() + " ");
         }
         System.out.println("\n");
     }

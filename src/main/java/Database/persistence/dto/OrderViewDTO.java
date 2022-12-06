@@ -18,6 +18,7 @@ public class OrderViewDTO implements IDTO {
     private String menu_name;
     private String option_name;
     private int state;
+    private int ordered_menu_id;
 
     public OrderViewDTO() {
         order_id = 0;
@@ -25,7 +26,7 @@ public class OrderViewDTO implements IDTO {
         pricesum = 0;
         menu_name = "";
         option_name = "";
-        state = 0;
+        state = ordered_menu_id = 0;
     }
 
     @Override
@@ -39,6 +40,7 @@ public class OrderViewDTO implements IDTO {
             dos.writeUTF(menu_name);
             dos.writeUTF(option_name);
             dos.writeInt(state);
+            dos.writeInt(ordered_menu_id);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -56,6 +58,7 @@ public class OrderViewDTO implements IDTO {
             dto.setMenu_name(dis.readUTF());
             dto.setOption_name(dis.readUTF());
             dto.setState(dis.readInt());
+            dto.setOrdered_menu_id(dis.readInt());
         }
         catch (Exception e) {
             e.printStackTrace();

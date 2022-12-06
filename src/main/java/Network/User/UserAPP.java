@@ -203,7 +203,7 @@ public class UserAPP {
         StoreView.printAcceptedStore(userMessage.receiveStoreList());
     }
 
-    private void order() { //TODO 주문
+    private void order() {
         System.out.println("주문할 가게이름을 입력하세요." + UserScreen.GO_BACK);
         String sname = input.nextLine();
         if ( sname.equals("-1") ) {
