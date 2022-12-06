@@ -17,7 +17,7 @@ public class OrderView {
         for ( OrderViewDTO dto : dtos ) {
             if ( !oidl.contains(dto.getOrder_id()) ) {
                 oidl.add(dto.getOrder_id());
-                System.out.printf("\n주문번호 : %d | 상태 : %4s | 가격 : %s | 메뉴 : %s ", dto.getOrder_id(), State.getDeliverySate(dto.getState()), dto.getPricesum(), dto.getMenu_name());
+                System.out.printf("\n주문번호 : %d \t| 상태 : %s \t| 가격 : %s \t| 메뉴 : %s ", dto.getOrder_id(), State.getDeliverySate(dto.getState()), dto.getPricesum(), dto.getMenu_name());
             }
             if ( dto.getOption_name() != null ) {
                 System.out.print(" " + dto.getOption_name());

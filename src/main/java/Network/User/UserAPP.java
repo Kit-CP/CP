@@ -173,7 +173,7 @@ public class UserAPP {
                     showStore();
                     break;
                 case 2:
-                    order(); //TODO 주문 구현 해야함.
+                    order();
                     break;
                 case 3:
                     orderCancel();
@@ -344,12 +344,14 @@ public class UserAPP {
                     insertMenu();
                     break;
                 case 4:
+                    judgeOrder();
+                case 5:
                     reviewList();
                     break;
-                case 5:
+                case 6:
                     statisticsOwner();
                     break;
-                case 6:
+                case 7:
                     System.out.println(UserScreen.LOGOUT);
                     isRun = false;
                     break;
@@ -501,6 +503,15 @@ public class UserAPP {
                 crtPage = -1;
             }
         }
+    }
+
+    private void judgeOrder() {
+        System.out.println("주문을 수령할 본인의 가게의 이름을 입력하세요.");
+        String store_name = input.nextLine();
+        System.out.println("주문 상태를 바꾸고자 하는 주문 번호를 입력하세요.");
+        String order_id = input.nextLine();
+
+        OrderDTO orderDTO = new OrderDTO();
     }
 
     /*=============================================== 관리자 ===============================================*/

@@ -242,7 +242,7 @@ public class UserMessage {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("미승인된 가게가 존재하지 않습니다.");
+            System.out.println("미승인된 메뉴가 존재하지 않습니다.");
         }
         return null;
     }
