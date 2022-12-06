@@ -176,7 +176,7 @@ public class UserAPP {
                     showStore();
                     break;
                 case 2:
-                    //order();
+                    order(); //TODO 주문 구현 해야함.
                     break;
                 case 3:
                     orderCancel();
@@ -206,6 +206,11 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         StoreView.printAcceptedStore(userMessage.receiveStoreList());
+    }
+
+    private  void order() { //TODO 주문
+        NewOrderDTO newOrderDTO = new NewOrderDTO();
+
     }
 
     private void orderCancel() {
@@ -320,7 +325,7 @@ public class UserAPP {
                     //reviewList();
                     break;
                 case 5:
-                    //statisticsOwner();
+                    statisticsOwner();
                     break;
                 case 6:
                     System.out.println(UserScreen.LOGOUT);
@@ -435,6 +440,16 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         userMessage.receiveInsertResult();
+    }
+    public void statisticsOwner() {
+        System.out.println("가게 이름을 입력하시오.");
+        String store_name = input.nextLine();
+
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYTOTAL_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.requestMyTotalList(store_name);
+
+        userMessage = new UserMessage(dis);
+        OrderView.printMenuSales(userMessage.receiveMyTotalList());
     }
 
     /*=============================================== 관리자 ===============================================*/

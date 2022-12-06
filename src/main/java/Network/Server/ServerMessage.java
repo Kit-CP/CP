@@ -463,10 +463,11 @@ public class ServerMessage {
                 }
                 if (code == ProtocolCode.REVIEW_LIST) {//나의 가게 리뷰 조회
                     String store_name = dataInput.readUTF();
+                    String user_id = dataInput.readUTF();
                     int crtPage = dataInput.readInt();
                     MyListSerializer<ReviewDTO> dtos = new MyListSerializer<>();
                     reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    body = dtos.listToByte(reviewDAO.showStoreReview(store_name, crtPage));
+                    body = dtos.listToByte(reviewDAO.showStoreReview(store_name, user_id, crtPage));
                     int storePage = reviewDAO.getStoreReviewNum(store_name);
 
                     if ( body != null ) {
