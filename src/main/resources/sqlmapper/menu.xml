@@ -9,11 +9,11 @@
     </insert>
 
     <select id="showMenu" parameterType="String" resultType="MenuOptionDTO">
-        select category, menu.menu_name, menu.menu_price, `menu_has_option`.option_name
+        select category, menu.menu_name, menu.menu_price, `menu_has_option`.option_name, stock
         from menu
         left join menu_has_option
         on menu.menu_name = menu_has_option.menu_name
-        where `menu`.store_name like #{store_name}
+        where `menu`.store_name like #{store_name} and menu.state = 1
         order by menu.category, menu.menu_name
     </select>
 
