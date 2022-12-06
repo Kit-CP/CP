@@ -601,7 +601,10 @@ public class UserAPP {
         userPacket.request();
 
         userMessage = new UserMessage(dis);
-        userMessage.receiveAllTotalList();
+        List<StoreSalesDTO> list = userMessage.receiveAllTotalList(); //TODO view 만들기.
+        for( StoreSalesDTO dto : list) {
+            System.out.println(dto.toString());
+        }
     }
 
 }

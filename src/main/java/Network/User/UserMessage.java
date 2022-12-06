@@ -245,6 +245,7 @@ public class UserMessage {
                 for (int i = 0; i < size; i++) {
                     list.add(StoreSalesDTO.readStoreSalesDTO(dis));
                 }
+                return list;
             } catch (IOException e) {
                 e.printStackTrace();
             }
