@@ -348,20 +348,7 @@ public class ServerMessage {
             if (authority == ProtocolAuthority.CLIENT) {//고객
 
                 if (code == ProtocolCode.ORDER_LIST) {//주문 내역 조회
-                    String storeName = dataInput.readUTF();//가게 이름 받기
-                    orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    MyListSerializer<OrderViewDTO> dtos = new MyListSerializer<>();
-                    body = dtos.listToByte(orderDAO.getOrderList(storeName));
-                    if(body != null) {
-                        answer = ProtocolAnswer.SUCCESS;
-                    } else {
-                        answer = ProtocolAnswer.ERROR;
-                    }
-                    if(size != 0) {
-                        serverPacket.sendOrderList(answer, body, dos);
-                    } else {
-                        serverPacket.sendOrderList(answer, null, dos);
-                    }
+
                 }
                 if (code == ProtocolCode.STORE_LIST) {//승인된 가게 정보 조회
                     storeDAO = new StoreDAO(MyBatisConnectionFactory.getSqlSessionFactory());
@@ -454,7 +441,7 @@ public class ServerMessage {
                             serverPacket.sendMyOptionList(answer, null, dos);
                         }
                 }
-                if (code == ProtocolCode.REVIEW_LIST) {//나의 가게 리뷰 조회
+                if (code == ProtocolCode.MYREVIEW_LIST) {//나의 가게 리뷰 조회
                     String store_name = dataInput.readUTF();
                     int crtPage = dataInput.readInt();
                     MyListSerializer<ReviewDTO> dtos = new MyListSerializer<>();
@@ -472,6 +459,22 @@ public class ServerMessage {
                         serverPacket.sendMyReviewList(answer, storePage, body, dos); //TODO 리뷰 페이지 정보와 같이 바디에 붙임.
                     } else {
                         serverPacket.sendMyReviewList(answer, 0, null, dos);
+                    }
+                }
+                if (code == ProtocolCode.MYORDER_LIST) {
+                    String storeName = dataInput.readUTF();//가게 이름 받기
+                    orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    MyListSerializer<OrderViewDTO> dtos = new MyListSerializer<>();
+                    body = dtos.listToByte(orderDAO.getOrderList(storeName));
+                    if(body != null) {
+                        answer = ProtocolAnswer.SUCCESS;
+                    } else {
+                        answer = ProtocolAnswer.ERROR;
+                    }
+                    if(size != 0) {
+                        serverPacket.sendOrderList(answer, body, dos);
+                    } else {
+                        serverPacket.sendOrderList(answer, null, dos);
                     }
                 }
                 if (code == ProtocolCode.MYTOTAL_LIST) {//통계 정보 조회
