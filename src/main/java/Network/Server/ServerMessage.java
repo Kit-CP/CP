@@ -218,8 +218,25 @@ public class ServerMessage {
                 if (code == ProtocolCode.ACCEPT_ORDER) { // 주문 승인 or 취소
                     OrderDTO orderDTO = OrderDTO.readOrderDTO(dataInput);
                     orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
-                    if (orderDAO.updateState(orderDTO)) {
-                        answer = ProtocolAnswer.SUCCESS;
+                    int newState = orderDTO.getState();
+                    if ( newState == 1 ) {
+                        if ( orderDAO.cancelOwnerOrder(orderDTO) ) {
+                            answer = ProtocolAnswer.SUCCESS;
+                        }else {
+                            answer = ProtocolAnswer.ERROR;
+                        }
+                    } else if ( newState == 2 ) {
+                        if ( orderDAO.acceptOwnerOrder(orderDTO) ) {
+                            answer = ProtocolAnswer.SUCCESS;
+                        }else {
+                            answer = ProtocolAnswer.ERROR;
+                        }
+                    } else if( newState == 3) {
+                        if ( orderDAO.finishOwnerOrder(orderDTO)) {
+                            answer = ProtocolAnswer.SUCCESS;
+                        } else {
+                            answer = ProtocolAnswer.ERROR;
+                        }
                     } else {
                         answer = ProtocolAnswer.ERROR;
                     }

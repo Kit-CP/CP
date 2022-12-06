@@ -34,6 +34,14 @@ public class OrderDTO implements IDTO {
         state = 0;
     }
 
+    public OrderDTO(String store_name, int order_id, int state) {
+        Store_name = store_name;
+        User_ID = "";
+        this.order_id = order_id;
+        priceSum = 0;
+        this.state = state;
+    }
+
     @Override
     public byte[] getBytes() {
         ByteArrayOutputStream buf = new ByteArrayOutputStream();

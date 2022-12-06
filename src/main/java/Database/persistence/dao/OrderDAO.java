@@ -142,7 +142,7 @@ public class OrderDAO {
 
     public synchronized boolean cancelOwnerOrder(OrderDTO orderDTO) {
         boolean result = false;
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             int canceledOrder = sqlSession.update("mapper.OrderMapper.cancelOwnerOrder", orderDTO);
 
@@ -150,6 +150,7 @@ public class OrderDAO {
                 sqlSession.update("mapper.OrderMapper.restockMenu", orderDTO);
                 result = true;
             }
+            sqlSession.commit();
         } catch (Exception e) {
             sqlSession.rollback();
         } finally {
@@ -161,13 +162,14 @@ public class OrderDAO {
 
     public synchronized boolean acceptOwnerOrder(OrderDTO orderDTO) {
         boolean result = false;
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             int updatedOrder = sqlSession.update("mapper.OrderMapper.acceptOwnerOrder", orderDTO);
 
             if (updatedOrder == 1) {
                 result = true;
             }
+            sqlSession.commit();
         }
         catch (Exception e) {
             sqlSession.rollback();
@@ -180,13 +182,14 @@ public class OrderDAO {
 
     public synchronized boolean finishOwnerOrder(OrderDTO orderDTO) {
         boolean result = false;
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession = sqlSessionFactory.openSession(false);
         try {
             int updatedOrder = sqlSession.update("mapper.OrderMapper.finishOwnerOrder", orderDTO);
 
             if ( updatedOrder == 1 ) {
                 result = true;
             }
+            sqlSession.commit();
         }
         catch (Exception e) {
             sqlSession.rollback();

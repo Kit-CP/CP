@@ -49,7 +49,12 @@ public class UserAPP {
 
                 try {
                     System.out.println(UserScreen.Start_SCREEN);
-                    command = Integer.parseInt(input.nextLine());
+                    try {
+                        command = Integer.parseInt(input.nextLine());
+                    } catch (Exception e) {
+                        System.out.println("주어진 메뉴의 숫자로 입력해주세요.");
+                        command = Integer.parseInt(input.nextLine());
+                    }
                 } catch (InputMismatchException e) {
                     input = new Scanner(System.in);
                     System.out.println(UserScreen.INPUT_ERROR);
@@ -159,6 +164,33 @@ public class UserAPP {
         }
     }
 
+    private void showStore() {
+        System.out.println("<등록된 음식점>");
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.STORE_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.request();
+
+        userMessage = new UserMessage(dis);
+        StoreView.printAcceptedStore(userMessage.receiveStoreList());
+    }
+
+    private void showMenu(String sname) {
+        System.out.println("<등록된 메뉴>");
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MENU_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        userPacket.sendString(sname);
+
+        userMessage = new UserMessage(dis);
+        MenuOptionView.printAll(userMessage.receiveMenuList());
+    }
+
+    private void showOption(String str) {
+        System.out.println("<등록된 옵션>");
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYOPTION_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.sendString(str);
+
+        userMessage = new UserMessage(dis);
+        OptionView.printNamePrice(userMessage.receiveOptionDTOList());
+    }
+
     /*=============================================== 고객 ===============================================*/
 
     private boolean clientRun() {
@@ -201,27 +233,14 @@ public class UserAPP {
         return false;
     }
 
-    private void showStore() {
-        System.out.println("<등록된 음식점>");
-        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.STORE_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
-        userPacket.request();
-
-        userMessage = new UserMessage(dis);
-        StoreView.printAcceptedStore(userMessage.receiveStoreList());
-    }
-
     private void order() {
         System.out.println("주문할 가게이름을 입력하세요." + UserScreen.GO_BACK);
         String sname = input.nextLine();
         if (sname.equals("-1")) {
             return;
         }
-        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MENU_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
-        userPacket.sendString(sname);
 
-        userMessage = new UserMessage(dis);
-        MenuOptionView.printAll(userMessage.receiveMenuList());
-
+        showMenu(sname);
         System.out.println("주문할 메뉴의 수를 입력하세요." + UserScreen.GO_BACK);
         int cnt = Integer.parseInt(input.nextLine());
         if (cnt == -1) {
@@ -296,7 +315,7 @@ public class UserAPP {
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.ORDER_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
         userPacket.sendString(user_ID);
         userMessage = new UserMessage(dis);
-        OrderView.UserPrint(userMessage.receiveOrderViewDTOList());
+        OrderView.userPrint(userMessage.receiveOrderViewDTOList());
 
         System.out.println("[1]주문 취소  [2]리뷰 등록  [3]뒤로가기");
         int command = Integer.parseInt(input.nextLine());
@@ -375,14 +394,15 @@ public class UserAPP {
                     insertMenu();
                     break;
                 case 4:
-                    reviewList();
-                    replyReview();
+                    judgeOrder();
                     break;
                 case 5:
-                    statisticsOwner();
+                    if ( reviewList() ) {
+                        replyReview();
+                    }
                     break;
                 case 6:
-                    judgeOrder();
+                    statisticsOwner();
                     break;
                 case 7:
                     System.out.println(UserScreen.LOGOUT);
@@ -446,7 +466,7 @@ public class UserAPP {
     private List<OptionDTO> makeOptionDTOList() {
         System.out.println("옵션을 등록할 가게이름을 입력하세요.");
         String storeName = input.nextLine();
-        getMyOption(storeName);
+        showOption(storeName);
         System.out.println("등록할 옵션의 수를 입력하세요.");
         int cnt = Integer.parseInt(input.nextLine());
 
@@ -462,19 +482,11 @@ public class UserAPP {
         return list;
     }
 
-    private void getMyOption(String str) {
-        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYOPTION_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
-        userPacket.sendString(str);
-
-        userMessage = new UserMessage(dis);
-        OptionView.printNamePrice(userMessage.receiveOptionDTOList());
-    }
-
     private void insertMenu() {
         System.out.println("메뉴를 등록할 가게이름을 입력하세요.");
         String storeName = input.nextLine();
-
-        getMyOption(storeName);
+        showMenu(storeName);
+        showOption(storeName);
         System.out.println("등록할 메뉴의 수를 입력하세요.");
         int cnt = Integer.parseInt(input.nextLine());
 
@@ -521,11 +533,11 @@ public class UserAPP {
         OrderView.printMenuSales(userMessage.receiveMyTotalList());
     }
 
-    public void reviewList() {
+    public boolean reviewList() {
         System.out.println(UserScreen.ENTER_STORE + UserScreen.GO_BACK);
         String store_name = input.nextLine();
         if (store_name.equals("-1")) {
-            return;
+            return false;
         }
 
         int crtPage = 1;
@@ -550,46 +562,49 @@ public class UserAPP {
                 } else {
                     System.out.println("조회되는 리뷰가 존재하지 않습니다.");
                     crtPage = -1;
+                    return false;
                 }
             } catch (NullPointerException e) {
-                return;
+                return false;
             }
         }
+        return true;
     }
 
     private void judgeOrder() {
-        System.out.println("주문을 수정할 본인의 가게의 이름을 입력하세요.");
+        System.out.println("주문을 수정할 본인의 가게의 이름을 입력하세요." + UserScreen.GO_BACK);
         String store_name = input.nextLine();
-        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYORDER_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
-        userPacket.sendString(store_name);
-
-        userMessage = new UserMessage(dis);
-        List<OrderViewDTO> orderViewDTOS = userMessage.receiveOrderViewDTOList();
-        OrderView.UserPrint(orderViewDTOS);
-        System.out.println("주문 상태를 바꾸고자 하는 주문 번호를 입력하세요.");
-        int order_id = Integer.parseInt(input.nextLine());
-
-        OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setStore_name(store_name);
-        orderDTO.setOrder_id(order_id);
-        orderDTO.setUser_ID(user_ID);
-        System.out.println("[1]주문승인 [2] 주문취소");
-        int num = Integer.parseInt(input.nextLine());
-        switch (num) {
-            case 1:
-                orderDTO.setState();
-                break;
-            case 2:
-
-                break;
+        if ( store_name.equals("-1") ) {
+            return;
+        }
+        if ( !showOrderList(store_name) ) {
+            return;
         }
 
+        System.out.println("주문 상태를 바꾸고자 하는 주문 번호를 입력하세요.");
+        int order_id = Integer.parseInt(input.nextLine());
+        System.out.println("[1]주문 취소 [2]주문 승인 [3]배달 완료");
+        int state = Integer.parseInt(input.nextLine());
+        OrderDTO orderDTO = new OrderDTO(store_name, order_id, state);
 
-        userPacket = new UserPacket(dos, ProtocolType.CORRECTION, ProtocolCode.ACCEPT_ORDER, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
-        userPacket.sendOrderDTO(orderDTO);
+        userPacket = new UserPacket(dos, ProtocolType.ACCEPT, ProtocolCode.ACCEPT_ORDER, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.sendJudgeOrder(orderDTO);
 
         userMessage = new UserMessage(dis);
         userMessage.receiveJudgeOrderResult();
+    }
+
+    private boolean showOrderList(String sname) {
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.MYORDER_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.sendString(sname);
+
+        userMessage = new UserMessage(dis);
+        try {
+            OrderView.storePrint(userMessage.receiveOrderViewDTOList());
+            return true;
+        } catch (NullPointerException e) {
+            return false;
+        }
     }
 
     public void replyReview() {

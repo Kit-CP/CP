@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderView {
-    public static void UserPrint(List<OrderViewDTO> dtos) {
+    public static void userPrint(List<OrderViewDTO> dtos) {
         if ( dtos == null ) {
             return;
         }
@@ -19,7 +19,28 @@ public class OrderView {
         for ( OrderViewDTO dto : dtos ) {
             if ( !oidl.contains(dto.getOrder_id()) ) {
                 oidl.add(dto.getOrder_id());
-                System.out.printf("\n주문번호 : %d \t| 상태 : %s \t| 가격 : %s", dto.getOrder_id(), State.getDeliverySate(dto.getState()), dto.getPricesum());
+                System.out.printf("\n주문번호 : %d\t| 상태 : %s\t| 가격 : %s", dto.getOrder_id(), State.getDeliverySate(dto.getState()), dto.getPricesum());
+            }
+            if ( !omidl.contains(dto.getOrdered_menu_id()) ) {
+                omidl.add(dto.getOrdered_menu_id());
+                System.out.print("\t| 메뉴 : " + dto.getMenu_name() + " ");
+            }
+            System.out.print(dto.getOption_name() + " ");
+        }
+        System.out.println("\n");
+    }
+
+    public static void storePrint(List<OrderViewDTO> dtos) throws NullPointerException {
+        if ( dtos == null ) {
+            throw new NullPointerException();
+        }
+        List<Integer> oidl = new ArrayList<>();
+        List<Integer> omidl = new ArrayList<>();
+
+        for ( OrderViewDTO dto : dtos ) {
+            if ( !oidl.contains(dto.getOrder_id()) ) {
+                oidl.add(dto.getOrder_id());
+                System.out.printf("\n주문번호 : %d\t|유저아이디 : %s\t| 상태 : %s\t| 가격 : %s", dto.getOrder_id(), dto.getUser_ID(), State.getDeliverySate(dto.getState()), dto.getPricesum());
             }
             if ( !omidl.contains(dto.getOrdered_menu_id()) ) {
                 omidl.add(dto.getOrdered_menu_id());
