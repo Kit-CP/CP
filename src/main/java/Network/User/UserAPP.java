@@ -280,6 +280,10 @@ public class UserAPP {
 
             try {
                 printUserInfor();
+                if ( this.state != 1 ) {
+                    System.out.println("승인되지 않은 점주이므로 로그아웃 됩니다.\n");
+                    return false;
+                }
                 System.out.println("나의 매장 정보");
                 myList = getMyStore();
                 StoreView.printMyStores(myList);
