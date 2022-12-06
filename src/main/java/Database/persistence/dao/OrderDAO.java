@@ -176,11 +176,23 @@ public class OrderDAO {
         return result;
     }*/
 
-    public List<OrderViewDTO> getOrderList(String store_name) {
+    public List<OrderViewDTO> getStoreOrderList(String store_name) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         List<OrderViewDTO> result;
         try {
-            result = sqlSession.selectList("mapper.OrderMapper.getOrderList", store_name);
+            result = sqlSession.selectList("mapper.OrderMapper.getStoreOrderList", store_name);
+        }
+        finally {
+            sqlSession.close();
+        }
+        return result;
+    }
+
+    public List<OrderViewDTO> getUserOrderList(String user_id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<OrderViewDTO> result;
+        try {
+            result = sqlSession.selectList("mapper.OrderMapper.getUserOrderList", user_id);
         }
         finally {
             sqlSession.close();

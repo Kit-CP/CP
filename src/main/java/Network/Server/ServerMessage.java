@@ -351,7 +351,7 @@ public class ServerMessage {
                     String storeName = dataInput.readUTF();//가게 이름 받기
                     orderDAO = new OrderDAO(MyBatisConnectionFactory.getSqlSessionFactory());
                     MyListSerializer<OrderViewDTO> dtos = new MyListSerializer<>();
-                    body = dtos.listToByte(orderDAO.getOrderList(storeName));
+                    body = dtos.listToByte(orderDAO.getStoreOrderList(storeName));
                     if(body != null) {
                         answer = ProtocolAnswer.SUCCESS;
                     } else {
