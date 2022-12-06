@@ -278,7 +278,7 @@ public class UserAPP {
         userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.ORDER_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
         userPacket.sendString(user_ID);
         userMessage = new UserMessage(dis);
-        OrderView.printAll(userMessage.receiveOrderViewDTOList());
+        OrderView.UserPrint(userMessage.receiveOrderViewDTOList());
     }
 
     /*=============================================== 점주 ===============================================*/
