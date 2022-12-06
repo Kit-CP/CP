@@ -420,7 +420,7 @@ public class ServerMessage {
                         serverPacket.sendReviewList(answer, 0,null, dos);
                     }*/
                 }
-                if( code == ProtocolCode.USERREVIEWNUM) {//고객이 작성한 리뷰의 개수 조회
+                if( code == ProtocolCode.USER_REVIEW_NUM) {//고객이 작성한 리뷰의 개수 조회
                     
                 }
             }
@@ -522,8 +522,10 @@ public class ServerMessage {
                         serverPacket.sendMyTotalList(answer, null, dos);
                     }
                 }
-                if( code == ProtocolCode.STOREREVIEWNUM) { //나의 가게의 리뷰 개수를 주는 것.
-
+                if( code == ProtocolCode.STORE_REVIEW_NUM) { //나의 가게의 리뷰 개수를 주는 것.
+                    String store_name = dataInput.readUTF();
+                    reviewDAO = new ReviewDAO(MyBatisConnectionFactory.getSqlSessionFactory());
+                    reviewDAO.getStoreReviewNum(store_name);
                 }
             }
             if (authority == ProtocolAuthority.MANAGER) {//관리자

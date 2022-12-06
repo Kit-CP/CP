@@ -2,7 +2,6 @@ package Network.User;
 
 import Database.persistence.dto.*;
 import Network.Protocol.ProtocolAnswer;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
 
 import java.io.DataInputStream;
 import java.io.IOException;

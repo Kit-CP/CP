@@ -453,7 +453,7 @@ public class UserAPP {
         System.out.println(UserScreen.ENTER_STORE);
         String store_name = input.nextLine();
 
-        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.REVIEW_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.STORE_REVIEW_NUM, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
         userPacket.sendString(store_name);
 
         userMessage = new UserMessage(dis);
