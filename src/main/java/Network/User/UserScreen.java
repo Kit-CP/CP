@@ -27,5 +27,8 @@ public class UserScreen {
     public final static String ENTER_NEW_INFOR = "새 정보를 입력하세요.";
     public final static String SELECT_STATE = "승인은 [1], 거절은 [2]를 입력하세요.";
     public final static String ENTER_ORDER_ID = "주문번호를 입력하세요.";
+    public final static String ENTER_STORE = "가게를 입력하세요.";
+    public final static String FAIL_STORE_INQUIRY = "가게가 존재하지 않습니다.";
+    public final static String SELECT_REVIEW_PAGE = "보고싶은 페이지 번호를 입력하세요. (-1 입력 시 종료)";
 
 }

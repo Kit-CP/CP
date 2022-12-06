@@ -1,10 +1,7 @@
 package Network.User;
 
 import Database.persistence.dto.*;
-import Database.view.OptionView;
-import Database.view.OrderView;
-import Database.view.StoreView;
-import Database.view.UserView;
+import Database.view.*;
 import Network.Protocol.ProtocolAnswer;
 import Network.Protocol.ProtocolAuthority;
 import Network.Protocol.ProtocolCode;
@@ -266,12 +263,6 @@ public class UserAPP {
                 this.user_ID = dto.getUser_ID();
             }
         }
-
-        /*private void getReviewList() {
-            userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.REVIEW_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
-            System.out.println("");
-            userPacket.requestMyReview();
-        }*/
     }
 
     public void orderedList() {
@@ -281,11 +272,17 @@ public class UserAPP {
         OrderView.UserPrint(userMessage.receiveOrderViewDTOList());
     }
 
+    /*private void getReviewList() {
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.REVIEW_LIST, ProtocolAuthority.CLIENT, ProtocolAnswer.DEFAULT);
+        System.out.println("");
+        userPacket.requestMyReview();
+    }*/
+
     /*=============================================== 점주 ===============================================*/
 
     private boolean ownerRun() throws IOException {
         boolean isRun = true;
-        List<StoreDTO> myList;
+        List<StoreDTO> myList = null;
 
         while ( isRun ) {
             int command = 0;
@@ -317,7 +314,7 @@ public class UserAPP {
                     insertMenu();
                     break;
                 case 4:
-                    //reviewList();
+                    reviewList();
                     break;
                 case 5:
                     //statisticsOwner();
@@ -435,6 +432,26 @@ public class UserAPP {
 
         userMessage = new UserMessage(dis);
         userMessage.receiveInsertResult();
+    }
+
+    public void reviewList() {
+        System.out.println(UserScreen.ENTER_STORE);
+        String store_name = input.nextLine();
+
+        userPacket = new UserPacket(dos, ProtocolType.INQUIRY, ProtocolCode.REVIEW_LIST, ProtocolAuthority.OWNER, ProtocolAnswer.DEFAULT);
+        userPacket.sendString(store_name);
+
+        userMessage = new UserMessage(dis);
+        int reviewNum = userMessage.receiveReviewNum();
+        int crtPage = 1;
+        while (crtPage != -1) {
+            userPacket.requestReviewList(store_name, user_ID , crtPage);
+
+            userMessage = new UserMessage(dis);
+            ReviewView.printAll(userMessage.receiveStoreReviewList(), crtPage, reviewNum);
+            System.out.println(UserScreen.SELECT_REVIEW_PAGE);
+            crtPage = Integer.parseInt(input.nextLine());
+        }
     }
 
     /*=============================================== 관리자 ===============================================*/

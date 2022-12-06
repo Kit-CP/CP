@@ -99,6 +99,20 @@ public class UserPacket { //메시지를 직렬화
         }
     }
 
+    public void requestReviewList(String store_name, String user_id , int crtPage) {
+        try {
+            size = store_name.getBytes().length;
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+            dos.writeUTF(store_name);
+            dos.writeUTF(user_id);
+            dos.writeInt(crtPage);
+            dos.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void requestMyReview(String user_id, String store_name, int crtPage) {
         try {
             size = user_id.getBytes().length;
