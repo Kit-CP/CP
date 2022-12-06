@@ -177,6 +177,42 @@ public class UserMessage {
         return null;
     }
 
+    public List<ReviewDTO> receiveStoreReviewList() {
+        List<ReviewDTO> list = new ArrayList<>();
+        if ( answer == ProtocolAnswer.SUCCESS ) {
+            try {
+                int size = dis.readInt();
+                for ( int i = 0; i < size; i++ ) {
+                    list.add(ReviewDTO.readReviewDTO(dis));
+                }
+                return list;
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("리뷰가 존재하지 않습니다.");
+        }
+        return null;
+    }
+
+    public int receiveReviewNum() {
+        int result = 0;
+        if ( answer == ProtocolAnswer.SUCCESS ) {
+            try {
+                result = dis.readInt();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("리뷰가 존재하지 않습니다.");
+        }
+    }
+
+
     public List<MenuSalesDTO> receiveMyTotalList() {
         List<MenuSalesDTO> list = new ArrayList<>();
         if ( answer == ProtocolAnswer.SUCCESS) {
