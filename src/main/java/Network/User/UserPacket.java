@@ -197,4 +197,16 @@ public class UserPacket { //메시지를 직렬화
             e.printStackTrace();
         }
     }
+
+    public void sendNewOrderDTO(NewOrderDTO dto) {
+        try {
+            size = dto.getBytes().length;
+            headerBytes = ProtocolType.getHeader(type, code, authority, answer, size);
+            dos.write(headerBytes);
+            dos.write(dto.getBytes());
+            dos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
