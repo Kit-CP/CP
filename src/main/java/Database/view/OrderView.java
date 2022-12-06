@@ -28,6 +28,7 @@ public class OrderView {
                 System.out.print(dto.getOption_name() + " ");
             }
         }
+        System.out.println("\n");
     }
 
     public void printMenuSales(List<MenuSalesDTO> dtos) {
