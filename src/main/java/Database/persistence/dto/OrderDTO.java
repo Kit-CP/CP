@@ -35,7 +35,6 @@ public class OrderDTO implements IDTO {
     }
 
     public OrderDTO(String store_name, int order_id, int state) {
-        this.order_id = order_id;
         Store_name = store_name;
         User_ID = "";
         this.order_id = order_id;
