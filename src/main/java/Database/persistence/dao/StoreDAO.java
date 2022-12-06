@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import Database.persistence.dto.StoreDTO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -102,4 +103,24 @@ public class StoreDAO {
         return list;
     }
 
+    public void updateScore(int newScore, int orderId) {
+        SqlSession session = sqlSessionFactory.openSession(false);
+        try {
+            String store_name = session.selectOne("mapper.OrderMapper.getStoreName", orderId);
+            int reviewNum = session.selectOne("mapper.ReviewMapper.getStoreReviewNum", store_name);
+            int score = session.selectOne("mapper.StoreMapper.getScore", store_name);
+            int avgScore = Math.round((score + newScore) / reviewNum);
+            Map<String, Object> param = new HashMap<>();
+            param.put("store_name", store_name);
+            param.put("store_score", avgScore);
+            session.update("mapper.StoreMapper.updateScore", param);
+            session.commit();
+        }
+        catch (Exception e) {
+            session.rollback();
+        }
+        finally {
+            session.close();
+        }
+    }
 }
